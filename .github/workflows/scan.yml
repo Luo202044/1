@@ -1,0 +1,35 @@
+name: ClassIn Scanner
+
+on:
+  workflow_dispatch:        # 手动触发
+
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: 安装依赖
+        run: |
+          pip install selenium webdriver-manager
+
+      - name: 安装 Chrome 浏览器
+        run: |
+          sudo apt update
+          sudo apt install -y chromium-browser
+
+      - name: 运行探测脚本
+        run: python scanner.py
+
+      - name: 上传结果
+        uses: actions/upload-artifact@v4
+        with:
+          name: scan-result
+          path: "*-*.txt"
