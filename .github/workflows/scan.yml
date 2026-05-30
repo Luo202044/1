@@ -1,4 +1,4 @@
-name: ClassIn Scanner (Sharded, No Merge)
+name: ClassIn 扫描器（分片模式，不合并）
 
 on:
   workflow_dispatch:
@@ -21,7 +21,7 @@ jobs:
       - name: 检出代码
         uses: actions/checkout@v4
 
-      - name: 计算分片区间并生成配置片段 (Python)
+      - name: 计算分片区间并生成配置片段（Python）
         id: calc_shards
         run: |
           START=$(jq -r '.start_cid' config.json)
@@ -104,7 +104,7 @@ jobs:
       - name: 运行扫描脚本
         run: python scanner.py
 
-      - name: 上传分片结果 (artifact)
+      - name: 上传分片结果（工作流附件）
         uses: actions/upload-artifact@v4
         with:
           name: result-shard-${{ matrix.shard_idx }}
