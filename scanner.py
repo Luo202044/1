@@ -25,11 +25,9 @@ WAIT_TIMEOUT = config.get("wait_timeout", 10)
 RENDER_WAIT = config.get("render_wait", 0.8)
 SLEEP_BETWEEN = config.get("sleep_between", 0.3)
 
-# 创建 data 目录
 os.makedirs("data", exist_ok=True)
 OUTPUT_FILE = os.path.join("data", f"{START_CID}-{END_CID}.txt")
 
-# 线程局部存储
 thread_local = threading.local()
 drivers_lock = threading.Lock()
 all_drivers = []
@@ -131,13 +129,17 @@ def process_cid(cid, thread_name):
         teacher = extract_teacher(driver)
         class_name = extract_class_name(driver)
         school_name = extract_school_name(driver)
+
         teacher_str = teacher if teacher else "无"
         class_str = class_name if class_name else "无"
         school_str = school_name if school_name else "无"
+
         print(f"[{thread_name}] {cid} | 教师: {teacher_str} | 班级: {class_str} | 机构: {school_str}")
-        if teacher:
+
+        # 只要三项不全为“无”就保存
+        if not (teacher_str == "无" and class_str == "无" and school_str == "无"):
             with open(OUTPUT_FILE, "a", encoding="utf-8") as f:
-                f.write(f"{cid} {url} {teacher} {school_str} {class_str}\n")
+                f.write(f"{cid} {url} {teacher_str} {school_str} {class_str}\n")
             return True
         return False
     except Exception as e:
