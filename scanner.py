@@ -43,9 +43,9 @@ except ImportError:
 os.makedirs("data", exist_ok=True)
 OUTPUT_FILE = os.path.join("data", f"{START_CID}-{END_CID}.txt")
 
-# 全局计数器
-global_completed = 0
+# 全局进度计数器
 global_total = END_CID - START_CID + 1
+global_completed = 0
 global_lock = threading.Lock()
 
 thread_local = threading.local()
@@ -146,6 +146,7 @@ def extract_school_name(driver):
     return None
 
 def process_cid(cid, thread_name, total_tasks):
+    global global_completed, global_total
     if not hasattr(thread_local, "completed"):
         thread_local.completed = 0
         thread_local.total = total_tasks
@@ -166,13 +167,10 @@ def process_cid(cid, thread_name, total_tasks):
         school_str = school_name if school_name else "无"
 
         thread_local.completed += 1
-        # 更新全局计数
         with global_lock:
-            global current_global
-            current_global += 1
-            cur_global = current_global
+            global_completed += 1
+            cur_global = global_completed
 
-        # 打印单个班级结果（含线程进度和全局进度）
         print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (总进度：{cur_global}/{global_total}) {cid} | 机构: {school_str} | 班级: {class_str}")
 
         if not (teacher_str == "无" and class_str == "无" and school_str == "无"):
@@ -183,9 +181,8 @@ def process_cid(cid, thread_name, total_tasks):
     except Exception as e:
         thread_local.completed += 1
         with global_lock:
-            global current_global
-            current_global += 1
-            cur_global = current_global
+            global_completed += 1
+            cur_global = global_completed
         if "timeout" in str(e).lower():
             print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (总进度：{cur_global}/{global_total}) {cid} 超时")
         else:
@@ -208,8 +205,7 @@ def close_all_drivers():
         all_drivers.clear()
 
 def main():
-    global current_global
-    current_global = 0
+    global global_completed, global_total
     print(f"班级范围: {START_CID} - {END_CID}")
     print(f"请求线程数: {REQUESTED_THREADS}, 实际使用: {THREADS}")
     print(f"每浏览器最大任务: {MAX_TASKS_PER_DRIVER}")
@@ -238,6 +234,7 @@ def main():
             print(f"T{i+1} 负责 0 个班级")
     print()
 
+    # 清空输出文件
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         f.write("")
 
