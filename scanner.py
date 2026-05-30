@@ -47,10 +47,26 @@ OUTPUT_FILE = os.path.join("data", f"{START_CID}-{END_CID}.txt")
 global_total = END_CID - START_CID + 1
 global_completed = 0
 global_lock = threading.Lock()
+start_time = None   # 将在 main 中设置
 
 thread_local = threading.local()
 drivers_lock = threading.Lock()
 all_drivers = []
+
+def format_time(seconds):
+    """将秒数格式化为 HH:MM:SS 或 MM:SS"""
+    if seconds < 0:
+        return "0s"
+    if seconds < 60:
+        return f"{int(seconds)}s"
+    elif seconds < 3600:
+        minutes = int(seconds // 60)
+        secs = int(seconds % 60)
+        return f"{minutes}m {secs}s"
+    else:
+        hours = int(seconds // 3600)
+        minutes = int((seconds % 3600) // 60)
+        return f"{hours}h {minutes}m"
 
 def create_driver(retries=2):
     opts = Options()
@@ -146,7 +162,7 @@ def extract_school_name(driver):
     return None
 
 def process_cid(cid, thread_name, total_tasks):
-    global global_completed, global_total
+    global global_completed, global_total, start_time
     if not hasattr(thread_local, "completed"):
         thread_local.completed = 0
         thread_local.total = total_tasks
@@ -171,7 +187,16 @@ def process_cid(cid, thread_name, total_tasks):
             global_completed += 1
             cur_global = global_completed
 
-        print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (总进度：{cur_global}/{global_total}) {cid} | 机构: {school_str} | 班级: {class_str}", flush=True)
+        # 估算剩余时间
+        elapsed = time.time() - start_time
+        ratio = cur_global / global_total
+        if ratio > 0:
+            remaining = (elapsed / ratio) - elapsed
+            remain_str = format_time(remaining)
+        else:
+            remain_str = "未知"
+
+        print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (总进度：{cur_global}/{global_total} 剩余时间：{remain_str}) {cid} | 机构: {school_str} | 班级: {class_str}", flush=True)
 
         if not (teacher_str == "无" and class_str == "无" and school_str == "无"):
             with open(OUTPUT_FILE, "a", encoding="utf-8") as f:
@@ -183,10 +208,17 @@ def process_cid(cid, thread_name, total_tasks):
         with global_lock:
             global_completed += 1
             cur_global = global_completed
-        if "timeout" in str(e).lower():
-            print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (总进度：{cur_global}/{global_total}) {cid} 超时", flush=True)
+        elapsed = time.time() - start_time
+        ratio = cur_global / global_total if global_total > 0 else 0
+        if ratio > 0:
+            remaining = (elapsed / ratio) - elapsed
+            remain_str = format_time(remaining)
         else:
-            print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (总进度：{cur_global}/{global_total}) {cid} 错误: {e}", flush=True)
+            remain_str = "未知"
+        if "timeout" in str(e).lower():
+            print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (总进度：{cur_global}/{global_total} 剩余时间：{remain_str}) {cid} 超时", flush=True)
+        else:
+            print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (总进度：{cur_global}/{global_total} 剩余时间：{remain_str}) {cid} 错误: {e}", flush=True)
         return False
     finally:
         if hasattr(thread_local, "task_count"):
@@ -205,7 +237,8 @@ def close_all_drivers():
         all_drivers.clear()
 
 def main():
-    global global_completed, global_total
+    global global_completed, global_total, start_time
+    start_time = time.time()
     print(f"班级范围: {START_CID} - {END_CID}", flush=True)
     print(f"请求线程数: {REQUESTED_THREADS}, 实际使用: {THREADS}", flush=True)
     print(f"每浏览器最大任务: {MAX_TASKS_PER_DRIVER}", flush=True)
@@ -253,7 +286,8 @@ def main():
                 valid += 1
 
     close_all_drivers()
-    print(f"\n探测完成！有效班级数: {valid}，结果保存至 {OUTPUT_FILE}", flush=True)
+    elapsed_total = time.time() - start_time
+    print(f"\n探测完成！有效班级数: {valid}，总耗时: {format_time(elapsed_total)}，结果保存至 {OUTPUT_FILE}", flush=True)
 
 if __name__ == "__main__":
     main()
