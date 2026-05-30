@@ -25,7 +25,20 @@ WAIT_TIMEOUT = config.get("wait_timeout", 10)
 RENDER_WAIT = config.get("render_wait", 0.8)
 SLEEP_BETWEEN = config.get("sleep_between", 0.3)
 
-THREADS = REQUESTED_THREADS
+# 内存自适应
+try:
+    import psutil
+    mem = psutil.virtual_memory()
+    available_gb = mem.available / (1024**3)
+    if available_gb < 2.0:
+        RECOMMENDED = 2
+        print(f"检测到可用内存仅 {available_gb:.1f}GB，自动将线程数从 {REQUESTED_THREADS} 降至 {RECOMMENDED}", flush=True)
+        THREADS = RECOMMENDED
+    else:
+        THREADS = REQUESTED_THREADS
+except ImportError:
+    THREADS = REQUESTED_THREADS
+    print("未安装psutil，无法自动检测内存，请手动确保线程数不超过3", flush=True)
 
 os.makedirs("data", exist_ok=True)
 OUTPUT_FILE = os.path.join("data", f"{START_CID}-{END_CID}.txt")
@@ -35,7 +48,6 @@ global_total = END_CID - START_CID + 1
 global_completed = 0
 global_lock = threading.Lock()
 
-# 线程局部存储：每个线程独立
 thread_local = threading.local()
 drivers_lock = threading.Lock()
 all_drivers = []
@@ -57,7 +69,7 @@ def create_driver(retries=2):
             driver.set_page_load_timeout(WAIT_TIMEOUT)
             return driver
         except Exception as e:
-            print(f"创建Chrome驱动失败 (尝试 {attempt+1}/{retries}): {e}")
+            print(f"创建Chrome驱动失败 (尝试 {attempt+1}/{retries}): {e}", flush=True)
             if attempt == retries-1:
                 raise
             time.sleep(2)
@@ -74,17 +86,16 @@ def restart_driver(thread_name):
             pass
         delattr(thread_local, "driver")
     thread_local.driver = create_driver()
-    # 重置该线程的本地计数器
     thread_local.task_count = 0
     with drivers_lock:
         all_drivers.append(thread_local.driver)
-    print(f"[{thread_name}] 浏览器已启动")
+    print(f"[{thread_name}] 浏览器已启动", flush=True)
 
 def get_driver(thread_name):
     if not hasattr(thread_local, "driver"):
         restart_driver(thread_name)
     elif hasattr(thread_local, "task_count") and thread_local.task_count >= MAX_TASKS_PER_DRIVER:
-        print(f"[{thread_name}] 已处理 {thread_local.task_count} 个班级，达到阈值，重启浏览器")
+        print(f"[{thread_name}] 已处理 {thread_local.task_count} 个班级，达到阈值，重启浏览器", flush=True)
         restart_driver(thread_name)
     return thread_local.driver
 
@@ -135,14 +146,10 @@ def extract_school_name(driver):
     return None
 
 def process_cid(cid, thread_name, total_tasks):
-    global global_completed
-    # 线程局部变量初始化：每个线程独立，但注意 process_cid 在线程池的不同任务中可能被同一个线程执行多次
-    # 使用 thread_local 存储该线程的已完成数和总任务数
+    global global_completed, global_total
     if not hasattr(thread_local, "completed"):
         thread_local.completed = 0
         thread_local.total = total_tasks
-        thread_local.task_count = 0   # driver 内的计数器
-
     driver = get_driver(thread_name)
     url = f"https://www.eeo.cn/s/a/?cid={cid}"
     try:
@@ -159,19 +166,12 @@ def process_cid(cid, thread_name, total_tasks):
         class_str = class_name if class_name else "无"
         school_str = school_name if school_name else "无"
 
-        # 更新线程局部进度
         thread_local.completed += 1
-        # 更新 driver 计数器
-        if hasattr(thread_local, "task_count"):
-            thread_local.task_count += 1
-        else:
-            thread_local.task_count = 1
-
         with global_lock:
             global_completed += 1
             cur_global = global_completed
 
-        print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (总进度：{cur_global}/{global_total}) {cid} | 机构: {school_str} | 班级: {class_str}")
+        print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (总进度：{cur_global}/{global_total}) {cid} | 机构: {school_str} | 班级: {class_str}", flush=True)
 
         if not (teacher_str == "无" and class_str == "无" and school_str == "无"):
             with open(OUTPUT_FILE, "a", encoding="utf-8") as f:
@@ -180,19 +180,19 @@ def process_cid(cid, thread_name, total_tasks):
         return False
     except Exception as e:
         thread_local.completed += 1
-        if hasattr(thread_local, "task_count"):
-            thread_local.task_count += 1
-        else:
-            thread_local.task_count = 1
         with global_lock:
             global_completed += 1
             cur_global = global_completed
         if "timeout" in str(e).lower():
-            print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (总进度：{cur_global}/{global_total}) {cid} 超时")
+            print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (总进度：{cur_global}/{global_total}) {cid} 超时", flush=True)
         else:
-            print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (总进度：{cur_global}/{global_total}) {cid} 错误: {e}")
+            print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (总进度：{cur_global}/{global_total}) {cid} 错误: {e}", flush=True)
         return False
     finally:
+        if hasattr(thread_local, "task_count"):
+            thread_local.task_count += 1
+        else:
+            thread_local.task_count = 1
         time.sleep(SLEEP_BETWEEN)
 
 def close_all_drivers():
@@ -205,34 +205,34 @@ def close_all_drivers():
         all_drivers.clear()
 
 def main():
-    global global_completed
-    print(f"班级范围: {START_CID} - {END_CID}")
-    print(f"线程数: {THREADS}, 每浏览器最大任务: {MAX_TASKS_PER_DRIVER}")
+    global global_completed, global_total
+    print(f"班级范围: {START_CID} - {END_CID}", flush=True)
+    print(f"请求线程数: {REQUESTED_THREADS}, 实际使用: {THREADS}", flush=True)
+    print(f"每浏览器最大任务: {MAX_TASKS_PER_DRIVER}", flush=True)
     total = END_CID - START_CID + 1
-    print(f"总班级数: {total}")
-    print(f"结果将保存到: {OUTPUT_FILE}\n")
+    print(f"总班级数: {total}", flush=True)
+    print(f"结果将保存到: {OUTPUT_FILE}\n", flush=True)
 
-    # 将班级号列表按线程数均匀分割为连续区间（每个线程处理一段）
-    cid_list = list(range(START_CID, END_CID + 1))
-    # 分割
-    chunk_size = (total + THREADS - 1) // THREADS
-    thread_chunks = []
+    # 连续区间分配
+    base_size = total // THREADS
+    remainder = total % THREADS
+    thread_ranges = []
+    current = START_CID
     for i in range(THREADS):
-        start_idx = i * chunk_size
-        end_idx = min(start_idx + chunk_size, total)
-        if start_idx < total:
-            chunk_cids = cid_list[start_idx:end_idx]
-            thread_chunks.append(chunk_cids)
+        size = base_size + (1 if i < remainder else 0)
+        if size > 0:
+            end = current + size - 1
+            thread_ranges.append((current, end))
+            current = end + 1
         else:
-            thread_chunks.append([])
+            thread_ranges.append((0, -1))
 
-    # 打印分配
-    for i, chunk in enumerate(thread_chunks):
-        if chunk:
-            print(f"T{i+1} 负责 {len(chunk)} 个班级 (范围 {chunk[0]} ~ {chunk[-1]})")
+    for i, (start, end) in enumerate(thread_ranges):
+        if start <= end:
+            print(f"T{i+1} 负责 {end-start+1} 个班级 (范围 {start} ~ {end})", flush=True)
         else:
-            print(f"T{i+1} 负责 0 个班级")
-    print()
+            print(f"T{i+1} 负责 0 个班级", flush=True)
+    print(flush=True)
 
     # 清空输出文件
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
@@ -241,19 +241,19 @@ def main():
     valid = 0
     with ThreadPoolExecutor(max_workers=THREADS) as executor:
         futures = []
-        for i, chunk in enumerate(thread_chunks):
-            if not chunk:
+        for i, (start, end) in enumerate(thread_ranges):
+            if start > end:
                 continue
             thread_name = f"T{i+1}"
-            total_tasks = len(chunk)
-            for cid in chunk:
+            total_tasks = end - start + 1
+            for cid in range(start, end+1):
                 futures.append(executor.submit(process_cid, cid, thread_name, total_tasks))
         for future in as_completed(futures):
             if future.result():
                 valid += 1
 
     close_all_drivers()
-    print(f"\n探测完成！有效班级数: {valid}，结果保存至 {OUTPUT_FILE}")
+    print(f"\n探测完成！有效班级数: {valid}，结果保存至 {OUTPUT_FILE}", flush=True)
 
 if __name__ == "__main__":
     main()
