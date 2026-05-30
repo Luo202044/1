@@ -5,6 +5,7 @@ import json
 import time
 import re
 import threading
+import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -23,10 +24,10 @@ MAX_TASKS_PER_DRIVER = config.get("max_tasks_per_driver", 30)
 WAIT_TIMEOUT = config.get("wait_timeout", 10)
 RENDER_WAIT = config.get("render_wait", 0.8)
 SLEEP_BETWEEN = config.get("sleep_between", 0.3)
-# =============================
 
-# 输出文件名
-OUTPUT_FILE = f"{START_CID}-{END_CID}.txt"
+# 创建 data 目录
+os.makedirs("data", exist_ok=True)
+OUTPUT_FILE = os.path.join("data", f"{START_CID}-{END_CID}.txt")
 
 # 线程局部存储
 thread_local = threading.local()
@@ -34,7 +35,6 @@ drivers_lock = threading.Lock()
 all_drivers = []
 
 def create_driver():
-    """创建无头 Chrome 驱动（禁用图片，最小内存）"""
     opts = Options()
     opts.add_argument("--headless")
     opts.add_argument("--no-sandbox")
@@ -50,7 +50,6 @@ def create_driver():
     return driver
 
 def restart_driver(thread_name):
-    """关闭当前线程的 driver 并重新创建（内存回收）"""
     if hasattr(thread_local, "driver"):
         try:
             thread_local.driver.quit()
@@ -64,13 +63,13 @@ def restart_driver(thread_name):
     thread_local.task_count = 0
     with drivers_lock:
         all_drivers.append(thread_local.driver)
-    print(f"[{thread_name}] 浏览器实例已重启（内存回收）")
+    print(f"[{thread_name}] 浏览器已重启")
 
 def get_driver(thread_name):
     if not hasattr(thread_local, "driver"):
         restart_driver(thread_name)
     elif hasattr(thread_local, "task_count") and thread_local.task_count >= MAX_TASKS_PER_DRIVER:
-        print(f"[{thread_name}] 已处理 {thread_local.task_count} 个班级，达到阈值 {MAX_TASKS_PER_DRIVER}，重启浏览器...")
+        print(f"[{thread_name}] 处理 {thread_local.task_count} 个班级，达到阈值，重启浏览器")
         restart_driver(thread_name)
     return thread_local.driver
 
@@ -162,16 +161,15 @@ def close_all_drivers():
 
 def main():
     print(f"班级范围: {START_CID} - {END_CID}")
-    print(f"线程数: {THREADS}, 每浏览器最大任务数: {MAX_TASKS_PER_DRIVER}")
+    print(f"线程数: {THREADS}, 每浏览器最大任务: {MAX_TASKS_PER_DRIVER}")
     total = END_CID - START_CID + 1
-    cid_list = list(range(START_CID, END_CID+1))
-    print(f"总班级数: {total}\n")
-    # 清空输出文件
+    print(f"总班级数: {total}")
+    print(f"结果将保存到: {OUTPUT_FILE}\n")
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         f.write("")
     valid = 0
     with ThreadPoolExecutor(max_workers=THREADS) as executor:
-        futures = {executor.submit(process_cid, cid, f"T{i%THREADS+1}"): cid for i, cid in enumerate(cid_list)}
+        futures = {executor.submit(process_cid, cid, f"T{i%THREADS+1}"): cid for i, cid in enumerate(range(START_CID, END_CID+1))}
         for future in as_completed(futures):
             if future.result():
                 valid += 1
