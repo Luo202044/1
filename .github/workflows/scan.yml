@@ -38,7 +38,7 @@ jobs:
           START=${{ steps.read_config.outputs.start_cid }}
           END=${{ steps.read_config.outputs.end_cid }}
           SHARDS=${{ github.event.inputs.shards }}
-          
+          export START END SHARDS
           python << 'EOF'
           import json, math, os
           
