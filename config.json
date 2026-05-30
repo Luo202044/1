@@ -1,9 +1,9 @@
 {
-    "start_cid": 304184509,
-    "end_cid": 304185409,
+    "start_cid": 305337221,
+    "end_cid": 305344201,
     "threads": 7,
     "max_tasks_per_driver": 45,
     "wait_timeout": 10,
     "render_wait": 0.8,
-    "sleep_between": 0.3
+    "sleep_between": 2.3
 }
