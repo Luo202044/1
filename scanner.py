@@ -21,9 +21,9 @@ START_CID = config["start_cid"]
 END_CID = config["end_cid"]
 REQUESTED_THREADS = config.get("threads", 3)
 MAX_TASKS_PER_DRIVER = config.get("max_tasks_per_driver", 30)
-WAIT_TIMEOUT = config.get("wait_timeout", 10)          # 原值
-RENDER_WAIT = config.get("render_wait", 0.8)           # 原值
-SLEEP_BETWEEN = config.get("sleep_between", 0.3)       # 原值
+WAIT_TIMEOUT = config.get("wait_timeout", 10)
+RENDER_WAIT = config.get("render_wait", 0.8)
+SLEEP_BETWEEN = config.get("sleep_between", 0.3)
 
 # 内存自适应（可选）
 try:
@@ -42,6 +42,11 @@ except ImportError:
 
 os.makedirs("data", exist_ok=True)
 OUTPUT_FILE = os.path.join("data", f"{START_CID}-{END_CID}.txt")
+
+# 全局计数器
+global_completed = 0
+global_total = END_CID - START_CID + 1
+global_lock = threading.Lock()
 
 thread_local = threading.local()
 drivers_lock = threading.Lock()
@@ -161,22 +166,30 @@ def process_cid(cid, thread_name, total_tasks):
         school_str = school_name if school_name else "无"
 
         thread_local.completed += 1
-        if thread_local.completed % 50 == 0 or thread_local.completed == thread_local.total:
-            print(f"[{thread_name}] 进度: {thread_local.completed}/{thread_local.total}")
+        # 更新全局计数
+        with global_lock:
+            global current_global
+            current_global += 1
+            cur_global = current_global
+
+        # 打印单个班级结果（含线程进度和全局进度）
+        print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (总进度：{cur_global}/{global_total}) {cid} | 机构: {school_str} | 班级: {class_str}")
+
         if not (teacher_str == "无" and class_str == "无" and school_str == "无"):
-            print(f"[{thread_name}] {cid} | 机构: {school_str} | 班级: {class_str}")
             with open(OUTPUT_FILE, "a", encoding="utf-8") as f:
                 f.write(f"{cid} {url} {teacher_str} {school_str} {class_str}\n")
             return True
         return False
     except Exception as e:
-        if "timeout" in str(e).lower():
-            print(f"[{thread_name}] {cid} 超时")
-        else:
-            print(f"[{thread_name}] {cid} 错误: {e}")
         thread_local.completed += 1
-        if thread_local.completed % 50 == 0 or thread_local.completed == thread_local.total:
-            print(f"[{thread_name}] 进度: {thread_local.completed}/{thread_local.total}")
+        with global_lock:
+            global current_global
+            current_global += 1
+            cur_global = current_global
+        if "timeout" in str(e).lower():
+            print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (总进度：{cur_global}/{global_total}) {cid} 超时")
+        else:
+            print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (总进度：{cur_global}/{global_total}) {cid} 错误: {e}")
         return False
     finally:
         if hasattr(thread_local, "task_count"):
@@ -195,6 +208,8 @@ def close_all_drivers():
         all_drivers.clear()
 
 def main():
+    global current_global
+    current_global = 0
     print(f"班级范围: {START_CID} - {END_CID}")
     print(f"请求线程数: {REQUESTED_THREADS}, 实际使用: {THREADS}")
     print(f"每浏览器最大任务: {MAX_TASKS_PER_DRIVER}")
