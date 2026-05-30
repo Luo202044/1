@@ -1,10 +1,10 @@
-name: ClassIn Scanner (Sharded)
+name: ClassIn Scanner (Sharded, No Merge)
 
 on:
   workflow_dispatch:
     inputs:
       shards:
-        description: '分片数量 (默认4)'
+        description: '分片数量（自定义）'
         required: true
         default: '4'
 
@@ -15,28 +15,17 @@ jobs:
   master:
     runs-on: ubuntu-latest
     outputs:
-      start_cid: ${{ steps.read_config.outputs.start_cid }}
-      end_cid: ${{ steps.read_config.outputs.end_cid }}
       shard_list: ${{ steps.calc_shards.outputs.shard_list }}
       shard_configs: ${{ steps.calc_shards.outputs.shard_configs }}
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
 
-      - name: 读取原始 config.json
-        id: read_config
-        run: |
-          START=$(jq -r '.start_cid' config.json)
-          END=$(jq -r '.end_cid' config.json)
-          echo "start_cid=${START}" >> $GITHUB_OUTPUT
-          echo "end_cid=${END}" >> $GITHUB_OUTPUT
-          echo "原始范围: ${START} ~ ${END}"
-
       - name: 计算分片区间并生成配置片段 (Python)
         id: calc_shards
         run: |
-          START=${{ steps.read_config.outputs.start_cid }}
-          END=${{ steps.read_config.outputs.end_cid }}
+          START=$(jq -r '.start_cid' config.json)
+          END=$(jq -r '.end_cid' config.json)
           SHARDS=${{ github.event.inputs.shards }}
           export START END SHARDS
           python << 'EOF'
@@ -115,7 +104,7 @@ jobs:
       - name: 运行扫描脚本
         run: python scanner.py
 
-      - name: 上传分片结果
+      - name: 上传分片结果 (artifact)
         uses: actions/upload-artifact@v4
         with:
           name: result-shard-${{ matrix.shard_idx }}
@@ -123,7 +112,7 @@ jobs:
           if-no-files-found: warn
           retention-days: 1
 
-  merge:
+  upload:
     needs: scan_shard
     runs-on: ubuntu-latest
     steps:
@@ -135,21 +124,17 @@ jobs:
         with:
           path: artifacts
 
-      - name: 合并结果文件
+      - name: 复制所有结果文件到 data 目录（不合并）
         run: |
           mkdir -p data
-          # 直接从原始 config.json 读取全局起始和结束 CID
-          START=$(jq -r '.start_cid' config.json)
-          END=$(jq -r '.end_cid' config.json)
-          OUTPUT_FILE="data/${START}-${END}.txt"
-          > "$OUTPUT_FILE"
-          find artifacts -name "*.txt" -exec cat {} \; >> "$OUTPUT_FILE"
-          echo "合并完成，文件行数: $(wc -l < "$OUTPUT_FILE")"
+          find artifacts -name "*.txt" -exec cp {} data/ \;
+          echo "已复制以下文件："
+          ls -la data/
 
       - name: 提交并推送结果
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config.user.email "github-actions[bot]@users.noreply.github.com"
           git add data/
-          git commit -m "合并分片扫描结果: ${START}-${END} [skip ci]" || echo "无变更"
+          git commit -m "添加分片扫描结果（分片数：${{ github.event.inputs.shards }}） [skip ci]" || echo "无变更"
           git push
