@@ -1,7 +1,7 @@
 name: ClassIn Scanner
 
 on:
-  workflow_dispatch:        # 手动触发
+  workflow_dispatch:          # 手动触发
 
 
 jobs:
@@ -28,8 +28,10 @@ jobs:
       - name: 运行探测脚本
         run: python scanner.py
 
-      - name: 上传结果
-        uses: actions/upload-artifact@v4
-        with:
-          name: scan-result
-          path: "*-*.txt"
+      - name: 提交并推送结果到 data 目录
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          git commit -m "添加班级探测结果 [skip ci]" || echo "无变更可提交"
+          git push
