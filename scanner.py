@@ -28,9 +28,14 @@ SLEEP_BETWEEN = config.get("sleep_between", 0.3)
 os.makedirs("data", exist_ok=True)
 OUTPUT_FILE = os.path.join("data", f"{START_CID}-{END_CID}.txt")
 
+# 线程局部存储
 thread_local = threading.local()
 drivers_lock = threading.Lock()
 all_drivers = []
+
+# 全局任务分配记录（用于显示每个线程的任务量）
+thread_tasks = {}          # {thread_name: total_count}
+thread_tasks_lock = threading.Lock()
 
 def create_driver():
     opts = Options()
@@ -118,6 +123,12 @@ def extract_school_name(driver):
     return None
 
 def process_cid(cid, thread_name):
+    # 初始化线程的本地计数器（总任务数由外部设置）
+    if not hasattr(thread_local, "total_tasks"):
+        with thread_tasks_lock:
+            thread_local.total_tasks = thread_tasks.get(thread_name, 0)
+        thread_local.completed = 0
+
     driver = get_driver(thread_name)
     url = f"https://www.eeo.cn/s/a/?cid={cid}"
     try:
@@ -134,16 +145,26 @@ def process_cid(cid, thread_name):
         class_str = class_name if class_name else "无"
         school_str = school_name if school_name else "无"
 
-        print(f"[{thread_name}] {cid} | 教师: {teacher_str} | 班级: {class_str} | 机构: {school_str}")
+        # 控制台显示：线程名、班级号、机构、班级名（不显示教师）
+        print(f"[{thread_name}] {cid} | 机构: {school_str} | 班级: {class_str}")
 
-        # 只要三项不全为“无”就保存
+        # 只要三项不全为“无”就保存（文件仍保留教师字段）
         if not (teacher_str == "无" and class_str == "无" and school_str == "无"):
             with open(OUTPUT_FILE, "a", encoding="utf-8") as f:
                 f.write(f"{cid} {url} {teacher_str} {school_str} {class_str}\n")
-            return True
-        return False
+            is_valid = True
+        else:
+            is_valid = False
+
+        # 更新进度
+        thread_local.completed += 1
+        print(f"[{thread_name}] 进度: {thread_local.completed}/{thread_local.total_tasks}")
+
+        return is_valid
     except Exception as e:
         print(f"[{thread_name}] {cid} 错误: {e}")
+        thread_local.completed += 1
+        print(f"[{thread_name}] 进度: {thread_local.completed}/{thread_local.total_tasks}")
         return False
     finally:
         if hasattr(thread_local, "task_count"):
@@ -167,14 +188,42 @@ def main():
     total = END_CID - START_CID + 1
     print(f"总班级数: {total}")
     print(f"结果将保存到: {OUTPUT_FILE}\n")
+
+    # 均匀分配任务给各线程
+    cid_list = list(range(START_CID, END_CID + 1))
+    # 创建线程任务分配列表
+    thread_task_lists = [[] for _ in range(THREADS)]
+    for idx, cid in enumerate(cid_list):
+        thread_task_lists[idx % THREADS].append(cid)
+
+    # 记录每个线程的任务数量并打印分配情况
+    for i, tasks in enumerate(thread_task_lists):
+        thread_name = f"T{i+1}"
+        thread_tasks[thread_name] = len(tasks)
+        if tasks:
+            print(f"{thread_name} 负责 {len(tasks)} 个班级 (范围 {tasks[0]} ~ {tasks[-1]})")
+        else:
+            print(f"{thread_name} 负责 0 个班级")
+
+    print("\n开始探测...\n")
+
+    # 清空输出文件
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         f.write("")
+
     valid = 0
     with ThreadPoolExecutor(max_workers=THREADS) as executor:
-        futures = {executor.submit(process_cid, cid, f"T{i%THREADS+1}"): cid for i, cid in enumerate(range(START_CID, END_CID+1))}
+        # 提交所有任务，每个任务带上线程名
+        futures = []
+        for i, tasks in enumerate(thread_task_lists):
+            thread_name = f"T{i+1}"
+            for cid in tasks:
+                futures.append(executor.submit(process_cid, cid, thread_name))
+
         for future in as_completed(futures):
             if future.result():
                 valid += 1
+
     close_all_drivers()
     print(f"\n探测完成！有效班级数: {valid}，结果保存至 {OUTPUT_FILE}")
 
