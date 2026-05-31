@@ -1,6 +1,6 @@
 {
     "start_cid": 69058294,
-    "end_cid": 71058294,
+    "end_cid": 70023294,
     "max_concurrent": 100,
     "max_tasks_per_driver": 100,
     "wait_timeout": 40,
