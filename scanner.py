@@ -13,26 +13,27 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-# 尝试导入 psutil 用于内存监控
+# ========== 内存监控相关 ==========
 try:
     import psutil
     PSUTIL_AVAILABLE = True
-    _process = psutil.Process(os.getpid())  # 获取当前进程对象
+    _process = psutil.Process(os.getpid())
+    TOTAL_MEM_GB = psutil.virtual_memory().total / (1024 ** 3)
 except ImportError:
     PSUTIL_AVAILABLE = False
     _process = None
+    TOTAL_MEM_GB = None
 
-def get_memory_gb():
-    """返回当前进程占用的内存（GB），保留两位小数；若不可用则返回字符串 'N/A'"""
+def get_memory_str():
+    """返回当前进程内存/总内存 字符串，例如 '0.52GB/7.0GB'；若不可用返回 'N/A'"""
     if not PSUTIL_AVAILABLE:
         return "N/A"
     try:
-        # 获取常驻内存集大小（RSS）并转换为 GB
         mem_bytes = _process.memory_info().rss
         mem_gb = mem_bytes / (1024 ** 3)
-        return f"{mem_gb:.2f}"
+        return f"{mem_gb:.2f}GB/{TOTAL_MEM_GB:.1f}GB"
     except Exception:
-        return "?"
+        return "?GB/?GB"
 
 # ========== 加载配置 ==========
 with open("config.json", "r", encoding="utf-8") as f:
@@ -41,14 +42,13 @@ with open("config.json", "r", encoding="utf-8") as f:
 START_CID = config["start_cid"]
 END_CID = config["end_cid"]
 REQUESTED_THREADS = config.get("threads", 3)
-MAX_TASKS_PER_DRIVER = config.get("max_tasks_per_driver", 30)
-WAIT_TIMEOUT = config.get("wait_timeout", 5)          # 降低至5秒
-RENDER_WAIT = config.get("render_wait", 0.2)          # 0.2秒显式等待
-SLEEP_BETWEEN = config.get("sleep_between", 0.02)     # 降低线程间休眠
+MAX_TASKS_PER_DRIVER = config.get("max_tasks_per_driver", 20)   # 建议20
+WAIT_TIMEOUT = config.get("wait_timeout", 5)                    # 降至5秒
+RENDER_WAIT = config.get("render_wait", 0.2)                    # 0.2秒显式等待
+SLEEP_BETWEEN = config.get("sleep_between", 0.02)               # 线程间休眠
 
 # 内存自适应（若 psutil 可用则根据可用内存调整线程数）
-try:
-    import psutil
+if PSUTIL_AVAILABLE:
     mem = psutil.virtual_memory()
     available_gb = mem.available / (1024**3)
     if available_gb < 2.0:
@@ -57,7 +57,7 @@ try:
         THREADS = RECOMMENDED
     else:
         THREADS = REQUESTED_THREADS
-except ImportError:
+else:
     THREADS = REQUESTED_THREADS
     print("未安装psutil，无法自动检测内存，请手动确保线程数不超过20", flush=True)
 
@@ -68,7 +68,7 @@ OUTPUT_FILE = os.path.join("data", f"{START_CID}-{END_CID}.txt")
 global_total = END_CID - START_CID + 1
 global_completed = 0
 global_lock = threading.Lock()
-start_time = None   # 将在 main 中设置
+start_time = None
 
 thread_local = threading.local()
 drivers_lock = threading.Lock()
@@ -99,7 +99,7 @@ def create_driver(retries=2):
     opts.add_argument("--log-level=3")
     
     # 内存与性能优化
-    opts.add_argument("--js-flags=--max-old-space-size=128")   # 限制V8堆内存128MB
+    opts.add_argument("--js-flags=--max-old-space-size=128")
     opts.add_argument("--disable-background-networking")
     opts.add_argument("--disable-background-timer-throttling")
     opts.add_argument("--disable-backgrounding-occluded-windows")
@@ -214,7 +214,7 @@ def process_cid(cid, thread_name, total_tasks):
         WebDriverWait(driver, WAIT_TIMEOUT).until(
             EC.presence_of_element_located((By.TAG_NAME, "body"))
         )
-        # 动态等待关键元素，最多 RENDER_WAIT 秒
+        # 动态等待关键元素
         try:
             WebDriverWait(driver, RENDER_WAIT).until(
                 EC.presence_of_element_located((By.CSS_SELECTOR, "p.courseName, p.schoolName"))
@@ -242,9 +242,8 @@ def process_cid(cid, thread_name, total_tasks):
         else:
             remain_str = "未知"
 
-        # 获取当前进程内存占用
-        mem_str = get_memory_gb()
-        print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (内存: {mem_str}GB) (总进度：{cur_global}/{global_total} 剩余时间：{remain_str}) {cid} | 机构: {school_str} | 班级: {class_str}", flush=True)
+        mem_str = get_memory_str()
+        print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (内存: {mem_str}) (总进度：{cur_global}/{global_total} 剩余时间：{remain_str}) {cid} | 机构: {school_str} | 班级: {class_str}", flush=True)
 
         if not (class_str == "无" and school_str == "无"):
             with open(OUTPUT_FILE, "a", encoding="utf-8") as f:
@@ -263,11 +262,11 @@ def process_cid(cid, thread_name, total_tasks):
             remain_str = format_time(remaining)
         else:
             remain_str = "未知"
-        mem_str = get_memory_gb()
+        mem_str = get_memory_str()
         if "timeout" in str(e).lower():
-            print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (内存: {mem_str}GB) (总进度：{cur_global}/{global_total} 剩余时间：{remain_str}) {cid} 超时", flush=True)
+            print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (内存: {mem_str}) (总进度：{cur_global}/{global_total} 剩余时间：{remain_str}) {cid} 超时", flush=True)
         else:
-            print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (内存: {mem_str}GB) (总进度：{cur_global}/{global_total} 剩余时间：{remain_str}) {cid} 错误: {e}", flush=True)
+            print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (内存: {mem_str}) (总进度：{cur_global}/{global_total} 剩余时间：{remain_str}) {cid} 错误: {e}", flush=True)
         return False
     finally:
         if hasattr(thread_local, "task_count"):
@@ -293,7 +292,8 @@ def main():
     print(f"每浏览器最大任务: {MAX_TASKS_PER_DRIVER}", flush=True)
     total = END_CID - START_CID + 1
     print(f"总班级数: {total}", flush=True)
-    print(f"结果将保存到: {OUTPUT_FILE}\n", flush=True)
+    print(f"结果将保存到: {OUTPUT_FILE}", flush=True)
+    print("内存格式: 当前进程内存/机器总内存\n", flush=True)
 
     # 连续区间分配
     base_size = total // THREADS
