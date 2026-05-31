@@ -3,7 +3,7 @@
     "end_cid": 69059494,
     "max_concurrent": 100,
     "max_tasks_per_driver": 100,
-    "wait_timeout": 40,
+    "wait_timeout": 25,
     "render_wait": 1.0,
     "sleep_between": 1.9,
     "retry_times": 2,
