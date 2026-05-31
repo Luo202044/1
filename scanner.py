@@ -13,6 +13,27 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+# 尝试导入 psutil 用于内存监控
+try:
+    import psutil
+    PSUTIL_AVAILABLE = True
+    _process = psutil.Process(os.getpid())  # 获取当前进程对象
+except ImportError:
+    PSUTIL_AVAILABLE = False
+    _process = None
+
+def get_memory_gb():
+    """返回当前进程占用的内存（GB），保留两位小数；若不可用则返回字符串 'N/A'"""
+    if not PSUTIL_AVAILABLE:
+        return "N/A"
+    try:
+        # 获取常驻内存集大小（RSS）并转换为 GB
+        mem_bytes = _process.memory_info().rss
+        mem_gb = mem_bytes / (1024 ** 3)
+        return f"{mem_gb:.2f}"
+    except Exception:
+        return "?"
+
 # ========== 加载配置 ==========
 with open("config.json", "r", encoding="utf-8") as f:
     config = json.load(f)
@@ -21,11 +42,11 @@ START_CID = config["start_cid"]
 END_CID = config["end_cid"]
 REQUESTED_THREADS = config.get("threads", 3)
 MAX_TASKS_PER_DRIVER = config.get("max_tasks_per_driver", 30)
-WAIT_TIMEOUT = config.get("wait_timeout", 10)
-RENDER_WAIT = config.get("render_wait", 0.8)
-SLEEP_BETWEEN = config.get("sleep_between", 0.3)
+WAIT_TIMEOUT = config.get("wait_timeout", 5)          # 降低至5秒
+RENDER_WAIT = config.get("render_wait", 0.2)          # 0.2秒显式等待
+SLEEP_BETWEEN = config.get("sleep_between", 0.02)     # 降低线程间休眠
 
-# 内存自适应
+# 内存自适应（若 psutil 可用则根据可用内存调整线程数）
 try:
     import psutil
     mem = psutil.virtual_memory()
@@ -38,7 +59,7 @@ try:
         THREADS = REQUESTED_THREADS
 except ImportError:
     THREADS = REQUESTED_THREADS
-    print("未安装psutil，无法自动检测内存，请手动确保线程数不超过3", flush=True)
+    print("未安装psutil，无法自动检测内存，请手动确保线程数不超过20", flush=True)
 
 os.makedirs("data", exist_ok=True)
 OUTPUT_FILE = os.path.join("data", f"{START_CID}-{END_CID}.txt")
@@ -54,7 +75,6 @@ drivers_lock = threading.Lock()
 all_drivers = []
 
 def format_time(seconds):
-    """将秒数格式化为 HH:MM:SS 或 MM:SS"""
     if seconds < 0:
         return "0s"
     if seconds < 60:
@@ -70,15 +90,49 @@ def format_time(seconds):
 
 def create_driver(retries=2):
     opts = Options()
-    opts.add_argument("--headless")
+    # 基础参数
+    opts.add_argument("--headless=new")
     opts.add_argument("--no-sandbox")
     opts.add_argument("--disable-dev-shm-usage")
     opts.add_argument("--disable-gpu")
     opts.add_argument("--window-size=1920,1080")
     opts.add_argument("--log-level=3")
-    opts.add_experimental_option("prefs", {
+    
+    # 内存与性能优化
+    opts.add_argument("--js-flags=--max-old-space-size=128")   # 限制V8堆内存128MB
+    opts.add_argument("--disable-background-networking")
+    opts.add_argument("--disable-background-timer-throttling")
+    opts.add_argument("--disable-backgrounding-occluded-windows")
+    opts.add_argument("--disable-breakpad")
+    opts.add_argument("--disable-client-side-phishing-detection")
+    opts.add_argument("--disable-default-apps")
+    opts.add_argument("--disable-extensions")
+    opts.add_argument("--disable-features=TranslateUI,BlinkGenPropertyTrees")
+    opts.add_argument("--disable-hang-monitor")
+    opts.add_argument("--disable-ipc-flooding-protection")
+    opts.add_argument("--disable-popup-blocking")
+    opts.add_argument("--disable-prompt-on-repost")
+    opts.add_argument("--disable-renderer-backgrounding")
+    opts.add_argument("--disable-sync")
+    opts.add_argument("--metrics-recording-only")
+    opts.add_argument("--no-first-run")
+    opts.add_argument("--safebrowsing-disable-auto-update")
+    opts.add_argument("--disable-software-rasterizer")
+    opts.add_argument("--disable-logging")
+    opts.add_argument("--silent")
+    
+    # 禁用图片、CSS、字体等
+    prefs = {
         "profile.managed_default_content_settings.images": 2,
-    })
+        "profile.managed_default_content_settings.stylesheets": 2,
+        "profile.managed_default_content_settings.fonts": 2,
+        "profile.default_content_setting_values.notifications": 2,
+        "profile.managed_default_content_settings.media_stream": 2,
+        "profile.default_content_settings.popups": 2,
+        "profile.managed_default_content_settings.plugins": 2,
+    }
+    opts.add_experimental_option("prefs", prefs)
+    
     for attempt in range(retries):
         try:
             driver = webdriver.Chrome(options=opts)
@@ -115,27 +169,6 @@ def get_driver(thread_name):
         restart_driver(thread_name)
     return thread_local.driver
 
-def extract_teacher(driver):
-    teacher = None
-    try:
-        elem = driver.find_element(By.CSS_SELECTOR, "div.courseTeacher span")
-        text = elem.text.strip()
-        if re.match(r'1[3-9]\d{9}$', text) or re.match(r'1\d{2}\*{4}\d{4}$', text):
-            teacher = text
-    except:
-        pass
-    if not teacher:
-        try:
-            elem = driver.find_element(By.CSS_SELECTOR, "div.courseTeacher")
-            full_text = elem.text
-            if "教师：" in full_text:
-                candidate = full_text.split("教师：")[-1].strip()
-                if re.match(r'1[3-9]\d{9}$', candidate) or re.match(r'1\d{2}\*{4}\d{4}$', candidate):
-                    teacher = candidate
-        except:
-            pass
-    return teacher
-
 def extract_class_name(driver):
     try:
         elem = driver.find_element(By.CSS_SELECTOR, "p.courseName")
@@ -169,16 +202,29 @@ def process_cid(cid, thread_name, total_tasks):
     driver = get_driver(thread_name)
     url = f"https://www.eeo.cn/s/a/?cid={cid}"
     try:
+        # 清除缓存避免内存累积
+        try:
+            driver.delete_all_cookies()
+            driver.execute_script("window.localStorage.clear();")
+            driver.execute_script("window.sessionStorage.clear();")
+        except:
+            pass
+        
         driver.get(url)
         WebDriverWait(driver, WAIT_TIMEOUT).until(
             EC.presence_of_element_located((By.TAG_NAME, "body"))
         )
-        time.sleep(RENDER_WAIT)
-        teacher = extract_teacher(driver)
+        # 动态等待关键元素，最多 RENDER_WAIT 秒
+        try:
+            WebDriverWait(driver, RENDER_WAIT).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, "p.courseName, p.schoolName"))
+            )
+        except:
+            pass
+        
         class_name = extract_class_name(driver)
         school_name = extract_school_name(driver)
 
-        teacher_str = teacher if teacher else "无"
         class_str = class_name if class_name else "无"
         school_str = school_name if school_name else "无"
 
@@ -196,11 +242,13 @@ def process_cid(cid, thread_name, total_tasks):
         else:
             remain_str = "未知"
 
-        print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (总进度：{cur_global}/{global_total} 剩余时间：{remain_str}) {cid} | 机构: {school_str} | 班级: {class_str}", flush=True)
+        # 获取当前进程内存占用
+        mem_str = get_memory_gb()
+        print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (内存: {mem_str}GB) (总进度：{cur_global}/{global_total} 剩余时间：{remain_str}) {cid} | 机构: {school_str} | 班级: {class_str}", flush=True)
 
-        if not (teacher_str == "无" and class_str == "无" and school_str == "无"):
+        if not (class_str == "无" and school_str == "无"):
             with open(OUTPUT_FILE, "a", encoding="utf-8") as f:
-                f.write(f"{cid} {url} {teacher_str} {school_str} {class_str}\n")
+                f.write(f"{cid} {url} {school_str} {class_str}\n")
             return True
         return False
     except Exception as e:
@@ -215,10 +263,11 @@ def process_cid(cid, thread_name, total_tasks):
             remain_str = format_time(remaining)
         else:
             remain_str = "未知"
+        mem_str = get_memory_gb()
         if "timeout" in str(e).lower():
-            print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (总进度：{cur_global}/{global_total} 剩余时间：{remain_str}) {cid} 超时", flush=True)
+            print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (内存: {mem_str}GB) (总进度：{cur_global}/{global_total} 剩余时间：{remain_str}) {cid} 超时", flush=True)
         else:
-            print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (总进度：{cur_global}/{global_total} 剩余时间：{remain_str}) {cid} 错误: {e}", flush=True)
+            print(f"[{thread_name}] (工作进度：{thread_local.completed}/{thread_local.total}) (内存: {mem_str}GB) (总进度：{cur_global}/{global_total} 剩余时间：{remain_str}) {cid} 错误: {e}", flush=True)
         return False
     finally:
         if hasattr(thread_local, "task_count"):
