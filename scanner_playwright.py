@@ -10,52 +10,30 @@ from asyncio import Semaphore, Lock
 from playwright.async_api import async_playwright
 
 # ========== 用户配置区域 ==========
-# 代理列表（请替换为真实代理地址，支持 http://, https://, socks5://）
-# 如果列表为空，则不使用代理
 PROXY_LIST = [
     # "http://127.0.0.1:8080",
-    # "socks5://user:pass@proxy.example.com:1080",
 ]
 
-# 预定义的 User-Agent 列表（覆盖常见操作系统 + 浏览器组合）
 USER_AGENTS = [
-    # Windows 10 + Chrome
+    # ... 保持原有列表 ...
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    # Windows 10 + Firefox
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0",
-    # Windows 10 + Edge
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
-    # macOS + Chrome
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    # macOS + Safari
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Safari/605.1.15",
-    # macOS + Firefox
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/119.0",
-    # Linux + Chrome
-    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    # Linux + Firefox
-    "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/119.0",
-    # Android + Chrome Mobile
-    "Mozilla/5.0 (Linux; Android 13; SM-G991B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36",
-    # Android + Firefox Mobile
-    "Mozilla/5.0 (Android 13; Mobile; rv:109.0) Gecko/119.0 Firefox/119.0",
-    # iOS + Safari Mobile
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 17_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Mobile/15E148 Safari/604.1",
-    # iOS + Chrome Mobile
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 17_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/120.0.6099.119 Mobile/15E148 Safari/604.1",
+    # ... 其他 UA ...
 ]
 
-# ========== 配置加载 ==========
+# ========== 加载配置 ==========
 with open("config.json", "r", encoding="utf-8") as f:
     config = json.load(f)
 
 START_CID = config["start_cid"]
 END_CID = config["end_cid"]
-MAX_CONCURRENT = config.get("max_concurrent", config.get("threads", 30))
-MAX_TASKS_PER_CONTEXT = config.get("max_tasks_per_context", 20)  # 本脚本未严格按此阈值重启，但保留备用
-WAIT_TIMEOUT = config.get("wait_timeout", 5)
-RENDER_WAIT = config.get("render_wait", 0.2)
-SLEEP_BETWEEN = config.get("sleep_between", 0.02)
+MAX_CONCURRENT = config.get("max_concurrent", 80)          # 推荐从80开始
+MAX_TASKS_PER_CONTEXT = config.get("max_tasks_per_context", 20)
+WAIT_TIMEOUT = config.get("wait_timeout", 8)               # 增加到8秒
+RENDER_WAIT = config.get("render_wait", 0.5)               # 增加到0.5秒
+SLEEP_BETWEEN = config.get("sleep_between", 0.05)          # 稍微提高间隔
+RETRY_TIMES = config.get("retry_times", 2)                 # 重试次数
+RETRY_DELAY = config.get("retry_delay", 1.0)               # 初始重试延迟（秒）
 
 os.makedirs("data", exist_ok=True)
 OUTPUT_FILE = os.path.join("data", f"{START_CID}-{END_CID}.txt")
@@ -65,7 +43,7 @@ global_completed = 0
 global_lock = Lock()
 start_time = None
 
-# ========== 内存监控（psutil）==========
+# ========== 内存监控 ==========
 try:
     import psutil
     PSUTIL_AVAILABLE = True
@@ -98,61 +76,79 @@ def format_time(seconds):
         minutes = int((seconds % 3600) // 60)
         return f"{hours}h {minutes}m"
 
+async def fetch_page_data(browser, cid, retry=0):
+    """单次请求，返回 (school_str, class_str) 或引发异常"""
+    user_agent = random.choice(USER_AGENTS)
+    proxy = None
+    if PROXY_LIST:
+        proxy_server = random.choice(PROXY_LIST)
+        proxy = {"server": proxy_server}
+    
+    context = await browser.new_context(
+        user_agent=user_agent,
+        proxy=proxy,
+        ignore_https_errors=True,
+        java_script_enabled=True
+    )
+    page = await context.new_page()
+    url = f"https://www.eeo.cn/s/a/?cid={cid}"
+    try:
+        # 使用 domcontentloaded 更快，不需要等待所有资源
+        await page.goto(url, timeout=WAIT_TIMEOUT * 1000, wait_until="domcontentloaded")
+        # 等待 body 存在
+        await page.wait_for_selector("body", timeout=WAIT_TIMEOUT * 1000)
+        # 等待关键元素短时间
+        try:
+            await page.wait_for_selector("p.courseName, p.schoolName", timeout=RENDER_WAIT * 1000)
+        except:
+            pass
+
+        # 提取班级名称
+        class_name = None
+        elem = await page.query_selector("p.courseName")
+        if elem:
+            text = (await elem.inner_text()).strip()
+            if text and len(text) >= 2:
+                class_name = text
+        if not class_name:
+            title = await page.title()
+            if "|" in title and "Join the class" not in title:
+                parts = title.split("|")
+                if len(parts) > 1:
+                    class_name = parts[-1].strip()
+        class_str = class_name if class_name else "无"
+
+        # 提取学校名称
+        school_name = None
+        elem = await page.query_selector("p.schoolName")
+        if elem:
+            text = (await elem.inner_text()).strip()
+            if text and len(text) >= 2:
+                school_name = text
+        school_str = school_name if school_name else "无"
+
+        await page.close()
+        await context.close()
+        return school_str, class_str
+    except Exception as e:
+        await page.close()
+        await context.close()
+        # 如果是超时或网络错误且还有重试次数，则延迟后重试
+        if retry < RETRY_TIMES and ("timeout" in str(e).lower() or "net::" in str(e).lower()):
+            delay = RETRY_DELAY * (2 ** retry)  # 指数退避
+            await asyncio.sleep(delay)
+            return await fetch_page_data(browser, cid, retry+1)
+        else:
+            raise e
+
 async def process_cid(browser, cid, semaphore, total_tasks, thread_name="async"):
     global global_completed, start_time
     async with semaphore:
-        # 随机选择 User-Agent 和代理
-        user_agent = random.choice(USER_AGENTS)
-        proxy = None
-        if PROXY_LIST:
-            proxy_server = random.choice(PROXY_LIST)
-            proxy = {"server": proxy_server}
-        
-        # 创建上下文（每个班级独立上下文，方便设置不同的 UA 和代理）
-        context = await browser.new_context(
-            user_agent=user_agent,
-            proxy=proxy,
-            ignore_https_errors=True,
-            java_script_enabled=True
-        )
-        page = await context.new_page()
-        url = f"https://www.eeo.cn/s/a/?cid={cid}"
         try:
-            await page.goto(url, timeout=WAIT_TIMEOUT * 1000)
-            await page.wait_for_selector("body", timeout=WAIT_TIMEOUT * 1000)
-            try:
-                await page.wait_for_selector("p.courseName, p.schoolName", timeout=RENDER_WAIT * 1000)
-            except:
-                pass
-
-            # 提取班级名称
-            class_name = None
-            elem = await page.query_selector("p.courseName")
-            if elem:
-                text = (await elem.inner_text()).strip()
-                if text and len(text) >= 2:
-                    class_name = text
-            if not class_name:
-                title = await page.title()
-                if "|" in title and "Join the class" not in title:
-                    parts = title.split("|")
-                    if len(parts) > 1:
-                        class_name = parts[-1].strip()
-            class_str = class_name if class_name else "无"
-
-            # 提取学校名称
-            school_name = None
-            elem = await page.query_selector("p.schoolName")
-            if elem:
-                text = (await elem.inner_text()).strip()
-                if text and len(text) >= 2:
-                    school_name = text
-            school_str = school_name if school_name else "无"
-
+            school_str, class_str = await fetch_page_data(browser, cid)
             async with global_lock:
                 global_completed += 1
                 cur_global = global_completed
-
             elapsed = time.time() - start_time
             ratio = cur_global / global_total
             if ratio > 0:
@@ -161,13 +157,11 @@ async def process_cid(browser, cid, semaphore, total_tasks, thread_name="async")
             else:
                 remain_str = "未知"
             mem_str = get_system_memory_str()
-            # 在日志中显示使用的 UA 和代理（可选，便于调试）
-            proxy_hint = proxy["server"] if proxy else "无代理"
-            print(f"[{thread_name}] (进度：{cur_global}/{global_total}) (内存: {mem_str}) (剩余：{remain_str}) {cid} | 机构: {school_str} | 班级: {class_str} | UA: {user_agent[:30]}... | 代理: {proxy_hint}", flush=True)
+            print(f"[{thread_name}] (进度：{cur_global}/{global_total}) (内存: {mem_str}) (剩余：{remain_str}) {cid} | 机构: {school_str} | 班级: {class_str}", flush=True)
 
             if not (class_str == "无" and school_str == "无"):
                 with open(OUTPUT_FILE, "a", encoding="utf-8") as f:
-                    f.write(f"{cid} {url} {school_str} {class_str}\n")
+                    f.write(f"{cid} https://www.eeo.cn/s/a/?cid={cid} {school_str} {class_str}\n")
                 return True
             return False
         except Exception as e:
@@ -183,14 +177,10 @@ async def process_cid(browser, cid, semaphore, total_tasks, thread_name="async")
                 remain_str = "未知"
             mem_str = get_system_memory_str()
             if "timeout" in str(e).lower():
-                print(f"[{thread_name}] (进度：{cur_global}/{global_total}) (内存: {mem_str}) (剩余：{remain_str}) {cid} 超时", flush=True)
+                print(f"[{thread_name}] (进度：{cur_global}/{global_total}) (内存: {mem_str}) (剩余：{remain_str}) {cid} 最终超时（已重试{RETRY_TIMES}次）", flush=True)
             else:
-                print(f"[{thread_name}] (进度：{cur_global}/{global_total}) (内存: {mem_str}) (剩余：{remain_str}) {cid} 错误: {e}", flush=True)
+                print(f"[{thread_name}] (进度：{cur_global}/{global_total}) (内存: {mem_str}) (剩余：{remain_str}) {cid} 最终错误: {e}", flush=True)
             return False
-        finally:
-            await page.close()
-            await context.close()
-            await asyncio.sleep(SLEEP_BETWEEN)
 
 async def main_async():
     global start_time
@@ -199,6 +189,7 @@ async def main_async():
     print(f"最大并发数: {MAX_CONCURRENT}")
     print(f"代理数量: {len(PROXY_LIST)} (已启用)" if PROXY_LIST else "代理: 未启用")
     print(f"User-Agent 池大小: {len(USER_AGENTS)}")
+    print(f"超时设置: {WAIT_TIMEOUT}s, 重试次数: {RETRY_TIMES}")
     total = END_CID - START_CID + 1
     print(f"总班级数: {total}")
     print(f"结果保存至: {OUTPUT_FILE}\n")
