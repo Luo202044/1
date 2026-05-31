@@ -1,4 +1,4 @@
-name: ClassIn 扫描器（分片模式，不合并）
+name: ClassIn Scanner (Playwright + asyncio)
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
       shards:
         description: '分片数量（自定义）'
         required: true
-        default: '4'
+        default: '2'
 
 permissions:
   contents: write
@@ -49,15 +49,14 @@ jobs:
               s = start + i * shard_size
               e = min(start + (i+1) * shard_size - 1, end)
               shard_indices.append(str(i))
-              shard_configs.append({
-                  "start_cid": s,
-                  "end_cid": e,
-                  "threads": orig["threads"],
-                  "max_tasks_per_driver": orig["max_tasks_per_driver"],
-                  "wait_timeout": orig["wait_timeout"],
-                  "render_wait": orig["render_wait"],
-                  "sleep_between": orig["sleep_between"]
-              })
+              # 构造每个分片的配置，保留原有参数，只改 start_cid 和 end_cid
+              shard_cfg = orig.copy()
+              shard_cfg["start_cid"] = s
+              shard_cfg["end_cid"] = e
+              # 确保使用 max_concurrent（如果原配置没有，则设置默认）
+              if "max_concurrent" not in shard_cfg:
+                  shard_cfg["max_concurrent"] = shard_cfg.get("threads", 30)
+              shard_configs.append(shard_cfg)
               print(f"分片 {i} : {s} ~ {e}")
           
           with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
@@ -96,13 +95,11 @@ jobs:
 
       - name: 安装依赖
         run: |
-          pip install selenium webdriver-manager psutil
+          pip install playwright psutil
+          playwright install chromium
 
-      - name: 安装 Chrome
-        uses: browser-actions/setup-chrome@v1
-
-      - name: 运行扫描脚本
-        run: python scanner.py
+      - name: 运行 Playwright 扫描脚本
+        run: python scanner_playwright.py
 
       - name: 上传分片结果（工作流附件）
         uses: actions/upload-artifact@v4
@@ -136,5 +133,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/
-          git commit -m "添加分片扫描结果（分片数：${{ github.event.inputs.shards }}） [skip ci]" || echo "无变更"
+          git commit -m "Playwright 分片扫描结果（分片数：${{ github.event.inputs.shards }}） [skip ci]" || echo "无变更"
           git push
