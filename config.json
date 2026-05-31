@@ -6,6 +6,6 @@
     "wait_timeout": 25,
     "render_wait": 1.0,
     "sleep_between": 1.9,
-    "retry_times": 2,
-    "retry_delay": 1.1
+    "retry_times": 1,
+    "retry_delay": 0.3
 }
