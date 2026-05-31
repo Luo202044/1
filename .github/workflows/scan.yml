@@ -49,11 +49,9 @@ jobs:
               s = start + i * shard_size
               e = min(start + (i+1) * shard_size - 1, end)
               shard_indices.append(str(i))
-              # 构造每个分片的配置，保留原有参数，只改 start_cid 和 end_cid
               shard_cfg = orig.copy()
               shard_cfg["start_cid"] = s
               shard_cfg["end_cid"] = e
-              # 确保使用 max_concurrent（如果原配置没有，则设置默认）
               if "max_concurrent" not in shard_cfg:
                   shard_cfg["max_concurrent"] = shard_cfg.get("threads", 30)
               shard_configs.append(shard_cfg)
@@ -121,17 +119,30 @@ jobs:
         with:
           path: artifacts
 
-      - name: 复制所有结果文件到 data 目录（不合并）
+      - name: 复制所有结果文件到临时目录
+        run: |
+          mkdir -p temp_data
+          find artifacts -name "*.txt" -exec cp {} temp_data/ \;
+
+      - name: 拆分结果文件（每600行一个文件）
         run: |
           mkdir -p data
-          find artifacts -name "*.txt" -exec cp {} data/ \;
-          echo "已复制以下文件："
-          ls -la data/
+          for file in temp_data/*.txt; do
+            if [ -f "$file" ]; then
+              # 获取文件名（不含路径和扩展名）
+              base=$(basename "$file" .txt)
+              # 使用 awk 按 600 行拆分，生成 base_1.txt, base_2.txt, ...
+              awk -v prefix="data/${base}_" 'NR%600==1 {file=prefix ++c ".txt"} {print > file}' "$file"
+              echo "拆分 $file 完成，生成文件数: $(ls data/${base}_*.txt 2>/dev/null | wc -l)"
+            fi
+          done
+          # 清理临时目录
+          rm -rf temp_data
 
       - name: 提交并推送结果
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/
-          git commit -m "Playwright 分片扫描结果（分片数：${{ github.event.inputs.shards }}） [skip ci]" || echo "无变更"
+          git commit -m "Playwright 分片扫描结果（分片数：${{ github.event.inputs.shards }}，每文件≤600行） [skip ci]" || echo "无变更"
           git push
