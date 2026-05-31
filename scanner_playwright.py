@@ -6,19 +6,14 @@ import asyncio
 import time
 import os
 import random
-from asyncio import Semaphore, Lock
+from asyncio import Lock
 from playwright.async_api import async_playwright
 
-# ========== 用户配置区域 ==========
-PROXY_LIST = [
-    # "http://127.0.0.1:8080",
-]
-
+# ========== 用户配置 ==========
+PROXY_LIST = []   # 如需代理请填写 ["http://user:pass@ip:port"]
 USER_AGENTS = [
-    # ... 保持原有列表 ...
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    # ... 其他 UA ...
 ]
 
 # ========== 加载配置 ==========
@@ -27,13 +22,14 @@ with open("config.json", "r", encoding="utf-8") as f:
 
 START_CID = config["start_cid"]
 END_CID = config["end_cid"]
-MAX_CONCURRENT = config.get("max_concurrent", 80)          # 推荐从80开始
-MAX_TASKS_PER_CONTEXT = config.get("max_tasks_per_context", 20)
-WAIT_TIMEOUT = config.get("wait_timeout", 8)               # 增加到8秒
-RENDER_WAIT = config.get("render_wait", 0.5)               # 增加到0.5秒
-SLEEP_BETWEEN = config.get("sleep_between", 0.05)          # 稍微提高间隔
-RETRY_TIMES = config.get("retry_times", 2)                 # 重试次数
-RETRY_DELAY = config.get("retry_delay", 1.0)               # 初始重试延迟（秒）
+MAX_CONCURRENT = config.get("max_concurrent", 80)      # 同时运行的 worker 数量（也等于并发 page 数）
+WAIT_TIMEOUT = config.get("wait_timeout", 10)          # 页面加载超时（秒）
+RENDER_WAIT = config.get("render_wait", 0.3)           # 等待关键元素的额外时间
+SLEEP_BETWEEN = config.get("sleep_between", 0.01)      # 每次请求后的短暂休眠
+RETRY_TIMES = config.get("retry_times", 1)             # 失败重试次数
+RETRY_DELAY = config.get("retry_delay", 0.5)           # 重试延迟（秒）
+
+BATCH_SIZE = 200   # 批量写入行数
 
 os.makedirs("data", exist_ok=True)
 OUTPUT_FILE = os.path.join("data", f"{START_CID}-{END_CID}.txt")
@@ -41,9 +37,11 @@ OUTPUT_FILE = os.path.join("data", f"{START_CID}-{END_CID}.txt")
 global_total = END_CID - START_CID + 1
 global_completed = 0
 global_lock = Lock()
+write_buffer = []
+buffer_lock = Lock()
 start_time = None
 
-# ========== 内存监控 ==========
+# ---------- 内存监控 ----------
 try:
     import psutil
     PSUTIL_AVAILABLE = True
@@ -67,43 +65,43 @@ def format_time(seconds):
         return "0s"
     if seconds < 60:
         return f"{int(seconds)}s"
-    elif seconds < 3600:
-        minutes = int(seconds // 60)
-        secs = int(seconds % 60)
-        return f"{minutes}m {secs}s"
-    else:
-        hours = int(seconds // 3600)
-        minutes = int((seconds % 3600) // 60)
-        return f"{hours}h {minutes}m"
+    m, s = divmod(int(seconds), 60)
+    if m < 60:
+        return f"{m}m {s}s"
+    h, m = divmod(m, 60)
+    return f"{h}h {m}m"
 
-async def fetch_page_data(browser, cid, retry=0):
-    """单次请求，返回 (school_str, class_str) 或引发异常"""
-    user_agent = random.choice(USER_AGENTS)
-    proxy = None
-    if PROXY_LIST:
-        proxy_server = random.choice(PROXY_LIST)
-        proxy = {"server": proxy_server}
-    
-    context = await browser.new_context(
-        user_agent=user_agent,
-        proxy=proxy,
-        ignore_https_errors=True,
-        java_script_enabled=True
-    )
-    page = await context.new_page()
+# ---------- 批量写入 ----------
+async def flush_buffer():
+    global write_buffer
+    if not write_buffer:
+        return
+    async with buffer_lock:
+        if write_buffer:
+            with open(OUTPUT_FILE, "a", encoding="utf-8") as f:
+                f.write("".join(write_buffer))
+            write_buffer.clear()
+
+async def add_to_buffer(line):
+    global write_buffer
+    async with buffer_lock:
+        write_buffer.append(line)
+        if len(write_buffer) >= BATCH_SIZE:
+            await flush_buffer()
+
+# ---------- 页面数据提取（复用 page） ----------
+async def fetch_page_data(page, cid):
+    """使用已存在的 page 对象提取数据，不新建 context"""
     url = f"https://www.eeo.cn/s/a/?cid={cid}"
     try:
-        # 使用 domcontentloaded 更快，不需要等待所有资源
         await page.goto(url, timeout=WAIT_TIMEOUT * 1000, wait_until="domcontentloaded")
-        # 等待 body 存在
         await page.wait_for_selector("body", timeout=WAIT_TIMEOUT * 1000)
-        # 等待关键元素短时间
         try:
             await page.wait_for_selector("p.courseName, p.schoolName", timeout=RENDER_WAIT * 1000)
         except:
             pass
 
-        # 提取班级名称
+        # 班级名称
         class_name = None
         elem = await page.query_selector("p.courseName")
         if elem:
@@ -118,7 +116,7 @@ async def fetch_page_data(browser, cid, retry=0):
                     class_name = parts[-1].strip()
         class_str = class_name if class_name else "无"
 
-        # 提取学校名称
+        # 学校名称
         school_name = None
         elem = await page.query_selector("p.schoolName")
         if elem:
@@ -127,73 +125,80 @@ async def fetch_page_data(browser, cid, retry=0):
                 school_name = text
         school_str = school_name if school_name else "无"
 
-        await page.close()
-        await context.close()
         return school_str, class_str
     except Exception as e:
-        await page.close()
-        await context.close()
-        # 如果是超时或网络错误且还有重试次数，则延迟后重试
+        raise e
+
+# ---------- 带重试的单个 CID 处理（复用同一个 page） ----------
+async def process_cid_with_retry(page, cid, retry=0):
+    """使用传入的 page 对象，内部重试"""
+    try:
+        school_str, class_str = await fetch_page_data(page, cid)
+        return school_str, class_str
+    except Exception as e:
         if retry < RETRY_TIMES and ("timeout" in str(e).lower() or "net::" in str(e).lower()):
-            delay = RETRY_DELAY * (2 ** retry)  # 指数退避
+            delay = RETRY_DELAY * (2 ** retry)
             await asyncio.sleep(delay)
-            return await fetch_page_data(browser, cid, retry+1)
+            return await process_cid_with_retry(page, cid, retry + 1)
         else:
             raise e
 
-async def process_cid(browser, cid, semaphore, total_tasks, thread_name="async"):
+# ---------- Worker：持有一个 context 和一个 page，处理一批 CID ----------
+async def worker(browser, cid_list, worker_id):
     global global_completed, start_time
-    async with semaphore:
+    # 创建固定的 context（随机 UA 和代理）
+    context = await browser.new_context(
+        user_agent=random.choice(USER_AGENTS),
+        proxy={"server": random.choice(PROXY_LIST)} if PROXY_LIST else None,
+        ignore_https_errors=True,
+        java_script_enabled=True
+    )
+    page = await context.new_page()
+
+    for cid in cid_list:
         try:
-            school_str, class_str = await fetch_page_data(browser, cid)
+            school_str, class_str = await process_cid_with_retry(page, cid)
+
+            # 更新全局计数
             async with global_lock:
                 global_completed += 1
-                cur_global = global_completed
+                cur = global_completed
             elapsed = time.time() - start_time
-            ratio = cur_global / global_total
-            if ratio > 0:
-                remaining = (elapsed / ratio) - elapsed
-                remain_str = format_time(remaining)
-            else:
-                remain_str = "未知"
+            ratio = cur / global_total
+            remain_str = format_time((elapsed / ratio) - elapsed) if ratio > 0 else "未知"
             mem_str = get_system_memory_str()
-            print(f"[{thread_name}] (进度：{cur_global}/{global_total}) (内存: {mem_str}) (剩余：{remain_str}) {cid} | 机构: {school_str} | 班级: {class_str}", flush=True)
+            print(f"[W{worker_id}] ({cur}/{global_total}) 内存:{mem_str} 剩余:{remain_str} {cid} | {school_str} | {class_str}", flush=True)
 
+            # 有效班级才写入缓冲区
             if not (class_str == "无" and school_str == "无"):
-                with open(OUTPUT_FILE, "a", encoding="utf-8") as f:
-                    f.write(f"{cid} https://www.eeo.cn/s/a/?cid={cid} {school_str} {class_str}\n")
-                return True
-            return False
+                await add_to_buffer(f"{cid} https://www.eeo.cn/s/a/?cid={cid} {school_str} {class_str}\n")
+
         except Exception as e:
             async with global_lock:
                 global_completed += 1
-                cur_global = global_completed
+                cur = global_completed
             elapsed = time.time() - start_time
-            ratio = cur_global / global_total if global_total > 0 else 0
-            if ratio > 0:
-                remaining = (elapsed / ratio) - elapsed
-                remain_str = format_time(remaining)
-            else:
-                remain_str = "未知"
+            ratio = cur / global_total if global_total > 0 else 0
+            remain_str = format_time((elapsed / ratio) - elapsed) if ratio > 0 else "未知"
             mem_str = get_system_memory_str()
-            if "timeout" in str(e).lower():
-                print(f"[{thread_name}] (进度：{cur_global}/{global_total}) (内存: {mem_str}) (剩余：{remain_str}) {cid} 最终超时（已重试{RETRY_TIMES}次）", flush=True)
-            else:
-                print(f"[{thread_name}] (进度：{cur_global}/{global_total}) (内存: {mem_str}) (剩余：{remain_str}) {cid} 最终错误: {e}", flush=True)
-            return False
+            print(f"[W{worker_id}] ({cur}/{global_total}) 内存:{mem_str} 剩余:{remain_str} {cid} 错误: {str(e)[:50]}", flush=True)
 
+        await asyncio.sleep(SLEEP_BETWEEN)
+
+    await page.close()
+    await context.close()
+
+# ---------- 主函数 ----------
 async def main_async():
     global start_time
     start_time = time.time()
-    print(f"班级范围: {START_CID} - {END_CID}")
-    print(f"最大并发数: {MAX_CONCURRENT}")
-    print(f"代理数量: {len(PROXY_LIST)} (已启用)" if PROXY_LIST else "代理: 未启用")
-    print(f"User-Agent 池大小: {len(USER_AGENTS)}")
-    print(f"超时设置: {WAIT_TIMEOUT}s, 重试次数: {RETRY_TIMES}")
-    total = END_CID - START_CID + 1
-    print(f"总班级数: {total}")
+
+    print(f"班级范围: {START_CID} - {END_CID} (共 {global_total} 个)")
+    print(f"Worker 并发数: {MAX_CONCURRENT}")
+    print(f"批量写入大小: {BATCH_SIZE}")
     print(f"结果保存至: {OUTPUT_FILE}\n")
 
+    # 清空输出文件
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         f.write("")
 
@@ -201,44 +206,35 @@ async def main_async():
         browser = await p.chromium.launch(
             headless=True,
             args=[
-                "--disable-gpu",
-                "--disable-dev-shm-usage",
-                "--no-sandbox",
-                "--disable-setuid-sandbox",
-                "--disable-accelerated-2d-canvas",
-                "--disable-background-networking",
-                "--disable-background-timer-throttling",
-                "--disable-backgrounding-occluded-windows",
-                "--disable-breakpad",
-                "--disable-client-side-phishing-detection",
-                "--disable-default-apps",
-                "--disable-extensions",
-                "--disable-features=TranslateUI,BlinkGenPropertyTrees",
-                "--disable-hang-monitor",
-                "--disable-ipc-flooding-protection",
-                "--disable-popup-blocking",
-                "--disable-prompt-on-repost",
-                "--disable-renderer-backgrounding",
-                "--disable-sync",
-                "--disable-software-rasterizer",
-                "--metrics-recording-only",
-                "--no-first-run",
-                "--safebrowsing-disable-auto-update",
-                "--disable-logging",
-                "--silent",
-                "--js-flags=--max-old-space-size=128"
+                "--disable-gpu", "--disable-dev-shm-usage", "--no-sandbox",
+                "--disable-setuid-sandbox", "--disable-accelerated-2d-canvas",
+                "--disable-background-networking", "--disable-background-timer-throttling",
+                "--disable-backgrounding-occluded-windows", "--disable-breakpad",
+                "--disable-client-side-phishing-detection", "--disable-default-apps",
+                "--disable-extensions", "--disable-features=TranslateUI,BlinkGenPropertyTrees",
+                "--disable-hang-monitor", "--disable-ipc-flooding-protection",
+                "--disable-popup-blocking", "--disable-prompt-on-repost",
+                "--disable-renderer-backgrounding", "--disable-sync",
+                "--disable-software-rasterizer", "--metrics-recording-only",
+                "--no-first-run", "--safebrowsing-disable-auto-update",
+                "--disable-logging", "--silent", "--js-flags=--max-old-space-size=128"
             ]
         )
-        semaphore = Semaphore(MAX_CONCURRENT)
-        tasks = []
-        for cid in range(START_CID, END_CID + 1):
-            tasks.append(asyncio.create_task(process_cid(browser, cid, semaphore, total, thread_name="A")))
-        results = await asyncio.gather(*tasks)
-        valid = sum(1 for r in results if r)
+
+        # 将 CID 均匀分配给多个 worker
+        all_cids = list(range(START_CID, END_CID + 1))
+        worker_count = min(MAX_CONCURRENT, len(all_cids))
+        chunk_size = (len(all_cids) + worker_count - 1) // worker_count
+        chunks = [all_cids[i*chunk_size:(i+1)*chunk_size] for i in range(worker_count)]
+
+        tasks = [asyncio.create_task(worker(browser, chunk, i)) for i, chunk in enumerate(chunks) if chunk]
+        await asyncio.gather(*tasks)
 
         await browser.close()
-        elapsed_total = time.time() - start_time
-        print(f"\n探测完成！有效班级数: {valid}，总耗时: {format_time(elapsed_total)}，结果保存至 {OUTPUT_FILE}")
+        await flush_buffer()   # 最后刷新缓冲区
+
+    elapsed_total = time.time() - start_time
+    print(f"\n✅ 扫描完成！总耗时: {format_time(elapsed_total)}，结果保存至 {OUTPUT_FILE}")
 
 def main():
     asyncio.run(main_async())
