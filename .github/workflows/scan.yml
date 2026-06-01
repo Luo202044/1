@@ -1,4 +1,4 @@
-name: ClassIn Scanner (Playwright + asyncio)
+name: ClassIn Scanne
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
       shards:
         description: '分片数量（自定义）'
         required: true
-        default: '2'
+        default: '20'
 
 permissions:
   contents: write
@@ -53,7 +53,7 @@ jobs:
               shard_cfg["start_cid"] = s
               shard_cfg["end_cid"] = e
               if "max_concurrent" not in shard_cfg:
-                  shard_cfg["max_concurrent"] = shard_cfg.get("threads", 30)
+                  shard_cfg["max_concurrent"] = shard_cfg.get("threads", 40)
               shard_configs.append(shard_cfg)
               print(f"分片 {i} : {s} ~ {e}")
           
@@ -65,6 +65,7 @@ jobs:
   scan_shard:
     needs: master
     runs-on: ubuntu-latest
+    timeout-minutes: 340   # 5小时40分钟，比脚本超时多10分钟缓冲
     strategy:
       fail-fast: false
       matrix:
@@ -91,12 +92,20 @@ jobs:
         with:
           python-version: '3.10'
 
+      - name: 缓存 Playwright 浏览器
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-chromium
+
       - name: 安装依赖
         run: |
           pip install playwright psutil
           playwright install chromium
 
       - name: 运行 Playwright 扫描脚本
+        env:
+          PYTHONUNBUFFERED: 1
         run: python scanner_playwright.py
 
       - name: 上传分片结果（工作流附件）
@@ -119,25 +128,13 @@ jobs:
         with:
           path: artifacts
 
-      - name: 复制所有结果文件到临时目录
-        run: |
-          mkdir -p temp_data
-          find artifacts -name "*.txt" -exec cp {} temp_data/ \;
-
       - name: 拆分结果文件（每600行一个文件）
         run: |
           mkdir -p data
-          for file in temp_data/*.txt; do
-            if [ -f "$file" ]; then
-              # 获取文件名（不含路径和扩展名）
-              base=$(basename "$file" .txt)
-              # 使用 awk 按 600 行拆分，生成 base_1.txt, base_2.txt, ...
-              awk -v prefix="data/${base}_" 'NR%600==1 {file=prefix ++c ".txt"} {print > file}' "$file"
-              echo "拆分 $file 完成，生成文件数: $(ls data/${base}_*.txt 2>/dev/null | wc -l)"
-            fi
+          find artifacts -name "*.txt" | while read file; do
+            base=$(basename "$file" .txt)
+            awk -v prefix="data/${base}_" 'NR%600==1 {file=prefix ++c ".txt"} {print > file}' "$file"
           done
-          # 清理临时目录
-          rm -rf temp_data
 
       - name: 提交并推送结果
         run: |
