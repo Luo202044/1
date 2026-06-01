@@ -16,13 +16,17 @@ USER_AGENTS = [
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
 ]
 
+# ========== 超时设置（5小时30分钟 = 19800秒）==========
+TIMEOUT_SECONDS = 5.5 * 3600   # 19800
+stop_flag = False              # 全局停止标志
+
 # ========== 加载配置 ==========
 with open("config.json", "r", encoding="utf-8") as f:
     config = json.load(f)
 
 START_CID = config["start_cid"]
 END_CID = config["end_cid"]
-MAX_CONCURRENT = config.get("max_concurrent", 80)      # 同时运行的 worker 数量（也等于并发 page 数）
+MAX_CONCURRENT = config.get("max_concurrent", 80)      # 同时运行的 worker 数量
 WAIT_TIMEOUT = config.get("wait_timeout", 10)          # 页面加载超时（秒）
 RENDER_WAIT = config.get("render_wait", 0.3)           # 等待关键元素的额外时间
 SLEEP_BETWEEN = config.get("sleep_between", 0.01)      # 每次请求后的短暂休眠
@@ -41,7 +45,7 @@ write_buffer = []
 buffer_lock = Lock()
 start_time = None
 
-# ---------- 内存监控 ----------
+# ---------- 系统资源监控 ----------
 try:
     import psutil
     PSUTIL_AVAILABLE = True
@@ -59,6 +63,16 @@ def get_system_memory_str():
         return f"{used_gb:.2f}GB/{TOTAL_MEM_GB:.1f}GB"
     except Exception:
         return "?GB/?GB"
+
+def get_cpu_percent_str():
+    if not PSUTIL_AVAILABLE:
+        return "N/A"
+    try:
+        # 非阻塞获取 CPU 使用率（采样间隔 0 秒）
+        cpu = psutil.cpu_percent(interval=0)
+        return f"{cpu:.1f}"
+    except Exception:
+        return "?"
 
 def format_time(seconds):
     if seconds < 0:
@@ -145,8 +159,7 @@ async def process_cid_with_retry(page, cid, retry=0):
 
 # ---------- Worker：持有一个 context 和一个 page，处理一批 CID ----------
 async def worker(browser, cid_list, worker_id):
-    global global_completed, start_time
-    # 创建固定的 context（随机 UA 和代理）
+    global global_completed, start_time, stop_flag
     context = await browser.new_context(
         user_agent=random.choice(USER_AGENTS),
         proxy={"server": random.choice(PROXY_LIST)} if PROXY_LIST else None,
@@ -156,10 +169,13 @@ async def worker(browser, cid_list, worker_id):
     page = await context.new_page()
 
     for cid in cid_list:
+        # 检查超时停止标志
+        if stop_flag:
+            break
+
         try:
             school_str, class_str = await process_cid_with_retry(page, cid)
 
-            # 更新全局计数
             async with global_lock:
                 global_completed += 1
                 cur = global_completed
@@ -167,9 +183,9 @@ async def worker(browser, cid_list, worker_id):
             ratio = cur / global_total
             remain_str = format_time((elapsed / ratio) - elapsed) if ratio > 0 else "未知"
             mem_str = get_system_memory_str()
-            print(f"[W{worker_id}] ({cur}/{global_total}) 内存:{mem_str} 剩余:{remain_str} {cid} | {school_str} | {class_str}", flush=True)
+            cpu_str = get_cpu_percent_str()
+            print(f"[W{worker_id}] ({cur}/{global_total}) 内存:{mem_str} cpu:{cpu_str}% 剩余:{remain_str} {cid} | {school_str} | {class_str}", flush=True)
 
-            # 有效班级才写入缓冲区
             if not (class_str == "无" and school_str == "无"):
                 await add_to_buffer(f"{cid} https://www.eeo.cn/s/a/?cid={cid} {school_str} {class_str}\n")
 
@@ -181,21 +197,31 @@ async def worker(browser, cid_list, worker_id):
             ratio = cur / global_total if global_total > 0 else 0
             remain_str = format_time((elapsed / ratio) - elapsed) if ratio > 0 else "未知"
             mem_str = get_system_memory_str()
-            print(f"[W{worker_id}] ({cur}/{global_total}) 内存:{mem_str} 剩余:{remain_str} {cid} 错误: {str(e)[:50]}", flush=True)
+            cpu_str = get_cpu_percent_str()
+            print(f"[W{worker_id}] ({cur}/{global_total}) 内存:{mem_str} cpu:{cpu_str}% 剩余:{remain_str} {cid} 错误: {str(e)[:50]}", flush=True)
 
         await asyncio.sleep(SLEEP_BETWEEN)
 
     await page.close()
     await context.close()
 
+# ---------- 超时监控协程 ----------
+async def timeout_monitor():
+    global stop_flag
+    await asyncio.sleep(TIMEOUT_SECONDS)
+    if not stop_flag:
+        stop_flag = True
+        print(f"\n⚠️ 已达到运行时间上限（{TIMEOUT_SECONDS/3600:.1f}小时），正在优雅停止...", flush=True)
+
 # ---------- 主函数 ----------
 async def main_async():
-    global start_time
+    global start_time, stop_flag
     start_time = time.time()
 
     print(f"班级范围: {START_CID} - {END_CID} (共 {global_total} 个)")
     print(f"Worker 并发数: {MAX_CONCURRENT}")
     print(f"批量写入大小: {BATCH_SIZE}")
+    print(f"超时限制: {TIMEOUT_SECONDS/3600:.1f} 小时")
     print(f"结果保存至: {OUTPUT_FILE}\n")
 
     # 清空输出文件
@@ -227,14 +253,29 @@ async def main_async():
         chunk_size = (len(all_cids) + worker_count - 1) // worker_count
         chunks = [all_cids[i*chunk_size:(i+1)*chunk_size] for i in range(worker_count)]
 
-        tasks = [asyncio.create_task(worker(browser, chunk, i)) for i, chunk in enumerate(chunks) if chunk]
-        await asyncio.gather(*tasks)
+        # 启动超时监控任务
+        timeout_task = asyncio.create_task(timeout_monitor())
 
+        # 启动所有 worker
+        tasks = [asyncio.create_task(worker(browser, chunk, i)) for i, chunk in enumerate(chunks) if chunk]
+        await asyncio.gather(*tasks, return_exceptions=True)
+
+        # 取消超时监控任务（如果尚未触发）
+        timeout_task.cancel()
+        try:
+            await timeout_task
+        except asyncio.CancelledError:
+            pass
+
+        # 刷新缓冲区，关闭浏览器
+        await flush_buffer()
         await browser.close()
-        await flush_buffer()   # 最后刷新缓冲区
 
     elapsed_total = time.time() - start_time
-    print(f"\n✅ 扫描完成！总耗时: {format_time(elapsed_total)}，结果保存至 {OUTPUT_FILE}")
+    if stop_flag:
+        print(f"\n⏰ 程序因超时自动停止（已运行 {format_time(elapsed_total)}），结果已保存至 {OUTPUT_FILE}")
+    else:
+        print(f"\n✅ 扫描完成！总耗时: {format_time(elapsed_total)}，结果保存至 {OUTPUT_FILE}")
 
 def main():
     asyncio.run(main_async())
