@@ -63,7 +63,6 @@ jobs:
       - uses: actions/checkout@v4
       - name: 生成当前分片的 config.json
         run: |
-          # 使用 jq 提取配置，避免复杂的 GitHub 表达式
           echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[${{ matrix.shard_idx }}]" > config.json
           cat config.json
       - uses: actions/setup-python@v5
@@ -124,7 +123,6 @@ jobs:
           if [ -z "$retry_indices" ]; then
             echo "retry_list=[]" >> $GITHUB_OUTPUT
           else
-            # 转换为 JSON 数组
             retry_list=$(echo "$retry_indices" | jq -R 'split(",")')
             echo "retry_list=${retry_list}" >> $GITHUB_OUTPUT
           fi
@@ -171,6 +169,7 @@ jobs:
 
   final_upload:
     needs: [scan_shard_first, scan_shard_second]
+    if: always() && !cancelled()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -183,7 +182,7 @@ jobs:
       - name: 合并并拆分结果文件
         run: |
           mkdir -p final_data
-          find all_results -name "*.txt" | while read file; do
+          find all_results -name "*.txt" 2>/dev/null | while read file; do
             base=$(basename "$file" .txt)
             awk -v prefix="final_data/${base}_" 'NR%600==1 {file=prefix ++c ".txt"} {print > file}' "$file"
           done
