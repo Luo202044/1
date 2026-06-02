@@ -5,23 +5,31 @@ import json
 import asyncio
 import time
 import os
+import sys
 import random
 from asyncio import Lock
 from playwright.async_api import async_playwright
 
-# ========== 用户配置 ==========
-PROXY_LIST = []   # 代理列表，例如 ["http://user:pass@ip:port"]
-USER_AGENTS = [
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-]
+# ========== 强制无缓冲输出 ==========
+sys.stdout.reconfigure(line_buffering=True)
+sys.stderr.reconfigure(line_buffering=True)
 
-# ========== 加载配置 ==========
+# ========== 配置加载 ==========
+if not os.path.exists("config.json"):
+    print("错误: config.json 不存在", flush=True)
+    sys.exit(1)
+
 with open("config.json", "r", encoding="utf-8") as f:
     config = json.load(f)
 
-START_CID = config["start_cid"]
-END_CID = config["end_cid"]
+if not config.get("should_scan", True):
+    print("should_scan 为 false，跳过扫描", flush=True)
+    sys.exit(0)
+
+# 基础配置
+START_CID = config.get("start_cid")
+END_CID = config.get("end_cid")
+CID_LIST_FILE = config.get("cid_list_file")
 MAX_CONCURRENT = config.get("max_concurrent", 40)
 WAIT_TIMEOUT = config.get("wait_timeout", 10)
 RENDER_WAIT = config.get("render_wait", 0.5)
@@ -30,20 +38,37 @@ RETRY_TIMES = config.get("retry_times", 1)
 RETRY_DELAY = config.get("retry_delay", 0.5)
 TIMEOUT_HOURS = config.get("timeout_hours", 5.5)
 TIMEOUT_SECONDS = TIMEOUT_HOURS * 3600
-
-BATCH_SIZE = 200
+BATCH_SIZE = config.get("batch_size", 200)
+MAX_RETRY_ON_CLOSED = config.get("max_retry_on_closed", 3)   # 页面关闭重试次数
 
 os.makedirs("data", exist_ok=True)
-OUTPUT_FILE = os.path.join("data", f"{START_CID}-{END_CID}.txt")
 
-global_total = END_CID - START_CID + 1
+# 输出文件路径
+if START_CID is not None and END_CID is not None:
+    OUTPUT_FILE = os.path.join("data", f"{START_CID}-{END_CID}.txt")
+else:
+    base = os.path.basename(CID_LIST_FILE).replace(".txt", "")
+    OUTPUT_FILE = os.path.join("data", f"list_{base}.txt")
+
+# 未完成标志文件
+SHARD_IDX = os.environ.get("SHARD_IDX", "unknown")
+UNFINISHED_FLAG = f"unfinished_{SHARD_IDX}.flag"
+
+# 全局状态
+global_total = 0
 global_completed = 0
 global_lock = Lock()
 write_buffer = []
 buffer_lock = Lock()
 start_time = None
-
 stop_event = asyncio.Event()
+
+# ---------- 代理和UA ----------
+PROXY_LIST = []   # 填写代理 ["http://user:pass@ip:port"]
+USER_AGENTS = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+]
 
 # ---------- 资源监控 ----------
 try:
@@ -158,18 +183,21 @@ async def process_cid_with_retry(page, cid, retry=0):
         else:
             raise e
 
-# ---------- Worker (带自动重建 page) ----------
+# ---------- Worker（带页面关闭重试） ----------
 async def worker(browser, cid_list, worker_id):
     global global_completed, start_time
     context = None
     page = None
+    closed_retry_count = {}
 
     async def ensure_page():
         nonlocal context, page
-        # 如果 page 存在且未关闭，直接返回
+        # 关闭旧资源
         if page and not page.is_closed():
-            return
-        # 否则关闭旧资源并重建
+            try:
+                await page.close()
+            except:
+                pass
         if context:
             try:
                 await context.close()
@@ -182,13 +210,31 @@ async def worker(browser, cid_list, worker_id):
             java_script_enabled=True
         )
         page = await context.new_page()
+        # 验证 page 可用
+        try:
+            await page.evaluate("1+1")
+        except Exception as e:
+            raise Exception(f"新建 page 不可用: {e}")
 
     try:
-        for cid in cid_list:
+        # 初始创建
+        await ensure_page()
+
+        for idx, cid in enumerate(cid_list):
             if stop_event.is_set():
+                remaining = cid_list[idx:]
+                if remaining:
+                    with open(f"unfinished_worker_{worker_id}.txt", "a") as f:
+                        for c in remaining:
+                            f.write(f"{c}\n")
                 break
 
-            await ensure_page()  # 确保页面可用
+            retry_cnt = closed_retry_count.get(cid, 0)
+            if retry_cnt >= MAX_RETRY_ON_CLOSED:
+                async with global_lock:
+                    global_completed += 1
+                print(f"[W{worker_id}] 放弃 {cid}: 页面关闭重试已达上限 {MAX_RETRY_ON_CLOSED} 次", flush=True)
+                continue
 
             try:
                 school_str, class_str = await process_cid_with_retry(page, cid)
@@ -207,16 +253,33 @@ async def worker(browser, cid_list, worker_id):
                     print(f"[W{worker_id}] ({cur}/{global_total}) 内存:{mem_str} cpu:{cpu_str}% 剩余:{remain_str} {cid} | {school_str} | {class_str}", flush=True)
                     await add_to_buffer(f"{cid} https://www.eeo.cn/s/a/?cid={cid} {school_str} {class_str}\n")
 
+                # 成功，清除重试记录
+                if cid in closed_retry_count:
+                    del closed_retry_count[cid]
+
             except Exception as e:
                 error_msg = str(e)
-                # 如果是因为页面/上下文/浏览器关闭，则重建并重试当前 cid
-                if "closed" in error_msg.lower():
-                    print(f"[W{worker_id}] 检测到 page 关闭，正在重建并重试 {cid}...", flush=True)
-                    # 重建 page
-                    await ensure_page()
-                    # 重试当前 cid（不增加 global_completed，也不打印错误）
+                # 精准检测页面/上下文/浏览器关闭错误
+                is_closed = any(phrase in error_msg for phrase in [
+                    "Target page, context or browser has been closed",
+                    "context has been closed",
+                    "page has been closed",
+                    "browser has been closed"
+                ])
+                if is_closed:
+                    closed_retry_count[cid] = retry_cnt + 1
+                    print(f"[W{worker_id}] 页面关闭 (cid={cid}, 重试 {closed_retry_count[cid]}/{MAX_RETRY_ON_CLOSED})，正在重建...", flush=True)
+                    try:
+                        await ensure_page()
+                    except Exception as rebuild_err:
+                        print(f"[W{worker_id}] 重建页面失败: {rebuild_err}", flush=True)
+                        # 如果浏览器也已关闭，退出 worker
+                        if "browser" in str(rebuild_err).lower():
+                            break
+                    # 重试当前 cid，不增加 global_completed
                     continue
                 else:
+                    # 其他错误，正常计数
                     async with global_lock:
                         global_completed += 1
                     error_line = error_msg.split("\n")[0][:100]
@@ -232,12 +295,27 @@ async def worker(browser, cid_list, worker_id):
 
 # ---------- 主函数 ----------
 async def main_async():
-    global start_time
+    global start_time, global_total
     start_time = time.time()
-    print(f"班级范围: {START_CID} - {END_CID} (共 {global_total} 个)")
+
+    # 确定扫描列表
+    if CID_LIST_FILE:
+        with open(CID_LIST_FILE, "r") as f:
+            cid_list = [int(line.strip()) for line in f if line.strip()]
+        global_total = len(cid_list)
+        print(f"列表模式: 从 {CID_LIST_FILE} 读取 {global_total} 个班级")
+    else:
+        if START_CID is None or END_CID is None:
+            print("错误: 必须指定 start_cid/end_cid 或 cid_list_file", flush=True)
+            sys.exit(1)
+        cid_list = list(range(START_CID, END_CID + 1))
+        global_total = len(cid_list)
+        print(f"区间模式: {START_CID} ~ {END_CID} (共 {global_total} 个)")
+
     print(f"Worker 并发数: {MAX_CONCURRENT}")
     print(f"批量写入大小: {BATCH_SIZE}")
     print(f"超时限制: {TIMEOUT_HOURS} 小时 ({TIMEOUT_SECONDS} 秒)")
+    print(f"页面关闭最大重试: {MAX_RETRY_ON_CLOSED}")
     print(f"结果保存至: {OUTPUT_FILE}")
     print("控制台仅输出有效班级和简洁错误信息。\n")
 
@@ -263,10 +341,10 @@ async def main_async():
             ]
         )
 
-        all_cids = list(range(START_CID, END_CID + 1))
-        worker_count = min(MAX_CONCURRENT, len(all_cids))
-        chunk_size = (len(all_cids) + worker_count - 1) // worker_count
-        chunks = [all_cids[i*chunk_size:(i+1)*chunk_size] for i in range(worker_count)]
+        # 分配 CID 给 workers
+        worker_count = min(MAX_CONCURRENT, len(cid_list))
+        chunk_size = (len(cid_list) + worker_count - 1) // worker_count
+        chunks = [cid_list[i*chunk_size:(i+1)*chunk_size] for i in range(worker_count)]
         tasks = [asyncio.create_task(worker(browser, chunk, i)) for i, chunk in enumerate(chunks) if chunk]
 
         async def set_stop():
@@ -281,10 +359,34 @@ async def main_async():
         await browser.close()
 
     elapsed_total = time.time() - start_time
+
     if stop_event.is_set():
-        print(f"\n⏰ 程序因超时自动停止（已运行 {format_time(elapsed_total)}），结果已保存至 {OUTPUT_FILE}")
+        with open(UNFINISHED_FLAG, "w") as f:
+            f.write(f"Timeout at {time.ctime()}\n")
+            f.write(f"Processed {global_completed}/{global_total}\n")
+        print(f"\n⚠️ 扫描未完成，已生成 {UNFINISHED_FLAG}", flush=True)
+
+        # 合并 worker 未完成列表
+        unfinished_cids = set()
+        for i in range(worker_count):
+            wfile = f"unfinished_worker_{i}.txt"
+            if os.path.exists(wfile):
+                with open(wfile, "r") as f:
+                    for line in f:
+                        if line.strip():
+                            unfinished_cids.add(int(line.strip()))
+                os.remove(wfile)
+        if unfinished_cids:
+            with open(f"unfinished_cids_{SHARD_IDX}.txt", "w") as f:
+                for cid in sorted(unfinished_cids):
+                    f.write(f"{cid}\n")
+            print(f"记录了 {len(unfinished_cids)} 个未完成的 CID", flush=True)
     else:
-        print(f"\n✅ 扫描完成！总耗时: {format_time(elapsed_total)}，结果已保存至 {OUTPUT_FILE}")
+        if os.path.exists(UNFINISHED_FLAG):
+            os.remove(UNFINISHED_FLAG)
+        print(f"\n✅ 扫描完成！总耗时: {format_time(elapsed_total)}，结果保存至 {OUTPUT_FILE}")
+
+    print(f"最终处理班级数: {global_completed}/{global_total}", flush=True)
 
 def main():
     asyncio.run(main_async())
