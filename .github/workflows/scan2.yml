@@ -19,7 +19,7 @@ jobs:
       shard_configs: ${{ steps.calc_shards.outputs.shard_configs }}
     steps:
       - uses: actions/checkout@v4
-      - name: 计算分片配置
+      - name: 计算分片区间并生成配置
         id: calc_shards
         run: |
           START=$(jq -r '.start_cid' config.json)
@@ -61,9 +61,11 @@ jobs:
         shard_idx: ${{ fromJson(needs.master.outputs.shard_list) }}
     steps:
       - uses: actions/checkout@v4
-      - name: 生成分片配置
+      - name: 生成当前分片的 config.json
         run: |
-          echo '${{ toJson(fromJson(needs.master.outputs.shard_configs)[matrix.shard_idx]) }}' | jq . > config.json
+          # 使用 jq 提取配置，避免复杂的 GitHub 表达式
+          echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[${{ matrix.shard_idx }}]" > config.json
+          cat config.json
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
@@ -76,12 +78,12 @@ jobs:
         run: |
           pip install playwright psutil
           playwright install chromium
-      - name: 扫描
+      - name: 运行扫描
         env:
           PYTHONUNBUFFERED: 1
           SHARD_IDX: ${{ matrix.shard_idx }}
         run: python scanner_playwright.py
-      - name: 上传结果
+      - name: 上传有效结果
         uses: actions/upload-artifact@v4
         with:
           name: first-ok-shard-${{ matrix.shard_idx }}
@@ -102,26 +104,34 @@ jobs:
     outputs:
       retry_list: ${{ steps.retry.outputs.retry_list }}
     steps:
-      - uses: actions/download-artifact@v4
+      - name: 下载所有未完成标志
+        uses: actions/download-artifact@v4
         with:
           pattern: flag-*
           path: flags
           merge-multiple: false
-      - name: 解析需要重跑的分片
+      - name: 解析需要重跑的分片索引
         id: retry
         run: |
-          retry_list="[]"
+          retry_indices=""
           for dir in flags/flag-*/; do
-            if [ -d "$dir" ] && [ -f "${dir}unfinished_"*.flag ]; then
+            if [ -d "$dir" ] && [ -f "$dir/unfinished_"* ]; then
               idx=$(basename "$dir" | sed 's/flag-//')
-              retry_list=$(echo "$retry_list" | jq ". + [\"$idx\"]")
+              retry_indices="${retry_indices},${idx}"
             fi
           done
-          echo "retry_list=${retry_list}" >> $GITHUB_OUTPUT
+          retry_indices=$(echo "$retry_indices" | sed 's/^,//')
+          if [ -z "$retry_indices" ]; then
+            echo "retry_list=[]" >> $GITHUB_OUTPUT
+          else
+            # 转换为 JSON 数组
+            retry_list=$(echo "$retry_indices" | jq -R 'split(",")')
+            echo "retry_list=${retry_list}" >> $GITHUB_OUTPUT
+          fi
 
   scan_shard_second:
     needs: [master, collect_unfinished]
-    if: fromJson(needs.collect_unfinished.outputs.retry_list) | length > 0
+    if: fromJson(needs.collect_unfinished.outputs.retry_list).length > 0
     runs-on: ubuntu-latest
     timeout-minutes: 340
     strategy:
@@ -130,10 +140,10 @@ jobs:
         shard_idx: ${{ fromJson(needs.collect_unfinished.outputs.retry_list) }}
     steps:
       - uses: actions/checkout@v4
-      - name: 生成分片配置
+      - name: 生成补扫分片的 config.json
         run: |
-          CONFIG='${{ toJson(fromJson(needs.master.outputs.shard_configs)[matrix.shard_idx]) }}'
-          echo "$CONFIG" | jq '. + {should_scan: true}' > config.json
+          echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[${{ matrix.shard_idx }}]" | jq '. + {should_scan: true}' > config.json
+          cat config.json
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
@@ -146,7 +156,7 @@ jobs:
         run: |
           pip install playwright psutil
           playwright install chromium
-      - name: 补扫
+      - name: 运行补扫
         env:
           PYTHONUNBUFFERED: 1
           SHARD_IDX: ${{ matrix.shard_idx }}
@@ -164,16 +174,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: 下载所有结果
+      - name: 下载所有有效结果
         uses: actions/download-artifact@v4
         with:
           pattern: '*-ok-*'
           path: all_results
           merge-multiple: true
-      - name: 合并结果
+      - name: 合并并拆分结果文件
         run: |
           mkdir -p final_data
-          for file in all_results/*.txt; do
+          find all_results -name "*.txt" | while read file; do
             base=$(basename "$file" .txt)
             awk -v prefix="final_data/${base}_" 'NR%600==1 {file=prefix ++c ".txt"} {print > file}' "$file"
           done
