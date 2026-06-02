@@ -1,10 +1,10 @@
-name: ClassIn Scanne
+name: ClassIn Scanner 2.0 (Auto Retry)
 
 on:
   workflow_dispatch:
     inputs:
       shards:
-        description: '分片数量（自定义）'
+        description: '分片数量'
         required: true
         default: '20'
 
@@ -18,10 +18,8 @@ jobs:
       shard_list: ${{ steps.calc_shards.outputs.shard_list }}
       shard_configs: ${{ steps.calc_shards.outputs.shard_configs }}
     steps:
-      - name: 检出代码
-        uses: actions/checkout@v4
-
-      - name: 计算分片区间并生成配置片段（Python）
+      - uses: actions/checkout@v4
+      - name: 计算分片配置
         id: calc_shards
         run: |
           START=$(jq -r '.start_cid' config.json)
@@ -30,116 +28,159 @@ jobs:
           export START END SHARDS
           python << 'EOF'
           import json, math, os
-          
           start = int(os.environ['START'])
           end = int(os.environ['END'])
           shards = int(os.environ['SHARDS'])
-          
           total = end - start + 1
           shard_size = math.ceil(total / shards)
-          print(f"总班级数: {total}, 分片数: {shards}, 每片约 {shard_size} 个班级")
-          
-          with open('config.json', 'r') as f:
+          with open('config.json') as f:
               orig = json.load(f)
-          
           shard_indices = []
           shard_configs = []
-          
           for i in range(shards):
               s = start + i * shard_size
-              e = min(start + (i+1) * shard_size - 1, end)
+              e = min(start + (i+1)*shard_size - 1, end)
               shard_indices.append(str(i))
-              shard_cfg = orig.copy()
-              shard_cfg["start_cid"] = s
-              shard_cfg["end_cid"] = e
-              if "max_concurrent" not in shard_cfg:
-                  shard_cfg["max_concurrent"] = shard_cfg.get("threads", 40)
-              shard_configs.append(shard_cfg)
-              print(f"分片 {i} : {s} ~ {e}")
-          
+              cfg = orig.copy()
+              cfg["start_cid"] = s
+              cfg["end_cid"] = e
+              cfg["should_scan"] = True
+              shard_configs.append(cfg)
           with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
               out.write(f"shard_list={json.dumps(shard_indices)}\n")
               out.write(f"shard_configs={json.dumps(shard_configs)}\n")
           EOF
 
-  scan_shard:
+  scan_shard_first:
     needs: master
     runs-on: ubuntu-latest
-    timeout-minutes: 340   # 5小时40分钟，比脚本超时多10分钟缓冲
+    timeout-minutes: 340
     strategy:
       fail-fast: false
       matrix:
         shard_idx: ${{ fromJson(needs.master.outputs.shard_list) }}
     steps:
-      - name: 检出代码
-        uses: actions/checkout@v4
-
-      - name: 提取当前分片的配置
-        id: get_config
+      - uses: actions/checkout@v4
+      - name: 生成分片配置
         run: |
-          CONFIGS='${{ needs.master.outputs.shard_configs }}'
-          IDX=${{ matrix.shard_idx }}
-          CONFIG=$(echo "$CONFIGS" | jq -c ".[${IDX}]")
-          echo "config=${CONFIG}" >> $GITHUB_OUTPUT
-
-      - name: 生成当前分片的 config.json
-        run: |
-          echo '${{ steps.get_config.outputs.config }}' | jq . > config.json
-          cat config.json
-
-      - name: 设置 Python
-        uses: actions/setup-python@v5
+          echo '${{ toJson(fromJson(needs.master.outputs.shard_configs)[matrix.shard_idx]) }}' | jq . > config.json
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-
-      - name: 缓存 Playwright 浏览器
+      - name: 缓存 Playwright
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-chromium
-
       - name: 安装依赖
         run: |
           pip install playwright psutil
           playwright install chromium
-
-      - name: 运行 Playwright 扫描脚本
+      - name: 扫描
         env:
           PYTHONUNBUFFERED: 1
+          SHARD_IDX: ${{ matrix.shard_idx }}
         run: python scanner_playwright.py
-
-      - name: 上传分片结果（工作流附件）
+      - name: 上传结果
         uses: actions/upload-artifact@v4
         with:
-          name: result-shard-${{ matrix.shard_idx }}
+          name: first-ok-shard-${{ matrix.shard_idx }}
+          path: data/*.txt
+          if-no-files-found: warn
+          retention-days: 1
+      - name: 上传未完成标志
+        uses: actions/upload-artifact@v4
+        with:
+          name: flag-${{ matrix.shard_idx }}
+          path: unfinished_${{ matrix.shard_idx }}.flag
+          if-no-files-found: ignore
+          retention-days: 1
+
+  collect_unfinished:
+    needs: scan_shard_first
+    runs-on: ubuntu-latest
+    outputs:
+      retry_list: ${{ steps.retry.outputs.retry_list }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: flag-*
+          path: flags
+          merge-multiple: false
+      - name: 解析需要重跑的分片
+        id: retry
+        run: |
+          retry_list="[]"
+          for dir in flags/flag-*/; do
+            if [ -d "$dir" ] && [ -f "${dir}unfinished_"*.flag ]; then
+              idx=$(basename "$dir" | sed 's/flag-//')
+              retry_list=$(echo "$retry_list" | jq ". + [\"$idx\"]")
+            fi
+          done
+          echo "retry_list=${retry_list}" >> $GITHUB_OUTPUT
+
+  scan_shard_second:
+    needs: [master, collect_unfinished]
+    if: fromJson(needs.collect_unfinished.outputs.retry_list) | length > 0
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      matrix:
+        shard_idx: ${{ fromJson(needs.collect_unfinished.outputs.retry_list) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: 生成分片配置
+        run: |
+          CONFIG='${{ toJson(fromJson(needs.master.outputs.shard_configs)[matrix.shard_idx]) }}'
+          echo "$CONFIG" | jq '. + {should_scan: true}' > config.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: 恢复 Playwright 缓存
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-chromium
+      - name: 安装依赖
+        run: |
+          pip install playwright psutil
+          playwright install chromium
+      - name: 补扫
+        env:
+          PYTHONUNBUFFERED: 1
+          SHARD_IDX: ${{ matrix.shard_idx }}
+        run: python scanner_playwright.py
+      - name: 上传补扫结果
+        uses: actions/upload-artifact@v4
+        with:
+          name: second-ok-shard-${{ matrix.shard_idx }}
           path: data/*.txt
           if-no-files-found: warn
           retention-days: 1
 
-  upload:
-    needs: scan_shard
+  final_upload:
+    needs: [scan_shard_first, scan_shard_second]
     runs-on: ubuntu-latest
     steps:
-      - name: 检出代码
-        uses: actions/checkout@v4
-
-      - name: 下载所有分片结果
+      - uses: actions/checkout@v4
+      - name: 下载所有结果
         uses: actions/download-artifact@v4
         with:
-          path: artifacts
-
-      - name: 拆分结果文件（每600行一个文件）
+          pattern: '*-ok-*'
+          path: all_results
+          merge-multiple: true
+      - name: 合并结果
         run: |
-          mkdir -p data
-          find artifacts -name "*.txt" | while read file; do
+          mkdir -p final_data
+          for file in all_results/*.txt; do
             base=$(basename "$file" .txt)
-            awk -v prefix="data/${base}_" 'NR%600==1 {file=prefix ++c ".txt"} {print > file}' "$file"
+            awk -v prefix="final_data/${base}_" 'NR%600==1 {file=prefix ++c ".txt"} {print > file}' "$file"
           done
-
-      - name: 提交并推送结果
+      - name: 提交到仓库
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/
-          git commit -m "Playwright 分片扫描结果（分片数：${{ github.event.inputs.shards }}，每文件≤600行） [skip ci]" || echo "无变更"
+          git add final_data/
+          git commit -m "最终扫描结果（自动重跑） [skip ci]" || echo "无变更"
           git push
