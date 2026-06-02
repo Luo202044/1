@@ -167,29 +167,44 @@ jobs:
           if-no-files-found: warn
           retention-days: 1
 
-  final_upload:
-    needs: [scan_shard_first, scan_shard_second]
-    if: always() && !cancelled()
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: 下载所有有效结果
-        uses: actions/download-artifact@v4
-        with:
-          pattern: '*-ok-*'
-          path: all_results
-          merge-multiple: true
-      - name: 合并并拆分结果文件
-        run: |
-          mkdir -p final_data
-          find all_results -name "*.txt" 2>/dev/null | while read file; do
-            base=$(basename "$file" .txt)
-            awk -v prefix="final_data/${base}_" 'NR%600==1 {file=prefix ++c ".txt"} {print > file}' "$file"
-          done
-      - name: 提交到仓库
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add final_data/
-          git commit -m "最终扫描结果（自动重跑） [skip ci]" || echo "无变更"
-          git push
+final_upload:
+  needs: [scan_shard_first, scan_shard_second]
+  if: always() && !cancelled()
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v4
+
+    - name: 下载所有有效结果
+      uses: actions/download-artifact@v4
+      with:
+        pattern: '*-ok-*'
+        path: all_results
+        merge-multiple: true
+      continue-on-error: true  # 即使没有 artifact 也不失败
+
+    - name: 合并并拆分结果文件
+      id: merge
+      run: |
+        mkdir -p final_data
+        # 递归查找所有 .txt 文件（忽略空目录）
+        mapfile -t txt_files < <(find all_results -type f -name "*.txt" 2>/dev/null || true)
+        if [ ${#txt_files[@]} -eq 0 ]; then
+          echo "⚠️ 没有找到任何结果文件，可能没有有效班级。"
+          echo "has_files=false" >> $GITHUB_OUTPUT
+          exit 0
+        fi
+        echo "找到 ${#txt_files[@]} 个结果文件"
+        for file in "${txt_files[@]}"; do
+          base=$(basename "$file" .txt)
+          awk -v prefix="final_data/${base}_" 'NR%600==1 {file=prefix ++c ".txt"} {print > file}' "$file"
+        done
+        echo "has_files=true" >> $GITHUB_OUTPUT
+
+    - name: 提交到仓库
+      if: steps.merge.outputs.has_files == 'true'
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add final_data/
+        git commit -m "最终扫描结果（自动重跑） [skip ci]" || echo "无变更"
+        git push
