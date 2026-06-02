@@ -188,6 +188,8 @@ jobs:
           if [ ${#txt_files[@]} -eq 0 ]; then
             echo "⚠️ 没有找到任何结果文件，可能没有有效班级。"
             echo "has_files=false" >> $GITHUB_OUTPUT
+            # 创建占位文件，表明扫描已完成但无数据
+            echo "No valid classes found during this scan." > final_data/NO_RESULTS.txt
             exit 0
           fi
           echo "找到 ${#txt_files[@]} 个结果文件"
@@ -197,7 +199,6 @@ jobs:
           done
           echo "has_files=true" >> $GITHUB_OUTPUT
       - name: 提交到仓库
-        if: steps.merge.outputs.has_files == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
