@@ -173,6 +173,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: 下载所有有效结果
         uses: actions/download-artifact@v4
         with:
@@ -180,28 +181,29 @@ jobs:
           path: all_results
           merge-multiple: true
         continue-on-error: true
-      - name: 合并并拆分结果文件
-        id: merge
+
+      - name: 合并所有分片结果并拆分（每600行一个文件）
         run: |
           mkdir -p final_data
-          mapfile -t txt_files < <(find all_results -type f -name "*.txt" 2>/dev/null || true)
-          if [ ${#txt_files[@]} -eq 0 ]; then
-            echo "⚠️ 没有找到任何结果文件，可能没有有效班级。"
-            echo "has_files=false" >> $GITHUB_OUTPUT
-            # 创建占位文件，表明扫描已完成但无数据
-            echo "No valid classes found during this scan." > final_data/NO_RESULTS.txt
-            exit 0
+          # 查找所有 .txt 文件，合并后按600行拆分
+          find all_results -name "*.txt" -exec cat {} + > all_merged.txt 2>/dev/null || true
+          if [ ! -s all_merged.txt ]; then
+            echo "没有找到任何结果文件，创建占位文件"
+            echo "No valid classes found." > final_data/NO_RESULTS.txt
+          else
+            echo "找到有效数据，开始拆分..."
+            awk 'NR%600==1 {file=sprintf("final_data/part_%03d.txt", ++c)} {print > file}' all_merged.txt
+            rm all_merged.txt
+            echo "拆分完成，共生成 $(ls final_data/part_*.txt 2>/dev/null | wc -l) 个文件"
           fi
-          echo "找到 ${#txt_files[@]} 个结果文件"
-          for file in "${txt_files[@]}"; do
-            base=$(basename "$file" .txt)
-            awk -v prefix="final_data/${base}_" 'NR%600==1 {file=prefix ++c ".txt"} {print > file}' "$file"
-          done
-          echo "has_files=true" >> $GITHUB_OUTPUT
-      - name: 提交到仓库
+
+      - name: 提交并推送到仓库
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add final_data/
-          git commit -m "最终扫描结果（自动重跑） [skip ci]" || echo "无变更"
-          git push
+          if git commit -m "最终扫描结果（自动合并+拆分） [skip ci]"; then
+            git push
+          else
+            echo "无变更需要提交"
+          fi
