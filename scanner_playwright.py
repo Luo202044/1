@@ -39,7 +39,7 @@ RETRY_DELAY = config.get("retry_delay", 0.5)
 TIMEOUT_HOURS = config.get("timeout_hours", 5.5)
 TIMEOUT_SECONDS = TIMEOUT_HOURS * 3600
 BATCH_SIZE = config.get("batch_size", 200)
-MAX_RETRY_ON_CLOSED = config.get("max_retry_on_closed", 3)   # 页面关闭重试次数
+MAX_RETRY_ON_CLOSED = config.get("max_retry_on_closed", 3)
 
 os.makedirs("data", exist_ok=True)
 
@@ -192,7 +192,6 @@ async def worker(browser, cid_list, worker_id):
 
     async def ensure_page():
         nonlocal context, page
-        # 关闭旧资源
         if page and not page.is_closed():
             try:
                 await page.close()
@@ -210,16 +209,13 @@ async def worker(browser, cid_list, worker_id):
             java_script_enabled=True
         )
         page = await context.new_page()
-        # 验证 page 可用
         try:
             await page.evaluate("1+1")
         except Exception as e:
             raise Exception(f"新建 page 不可用: {e}")
 
     try:
-        # 初始创建
         await ensure_page()
-
         for idx, cid in enumerate(cid_list):
             if stop_event.is_set():
                 remaining = cid_list[idx:]
@@ -238,7 +234,6 @@ async def worker(browser, cid_list, worker_id):
 
             try:
                 school_str, class_str = await process_cid_with_retry(page, cid)
-
                 async with global_lock:
                     global_completed += 1
                     cur = global_completed
@@ -253,13 +248,11 @@ async def worker(browser, cid_list, worker_id):
                     print(f"[W{worker_id}] ({cur}/{global_total}) 内存:{mem_str} cpu:{cpu_str}% 剩余:{remain_str} {cid} | {school_str} | {class_str}", flush=True)
                     await add_to_buffer(f"{cid} https://www.eeo.cn/s/a/?cid={cid} {school_str} {class_str}\n")
 
-                # 成功，清除重试记录
                 if cid in closed_retry_count:
                     del closed_retry_count[cid]
 
             except Exception as e:
                 error_msg = str(e)
-                # 精准检测页面/上下文/浏览器关闭错误
                 is_closed = any(phrase in error_msg for phrase in [
                     "Target page, context or browser has been closed",
                     "context has been closed",
@@ -273,13 +266,10 @@ async def worker(browser, cid_list, worker_id):
                         await ensure_page()
                     except Exception as rebuild_err:
                         print(f"[W{worker_id}] 重建页面失败: {rebuild_err}", flush=True)
-                        # 如果浏览器也已关闭，退出 worker
                         if "browser" in str(rebuild_err).lower():
                             break
-                    # 重试当前 cid，不增加 global_completed
                     continue
                 else:
-                    # 其他错误，正常计数
                     async with global_lock:
                         global_completed += 1
                     error_line = error_msg.split("\n")[0][:100]
