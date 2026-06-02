@@ -1,4 +1,4 @@
-name: ClassIn Scanner 2.0 (Auto Retry)
+name: ClassIn Scanner 2.0 (Auto Retry + Statistics)
 
 on:
   workflow_dispatch:
@@ -19,7 +19,15 @@ jobs:
       shard_configs: ${{ steps.calc_shards.outputs.shard_configs }}
     steps:
       - uses: actions/checkout@v4
-      - name: 计算分片区间并生成配置
+      - name: 记录开始时间
+        run: date -u +"%Y-%m-%d %H:%M:%S" > start_time.txt
+      - name: 上传开始时间
+        uses: actions/upload-artifact@v4
+        with:
+          name: start-time
+          path: start_time.txt
+          retention-days: 1
+      - name: 计算分片配置
         id: calc_shards
         run: |
           START=$(jq -r '.start_cid' config.json)
@@ -42,9 +50,9 @@ jobs:
               e = min(start + (i+1)*shard_size - 1, end)
               shard_indices.append(str(i))
               cfg = orig.copy()
-              cfg["start_cid"] = s
-              cfg["end_cid"] = e
-              cfg["should_scan"] = True
+              cfg['start_cid'] = s
+              cfg['end_cid'] = e
+              cfg['should_scan'] = True
               shard_configs.append(cfg)
           with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
               out.write(f"shard_list={json.dumps(shard_indices)}\n")
@@ -61,7 +69,7 @@ jobs:
         shard_idx: ${{ fromJson(needs.master.outputs.shard_list) }}
     steps:
       - uses: actions/checkout@v4
-      - name: 生成当前分片的 config.json
+      - name: 生成分片配置
         run: |
           echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[${{ matrix.shard_idx }}]" > config.json
           cat config.json
@@ -77,12 +85,12 @@ jobs:
         run: |
           pip install playwright psutil
           playwright install chromium
-      - name: 运行扫描
+      - name: 扫描
         env:
           PYTHONUNBUFFERED: 1
           SHARD_IDX: ${{ matrix.shard_idx }}
         run: python scanner_playwright.py
-      - name: 上传有效结果
+      - name: 上传结果
         uses: actions/upload-artifact@v4
         with:
           name: first-ok-shard-${{ matrix.shard_idx }}
@@ -96,6 +104,13 @@ jobs:
           path: unfinished_${{ matrix.shard_idx }}.flag
           if-no-files-found: ignore
           retention-days: 1
+      - name: 上传未完成CID列表
+        uses: actions/upload-artifact@v4
+        with:
+          name: unfinished-cids-${{ matrix.shard_idx }}
+          path: unfinished_cids_${{ matrix.shard_idx }}.txt
+          if-no-files-found: ignore
+          retention-days: 1
 
   collect_unfinished:
     needs: scan_shard_first
@@ -103,13 +118,13 @@ jobs:
     outputs:
       retry_list: ${{ steps.retry.outputs.retry_list }}
     steps:
-      - name: 下载所有未完成标志
+      - name: 下载标志
         uses: actions/download-artifact@v4
         with:
           pattern: flag-*
           path: flags
           merge-multiple: false
-      - name: 解析需要重跑的分片索引
+      - name: 解析需要重跑的分片
         id: retry
         run: |
           retry_indices=""
@@ -138,7 +153,7 @@ jobs:
         shard_idx: ${{ fromJson(needs.collect_unfinished.outputs.retry_list) }}
     steps:
       - uses: actions/checkout@v4
-      - name: 生成补扫分片的 config.json
+      - name: 生成补扫配置
         run: |
           echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[${{ matrix.shard_idx }}]" | jq '. + {should_scan: true}' > config.json
           cat config.json
@@ -154,7 +169,7 @@ jobs:
         run: |
           pip install playwright psutil
           playwright install chromium
-      - name: 运行补扫
+      - name: 补扫
         env:
           PYTHONUNBUFFERED: 1
           SHARD_IDX: ${{ matrix.shard_idx }}
@@ -166,6 +181,13 @@ jobs:
           path: data/*.txt
           if-no-files-found: warn
           retention-days: 1
+      - name: 上传补扫未完成CID
+        uses: actions/upload-artifact@v4
+        with:
+          name: unfinished-cids-${{ matrix.shard_idx }}
+          path: unfinished_cids_${{ matrix.shard_idx }}.txt
+          if-no-files-found: ignore
+          retention-days: 1
 
   final_upload:
     needs: [scan_shard_first, scan_shard_second]
@@ -173,36 +195,87 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: 下载所有有效结果
+      - name: 下载有效结果
         uses: actions/download-artifact@v4
         with:
           pattern: '*-ok-*'
           path: all_results
           merge-multiple: true
         continue-on-error: true
-
-      - name: 合并所有分片结果并拆分（每600行一个文件）
+      - name: 下载未完成CID列表
+        uses: actions/download-artifact@v4
+        with:
+          pattern: 'unfinished-cids-*'
+          path: unfinished_lists
+          merge-multiple: true
+        continue-on-error: true
+      - name: 下载开始时间
+        uses: actions/download-artifact@v4
+        with:
+          name: start-time
+          path: start_time
+        continue-on-error: true
+      - name: 统计并生成报告
         run: |
+          set -e
           mkdir -p final_data
-          # 查找所有 .txt 文件，合并后按600行拆分
-          find all_results -name "*.txt" -exec cat {} + > all_merged.txt 2>/dev/null || true
-          if [ ! -s all_merged.txt ]; then
-            echo "没有找到任何结果文件，创建占位文件"
-            echo "No valid classes found." > final_data/NO_RESULTS.txt
-          else
-            echo "找到有效数据，开始拆分..."
-            awk 'NR%600==1 {file=sprintf("final_data/part_%03d.txt", ++c)} {print > file}' all_merged.txt
-            rm all_merged.txt
-            echo "拆分完成，共生成 $(ls final_data/part_*.txt 2>/dev/null | wc -l) 个文件"
+
+          # 有效班级统计
+          VALID_COUNT=0
+          if find all_results -name "*.txt" -print0 2>/dev/null | xargs -0 cat > all_merged.txt 2>/dev/null; then
+            if [ -s all_merged.txt ]; then
+              VALID_COUNT=$(cut -d' ' -f1 all_merged.txt | sort -u | wc -l)
+              awk 'NR%600==1 {file=sprintf("final_data/part_%03d.txt", ++c)} {print > file}' all_merged.txt
+              rm all_merged.txt
+            fi
           fi
 
-      - name: 提交并推送到仓库
+          # 总班级数
+          START=$(jq -r '.start_cid' config.json)
+          END=$(jq -r '.end_cid' config.json)
+          TOTAL=$((END - START + 1))
+
+          # 未扫班级统计
+          UNFINISHED_COUNT=0
+          if find unfinished_lists -name "*.txt" -print0 2>/dev/null | xargs -0 cat 2>/dev/null | sort -u > tmp_unfinished; then
+            UNFINISHED_COUNT=$(wc -l < tmp_unfinished)
+            rm tmp_unfinished
+          fi
+
+          SCANNED=$((TOTAL - UNFINISHED_COUNT))
+          PERCENT=0
+          if [ $TOTAL -gt 0 ]; then
+            PERCENT=$(echo "scale=2; $SCANNED * 100 / $TOTAL" | bc)
+          fi
+          END_TIME=$(date -u +"%Y-%m-%d %H:%M:%S")
+
+          # 计算工作时间（使用 shell 计算时间差）
+          DURATION="未知"
+          if [ -f start_time/start_time.txt ]; then
+            start_epoch=$(date -u -d "$(cat start_time/start_time.txt)" +%s)
+            end_epoch=$(date -u +%s)
+            diff=$((end_epoch - start_epoch))
+            hours=$((diff / 3600))
+            minutes=$(((diff % 3600) / 60))
+            DURATION="${hours}小时${minutes}分钟"
+          fi
+
+          cat > nto.txt << EOF
+          总班级数: $TOTAL
+          有效班级: $VALID_COUNT
+          完成进度: $PERCENT%
+          未扫班级: $UNFINISHED_COUNT
+          结束时间: $END_TIME
+          工作时间: $DURATION
+          EOF
+          cat nto.txt
+          cp nto.txt final_data/
+      - name: 提交到仓库
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add final_data/
-          if git commit -m "最终扫描结果（自动合并+拆分） [skip ci]"; then
+          if git commit -m "最终扫描结果（自动合并+拆分+统计报告） [skip ci]"; then
             git push
           else
             echo "无变更需要提交"
