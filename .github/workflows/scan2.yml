@@ -114,72 +114,35 @@ jobs:
           if-no-files-found: ignore
           retention-days: 1
 
-collect_unfinished:
-  needs: scan_shard_first
-  runs-on: ubuntu-latest
-  outputs:
-    retry_list: ${{ steps.retry.outputs.retry_list }}
-  steps:
-    - name: 下载标志
-      uses: actions/download-artifact@v4
-      with:
-        pattern: flag-*
-        path: flags
-        merge-multiple: false
-    - name: 列出 flags 目录结构（调试）
-      run: |
-        echo "=== 当前目录 ==="
-        pwd
-        echo "=== flags 目录内容 ==="
-        ls -la flags/ || echo "flags 目录不存在"
-        echo "=== 每个分片子目录 ==="
-        for d in flags/flag-*/; do
-          echo "--- $d ---"
-          ls -la "$d" || echo "无法列出"
-        done
-    - name: 解析需要重跑的分片
-      id: retry
-      run: |
-        # 将 Python 脚本写入文件并执行，避免 heredoc 语法问题
-        cat > /tmp/get_retry.py << 'EOF'
-        import os, json, glob, sys
-
-        def debug(msg):
-            print(f"[DEBUG] {msg}", file=sys.stderr)
-
-        debug("开始解析未完成分片")
-        flags_dir = "flags"
-        if not os.path.isdir(flags_dir):
-            debug(f"目录 {flags_dir} 不存在")
-            retry_indices = []
-        else:
-            debug(f"flags 目录内容: {os.listdir(flags_dir)}")
-            retry_indices = []
-            for dirpath in glob.glob(f"{flags_dir}/flag-*/"):
-                debug(f"检查目录: {dirpath}")
-                # 列出目录下所有文件
-                try:
-                    files = os.listdir(dirpath)
-                    debug(f"  文件列表: {files}")
-                except Exception as e:
-                    debug(f"  无法列出文件: {e}")
-                    continue
-                # 查找以 unfinished_ 开头的文件
-                unfinished = [f for f in files if f.startswith("unfinished_")]
-                debug(f"  匹配的 unfinished 文件: {unfinished}")
-                if unfinished:
-                    idx = os.path.basename(dirpath.rstrip('/')).replace('flag-', '')
-                    retry_indices.append(idx)
-                    debug(f"  添加需要重跑的分片: {idx}")
-                else:
-                    debug(f"  没有 unfinished 文件，跳过")
-
-        output = json.dumps(retry_indices)
-        debug(f"最终 retry_list = {output}")
-        with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
-            f.write(f"retry_list={output}\n")
-        EOF
-        python3 /tmp/get_retry.py
+  collect_unfinished:
+    needs: scan_shard_first
+    runs-on: ubuntu-latest
+    outputs:
+      retry_list: ${{ steps.retry.outputs.retry_list }}
+    steps:
+      - name: 下载标志
+        uses: actions/download-artifact@v4
+        with:
+          pattern: flag-*
+          path: flags
+          merge-multiple: false
+      - name: 解析需要重跑的分片
+        id: retry
+        run: |
+          cat > /tmp/get_retry.py << 'EOF'
+          import os, json, glob, sys
+          retry_indices = []
+          flags_dir = "flags"
+          if os.path.isdir(flags_dir):
+              for dirpath in glob.glob(f"{flags_dir}/flag-*/"):
+                  if glob.glob(os.path.join(dirpath, "unfinished_*")):
+                      idx = os.path.basename(dirpath.rstrip('/')).replace('flag-', '')
+                      retry_indices.append(idx)
+          output = json.dumps(retry_indices)
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write(f"retry_list={output}\n")
+          EOF
+          python3 /tmp/get_retry.py
 
   scan_shard_second:
     needs: [master, collect_unfinished]
@@ -258,8 +221,6 @@ collect_unfinished:
         run: |
           set -e
           mkdir -p final_data
-
-          # 有效班级统计
           VALID_COUNT=0
           if find all_results -name "*.txt" -print0 2>/dev/null | xargs -0 cat > all_merged.txt 2>/dev/null; then
             if [ -s all_merged.txt ]; then
@@ -268,24 +229,18 @@ collect_unfinished:
               rm all_merged.txt
             fi
           fi
-
-          # 总班级数
           TOTAL="${{ needs.master.outputs.total_cids }}"
-
-          # 未扫班级统计
           UNFINISHED_COUNT=0
           if find unfinished_lists -name "*.txt" -print0 2>/dev/null | xargs -0 cat 2>/dev/null | sort -u > tmp_unfinished; then
             UNFINISHED_COUNT=$(wc -l < tmp_unfinished)
             rm tmp_unfinished
           fi
-
           SCANNED=$((TOTAL - UNFINISHED_COUNT))
           PERCENT=0
           if [ $TOTAL -gt 0 ]; then
             PERCENT=$(echo "scale=2; $SCANNED * 100 / $TOTAL" | bc)
           fi
           END_TIME=$(date -u +"%Y-%m-%d %H:%M:%S")
-
           DURATION="未知"
           if [ -f start_time/start_time.txt ]; then
             start_epoch=$(date -u -d "$(cat start_time/start_time.txt)" +%s)
@@ -295,7 +250,6 @@ collect_unfinished:
             minutes=$(((diff % 3600) / 60))
             DURATION="${hours}小时${minutes}分钟"
           fi
-
           cat > nto.txt << EOF
           总班级数: $TOTAL
           有效班级: $VALID_COUNT
