@@ -114,65 +114,33 @@ jobs:
           if-no-files-found: ignore
           retention-days: 1
 
- collect_unfinished:
-  needs: scan_shard_first
-  runs-on: ubuntu-latest
-  outputs:
-    retry_list: ${{ steps.retry.outputs.retry_list }}
-  steps:
-    - name: 下载标志
-      uses: actions/download-artifact@v4
-      with:
-        pattern: flag-*
-        path: flags
-        merge-multiple: false
-    - name: 列出 flags 目录结构（调试）
-      run: |
-        echo "当前工作目录: $(pwd)"
-        echo "flags 目录内容:"
-        ls -la flags/ || echo "flags 目录不存在"
-        echo "每个分片子目录内容:"
-        for d in flags/flag-*/; do
-          echo "--- $d ---"
-          ls -la "$d" || echo "无法列出"
-        done
-    - name: 解析需要重跑的分片
-      id: retry
-      run: |
-        python << 'EOF'
-        import os
-        import json
-        import glob
-        import sys
-
-        # 打印调试信息到 stderr
-        debug = lambda *args: print(*args, file=sys.stderr)
-
-        debug("当前目录:", os.getcwd())
-        debug("flags 目录是否存在:", os.path.exists('flags'))
-        if os.path.exists('flags'):
-            debug("flags 子目录:", os.listdir('flags'))
-
-        retry_indices = []
-        # 遍历 flags/flag-* 目录
-        for dirpath in glob.glob("flags/flag-*/"):
-            debug("检查目录:", dirpath)
-            # 查找该目录下所有以 unfinished_ 开头的文件
-            unfinished_files = glob.glob(os.path.join(dirpath, "unfinished_*"))
-            debug("  找到的 unfinished 文件:", unfinished_files)
-            if unfinished_files:
-                # 提取索引：目录名如 flag-0
-                idx = os.path.basename(dirpath.rstrip('/')).replace('flag-', '')
-                retry_indices.append(idx)
-                debug("  添加需要重跑的分片:", idx)
-            else:
-                debug("  没有 unfinished 文件，跳过")
-
-        output = json.dumps(retry_indices)
-        debug("最终 retry_list =", output)
-        with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
-            f.write(f"retry_list={output}\n")
-        EOF
+  collect_unfinished:
+    needs: scan_shard_first
+    runs-on: ubuntu-latest
+    outputs:
+      retry_list: ${{ steps.retry.outputs.retry_list }}
+    steps:
+      - name: 下载标志
+        uses: actions/download-artifact@v4
+        with:
+          pattern: flag-*
+          path: flags
+          merge-multiple: false
+      - name: 解析需要重跑的分片
+        id: retry
+        run: |
+          cat > /tmp/get_retry.py << 'EOF'
+          import os, json, glob
+          retry_indices = []
+          for dirpath in glob.glob("flags/flag-*/"):
+              if glob.glob(os.path.join(dirpath, "unfinished_*")):
+                  idx = os.path.basename(dirpath.rstrip('/')).replace('flag-', '')
+                  retry_indices.append(idx)
+          output = json.dumps(retry_indices)
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write(f"retry_list={output}\n")
+          EOF
+          python /tmp/get_retry.py
 
   scan_shard_second:
     needs: [master, collect_unfinished]
