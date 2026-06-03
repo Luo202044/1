@@ -114,42 +114,39 @@ jobs:
           if-no-files-found: ignore
           retention-days: 1
 
-collect_unfinished:
-  needs: scan_shard_first
-  runs-on: ubuntu-latest
-  outputs:
-    retry_list: ${{ steps.retry.outputs.retry_list }}
-  steps:
-    - name: 下载标志
-      uses: actions/download-artifact@v4
-      with:
-        pattern: flag-*
-        path: flags
-        merge-multiple: false
-    - name: 解析需要重跑的分片
-      id: retry
-      run: |
-        python << 'EOF'
-        import os
-        import json
-        import glob
-        import re
+  collect_unfinished:
+    needs: scan_shard_first
+    runs-on: ubuntu-latest
+    outputs:
+      retry_list: ${{ steps.retry.outputs.retry_list }}
+    steps:
+      - name: 下载标志
+        uses: actions/download-artifact@v4
+        with:
+          pattern: flag-*
+          path: flags
+          merge-multiple: false
+      - name: 解析需要重跑的分片
+        id: retry
+        run: |
+          python << 'EOF'
+          import os
+          import json
+          import glob
+          import re
 
-        retry_indices = []
-        # flags 目录下每个子目录名称为 flag-0, flag-1, ...
-        flag_dirs = glob.glob("flags/flag-*/")
-        for d in flag_dirs:
-            # 检查是否存在 unfinished_ 开头的文件
-            if glob.glob(os.path.join(d, "unfinished_*")):
-                match = re.search(r'flag-(\d+)', d)
-                if match:
-                    retry_indices.append(match.group(1))
+          retry_indices = []
+          flag_dirs = glob.glob("flags/flag-*/")
+          for d in flag_dirs:
+              if glob.glob(os.path.join(d, "unfinished_*")):
+                  match = re.search(r'flag-(\d+)', d)
+                  if match:
+                      retry_indices.append(match.group(1))
 
-        # 输出 JSON 数组，例如 ["0","2"]
-        output = json.dumps(retry_indices)
-        with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
-            f.write(f"retry_list={output}\n")
-        EOF
+          output = json.dumps(retry_indices)
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write(f"retry_list={output}\n")
+          EOF
 
   scan_shard_second:
     needs: [master, collect_unfinished]
@@ -239,7 +236,7 @@ collect_unfinished:
             fi
           fi
 
-          # 总班级数（从 master 获取）
+          # 总班级数
           TOTAL="${{ needs.master.outputs.total_cids }}"
 
           # 未扫班级统计
@@ -256,7 +253,6 @@ collect_unfinished:
           fi
           END_TIME=$(date -u +"%Y-%m-%d %H:%M:%S")
 
-          # 计算工作时间
           DURATION="未知"
           if [ -f start_time/start_time.txt ]; then
             start_epoch=$(date -u -d "$(cat start_time/start_time.txt)" +%s)
