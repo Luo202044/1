@@ -114,35 +114,42 @@ jobs:
           if-no-files-found: ignore
           retention-days: 1
 
-  collect_unfinished:
-    needs: scan_shard_first
-    runs-on: ubuntu-latest
-    outputs:
-      retry_list: ${{ steps.retry.outputs.retry_list }}
-    steps:
-      - name: 下载标志
-        uses: actions/download-artifact@v4
-        with:
-          pattern: flag-*
-          path: flags
-          merge-multiple: false
-      - name: 解析需要重跑的分片
-        id: retry
-        run: |
-          retry_indices=""
-          for dir in flags/flag-*/; do
-            if [ -d "$dir" ] && [ -f "$dir/unfinished_"* ]; then
-              idx=$(basename "$dir" | sed 's/flag-//')
-              retry_indices="${retry_indices},${idx}"
-            fi
-          done
-          retry_indices=$(echo "$retry_indices" | sed 's/^,//')
-          if [ -z "$retry_indices" ]; then
-            echo "retry_list=[]" >> $GITHUB_OUTPUT
-          else
-            retry_list=$(echo "$retry_indices" | jq -R 'split(",")')
-            echo "retry_list=${retry_list}" >> $GITHUB_OUTPUT
-          fi
+collect_unfinished:
+  needs: scan_shard_first
+  runs-on: ubuntu-latest
+  outputs:
+    retry_list: ${{ steps.retry.outputs.retry_list }}
+  steps:
+    - name: 下载标志
+      uses: actions/download-artifact@v4
+      with:
+        pattern: flag-*
+        path: flags
+        merge-multiple: false
+    - name: 解析需要重跑的分片
+      id: retry
+      run: |
+        python << 'EOF'
+        import os
+        import json
+        import glob
+        import re
+
+        retry_indices = []
+        # flags 目录下每个子目录名称为 flag-0, flag-1, ...
+        flag_dirs = glob.glob("flags/flag-*/")
+        for d in flag_dirs:
+            # 检查是否存在 unfinished_ 开头的文件
+            if glob.glob(os.path.join(d, "unfinished_*")):
+                match = re.search(r'flag-(\d+)', d)
+                if match:
+                    retry_indices.append(match.group(1))
+
+        # 输出 JSON 数组，例如 ["0","2"]
+        output = json.dumps(retry_indices)
+        with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+            f.write(f"retry_list={output}\n")
+        EOF
 
   scan_shard_second:
     needs: [master, collect_unfinished]
