@@ -17,6 +17,7 @@ jobs:
     outputs:
       shard_list: ${{ steps.calc_shards.outputs.shard_list }}
       shard_configs: ${{ steps.calc_shards.outputs.shard_configs }}
+      total_cids: ${{ steps.calc_shards.outputs.total_cids }}
     steps:
       - uses: actions/checkout@v4
       - name: 记录开始时间
@@ -57,6 +58,7 @@ jobs:
           with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
               out.write(f"shard_list={json.dumps(shard_indices)}\n")
               out.write(f"shard_configs={json.dumps(shard_configs)}\n")
+              out.write(f"total_cids={total}\n")
           EOF
 
   scan_shard_first:
@@ -190,7 +192,7 @@ jobs:
           retention-days: 1
 
   final_upload:
-    needs: [scan_shard_first, scan_shard_second]
+    needs: [master, scan_shard_first, scan_shard_second]
     if: always() && !cancelled()
     runs-on: ubuntu-latest
     steps:
@@ -230,10 +232,8 @@ jobs:
             fi
           fi
 
-          # 总班级数
-          START=$(jq -r '.start_cid' config.json)
-          END=$(jq -r '.end_cid' config.json)
-          TOTAL=$((END - START + 1))
+          # 总班级数（从 master 获取）
+          TOTAL="${{ needs.master.outputs.total_cids }}"
 
           # 未扫班级统计
           UNFINISHED_COUNT=0
@@ -249,7 +249,7 @@ jobs:
           fi
           END_TIME=$(date -u +"%Y-%m-%d %H:%M:%S")
 
-          # 计算工作时间（使用 shell 计算时间差）
+          # 计算工作时间
           DURATION="未知"
           if [ -f start_time/start_time.txt ]; then
             start_epoch=$(date -u -d "$(cat start_time/start_time.txt)" +%s)
