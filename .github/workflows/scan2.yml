@@ -118,7 +118,7 @@ jobs:
     needs: scan_shard_first
     runs-on: ubuntu-latest
     outputs:
-      retry_list: ${{ steps.retry.outputs.retry_list }}
+      retry_shard_list: ${{ steps.prepare.outputs.retry_shard_list }}
     steps:
       - uses: actions/checkout@v4
       - name: 下载标志
@@ -127,28 +127,33 @@ jobs:
           pattern: flag-*
           path: flags
           merge-multiple: false
-      - name: 解析需要重跑的分片
-        id: retry
-        run: python parse_unfinished.py
-      - name: 调试输出 retry_list
+      - name: 下载未完成CID列表
+        uses: actions/download-artifact@v4
+        with:
+          pattern: unfinished-cids-*
+          path: .
+          merge-multiple: true
+      - name: 合并并拆分未完成CID为20个分片
+        id: prepare
         run: |
-          echo "原始 retry_list 值: '${{ steps.retry.outputs.retry_list }}'"
-          echo "长度计算: ${{ fromJson(steps.retry.outputs.retry_list).length }}"
+          export RETRY_SHARDS=20
+          python prepare_retry_shards.py
 
   scan_shard_second:
     needs: [master, collect_unfinished]
-    if: needs.collect_unfinished.outputs.retry_list != '[]'
+    if: needs.collect_unfinished.outputs.retry_shard_list != '[]'
     runs-on: ubuntu-latest
     timeout-minutes: 340
     strategy:
       fail-fast: false
       matrix:
-        shard_idx: ${{ fromJson(needs.collect_unfinished.outputs.retry_list) }}
+        retry_idx: ${{ fromJson(needs.collect_unfinished.outputs.retry_shard_list) }}
     steps:
       - uses: actions/checkout@v4
       - name: 生成补扫配置
         run: |
-          echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[${{ matrix.shard_idx }}]" | jq '. + {should_scan: true}' > config.json
+          jq '. + {should_scan: true, cid_list_file: "retry_shards/retry_cids_${{ matrix.retry_idx }}.txt"}' config.json > config.tmp.json
+          mv config.tmp.json config.json
           cat config.json
       - uses: actions/setup-python@v5
         with:
@@ -165,20 +170,20 @@ jobs:
       - name: 补扫
         env:
           PYTHONUNBUFFERED: 1
-          SHARD_IDX: ${{ matrix.shard_idx }}
+          SHARD_IDX: retry_${{ matrix.retry_idx }}
         run: python scanner_playwright.py
       - name: 上传补扫结果
         uses: actions/upload-artifact@v4
         with:
-          name: second-ok-shard-${{ matrix.shard_idx }}
+          name: second-ok-${{ matrix.retry_idx }}
           path: data/*.txt
           if-no-files-found: warn
           retention-days: 1
       - name: 上传补扫未完成CID
         uses: actions/upload-artifact@v4
         with:
-          name: unfinished-cids-${{ matrix.shard_idx }}
-          path: unfinished_cids_${{ matrix.shard_idx }}.txt
+          name: retry-unfinished-cids-${{ matrix.retry_idx }}
+          path: unfinished_cids_*.txt
           if-no-files-found: ignore
           retention-days: 1
 
@@ -195,11 +200,18 @@ jobs:
           path: all_results
           merge-multiple: true
         continue-on-error: true
-      - name: 下载未完成CID列表
+      - name: 下载未完成CID列表（第一轮）
         uses: actions/download-artifact@v4
         with:
           pattern: 'unfinished-cids-*'
           path: unfinished_lists
+          merge-multiple: true
+        continue-on-error: true
+      - name: 下载补扫未完成CID列表（第二轮）
+        uses: actions/download-artifact@v4
+        with:
+          pattern: 'retry-unfinished-cids-*'
+          path: retry_unfinished_lists
           merge-multiple: true
         continue-on-error: true
       - name: 下载开始时间
@@ -226,7 +238,12 @@ jobs:
             UNFINISHED_COUNT=$(wc -l < tmp_unfinished)
             rm tmp_unfinished
           fi
-          SCANNED=$((TOTAL - UNFINISHED_COUNT))
+          RETRY_UNFINISHED_COUNT=0
+          if find retry_unfinished_lists -name "*.txt" -print0 2>/dev/null | xargs -0 cat 2>/dev/null | sort -u > tmp_retry_unfinished; then
+            RETRY_UNFINISHED_COUNT=$(wc -l < tmp_retry_unfinished)
+            rm tmp_retry_unfinished
+          fi
+          SCANNED=$((TOTAL - UNFINISHED_COUNT - RETRY_UNFINISHED_COUNT))
           PERCENT=0
           if [ $TOTAL -gt 0 ]; then
             PERCENT=$(echo "scale=2; $SCANNED * 100 / $TOTAL" | bc)
@@ -246,6 +263,7 @@ jobs:
           有效班级: $VALID_COUNT
           完成进度: $PERCENT%
           未扫班级: $UNFINISHED_COUNT
+          补扫后未完成: $RETRY_UNFINISHED_COUNT
           结束时间: $END_TIME
           工作时间: $DURATION
           EOF
