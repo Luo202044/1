@@ -120,7 +120,7 @@ jobs:
     outputs:
       retry_list: ${{ steps.retry.outputs.retry_list }}
     steps:
-      - uses: actions/checkout@v4          # 关键修复：拉取仓库代码
+      - uses: actions/checkout@v4
       - name: 下载标志
         uses: actions/download-artifact@v4
         with:
@@ -130,10 +130,14 @@ jobs:
       - name: 解析需要重跑的分片
         id: retry
         run: python parse_unfinished.py
+      - name: 调试输出 retry_list
+        run: |
+          echo "原始 retry_list 值: '${{ steps.retry.outputs.retry_list }}'"
+          echo "长度计算: ${{ fromJson(steps.retry.outputs.retry_list).length }}"
 
   scan_shard_second:
     needs: [master, collect_unfinished]
-    if: fromJson(needs.collect_unfinished.outputs.retry_list).length > 0
+    if: needs.collect_unfinished.outputs.retry_list != '[]'
     runs-on: ubuntu-latest
     timeout-minutes: 340
     strategy:
