@@ -5,7 +5,6 @@ import glob
 import math
 
 def main():
-    # 收集所有 unfinished_cids_*.txt 文件
     cid_files = glob.glob("unfinished_cids_*.txt")
     all_cids = set()
     for f in cid_files:
@@ -14,11 +13,10 @@ def main():
                 line = line.strip()
                 if line:
                     all_cids.add(int(line))
-    cid_list = sorted(all_cids)   # 排序保证分片内容稳定
+    cid_list = sorted(all_cids)
     total = len(cid_list)
     print(f"Total unfinished CIDs: {total}")
 
-    # 分片数量（可通过环境变量覆盖）
     shards = int(os.environ.get('RETRY_SHARDS', '20'))
     if total == 0:
         shard_indices = []
