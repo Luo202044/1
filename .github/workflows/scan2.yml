@@ -120,6 +120,7 @@ jobs:
     outputs:
       retry_list: ${{ steps.retry.outputs.retry_list }}
     steps:
+      - uses: actions/checkout@v4          # 关键修复：拉取仓库代码
       - name: 下载标志
         uses: actions/download-artifact@v4
         with:
