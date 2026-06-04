@@ -138,6 +138,12 @@ jobs:
         run: |
           export RETRY_SHARDS=20
           python prepare_retry_shards.py
+      - name: 上传重试分片文件
+        uses: actions/upload-artifact@v4
+        with:
+          name: retry-shards
+          path: retry_shards/
+          retention-days: 1
 
   scan_shard_second:
     needs: [master, collect_unfinished]
@@ -150,6 +156,11 @@ jobs:
         retry_idx: ${{ fromJson(needs.collect_unfinished.outputs.retry_shard_list) }}
     steps:
       - uses: actions/checkout@v4
+      - name: 下载重试分片文件
+        uses: actions/download-artifact@v4
+        with:
+          name: retry-shards
+          path: retry_shards/
       - name: 生成补扫配置
         run: |
           jq '. + {should_scan: true, cid_list_file: "retry_shards/retry_cids_${{ matrix.retry_idx }}.txt"}' config.json > config.tmp.json
