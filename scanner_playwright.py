@@ -65,7 +65,7 @@ start_time = None
 stop_event = asyncio.Event()
 
 # ---------- 代理和UA ----------
-PROXY_LIST = []   # 填写代理 ["http://user:pass@ip:port"]
+PROXY_LIST = []
 USER_AGENTS = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
@@ -145,7 +145,6 @@ async def fetch_page_data(page, cid):
             )
         except:
             pass
-        # 班级名称
         class_name = None
         elem = await page.query_selector("p.courseName")
         if elem:
@@ -159,7 +158,6 @@ async def fetch_page_data(page, cid):
                 if len(parts) > 1:
                     class_name = parts[-1].strip()
         class_str = class_name if class_name else "无"
-        # 学校名称
         school_name = None
         elem = await page.query_selector("p.schoolName")
         if elem:
@@ -184,13 +182,13 @@ async def process_cid_with_retry(page, cid, retry=0):
         else:
             raise e
 
-# ---------- Worker（带页面关闭重试，并记录放弃的CID） ----------
+# ---------- Worker（支持 CancelledError 清理） ----------
 async def worker(browser, cid_list, worker_id):
     global global_completed, start_time
     context = None
     page = None
     closed_retry_count = {}
-    # 记录分配给该 worker 的所有 CID（用于最终判断哪些未完成）
+    # 记录分配给该 worker 的所有 CID
     assigned_cids = set(cid_list)
     completed_cids = set()
 
@@ -220,29 +218,31 @@ async def worker(browser, cid_list, worker_id):
 
     try:
         await ensure_page()
-        for idx, cid in enumerate(cid_list):
+        i = 0
+        while i < len(cid_list):
             if stop_event.is_set():
-                # 超时停止：将未完成的 CID（不在 completed_cids 中的）写入文件
-                remaining = [c for c in cid_list[idx:] if c not in completed_cids]
+                # 软超时停止：将未完成的 CID 写入文件
+                remaining = [c for c in cid_list[i:] if c not in completed_cids]
                 if remaining:
                     with open(f"unfinished_worker_{worker_id}.txt", "a") as f:
                         for c in remaining:
                             f.write(f"{c}\n")
                 break
 
+            cid = cid_list[i]
             retry_cnt = closed_retry_count.get(cid, 0)
             if retry_cnt >= MAX_RETRY_ON_CLOSED:
-                # 放弃该 cid，写入未完成文件
                 with open(f"unfinished_worker_{worker_id}.txt", "a") as f:
                     f.write(f"{cid}\n")
                 async with global_lock:
                     global_completed += 1
                 print(f"[W{worker_id}] 放弃 {cid}: 页面关闭重试已达上限 {MAX_RETRY_ON_CLOSED} 次", flush=True)
+                i += 1
                 continue
 
             try:
                 school_str, class_str = await process_cid_with_retry(page, cid)
-                completed_cids.add(cid)   # 标记成功
+                completed_cids.add(cid)
                 async with global_lock:
                     global_completed += 1
                     cur = global_completed
@@ -259,6 +259,7 @@ async def worker(browser, cid_list, worker_id):
 
                 if cid in closed_retry_count:
                     del closed_retry_count[cid]
+                i += 1
 
             except Exception as e:
                 error_msg = str(e)
@@ -279,34 +280,37 @@ async def worker(browser, cid_list, worker_id):
                             break
                     continue
                 else:
-                    # 其他不可恢复错误，放弃该 cid 并写入未完成
+                    # 不可恢复错误，放弃该 cid 并写入未完成
                     with open(f"unfinished_worker_{worker_id}.txt", "a") as f:
                         f.write(f"{cid}\n")
                     async with global_lock:
                         global_completed += 1
                     error_line = error_msg.split("\n")[0][:100]
                     print(f"[W{worker_id}] 错误 {cid}: {error_line}", flush=True)
+                    i += 1
 
             await asyncio.sleep(SLEEP_BETWEEN)
 
-        # 正常结束（没有被 stop_event 中断），写入尚未完成的 CID（理论上没有，但防御）
-        remaining = [c for c in cid_list if c not in completed_cids]
+    except asyncio.CancelledError:
+        # 任务被硬超时取消，需要将尚未完成的 CID 写入文件
+        remaining = [c for c in assigned_cids if c not in completed_cids]
         if remaining:
             with open(f"unfinished_worker_{worker_id}.txt", "a") as f:
                 for c in remaining:
                     f.write(f"{c}\n")
+        print(f"[W{worker_id}] 被强制取消，已写入 {len(remaining)} 个未完成 CID", flush=True)
+        raise
     finally:
         if page and not page.is_closed():
             await page.close()
         if context:
             await context.close()
 
-# ---------- 主函数（双层超时） ----------
+# ---------- 主函数（修正硬超时处理） ----------
 async def main_async():
     global start_time, global_total
     start_time = time.time()
 
-    # 确定扫描列表
     if CID_LIST_FILE:
         with open(CID_LIST_FILE, "r") as f:
             cid_list = [int(line.strip()) for line in f if line.strip()]
@@ -350,13 +354,12 @@ async def main_async():
             ]
         )
 
-        # 分配 CID 给 workers
         worker_count = min(MAX_CONCURRENT, len(cid_list))
         chunk_size = (len(cid_list) + worker_count - 1) // worker_count
         chunks = [cid_list[i*chunk_size:(i+1)*chunk_size] for i in range(worker_count)]
         tasks = [asyncio.create_task(worker(browser, chunk, i)) for i, chunk in enumerate(chunks) if chunk]
 
-        # 软超时：设置 stop_event
+        # 软超时任务：设置 stop_event
         async def set_stop():
             await asyncio.sleep(TIMEOUT_SECONDS)
             stop_event.set()
@@ -364,21 +367,27 @@ async def main_async():
 
         soft_timeout_task = asyncio.create_task(set_stop())
 
-        # 硬超时：总超时 = 软超时 + 强制等待时间
+        # 硬超时：总等待时间 = 软超时 + 强制等待
         hard_timeout = TIMEOUT_SECONDS + FORCE_EXIT_WAIT
-        try:
-            await asyncio.wait_for(asyncio.gather(*tasks, return_exceptions=True), timeout=hard_timeout)
-        except asyncio.TimeoutError:
-            print(f"\n⚠️ 硬超时触发（{TIMEOUT_HOURS}小时 + {FORCE_EXIT_WAIT}秒），强制终止所有未完成任务...", flush=True)
-            for t in tasks:
-                if not t.done():
-                    t.cancel()
-            await asyncio.gather(*tasks, return_exceptions=True)
+        # 使用 asyncio.wait 而不是 wait_for，以便手动控制取消
+        done, pending = await asyncio.wait(tasks, timeout=hard_timeout, return_when=asyncio.ALL_COMPLETED)
+
+        if pending:
+            print(f"\n⚠️ 硬超时触发（{TIMEOUT_HOURS}小时 + {FORCE_EXIT_WAIT}秒），强制终止未完成的任务...", flush=True)
+            # 取消所有未完成的任务
+            for task in pending:
+                task.cancel()
+            # 等待所有被取消的任务完成清理（会触发 CancelledError 并写入未完成列表）
+            await asyncio.gather(*pending, return_exceptions=True)
+            # 确保 stop_event 已设置
             stop_event.set()
-        finally:
-            soft_timeout_task.cancel()
-            await flush_buffer()
-            await browser.close()
+        else:
+            # 所有任务正常完成，不需要设置 stop_event
+            pass
+
+        soft_timeout_task.cancel()
+        await flush_buffer()
+        await browser.close()
 
     elapsed_total = time.time() - start_time
 
@@ -388,7 +397,6 @@ async def main_async():
             f.write(f"Processed {global_completed}/{global_total}\n")
         print(f"\n⚠️ 扫描未完成，已生成 {UNFINISHED_FLAG}", flush=True)
 
-        # 合并 worker 未完成列表
         unfinished_cids = set()
         for i in range(worker_count):
             wfile = f"unfinished_worker_{i}.txt"
