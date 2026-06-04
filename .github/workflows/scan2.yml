@@ -114,21 +114,37 @@ jobs:
           if-no-files-found: ignore
           retention-days: 1
 
-  collect_unfinished:
-    needs: scan_shard_first
-    runs-on: ubuntu-latest
-    outputs:
-      retry_list: ${{ steps.retry.outputs.retry_list }}
-    steps:
-      - name: 下载标志
-        uses: actions/download-artifact@v4
-        with:
-          pattern: flag-*
-          path: flags
-          merge-multiple: false
-      - name: 解析需要重跑的分片
-        id: retry
-        run: python parse_unfinished.py
+ collect_unfinished:
+  needs: scan_shard_first
+  runs-on: ubuntu-latest
+  outputs:
+    retry_list: ${{ steps.retry.outputs.retry_list }}
+  steps:
+    - name: 下载标志
+      uses: actions/download-artifact@v4
+      with:
+        pattern: flag-*
+        path: flags
+        merge-multiple: false
+
+    - name: 调试：列出 flags 目录结构
+      run: |
+        echo "当前工作目录: $(pwd)"
+        echo "=== flags 目录内容 ==="
+        if [ -d flags ]; then
+          ls -la flags/
+          echo "=== 每个分片子目录 ==="
+          for d in flags/flag-*/; do
+            echo "--- $d ---"
+            ls -la "$d" || echo "无法列出"
+          done
+        else
+          echo "flags 目录不存在"
+        fi
+
+    - name: 解析需要重跑的分片
+      id: retry
+      run: python parse_unfinished.py
 
   scan_shard_second:
     needs: [master, collect_unfinished]
