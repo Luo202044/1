@@ -128,21 +128,7 @@ jobs:
           merge-multiple: false
       - name: 解析需要重跑的分片
         id: retry
-        run: |
-          retry_indices=""
-          for d in flags/flag-*/; do
-            if [ -d "$d" ] && ls "$d"/unfinished_* 1> /dev/null 2>&1; then
-              idx=$(basename "$d" | sed 's/flag-//')
-              retry_indices="${retry_indices},${idx}"
-            fi
-          done
-          retry_indices=$(echo "$retry_indices" | sed 's/^,//')
-          if [ -z "$retry_indices" ]; then
-            echo "retry_list=[]" >> $GITHUB_OUTPUT
-          else
-            retry_list=$(echo "$retry_indices" | sed 's/[^,]*/"&"/g' | sed 's/^/[/' | sed 's/$/]/' | sed 's/,/","/g')
-            echo "retry_list=$retry_list" >> $GITHUB_OUTPUT
-          fi
+        run: python parse_unfinished.py
 
   scan_shard_second:
     needs: [master, collect_unfinished]
