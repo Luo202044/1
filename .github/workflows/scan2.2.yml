@@ -6,7 +6,7 @@ on:
       shards:
         description: '第一轮分片数量'
         required: true
-        default: '30'
+        default: '20'
 
 permissions:
   contents: write
