@@ -304,7 +304,7 @@ def run_worker_process(worker_id, cid_list, output_file, config_dict, proxy_list
 
 # ---------- 主函数（多进程调度） ----------
 async def main_async():
-    global start_time, global_total
+    global start_time, global_total, START_CID, END_CID, CID_LIST_FILE  # 添加 global 声明
     start_time = time.time()
 
     if CID_LIST_FILE:
