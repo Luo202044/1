@@ -9,7 +9,7 @@ import sys
 import random
 import multiprocessing as mp
 from concurrent.futures import ProcessPoolExecutor, TimeoutError as FutureTimeoutError
-from playwright.async_api import async_playwright
+from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeoutError
 
 # ========== 强制无缓冲输出 ==========
 sys.stdout.reconfigure(line_buffering=True)
@@ -41,7 +41,7 @@ TIMEOUT_SECONDS = TIMEOUT_HOURS * 3600
 FORCE_EXIT_WAIT = config.get("force_exit_wait", 300)
 BATCH_SIZE = config.get("batch_size", 200)
 MAX_RETRY_ON_CLOSED = config.get("max_retry_on_closed", 3)
-WORKER_PROCESS_TIMEOUT = config.get("worker_process_timeout", 600)  # 每个Worker进程的最大存活时间（秒）
+WORKER_PROCESS_TIMEOUT = config.get("worker_process_timeout", 600)  # 每个Worker进程最大存活时间（秒）
 
 os.makedirs("data", exist_ok=True)
 
@@ -127,11 +127,7 @@ async def add_to_buffer(line):
 
 # ---------- 独立进程运行的 Worker 函数 ----------
 def run_worker_process(worker_id, cid_list, output_file, config_dict, proxy_list, user_agents):
-    """此函数在独立进程中运行，使用同步 Playwright 或异步事件循环"""
-    # 由于多进程不能共享事件循环，每个进程自己运行 asyncio
     async def worker_async():
-        # 重新加载配置（因为进程间不共享全局变量）
-        nonlocal config_dict
         WAIT_TIMEOUT = config_dict.get("wait_timeout", 10)
         RENDER_WAIT = config_dict.get("render_wait", 0.5)
         SLEEP_BETWEEN = config_dict.get("sleep_between", 0.05)
@@ -141,66 +137,83 @@ def run_worker_process(worker_id, cid_list, output_file, config_dict, proxy_list
         BATCH_SIZE = config_dict.get("batch_size", 200)
         
         completed_cids = set()
-        # 每个进程独立输出文件（使用进程ID避免冲突，最后主进程合并）
         worker_out_file = f"data/worker_{worker_id}_temp.txt"
         write_buffer = []
-        
+
         async def worker_flush():
             nonlocal write_buffer
             if write_buffer:
                 with open(worker_out_file, "a", encoding="utf-8") as f:
                     f.write("".join(write_buffer))
                 write_buffer.clear()
-        
+
         async def worker_add(line):
             nonlocal write_buffer
             write_buffer.append(line)
             if len(write_buffer) >= BATCH_SIZE:
                 await worker_flush()
-        
+
         async def fetch_page_data(page, cid):
             url = f"https://www.eeo.cn/s/a/?cid={cid}"
+            print(f"[W{worker_id}] goto start {cid}", flush=True)
             try:
                 await asyncio.wait_for(
-                    page.goto(url, timeout=WAIT_TIMEOUT * 1000, wait_until="domcontentloaded"),
+                    page.goto(url, timeout=WAIT_TIMEOUT*1000, wait_until="domcontentloaded"),
                     timeout=WAIT_TIMEOUT + 5
                 )
-                body_text = await page.text_content("body") or ""
+                print(f"[W{worker_id}] goto end {cid}", flush=True)
+                
+                body_text = await asyncio.wait_for(page.text_content("body") or "", timeout=WAIT_TIMEOUT)
                 if len(body_text.strip()) < 50:
                     return "无", "无"
+                
                 try:
                     await asyncio.wait_for(
-                        page.wait_for_selector("p.courseName, p.schoolName", timeout=RENDER_WAIT * 1000),
+                        page.wait_for_selector("p.courseName, p.schoolName", timeout=RENDER_WAIT*1000),
                         timeout=5
                     )
                 except:
                     pass
-                class_name = None
-                elem = await page.query_selector("p.courseName")
-                if elem:
-                    text = (await elem.inner_text()).strip()
-                    if text and len(text) >= 2:
-                        class_name = text
-                if not class_name:
-                    title = await page.title()
-                    if "|" in title and "Join the class" not in title:
-                        parts = title.split("|")
-                        if len(parts) > 1:
-                            class_name = parts[-1].strip()
-                class_str = class_name if class_name else "无"
-                school_name = None
-                elem = await page.query_selector("p.schoolName")
-                if elem:
-                    text = (await elem.inner_text()).strip()
-                    if text and len(text) >= 2:
-                        school_name = text
-                school_str = school_name if school_name else "无"
-                return school_str, class_str
+
+                class_name = "无"
+                school_name = "无"
+
+                try:
+                    elem = await asyncio.wait_for(page.query_selector("p.courseName"), timeout=WAIT_TIMEOUT)
+                    if elem:
+                        text = (await asyncio.wait_for(elem.inner_text(), timeout=WAIT_TIMEOUT)).strip()
+                        if text and len(text) >= 2:
+                            class_name = text
+                except:
+                    pass
+
+                try:
+                    elem = await asyncio.wait_for(page.query_selector("p.schoolName"), timeout=WAIT_TIMEOUT)
+                    if elem:
+                        text = (await asyncio.wait_for(elem.inner_text(), timeout=WAIT_TIMEOUT)).strip()
+                        if text and len(text) >= 2:
+                            school_name = text
+                except:
+                    pass
+
+                if class_name == "无":
+                    try:
+                        title = await asyncio.wait_for(page.title(), timeout=WAIT_TIMEOUT)
+                        if "|" in title and "Join the class" not in title:
+                            parts = title.split("|")
+                            if len(parts) > 1:
+                                class_name = parts[-1].strip()
+                    except:
+                        pass
+
+                return school_name, class_name
             except asyncio.TimeoutError:
                 raise Exception("操作超时")
+            except PlaywrightTimeoutError:
+                raise Exception("Playwright超时")
             except Exception as e:
                 raise e
-        
+
         async def process_cid_with_retry(page, cid, retry=0):
             try:
                 return await fetch_page_data(page, cid)
@@ -208,101 +221,86 @@ def run_worker_process(worker_id, cid_list, output_file, config_dict, proxy_list
                 if retry < RETRY_TIMES and ("timeout" in str(e).lower() or "net::" in str(e).lower()):
                     delay = RETRY_DELAY * (2 ** retry)
                     await asyncio.sleep(delay)
-                    return await process_cid_with_retry(page, cid, retry + 1)
+                    return await process_cid_with_retry(page, cid, retry+1)
                 else:
                     raise e
-        
-        async def main_worker():
-            async with async_playwright() as p:
-                browser = await p.chromium.launch(
-                    headless=True,
-                    args=[
-                        "--disable-gpu", "--disable-dev-shm-usage", "--no-sandbox",
-                        "--disable-setuid-sandbox", "--disable-accelerated-2d-canvas",
-                        "--disable-background-networking", "--disable-background-timer-throttling",
-                        "--disable-backgrounding-occluded-windows", "--disable-breakpad",
-                        "--disable-client-side-phishing-detection", "--disable-default-apps",
-                        "--disable-extensions", "--disable-features=TranslateUI,BlinkGenPropertyTrees",
-                        "--disable-hang-monitor", "--disable-ipc-flooding-protection",
-                        "--disable-popup-blocking", "--disable-prompt-on-repost",
-                        "--disable-renderer-backgrounding", "--disable-sync",
-                        "--disable-software-rasterizer", "--metrics-recording-only",
-                        "--no-first-run", "--safebrowsing-disable-auto-update",
-                        "--disable-logging", "--silent", "--js-flags=--max-old-space-size=128"
-                    ]
-                )
-                context = await browser.new_context(
-                    user_agent=random.choice(user_agents),
-                    proxy={"server": random.choice(proxy_list)} if proxy_list else None,
-                    ignore_https_errors=True,
-                    java_script_enabled=True
-                )
-                page = await context.new_page()
+
+        async with async_playwright() as p:
+            browser = await p.chromium.launch(
+                headless=True,
+                args=[
+                    "--disable-gpu", "--disable-dev-shm-usage", "--no-sandbox",
+                    "--disable-setuid-sandbox", "--disable-accelerated-2d-canvas"
+                ]
+            )
+            context = await browser.new_context(
+                user_agent=random.choice(user_agents),
+                proxy={"server": random.choice(proxy_list)} if proxy_list else None,
+                ignore_https_errors=True,
+                java_script_enabled=True
+            )
+            page = await context.new_page()
+
+            i = 0
+            closed_retry_count = {}
+
+            while i < len(cid_list):
+                cid = cid_list[i]
+                retry_cnt = closed_retry_count.get(cid, 0)
+                if retry_cnt >= MAX_RETRY_ON_CLOSED:
+                    with open(f"unfinished_worker_{worker_id}.txt", "a") as f:
+                        f.write(f"{cid}\n")
+                    i += 1
+                    continue
+
                 try:
-                    await page.evaluate("1+1")
-                except:
-                    pass
-                
-                i = 0
-                closed_retry_count = {}
-                while i < len(cid_list):
-                    cid = cid_list[i]
-                    retry_cnt = closed_retry_count.get(cid, 0)
-                    if retry_cnt >= MAX_RETRY_ON_CLOSED:
-                        # 放弃，记录到未完成文件
+                    school_str, class_str = await process_cid_with_retry(page, cid)
+                    completed_cids.add(cid)
+                    is_valid = not (class_str == "无" and school_str == "无")
+                    if is_valid:
+                        line = f"{cid} https://www.eeo.cn/s/a/?cid={cid} {school_str} {class_str}\n"
+                        await worker_add(line)
+                    if cid in closed_retry_count:
+                        del closed_retry_count[cid]
+                    i += 1
+                except Exception as e:
+                    error_msg = str(e)
+                    is_closed = any(phrase in error_msg for phrase in [
+                        "Target page, context or browser has been closed",
+                        "context has been closed",
+                        "page has been closed",
+                        "browser has been closed"
+                    ])
+                    if is_closed:
+                        closed_retry_count[cid] = retry_cnt + 1
+                        try:
+                            await page.close()
+                            await context.close()
+                        except:
+                            pass
+                        try:
+                            context = await browser.new_context(
+                                user_agent=random.choice(user_agents),
+                                proxy={"server": random.choice(proxy_list)} if proxy_list else None,
+                                ignore_https_errors=True,
+                                java_script_enabled=True
+                            )
+                            page = await context.new_page()
+                        except:
+                            await asyncio.sleep(1)
+                    else:
                         with open(f"unfinished_worker_{worker_id}.txt", "a") as f:
                             f.write(f"{cid}\n")
                         i += 1
-                        continue
-                    try:
-                        school_str, class_str = await process_cid_with_retry(page, cid)
-                        completed_cids.add(cid)
-                        is_valid = not (class_str == "无" and school_str == "无")
-                        if is_valid:
-                            line = f"{cid} https://www.eeo.cn/s/a/?cid={cid} {school_str} {class_str}\n"
-                            await worker_add(line)
-                        if cid in closed_retry_count:
-                            del closed_retry_count[cid]
-                        i += 1
-                    except Exception as e:
-                        error_msg = str(e)
-                        is_closed = any(phrase in error_msg for phrase in [
-                            "Target page, context or browser has been closed",
-                            "context has been closed",
-                            "page has been closed",
-                            "browser has been closed"
-                        ])
-                        if is_closed:
-                            closed_retry_count[cid] = retry_cnt + 1
-                            # 重建页面
-                            try:
-                                await page.close()
-                                await context.close()
-                                context = await browser.new_context(
-                                    user_agent=random.choice(user_agents),
-                                    proxy={"server": random.choice(proxy_list)} if proxy_list else None,
-                                    ignore_https_errors=True,
-                                    java_script_enabled=True
-                                )
-                                page = await context.new_page()
-                            except:
-                                pass
-                        else:
-                            with open(f"unfinished_worker_{worker_id}.txt", "a") as f:
-                                f.write(f"{cid}\n")
-                            i += 1
-                    await asyncio.sleep(SLEEP_BETWEEN)
-                
-                await worker_flush()
-                await browser.close()
-        
-        await main_worker()
-    
+                await asyncio.sleep(SLEEP_BETWEEN)
+
+            await worker_flush()
+            await browser.close()
+
     asyncio.run(worker_async())
-    # 返回完成数量（通过文件记录，简化）
     return worker_id
 
-# ---------- 主函数（多进程调度） ----------
+# ---------- 主函数 ----------
 async def main_async():
     global start_time, global_total
     start_time = time.time()
@@ -330,7 +328,6 @@ async def main_async():
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         f.write("")
 
-    # 准备配置字典传递给子进程
     config_dict = {
         "wait_timeout": WAIT_TIMEOUT,
         "render_wait": RENDER_WAIT,
@@ -341,32 +338,21 @@ async def main_async():
         "batch_size": BATCH_SIZE,
     }
 
-    # 分片
     worker_count = min(MAX_CONCURRENT, len(cid_list))
     chunk_size = (len(cid_list) + worker_count - 1) // worker_count
     chunks = [cid_list[i*chunk_size:(i+1)*chunk_size] for i in range(worker_count)]
 
-    # 使用进程池
     with ProcessPoolExecutor(max_workers=worker_count) as executor:
-        futures = []
-        for i, chunk in enumerate(chunks):
-            future = executor.submit(run_worker_process, i, chunk, OUTPUT_FILE, config_dict, PROXY_LIST, USER_AGENTS)
-            futures.append(future)
-        
-        # 设置进程超时
-        process_timeout = TIMEOUT_SECONDS + FORCE_EXIT_WAIT
+        loop = asyncio.get_running_loop()
+        futures = [loop.run_in_executor(None, run_worker_process, i, chunks[i], OUTPUT_FILE, config_dict, PROXY_LIST, USER_AGENTS) for i in range(worker_count)]
+
         try:
-            # 等待所有进程完成，带超时
-            for future in asyncio.get_running_loop().run_in_executor(None, lambda: [f.result(timeout=process_timeout) for f in futures]):
-                await asyncio.wait_for(asyncio.shield(future), timeout=process_timeout + 30)
+            await asyncio.wait_for(asyncio.gather(*futures), timeout=TIMEOUT_SECONDS + FORCE_EXIT_WAIT)
         except asyncio.TimeoutError:
-            print(f"主进程超时，强制终止所有Worker进程", flush=True)
+            print(f"主进程超时，强制取消Worker", flush=True)
             for f in futures:
                 f.cancel()
-        except Exception as e:
-            print(f"进程执行错误: {e}", flush=True)
 
-    # 合并所有临时结果文件
     all_valid = []
     for i in range(worker_count):
         temp_file = f"data/worker_{i}_temp.txt"
@@ -374,7 +360,7 @@ async def main_async():
             with open(temp_file, "r") as f:
                 all_valid.extend(f.readlines())
             os.remove(temp_file)
-    # 去重并写入最终文件
+
     seen = set()
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         for line in all_valid:
@@ -383,7 +369,6 @@ async def main_async():
                 seen.add(cid)
                 f.write(line)
 
-    # 收集未完成CID
     unfinished_cids = set()
     for i in range(worker_count):
         ufile = f"unfinished_worker_{i}.txt"
@@ -408,5 +393,5 @@ def main():
     asyncio.run(main_async())
 
 if __name__ == "__main__":
-    mp.freeze_support()  # 兼容Windows
+    mp.freeze_support()
     main()
