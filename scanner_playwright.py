@@ -45,25 +45,38 @@ else:
     OUTPUT_FILE = os.path.join("data", f"list_{base}.txt")
 
 SHARD_IDX = os.environ.get("SHARD_IDX", "unknown")
+UNFINISHED_FLAG = f"unfinished_{SHARD_IDX}.flag"
 
 PROXY_LIST = []
 USER_AGENTS = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
 ]
 
-# ========== Worker 函数（在独立进程中运行） ==========
+def format_time(seconds):
+    if seconds < 0:
+        return "0s"
+    if seconds < 60:
+        return f"{int(seconds)}s"
+    m, s = divmod(int(seconds), 60)
+    if m < 60:
+        return f"{m}m {s}s"
+    h, m = divmod(m, 60)
+    return f"{h}h {m}m"
+
+# ---------- Worker 同步函数 ----------
 def worker_sync(worker_id, cid_list, config_dict, proxy_list, user_agents):
-    WAIT_TIMEOUT = config_dict["wait_timeout"]
-    RENDER_WAIT = config_dict["render_wait"]
-    SLEEP_BETWEEN = config_dict["sleep_between"]
-    RETRY_TIMES = config_dict["retry_times"]
-    RETRY_DELAY = config_dict["retry_delay"]
-    MAX_RETRY_ON_CLOSED = config_dict["max_retry_on_closed"]
-    BATCH_SIZE = config_dict["batch_size"]
+    WAIT_TIMEOUT = config_dict.get("wait_timeout", 25)
+    RENDER_WAIT = config_dict.get("render_wait", 2.0)
+    SLEEP_BETWEEN = config_dict.get("sleep_between", 0.3)
+    RETRY_TIMES = config_dict.get("retry_times", 2)
+    RETRY_DELAY = config_dict.get("retry_delay", 1.0)
+    MAX_RETRY_ON_CLOSED = config_dict.get("max_retry_on_closed", 3)
+    BATCH_SIZE = config_dict.get("batch_size", 200)
 
     worker_out_file = f"data/worker_{worker_id}_temp.txt"
+    unfin_file = f"unfinished_worker_{worker_id}.txt"
     write_buffer = []
-    completed = set()
 
     def flush():
         if write_buffer:
@@ -92,21 +105,18 @@ def worker_sync(worker_id, cid_list, config_dict, proxy_list, user_agents):
         closed_retry = {}
         while i < len(cid_list):
             cid = cid_list[i]
-            # 超过重试限制则放弃
             if closed_retry.get(cid, 0) >= MAX_RETRY_ON_CLOSED:
-                with open(f"unfinished_worker_{worker_id}.txt", "a") as f:
+                with open(unfin_file, "a") as f:
                     f.write(f"{cid}\n")
                 i += 1
                 continue
 
             try:
-                # 页面跳转
                 page.goto(f"https://www.eeo.cn/s/a/?cid={cid}", timeout=WAIT_TIMEOUT*1000, wait_until="domcontentloaded")
                 body = page.text_content("body") or ""
                 if len(body.strip()) < 50:
                     school, class_name = "无", "无"
                 else:
-                    # 等待动态元素
                     try:
                         page.wait_for_selector("p.courseName, p.schoolName", timeout=RENDER_WAIT*1000)
                     except:
@@ -132,15 +142,15 @@ def worker_sync(worker_id, cid_list, config_dict, proxy_list, user_agents):
                         if text and len(text) >= 2:
                             school = text
 
-                # 有效班级才输出
                 if not (class_name == "无" and school == "无"):
                     line = f"{cid} https://www.eeo.cn/s/a/?cid={cid} {school} {class_name}\n"
                     add_line(line)
 
-                completed.add(cid)
+                if cid in closed_retry:
+                    del closed_retry[cid]
                 i += 1
 
-            except (PlaywrightTimeoutError, Exception) as e:
+            except Exception as e:
                 err_msg = str(e).lower()
                 is_closed = any(phrase in err_msg for phrase in ["closed", "context", "browser"])
                 if is_closed:
@@ -157,8 +167,7 @@ def worker_sync(worker_id, cid_list, config_dict, proxy_list, user_agents):
                     )
                     page = context.new_page()
                 else:
-                    # 其他错误放弃
-                    with open(f"unfinished_worker_{worker_id}.txt", "a") as f:
+                    with open(unfin_file, "a") as f:
                         f.write(f"{cid}\n")
                     i += 1
             time.sleep(SLEEP_BETWEEN)
@@ -167,13 +176,14 @@ def worker_sync(worker_id, cid_list, config_dict, proxy_list, user_agents):
         browser.close()
     return worker_id
 
-# ========== 主函数 ==========
+# ---------- 主函数 ----------
 def main():
     # 确定 CID 列表
     if CID_LIST_FILE:
         with open(CID_LIST_FILE, "r") as f:
             cid_list = [int(line.strip()) for line in f if line.strip()]
-        print(f"列表模式: 从 {CID_LIST_FILE} 读取 {len(cid_list)} 个班级")
+        total = len(cid_list)
+        print(f"列表模式: 从 {CID_LIST_FILE} 读取 {total} 个班级")
     else:
         if START_CID is None or END_CID is None:
             print("错误: 必须指定 start_cid/end_cid 或 cid_list_file", flush=True)
@@ -182,18 +192,18 @@ def main():
             print(f"警告: start_cid({START_CID}) > end_cid({END_CID})，自动交换", flush=True)
             START_CID, END_CID = END_CID, START_CID
         cid_list = list(range(START_CID, END_CID + 1))
-        print(f"区间模式: {START_CID} ~ {END_CID} (共 {len(cid_list)} 个)")
-        if len(cid_list) == 0:
+        total = len(cid_list)
+        print(f"区间模式: {START_CID} ~ {END_CID} (共 {total} 个)")
+        if total == 0:
             print("错误: 没有需要扫描的班级", flush=True)
             sys.exit(1)
 
-    global_total = len(cid_list)
     print(f"Worker 并发数: {MAX_CONCURRENT}")
+    print(f"批量写入大小: {BATCH_SIZE}")
     print(f"软超时限制: {TIMEOUT_HOURS} 小时 ({TIMEOUT_SECONDS} 秒)")
     print(f"强制退出等待: {FORCE_EXIT_WAIT} 秒")
     print(f"结果保存至: {OUTPUT_FILE}")
 
-    # 清空输出文件
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         f.write("")
 
@@ -207,36 +217,35 @@ def main():
         "batch_size": BATCH_SIZE,
     }
 
-    # 分片
     worker_count = min(MAX_CONCURRENT, len(cid_list))
     chunk_size = (len(cid_list) + worker_count - 1) // worker_count
     chunks = [cid_list[i*chunk_size:(i+1)*chunk_size] for i in range(worker_count)]
 
-    # 使用 multiprocessing.Pool
+    # 使用进程池
     pool = mp.Pool(processes=worker_count)
     async_results = []
     for i, chunk in enumerate(chunks):
         res = pool.apply_async(worker_sync, (i, chunk, config_dict, PROXY_LIST, USER_AGENTS))
         async_results.append(res)
 
-    # 软超时：等待 TIMEOUT_SECONDS 秒
+    # 软超时控制
     start_time = time.time()
+    soft_timeout = TIMEOUT_SECONDS
     all_done = False
-    while time.time() - start_time < TIMEOUT_SECONDS:
+    while time.time() - start_time < soft_timeout:
         if all(res.ready() for res in async_results):
             all_done = True
             break
         time.sleep(1)
 
     if not all_done:
-        print(f"软超时已达 {TIMEOUT_SECONDS} 秒，强制终止所有 Worker 进程...", flush=True)
+        print(f"软超时已达 {soft_timeout} 秒，强制终止所有 Worker 进程...", flush=True)
         pool.terminate()
         pool.join()
         # 硬超时等待
-        hard_start = time.time()
-        while time.time() - hard_start < FORCE_EXIT_WAIT:
+        hard_timeout_start = time.time()
+        while time.time() - hard_timeout_start < FORCE_EXIT_WAIT:
             time.sleep(1)
-        # 确保所有进程已清理
         if not all(res.ready() for res in async_results):
             print("硬超时，强制 kill", flush=True)
             pool.terminate()
@@ -245,7 +254,7 @@ def main():
         pool.close()
         pool.join()
 
-    # 合并临时结果文件
+    # 合并临时文件
     all_valid = []
     for i in range(worker_count):
         temp_file = f"data/worker_{i}_temp.txt"
@@ -254,18 +263,13 @@ def main():
                 all_valid.extend(f.readlines())
             os.remove(temp_file)
 
-    # 去重并按 CID 排序
     seen = set()
-    unique_lines = []
-    for line in all_valid:
-        cid = line.split()[0]
-        if cid not in seen:
-            seen.add(cid)
-            unique_lines.append(line)
-    # 按 CID 数字排序
-    unique_lines.sort(key=lambda x: int(x.split()[0]))
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-        f.write("".join(unique_lines))
+        for line in all_valid:
+            cid = line.split()[0]
+            if cid not in seen:
+                seen.add(cid)
+                f.write(line)
 
     # 收集未完成 CID
     unfinished_cids = set()
@@ -274,8 +278,9 @@ def main():
         if os.path.exists(ufile):
             with open(ufile, "r") as f:
                 for line in f:
-                    if line.strip():
-                        unfinished_cids.add(int(line.strip()))
+                    line = line.strip()
+                    if line and line.isdigit():
+                        unfinished_cids.add(int(line))
             os.remove(ufile)
 
     if unfinished_cids:
@@ -287,7 +292,7 @@ def main():
         print("所有CID已成功处理", flush=True)
 
     elapsed = time.time() - start_time
-    print(f"扫描结束，总耗时: {elapsed:.2f} 秒，结果保存至 {OUTPUT_FILE}", flush=True)
+    print(f"扫描结束，总耗时: {format_time(elapsed)}，结果保存至 {OUTPUT_FILE}")
 
 if __name__ == "__main__":
     mp.freeze_support()
