@@ -1,4 +1,4 @@
-name: ClassIn Scanner 2.2 (Subprocess + Auto Retry)
+name: ClassIn Scanner Final (Subprocess + Auto Retry)
 
 on:
   workflow_dispatch:
@@ -12,7 +12,6 @@ permissions:
   contents: write
 
 jobs:
-  # ---------- 准备第一轮分片配置 ----------
   prepare:
     runs-on: ubuntu-latest
     outputs:
@@ -48,7 +47,6 @@ jobs:
               f.write(f"total_cids={total}\n")
           EOF
 
-  # ---------- 第一轮扫描（分片） ----------
   round1:
     needs: prepare
     runs-on: ubuntu-latest
@@ -77,8 +75,7 @@ jobs:
           SHARD_IDX: ${{ matrix.shard_idx }}
           START_CID: ${{ steps.get_range.outputs.start }}
           END_CID: ${{ steps.get_range.outputs.end }}
-        run: |
-          python scanner_main.py --mode range --start $START_CID --end $END_CID
+        run: python scanner_main.py --mode range --start $START_CID --end $END_CID
       - name: 上传结果
         uses: actions/upload-artifact@v4
         with:
@@ -94,7 +91,6 @@ jobs:
           if-no-files-found: ignore
           retention-days: 1
 
-  # ---------- 收集未完成CID并拆分（第一轮后） ----------
   collect_round1:
     needs: round1
     runs-on: ubuntu-latest
@@ -141,8 +137,10 @@ jobs:
                       for cid in subset:
                           f.write(f"{cid}\n")
                   shard_indices.append(str(i))
+          output = json.dumps(shard_indices, separators=(',', ':'))
+          print(f"retry_shard_list={output}")
           with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
-              f.write(f"retry_shard_list={json.dumps(shard_indices)}\n")
+              f.write(f"retry_shard_list={output}\n")
           EOF
       - name: 上传重扫分片
         uses: actions/upload-artifact@v4
@@ -151,10 +149,9 @@ jobs:
           path: retry_shards/
           retention-days: 1
 
-  # ---------- 第二轮扫描（固定10个分片） ----------
   round2:
     needs: collect_round1
-    if: fromJson(needs.collect_round1.outputs.retry_shard_list).length > 0
+    if: needs.collect_round1.outputs.retry_shard_list != '[]'
     runs-on: ubuntu-latest
     timeout-minutes: 360
     strategy:
@@ -176,8 +173,7 @@ jobs:
       - name: 运行重扫
         env:
           SHARD_IDX: round2_${{ matrix.retry_idx }}
-        run: |
-          python scanner_main.py --mode file --file retry_shards/retry_cids_${{ matrix.retry_idx }}.txt
+        run: python scanner_main.py --mode file --file retry_shards/retry_cids_${{ matrix.retry_idx }}.txt
       - name: 上传结果
         uses: actions/upload-artifact@v4
         with:
@@ -193,7 +189,6 @@ jobs:
           if-no-files-found: ignore
           retention-days: 1
 
-  # ---------- 最终合并报告 ----------
   final_report:
     needs: [prepare, round1, round2]
     if: always()
@@ -216,7 +211,6 @@ jobs:
       - name: 统计并生成报告
         run: |
           mkdir -p final_report
-          # 查找所有txt文件合并
           find all_ok -type f -name "*.txt" -exec cat {} \; > all_valid.txt 2>/dev/null || true
           if [ -s all_valid.txt ]; then
             VALID=$(cut -d' ' -f1 all_valid.txt | sort -u | wc -l)
