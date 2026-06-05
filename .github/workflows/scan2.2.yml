@@ -6,7 +6,7 @@ on:
       shards:
         description: '第一轮分片数量'
         required: true
-        default: '20'
+        default: '30'
 
 permissions:
   contents: write
@@ -16,7 +16,8 @@ jobs:
   prepare:
     runs-on: ubuntu-latest
     outputs:
-      shard_list: ${{ steps.calc.outputs.shard_list }}
+      shard_indices: ${{ steps.calc.outputs.shard_indices }}
+      shard_ranges: ${{ steps.calc.outputs.shard_ranges }}
       total_cids: ${{ steps.calc.outputs.total_cids }}
     steps:
       - uses: actions/checkout@v4
@@ -25,7 +26,6 @@ jobs:
           START=$(jq -r '.start_cid' config.json)
           END=$(jq -r '.end_cid' config.json)
           SHARDS=${{ github.event.inputs.shards }}
-          # 将值写入环境变量，供 Python 读取
           export START END SHARDS
           python << 'EOF'
           import json, math, os
@@ -34,18 +34,17 @@ jobs:
           shards = int(os.environ['SHARDS'])
           total = end - start + 1
           shard_size = math.ceil(total / shards)
-          shard_indices = []
-          shard_configs = []
+          indices = []
+          ranges = []
           for i in range(shards):
               s = start + i * shard_size
               e = min(start + (i+1)*shard_size - 1, end)
               if s <= e:
-                  shard_indices.append(str(i))
-                  shard_configs.append({"start_cid": s, "end_cid": e})
-          # 保存分片配置供后续 matrix 使用
+                  indices.append(str(i))
+                  ranges.append({"start": s, "end": e})
           with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
-              f.write(f"shard_list={json.dumps(shard_indices)}\n")
-              f.write(f"shard_configs={json.dumps(shard_configs)}\n")
+              f.write(f"shard_indices={json.dumps(indices)}\n")
+              f.write(f"shard_ranges={json.dumps(ranges)}\n")
               f.write(f"total_cids={total}\n")
           EOF
 
@@ -58,9 +57,17 @@ jobs:
       fail-fast: false
       max-parallel: 10
       matrix:
-        shard_idx: ${{ fromJson(needs.prepare.outputs.shard_list) }}
+        shard_idx: ${{ fromJson(needs.prepare.outputs.shard_indices) }}
     steps:
       - uses: actions/checkout@v4
+      - name: 获取当前分片的起止范围
+        id: get_range
+        run: |
+          RANGES='${{ needs.prepare.outputs.shard_ranges }}'
+          START=$(echo "$RANGES" | jq -r ".[${{ matrix.shard_idx }}].start")
+          END=$(echo "$RANGES" | jq -r ".[${{ matrix.shard_idx }}].end")
+          echo "start=$START" >> $GITHUB_OUTPUT
+          echo "end=$END" >> $GITHUB_OUTPUT
       - name: 安装依赖
         run: |
           pip install playwright
@@ -68,8 +75,8 @@ jobs:
       - name: 运行分片扫描
         env:
           SHARD_IDX: ${{ matrix.shard_idx }}
-          START_CID: ${{ fromJson(needs.prepare.outputs.shard_configs)[matrix.shard_idx].start_cid }}
-          END_CID: ${{ fromJson(needs.prepare.outputs.shard_configs)[matrix.shard_idx].end_cid }}
+          START_CID: ${{ steps.get_range.outputs.start }}
+          END_CID: ${{ steps.get_range.outputs.end }}
         run: |
           python scanner_main.py --mode range --start $START_CID --end $END_CID
       - name: 上传结果
@@ -205,7 +212,6 @@ jobs:
       - name: 统计并生成报告
         run: |
           mkdir -p final_report
-          # 合并有效班级
           find all_ok -name "*.txt" -exec cat {} \; > all_valid.txt 2>/dev/null || true
           if [ -s all_valid.txt ]; then
             VALID=$(cut -d' ' -f1 all_valid.txt | sort -u | wc -l)
