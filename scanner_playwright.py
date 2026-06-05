@@ -316,9 +316,16 @@ async def main_async():
         if START_CID is None or END_CID is None:
             print("错误: 必须指定 start_cid/end_cid 或 cid_list_file", flush=True)
             sys.exit(1)
+        # 修复：自动交换 start 和 end 如果 start > end
+        if START_CID > END_CID:
+            print(f"警告: start_cid({START_CID}) > end_cid({END_CID})，自动交换", flush=True)
+            START_CID, END_CID = END_CID, START_CID
         cid_list = list(range(START_CID, END_CID + 1))
         global_total = len(cid_list)
         print(f"区间模式: {START_CID} ~ {END_CID} (共 {global_total} 个)")
+        if global_total == 0:
+            print("错误: 没有需要扫描的班级，请检查 start_cid 和 end_cid 配置", flush=True)
+            sys.exit(1)
 
     print(f"Worker 并发数: {MAX_CONCURRENT}")
     print(f"批量写入大小: {BATCH_SIZE}")
