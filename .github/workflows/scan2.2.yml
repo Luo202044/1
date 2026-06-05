@@ -128,7 +128,20 @@ jobs:
           merge-multiple: false
       - name: 解析需要重跑的分片
         id: retry
-        run: python parse_unfinished.py
+        run: |
+          python << 'EOF'
+          import os, json, glob
+          retry_indices = []
+          flags_dir = "flags"
+          if os.path.isdir(flags_dir):
+              for dirpath in glob.glob(f"{flags_dir}/flag-*/"):
+                  if glob.glob(os.path.join(dirpath, "unfinished_*")):
+                      idx = os.path.basename(dirpath.rstrip('/')).replace('flag-', '')
+                      retry_indices.append(idx)
+          output = json.dumps(retry_indices)
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write(f"retry_list={output}\n")
+          EOF
 
   scan_shard_second:
     needs: [master, collect_unfinished]
