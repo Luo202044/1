@@ -13,11 +13,11 @@ import os
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 
 def run_worker(worker_id, cid_list, config, proxy_list, user_agents, output_dir):
-    WAIT_TIMEOUT = config.get("wait_timeout", 10)
-    RENDER_WAIT = config.get("render_wait", 0.5)
-    SLEEP_BETWEEN = config.get("sleep_between", 0.05)
-    RETRY_TIMES = config.get("retry_times", 1)
-    RETRY_DELAY = config.get("retry_delay", 0.5)
+    WAIT_TIMEOUT = config.get("wait_timeout", 25)
+    RENDER_WAIT = config.get("render_wait", 2.0)
+    SLEEP_BETWEEN = config.get("sleep_between", 0.3)
+    RETRY_TIMES = config.get("retry_times", 2)
+    RETRY_DELAY = config.get("retry_delay", 1.0)
     MAX_RETRY_ON_CLOSED = config.get("max_retry_on_closed", 3)
     BATCH_SIZE = config.get("batch_size", 200)
 
@@ -47,7 +47,6 @@ def run_worker(worker_id, cid_list, config, proxy_list, user_agents, output_dir)
                 "--disable-setuid-sandbox", "--disable-accelerated-2d-canvas"
             ]
         )
-        # 每个 Worker 独立上下文
         context = browser.new_context(
             user_agent=random.choice(user_agents),
             proxy={"server": random.choice(proxy_list)} if proxy_list else None,
@@ -59,7 +58,6 @@ def run_worker(worker_id, cid_list, config, proxy_list, user_agents, output_dir)
         closed_retry = {}
         while i < len(cid_list):
             cid = cid_list[i]
-            # 超出重试限制放弃
             if closed_retry.get(cid, 0) >= MAX_RETRY_ON_CLOSED:
                 with open(unfin_file, "a") as f:
                     f.write(f"{cid}\n")
@@ -67,18 +65,16 @@ def run_worker(worker_id, cid_list, config, proxy_list, user_agents, output_dir)
                 continue
 
             try:
-                # 页面跳转
                 page.goto(f"https://www.eeo.cn/s/a/?cid={cid}", timeout=WAIT_TIMEOUT*1000, wait_until="domcontentloaded")
                 body = page.text_content("body") or ""
                 if len(body.strip()) < 50:
                     school_name, class_name = "无", "无"
                 else:
-                    # 等待动态元素
                     try:
                         page.wait_for_selector("p.courseName, p.schoolName", timeout=RENDER_WAIT*1000)
                     except:
                         pass
-                    # 获取班级名称
+                    # 班级名
                     class_name = "无"
                     elem = page.query_selector("p.courseName")
                     if elem:
@@ -91,7 +87,7 @@ def run_worker(worker_id, cid_list, config, proxy_list, user_agents, output_dir)
                             parts = title.split("|")
                             if len(parts) > 1:
                                 class_name = parts[-1].strip()
-                    # 获取学校名称
+                    # 学校名
                     school_name = "无"
                     elem = page.query_selector("p.schoolName")
                     if elem:
@@ -99,7 +95,6 @@ def run_worker(worker_id, cid_list, config, proxy_list, user_agents, output_dir)
                         if text and len(text) >= 2:
                             school_name = text
 
-                # 有效班级才输出
                 if not (class_name == "无" and school_name == "无"):
                     line = f"{cid} https://www.eeo.cn/s/a/?cid={cid} {school_name} {class_name}\n"
                     add_line(line)
@@ -111,10 +106,8 @@ def run_worker(worker_id, cid_list, config, proxy_list, user_agents, output_dir)
 
             except (PlaywrightTimeoutError, Exception) as e:
                 err_msg = str(e).lower()
-                # 判断是否为页面关闭类错误
                 if any(phrase in err_msg for phrase in ["closed", "context", "browser"]):
                     closed_retry[cid] = closed_retry.get(cid, 0) + 1
-                    # 重建上下文和页面
                     try:
                         context.close()
                         page.close()
@@ -127,7 +120,6 @@ def run_worker(worker_id, cid_list, config, proxy_list, user_agents, output_dir)
                     )
                     page = context.new_page()
                 else:
-                    # 其他错误直接放弃
                     with open(unfin_file, "a") as f:
                         f.write(f"{cid}\n")
                     i += 1
