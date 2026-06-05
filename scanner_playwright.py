@@ -178,7 +178,8 @@ def worker_sync(worker_id, cid_list, config_dict, proxy_list, user_agents):
 
 # ---------- 主函数 ----------
 def main():
-    # 确定 CID 列表
+    global START_CID, END_CID, CID_LIST_FILE, OUTPUT_FILE, SHARD_IDX, UNFINISHED_FLAG
+
     if CID_LIST_FILE:
         with open(CID_LIST_FILE, "r") as f:
             cid_list = [int(line.strip()) for line in f if line.strip()]
@@ -221,14 +222,12 @@ def main():
     chunk_size = (len(cid_list) + worker_count - 1) // worker_count
     chunks = [cid_list[i*chunk_size:(i+1)*chunk_size] for i in range(worker_count)]
 
-    # 使用进程池
     pool = mp.Pool(processes=worker_count)
     async_results = []
     for i, chunk in enumerate(chunks):
         res = pool.apply_async(worker_sync, (i, chunk, config_dict, PROXY_LIST, USER_AGENTS))
         async_results.append(res)
 
-    # 软超时控制
     start_time = time.time()
     soft_timeout = TIMEOUT_SECONDS
     all_done = False
@@ -242,7 +241,6 @@ def main():
         print(f"软超时已达 {soft_timeout} 秒，强制终止所有 Worker 进程...", flush=True)
         pool.terminate()
         pool.join()
-        # 硬超时等待
         hard_timeout_start = time.time()
         while time.time() - hard_timeout_start < FORCE_EXIT_WAIT:
             time.sleep(1)
@@ -254,7 +252,6 @@ def main():
         pool.close()
         pool.join()
 
-    # 合并临时文件
     all_valid = []
     for i in range(worker_count):
         temp_file = f"data/worker_{i}_temp.txt"
@@ -271,7 +268,6 @@ def main():
                 seen.add(cid)
                 f.write(line)
 
-    # 收集未完成 CID
     unfinished_cids = set()
     for i in range(worker_count):
         ufile = f"unfinished_worker_{i}.txt"
