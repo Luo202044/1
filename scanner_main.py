@@ -13,9 +13,7 @@ import subprocess
 import math
 import time
 import glob
-from multiprocessing import cpu_count
 
-# ---------- 默认配置 ----------
 DEFAULT_CONFIG = {
     "max_concurrent": 20,
     "wait_timeout": 25,
@@ -25,7 +23,7 @@ DEFAULT_CONFIG = {
     "retry_delay": 1.0,
     "batch_size": 200,
     "max_retry_on_closed": 3,
-    "worker_process_timeout": 600   # 每个worker进程超时（秒）
+    "worker_process_timeout": 600
 }
 
 def load_config():
@@ -40,12 +38,10 @@ def load_config():
         return DEFAULT_CONFIG.copy()
 
 def split_list(lst, n):
-    """将列表分成n份"""
     k, m = divmod(len(lst), n)
     return [lst[i*k+min(i, m):(i+1)*k+min(i+1, m)] for i in range(n)]
 
 def run_worker_process(worker_id, cid_chunk, config, proxy_list, user_agents, output_dir, timeout_sec):
-    """启动单个Worker子进程，超时则终止"""
     cmd = [
         sys.executable, "worker_sync.py",
         str(worker_id),
@@ -71,35 +67,28 @@ def run_worker_process(worker_id, cid_chunk, config, proxy_list, user_agents, ou
         except subprocess.TimeoutExpired:
             proc.kill()
         print(f"Worker {worker_id} 超时({timeout_sec}秒)，已强制终止", flush=True)
-        # 注意：超时的worker可能已经部分写入unfinished文件，剩余未处理的CID会在最终合并时被记录
         return False
 
 def scan_cid_list(cid_list, config, output_dir, worker_timeout, max_workers=None):
-    """扫描CID列表，返回成功处理的CID集合和未完成CID集合"""
     if max_workers is None:
         max_workers = config.get("max_concurrent", 20)
     worker_count = min(max_workers, len(cid_list))
     if worker_count == 0:
         return set(), set()
 
-    # 分片
     chunks = split_list(cid_list, worker_count)
-    # 准备代理和UA（从config或环境变量读取，这里使用空列表）
     proxy_list = []
     user_agents = [
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
     ]
 
-    # 启动所有Worker进程
-    results = []
     for i, chunk in enumerate(chunks):
         if not chunk:
             continue
         print(f"启动 Worker {i}，处理 {len(chunk)} 个CID", flush=True)
-        success = run_worker_process(i, chunk, config, proxy_list, user_agents, output_dir, worker_timeout)
-        results.append(success)
+        run_worker_process(i, chunk, config, proxy_list, user_agents, output_dir, worker_timeout)
 
-    # 收集所有临时输出文件
+    # 合并结果
     all_valid_lines = []
     for i in range(len(chunks)):
         tmp_file = os.path.join(output_dir, f"output_{i}.txt")
@@ -108,7 +97,6 @@ def scan_cid_list(cid_list, config, output_dir, worker_timeout, max_workers=None
                 all_valid_lines.extend(f.readlines())
             os.remove(tmp_file)
 
-    # 合并去重
     seen = set()
     valid_cids = set()
     merged_lines = []
@@ -121,13 +109,12 @@ def scan_cid_list(cid_list, config, output_dir, worker_timeout, max_workers=None
                 valid_cids.add(cid)
                 merged_lines.append(line)
 
-    # 写最终输出
     final_output = os.path.join(output_dir, "merged_output.txt")
     with open(final_output, "w", encoding="utf-8") as f:
         f.write("".join(merged_lines))
     print(f"合并有效班级 {len(valid_cids)} 条，保存至 {final_output}", flush=True)
 
-    # 收集所有未完成CID
+    # 收集未完成CID
     unfinished_cids = set()
     for i in range(len(chunks)):
         unfin_file = f"unfinished_worker_{i}.txt"
@@ -154,7 +141,6 @@ def main():
     config = load_config()
     worker_timeout = config.get("worker_process_timeout", 600)
 
-    # 确定CID列表
     if args.mode == "range":
         if args.start is None or args.end is None:
             print("错误: range模式需要 --start 和 --end", flush=True)
@@ -163,7 +149,7 @@ def main():
         print(f"区间模式: {args.start} ~ {args.end} (共 {len(cid_list)} 个)", flush=True)
         shard_idx = os.environ.get("SHARD_IDX", "unknown")
         output_dir = os.path.join(args.output, f"range_{args.start}_{args.end}")
-    else:  # file模式
+    else:
         if not args.file or not os.path.exists(args.file):
             print(f"错误: 文件 {args.file} 不存在", flush=True)
             sys.exit(1)
@@ -175,12 +161,10 @@ def main():
 
     os.makedirs(output_dir, exist_ok=True)
 
-    # 执行扫描
     start_time = time.time()
     valid_cids, unfinished_cids = scan_cid_list(cid_list, config, output_dir, worker_timeout)
     elapsed = time.time() - start_time
 
-    # 输出未完成CID列表（供后续重扫）
     if unfinished_cids:
         unfin_file = f"unfinished_cids_{shard_idx}.txt"
         with open(unfin_file, "w") as f:
