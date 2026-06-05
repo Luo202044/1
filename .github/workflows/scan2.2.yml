@@ -216,7 +216,7 @@ jobs:
       - name: 统计并生成报告
         run: |
           mkdir -p final_report
-          # 修复：查找所有txt文件而非仅merged_output.txt
+          # 查找所有txt文件合并
           find all_ok -type f -name "*.txt" -exec cat {} \; > all_valid.txt 2>/dev/null || true
           if [ -s all_valid.txt ]; then
             VALID=$(cut -d' ' -f1 all_valid.txt | sort -u | wc -l)
@@ -231,7 +231,6 @@ jobs:
             UNFIN=0
           fi
           SCANNED=$((TOTAL - UNFIN))
-          # 避免除零错误
           if [ $TOTAL -eq 0 ]; then
             PERCENT=0
           else
@@ -248,7 +247,7 @@ jobs:
       - name: 提交报告
         run: |
           git config user.name "github-actions[bot]"
-          git config.user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git add final_report/
           git commit -m "自动生成扫描报告 [skip ci]" || echo "无变更"
           git push
