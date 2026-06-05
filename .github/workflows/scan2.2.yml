@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       shards:
-        description: '第一轮分片数量'
+        description: '第一轮分片数量:20,'
         required: true
-        default: '30'
+        default: '20'
 
 permissions:
   contents: write
@@ -83,13 +83,15 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: round1-ok-${{ matrix.shard_idx }}
-          path: data/output_*.txt
+          path: data/**/merged_output.txt
+          if-no-files-found: warn
           retention-days: 1
       - name: 上传未完成CID
         uses: actions/upload-artifact@v4
         with:
           name: round1-unfinished-${{ matrix.shard_idx }}
           path: unfinished_cids_*.txt
+          if-no-files-found: warn
           retention-days: 1
 
   # ---------- 收集未完成CID并拆分（第一轮后） ----------
@@ -180,13 +182,15 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: round2-ok-${{ matrix.retry_idx }}
-          path: data/output_*.txt
+          path: data/**/merged_output.txt
+          if-no-files-found: warn
           retention-days: 1
       - name: 上传未完成CID
         uses: actions/upload-artifact@v4
         with:
           name: round2-unfinished-${{ matrix.retry_idx }}
           path: unfinished_cids_*.txt
+          if-no-files-found: warn
           retention-days: 1
 
   # ---------- 最终合并报告 ----------
@@ -212,7 +216,7 @@ jobs:
       - name: 统计并生成报告
         run: |
           mkdir -p final_report
-          find all_ok -name "*.txt" -exec cat {} \; > all_valid.txt 2>/dev/null || true
+          find all_ok -name "merged_output.txt" -exec cat {} \; > all_valid.txt 2>/dev/null || true
           if [ -s all_valid.txt ]; then
             VALID=$(cut -d' ' -f1 all_valid.txt | sort -u | wc -l)
             awk 'NR%600==1 {file=sprintf("final_report/part_%03d.txt", ++c)} {print > file}' all_valid.txt
@@ -226,7 +230,11 @@ jobs:
             UNFIN=0
           fi
           SCANNED=$((TOTAL - UNFIN))
-          PERCENT=$(echo "scale=2; $SCANNED * 100 / $TOTAL" | bc)
+          if [ $TOTAL -gt 0 ]; then
+            PERCENT=$(echo "scale=2; $SCANNED * 100 / $TOTAL" | bc)
+          else
+            PERCENT=0
+          fi
           cat > final_report/nto.txt << EOF
           总班级数: $TOTAL
           有效班级: $VALID
