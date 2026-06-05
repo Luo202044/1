@@ -1,4 +1,4 @@
-name: ClassIn Scanner Final (Subprocess + Auto Retry)
+name: ClassIn Scanner Final V2 (Async with Health Monitor)
 
 on:
   workflow_dispatch:
@@ -68,19 +68,19 @@ jobs:
           echo "end=$END" >> $GITHUB_OUTPUT
       - name: 安装依赖
         run: |
-          pip install playwright
+          pip install playwright psutil
           playwright install chromium
       - name: 运行分片扫描
         env:
           SHARD_IDX: ${{ matrix.shard_idx }}
           START_CID: ${{ steps.get_range.outputs.start }}
           END_CID: ${{ steps.get_range.outputs.end }}
-        run: python scanner_main.py --mode range --start $START_CID --end $END_CID
+        run: python scanner_playwright_final.py
       - name: 上传结果
         uses: actions/upload-artifact@v4
         with:
           name: round1-ok-${{ matrix.shard_idx }}
-          path: data/**/merged_output.txt
+          path: data/*.txt
           if-no-files-found: warn
           retention-days: 1
       - name: 上传未完成CID
@@ -168,17 +168,18 @@ jobs:
           path: retry_shards/
       - name: 安装依赖
         run: |
-          pip install playwright
+          pip install playwright psutil
           playwright install chromium
-      - name: 运行重扫
+      - name: 运行重扫（文件模式）
         env:
           SHARD_IDX: round2_${{ matrix.retry_idx }}
-        run: python scanner_main.py --mode file --file retry_shards/retry_cids_${{ matrix.retry_idx }}.txt
+          CID_LIST_FILE: retry_shards/retry_cids_${{ matrix.retry_idx }}.txt
+        run: python scanner_playwright_final.py
       - name: 上传结果
         uses: actions/upload-artifact@v4
         with:
           name: round2-ok-${{ matrix.retry_idx }}
-          path: data/**/merged_output.txt
+          path: data/*.txt
           if-no-files-found: warn
           retention-days: 1
       - name: 上传未完成CID
