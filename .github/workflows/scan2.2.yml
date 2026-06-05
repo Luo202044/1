@@ -25,22 +25,27 @@ jobs:
           START=$(jq -r '.start_cid' config.json)
           END=$(jq -r '.end_cid' config.json)
           SHARDS=${{ github.event.inputs.shards }}
-          # 计算总分片数及列表
+          # 将值写入环境变量，供 Python 读取
+          export START END SHARDS
           python << 'EOF'
           import json, math, os
-          start = int('$START')
-          end = int('$END')
-          shards = int('$SHARDS')
+          start = int(os.environ['START'])
+          end = int(os.environ['END'])
+          shards = int(os.environ['SHARDS'])
           total = end - start + 1
           shard_size = math.ceil(total / shards)
           shard_indices = []
+          shard_configs = []
           for i in range(shards):
               s = start + i * shard_size
               e = min(start + (i+1)*shard_size - 1, end)
               if s <= e:
                   shard_indices.append(str(i))
+                  shard_configs.append({"start_cid": s, "end_cid": e})
+          # 保存分片配置供后续 matrix 使用
           with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
               f.write(f"shard_list={json.dumps(shard_indices)}\n")
+              f.write(f"shard_configs={json.dumps(shard_configs)}\n")
               f.write(f"total_cids={total}\n")
           EOF
 
@@ -201,7 +206,7 @@ jobs:
         run: |
           mkdir -p final_report
           # 合并有效班级
-          find all_ok -name "*.txt" -exec cat {} \; > all_valid.txt
+          find all_ok -name "*.txt" -exec cat {} \; > all_valid.txt 2>/dev/null || true
           if [ -s all_valid.txt ]; then
             VALID=$(cut -d' ' -f1 all_valid.txt | sort -u | wc -l)
             awk 'NR%600==1 {file=sprintf("final_report/part_%03d.txt", ++c)} {print > file}' all_valid.txt
@@ -209,7 +214,11 @@ jobs:
             VALID=0
           fi
           TOTAL=${{ needs.prepare.outputs.total_cids }}
-          UNFIN=$(find all_unfinished -name "*.txt" -exec cat {} \; | sort -u | wc -l)
+          if [ -d all_unfinished ]; then
+            UNFIN=$(find all_unfinished -name "*.txt" -exec cat {} \; 2>/dev/null | sort -u | wc -l)
+          else
+            UNFIN=0
+          fi
           SCANNED=$((TOTAL - UNFIN))
           PERCENT=$(echo "scale=2; $SCANNED * 100 / $TOTAL" | bc)
           cat > final_report/nto.txt << EOF
