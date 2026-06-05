@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       shards:
-        description: '第一轮分片数量:20,'
+        description: '第一轮分片数量'
         required: true
         default: '20'
 
@@ -91,7 +91,7 @@ jobs:
         with:
           name: round1-unfinished-${{ matrix.shard_idx }}
           path: unfinished_cids_*.txt
-          if-no-files-found: warn
+          if-no-files-found: ignore
           retention-days: 1
 
   # ---------- 收集未完成CID并拆分（第一轮后） ----------
@@ -190,7 +190,7 @@ jobs:
         with:
           name: round2-unfinished-${{ matrix.retry_idx }}
           path: unfinished_cids_*.txt
-          if-no-files-found: warn
+          if-no-files-found: ignore
           retention-days: 1
 
   # ---------- 最终合并报告 ----------
@@ -216,7 +216,8 @@ jobs:
       - name: 统计并生成报告
         run: |
           mkdir -p final_report
-          find all_ok -name "merged_output.txt" -exec cat {} \; > all_valid.txt 2>/dev/null || true
+          # 修复：查找所有txt文件而非仅merged_output.txt
+          find all_ok -type f -name "*.txt" -exec cat {} \; > all_valid.txt 2>/dev/null || true
           if [ -s all_valid.txt ]; then
             VALID=$(cut -d' ' -f1 all_valid.txt | sort -u | wc -l)
             awk 'NR%600==1 {file=sprintf("final_report/part_%03d.txt", ++c)} {print > file}' all_valid.txt
@@ -225,15 +226,16 @@ jobs:
           fi
           TOTAL=${{ needs.prepare.outputs.total_cids }}
           if [ -d all_unfinished ]; then
-            UNFIN=$(find all_unfinished -name "*.txt" -exec cat {} \; 2>/dev/null | sort -u | wc -l)
+            UNFIN=$(find all_unfinished -type f -name "*.txt" -exec cat {} \; 2>/dev/null | sort -u | wc -l)
           else
             UNFIN=0
           fi
           SCANNED=$((TOTAL - UNFIN))
-          if [ $TOTAL -gt 0 ]; then
-            PERCENT=$(echo "scale=2; $SCANNED * 100 / $TOTAL" | bc)
-          else
+          # 避免除零错误
+          if [ $TOTAL -eq 0 ]; then
             PERCENT=0
+          else
+            PERCENT=$(echo "scale=2; $SCANNED * 100 / $TOTAL" | bc)
           fi
           cat > final_report/nto.txt << EOF
           总班级数: $TOTAL
@@ -246,7 +248,7 @@ jobs:
       - name: 提交报告
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config.user.email "github-actions[bot]@users.noreply.github.com"
           git add final_report/
           git commit -m "自动生成扫描报告 [skip ci]" || echo "无变更"
           git push
