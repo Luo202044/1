@@ -1,0 +1,229 @@
+name: ClassIn Scanner 2.2 (Subprocess + Auto Retry)
+
+on:
+  workflow_dispatch:
+    inputs:
+      shards:
+        description: '第一轮分片数量'
+        required: true
+        default: '30'
+
+permissions:
+  contents: write
+
+jobs:
+  # ---------- 准备第一轮分片配置 ----------
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      shard_list: ${{ steps.calc.outputs.shard_list }}
+      total_cids: ${{ steps.calc.outputs.total_cids }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: calc
+        run: |
+          START=$(jq -r '.start_cid' config.json)
+          END=$(jq -r '.end_cid' config.json)
+          SHARDS=${{ github.event.inputs.shards }}
+          # 计算总分片数及列表
+          python << 'EOF'
+          import json, math, os
+          start = int('$START')
+          end = int('$END')
+          shards = int('$SHARDS')
+          total = end - start + 1
+          shard_size = math.ceil(total / shards)
+          shard_indices = []
+          for i in range(shards):
+              s = start + i * shard_size
+              e = min(start + (i+1)*shard_size - 1, end)
+              if s <= e:
+                  shard_indices.append(str(i))
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write(f"shard_list={json.dumps(shard_indices)}\n")
+              f.write(f"total_cids={total}\n")
+          EOF
+
+  # ---------- 第一轮扫描（分片） ----------
+  round1:
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        shard_idx: ${{ fromJson(needs.prepare.outputs.shard_list) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: 安装依赖
+        run: |
+          pip install playwright
+          playwright install chromium
+      - name: 运行分片扫描
+        env:
+          SHARD_IDX: ${{ matrix.shard_idx }}
+          START_CID: ${{ fromJson(needs.prepare.outputs.shard_configs)[matrix.shard_idx].start_cid }}
+          END_CID: ${{ fromJson(needs.prepare.outputs.shard_configs)[matrix.shard_idx].end_cid }}
+        run: |
+          python scanner_main.py --mode range --start $START_CID --end $END_CID
+      - name: 上传结果
+        uses: actions/upload-artifact@v4
+        with:
+          name: round1-ok-${{ matrix.shard_idx }}
+          path: data/output_*.txt
+          retention-days: 1
+      - name: 上传未完成CID
+        uses: actions/upload-artifact@v4
+        with:
+          name: round1-unfinished-${{ matrix.shard_idx }}
+          path: unfinished_cids_*.txt
+          retention-days: 1
+
+  # ---------- 收集未完成CID并拆分（第一轮后） ----------
+  collect_round1:
+    needs: round1
+    runs-on: ubuntu-latest
+    outputs:
+      retry_shard_list: ${{ steps.split.outputs.retry_shard_list }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: 下载所有未完成CID
+        uses: actions/download-artifact@v4
+        with:
+          pattern: round1-unfinished-*
+          path: unfinished_raw
+          merge-multiple: true
+      - name: 合并并拆分为10个分片
+        id: split
+        run: |
+          python << 'EOF'
+          import os, json, glob, math
+          cid_set = set()
+          for f in glob.glob("unfinished_raw/*.txt"):
+              with open(f) as fp:
+                  for line in fp:
+                      line = line.strip()
+                      if line and line.isdigit():
+                          cid_set.add(int(line))
+          cid_list = sorted(cid_set)
+          total = len(cid_list)
+          print(f"需要重扫的CID总数: {total}")
+          if total == 0:
+              shard_indices = []
+          else:
+              shards = 10
+              chunk_size = math.ceil(total / shards)
+              os.makedirs("retry_shards", exist_ok=True)
+              shard_indices = []
+              for i in range(shards):
+                  start = i * chunk_size
+                  end = min((i+1)*chunk_size, total)
+                  if start >= total:
+                      break
+                  subset = cid_list[start:end]
+                  out_file = f"retry_shards/retry_cids_{i}.txt"
+                  with open(out_file, 'w') as f:
+                      for cid in subset:
+                          f.write(f"{cid}\n")
+                  shard_indices.append(str(i))
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write(f"retry_shard_list={json.dumps(shard_indices)}\n")
+          EOF
+      - name: 上传重扫分片
+        uses: actions/upload-artifact@v4
+        with:
+          name: retry-shards
+          path: retry_shards/
+          retention-days: 1
+
+  # ---------- 第二轮扫描（固定10个分片） ----------
+  round2:
+    needs: collect_round1
+    if: fromJson(needs.collect_round1.outputs.retry_shard_list).length > 0
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        retry_idx: ${{ fromJson(needs.collect_round1.outputs.retry_shard_list) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: 下载重扫分片文件
+        uses: actions/download-artifact@v4
+        with:
+          name: retry-shards
+          path: retry_shards/
+      - name: 安装依赖
+        run: |
+          pip install playwright
+          playwright install chromium
+      - name: 运行重扫
+        env:
+          SHARD_IDX: round2_${{ matrix.retry_idx }}
+        run: |
+          python scanner_main.py --mode file --file retry_shards/retry_cids_${{ matrix.retry_idx }}.txt
+      - name: 上传结果
+        uses: actions/upload-artifact@v4
+        with:
+          name: round2-ok-${{ matrix.retry_idx }}
+          path: data/output_*.txt
+          retention-days: 1
+      - name: 上传未完成CID
+        uses: actions/upload-artifact@v4
+        with:
+          name: round2-unfinished-${{ matrix.retry_idx }}
+          path: unfinished_cids_*.txt
+          retention-days: 1
+
+  # ---------- 最终合并报告 ----------
+  final_report:
+    needs: [prepare, round1, round2]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 下载所有成功结果
+        uses: actions/download-artifact@v4
+        with:
+          pattern: '*-ok-*'
+          path: all_ok
+          merge-multiple: true
+      - name: 下载所有未完成CID（用于统计）
+        uses: actions/download-artifact@v4
+        with:
+          pattern: '*-unfinished-*'
+          path: all_unfinished
+          merge-multiple: true
+        continue-on-error: true
+      - name: 统计并生成报告
+        run: |
+          mkdir -p final_report
+          # 合并有效班级
+          find all_ok -name "*.txt" -exec cat {} \; > all_valid.txt
+          if [ -s all_valid.txt ]; then
+            VALID=$(cut -d' ' -f1 all_valid.txt | sort -u | wc -l)
+            awk 'NR%600==1 {file=sprintf("final_report/part_%03d.txt", ++c)} {print > file}' all_valid.txt
+          else
+            VALID=0
+          fi
+          TOTAL=${{ needs.prepare.outputs.total_cids }}
+          UNFIN=$(find all_unfinished -name "*.txt" -exec cat {} \; | sort -u | wc -l)
+          SCANNED=$((TOTAL - UNFIN))
+          PERCENT=$(echo "scale=2; $SCANNED * 100 / $TOTAL" | bc)
+          cat > final_report/nto.txt << EOF
+          总班级数: $TOTAL
+          有效班级: $VALID
+          完成进度: $PERCENT%
+          未扫班级: $UNFIN
+          结束时间: $(date -u +"%Y-%m-%d %H:%M:%S")
+          EOF
+          cat final_report/nto.txt
+      - name: 提交报告
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add final_report/
+          git commit -m "自动生成扫描报告 [skip ci]" || echo "无变更"
+          git push
