@@ -223,7 +223,11 @@ jobs:
           VALID_COUNT=0
           if find all_results -name "*.txt" -print0 2>/dev/null | xargs -0 cat > all_merged.txt 2>/dev/null; then
             if [ -s all_merged.txt ]; then
+              # 按 CID 数字升序排序（第一列）
+              sort -n -k1 all_merged.txt -o all_merged_sorted.txt
+              mv all_merged_sorted.txt all_merged.txt
               VALID_COUNT=$(cut -d' ' -f1 all_merged.txt | sort -u | wc -l)
+              # 拆分文件，每 600 行一个
               awk 'NR%600==1 {file=sprintf("final_data/part_%03d.txt", ++c)} {print > file}' all_merged.txt
               rm all_merged.txt
             fi
@@ -249,7 +253,7 @@ jobs:
             minutes=$(((diff % 3600) / 60))
             DURATION="${hours}小时${minutes}分钟"
           fi
-          cat > nto.txt << EOF
+          cat > final_data/nto.txt << EOF
           总班级数: $TOTAL
           有效班级: $VALID_COUNT
           完成进度: $PERCENT%
@@ -257,8 +261,7 @@ jobs:
           结束时间: $END_TIME
           工作时间: $DURATION
           EOF
-          cat nto.txt
-          cp nto.txt final_data/
+          cat final_data/nto.txt
       - name: 提交到仓库
         run: |
           git config user.name "github-actions[bot]"
