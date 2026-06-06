@@ -74,7 +74,6 @@ jobs:
       - name: 生成分片配置
         run: |
           echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[${{ matrix.shard_idx }}]" > config.json
-          cat config.json
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
@@ -154,9 +153,14 @@ jobs:
         shard_idx: ${{ fromJson(needs.collect_unfinished.outputs.retry_list) }}
     steps:
       - uses: actions/checkout@v4
+      - name: 下载前置未完成名单
+        uses: actions/download-artifact@v4
+        with:
+          name: unfinished-cids-${{ matrix.shard_idx }}
       - name: 生成补扫配置
         run: |
-          echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[${{ matrix.shard_idx }}]" | jq '. + {should_scan: true}' > config.json
+          # 【修复核心5】将补扫配置强行挂载 cid_list_file 参数，避免盲扫全量
+          echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[${{ matrix.shard_idx }}]" | jq '. + {should_scan: true, cid_list_file: "unfinished_cids_${{ matrix.shard_idx }}.txt"}' > config.json
           cat config.json
       - uses: actions/setup-python@v5
         with:
@@ -182,10 +186,10 @@ jobs:
           path: data/*.txt
           if-no-files-found: warn
           retention-days: 1
-      - name: 上传补扫未完成CID
+      - name: 上传最终遗留未完成CID
         uses: actions/upload-artifact@v4
         with:
-          name: unfinished-cids-${{ matrix.shard_idx }}
+          name: final-unfinished-cids-${{ matrix.shard_idx }}
           path: unfinished_cids_${{ matrix.shard_idx }}.txt
           if-no-files-found: ignore
           retention-days: 1
@@ -203,10 +207,10 @@ jobs:
           path: all_results
           merge-multiple: true
         continue-on-error: true
-      - name: 下载未完成CID列表
+      - name: 下载最终遗留名单
         uses: actions/download-artifact@v4
         with:
-          pattern: 'unfinished-cids-*'
+          pattern: 'final-unfinished-cids-*'
           path: unfinished_lists
           merge-multiple: true
         continue-on-error: true
@@ -223,11 +227,9 @@ jobs:
           VALID_COUNT=0
           if find all_results -name "*.txt" -print0 2>/dev/null | xargs -0 cat > all_merged.txt 2>/dev/null; then
             if [ -s all_merged.txt ]; then
-              # 按 CID 数字升序排序（第一列）
               sort -n -k1 all_merged.txt -o all_merged_sorted.txt
               mv all_merged_sorted.txt all_merged.txt
               VALID_COUNT=$(cut -d' ' -f1 all_merged.txt | sort -u | wc -l)
-              # 拆分文件，每 600 行一个
               awk 'NR%600==1 {file=sprintf("final_data/part_%03d.txt", ++c)} {print > file}' all_merged.txt
               rm all_merged.txt
             fi
@@ -267,7 +269,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add final_data/
-          if git commit -m "最终扫描结果（自动合并+拆分+统计报告） [skip ci]"; then
+          if git commit -m "最终扫描结果（自动补扫合并+统计报告） [skip ci]"; then
             git push
           else
             echo "无变更需要提交"
