@@ -1,13 +1,13 @@
 {
     "start_cid": 305685837,
     "end_cid": 305795837,
-    "max_concurrent_pages": 5,
+    "max_concurrent_pages": 12,
     "wait_timeout": 20,
     "render_wait": 1.0,
     "sleep_between": 0.6,
     "retry_times": 1,
     "retry_delay": 0.3,
-    "batch_size": 200,
+    "batch_size": 100,
     "max_retry_on_closed": 3,
     "timeout_hours": 5.0,
     "should_scan": true
