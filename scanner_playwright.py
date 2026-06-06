@@ -8,7 +8,7 @@ import sys
 import random
 import signal
 import atexit
-import queue  # 新增：用于队列异常处理
+import queue
 import multiprocessing as mp
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 
@@ -27,7 +27,7 @@ if not config.get("should_scan", True):
 START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
-MAX_CONCURRENT = config.get("max_concurrent_pages", 12) # 推荐: 10~25 之间
+MAX_CONCURRENT = config.get("max_concurrent_pages", 15)
 WAIT_TIMEOUT = config.get("wait_timeout", 20)
 RENDER_WAIT = config.get("render_wait", 1.0)
 SLEEP_BETWEEN = config.get("sleep_between", 0.6)
@@ -36,7 +36,7 @@ RETRY_DELAY = config.get("retry_delay", 0.3)
 TIMEOUT_HOURS = config.get("timeout_hours", 5.0)
 TIMEOUT_SECONDS = TIMEOUT_HOURS * 3600
 FORCE_EXIT_WAIT = config.get("force_exit_wait", 300)
-BATCH_SIZE = config.get("batch_size", 100) # 推荐: 批次调小，写入更勤快
+BATCH_SIZE = config.get("batch_size", 100)
 MAX_RETRY_ON_CLOSED = config.get("max_retry_on_closed", 3)
 
 os.makedirs("data", exist_ok=True)
@@ -105,34 +105,28 @@ def worker_sync(worker_id, task_queue, config_dict, proxy_list, user_agents, dea
             page = context.new_page()
 
             closed_retry = {}
-            current_cid = None  # 当前正在处理的任务
+            current_cid = None
 
-            # 【核心进化】：无限抢单循环
             while True:
-                # 1. 检查是否到点下班
                 if time.time() > deadline:
                     print(f"[Worker {worker_id}] 触发软超时，准备下班...", flush=True)
-                    # 如果手上刚好捏着一个还没处理完的订单，退回给未完成列表
                     if current_cid is not None:
                         with open(unfin_file, "a", encoding="utf-8") as f:
                             f.write(f"{current_cid}\n")
                     break
 
-                # 2. 如果手上没有任务，去公共队列里抢一个
                 if current_cid is None:
                     try:
                         current_cid = task_queue.get_nowait()
                     except queue.Empty:
-                        break  # 队列空了，所有工作完成，下班
+                        break
 
-                # 3. 检查当前任务是否属于“屡教不改”的坏死链接
                 if closed_retry.get(current_cid, 0) >= MAX_RETRY_ON_CLOSED:
                     with open(unfin_file, "a", encoding="utf-8") as f:
                         f.write(f"{current_cid}\n")
-                    current_cid = None  # 放弃此单，下一次循环重新抢单
+                    current_cid = None
                     continue
 
-                # 4. 开始干活
                 try:
                     page.goto(f"https://www.eeo.cn/s/a/?cid={current_cid}", timeout=WAIT_TIMEOUT*1000, wait_until="domcontentloaded")
                     body = page.text_content("body") or ""
@@ -166,35 +160,32 @@ def worker_sync(worker_id, task_queue, config_dict, proxy_list, user_agents, dea
                         print(f"[Worker {worker_id}] CID: {current_cid}, 学校: {school}, 班级: {class_name}", flush=True)
 
                     if current_cid in closed_retry: del closed_retry[current_cid]
-                    current_cid = None  # 当前任务顺利完成！清空手牌，下次循环拿新卡
+                    current_cid = None
 
                 except Exception as e:
                     err_msg = str(e).lower()
                     is_closed = any(phrase in err_msg for phrase in ["closed", "context", "browser"])
                     
                     if is_closed:
-                        # 如果是浏览器崩溃，增加重试次数。保留 current_cid 不变，下一次循环继续处理它
                         closed_retry[current_cid] = closed_retry.get(current_cid, 0) + 1
                         cleanup()
                         browser = p.chromium.launch(headless=True, args=["--disable-gpu", "--disable-dev-shm-usage", "--no-sandbox"])
                         context = browser.new_context(user_agent=random.choice(user_agents), ignore_https_errors=True)
                         page = context.new_page()
                     else:
-                        # 如果是常规超时/DOM异常，直接判定为失败单
                         with open(unfin_file, "a", encoding="utf-8") as f:
                             f.write(f"{current_cid}\n")
                         
-                        # 重置环境防止连锁卡顿
                         try: page.close()
                         except: pass
                         try: page = context.new_page()
                         except: pass
                         
-                        current_cid = None  # 扔掉失败单，下次拿新卡
+                        current_cid = None
 
                 time.sleep(SLEEP_BETWEEN)
 
-            flush() # 下班前清空缓存
+            flush()
     finally:
         cleanup()
     return worker_id
@@ -231,7 +222,6 @@ def main():
 
     worker_count = min(MAX_CONCURRENT, len(cid_list))
 
-    # 【核心进化】：构建跨进程公共队列，将所有任务全部装填进去
     manager = mp.Manager()
     task_queue = manager.Queue()
     for cid in cid_list:
@@ -242,7 +232,6 @@ def main():
     pool = mp.Pool(processes=worker_count)
     async_results = []
     
-    # 启动 Worker，它们会像狼群一样自己去队列里抢肉吃
     for i in range(worker_count):
         res = pool.apply_async(worker_sync, (i, task_queue, config_dict, PROXY_LIST, USER_AGENTS, deadline))
         async_results.append(res)
@@ -279,10 +268,9 @@ def main():
                 seen.add(cid)
                 f.write(line)
 
-    # --- 【核心进化】：收集未完成数据 ---
+    # --- 收集未完成数据 ---
     unfinished_cids = set()
     
-    # 1. 收集 Worker 遇到死链/卡死主动放弃的 CID
     for i in range(worker_count):
         ufile = f"unfinished_worker_{i}.txt"
         if os.path.exists(ufile):
@@ -292,14 +280,12 @@ def main():
                         unfinished_cids.add(int(line.strip()))
             os.remove(ufile)
 
-    # 2. 收集因为超时下班，导致队列里根本还没来得及跑的 CID
     while not task_queue.empty():
         try:
             unfinished_cids.add(task_queue.get_nowait())
         except queue.Empty:
             break
 
-    # 3. 写入最终补扫名单并生成信标 (Flag) 供 GA 识别
     if unfinished_cids:
         with open(f"unfinished_cids_{SHARD_IDX}.txt", "w", encoding="utf-8") as f:
             for cid in sorted(unfinished_cids):
