@@ -115,6 +115,8 @@ jobs:
 
   collect_unfinished:
     needs: scan_shard_first
+    # 【修复1】就算有节点崩溃爆炸了，收集节点也要坚强启动，把活着的节点产生的 Flag 汇总起来！
+    if: success() || failure() 
     runs-on: ubuntu-latest
     outputs:
       retry_list: ${{ steps.retry.outputs.retry_list }}
@@ -129,22 +131,27 @@ jobs:
         id: retry
         run: |
           python << 'EOF'
-          import os, json, glob
+          import os, json
           retry_indices = []
-          flags_dir = "flags"
-          if os.path.isdir(flags_dir):
-              for dirpath in glob.glob(f"{flags_dir}/flag-*/"):
-                  if glob.glob(os.path.join(dirpath, "unfinished_*")):
-                      idx = os.path.basename(dirpath.rstrip('/')).replace('flag-', '')
+          # 【修复2】更暴力的底层遍历，直接绕过因为跨平台路径问题带来的隐患
+          if os.path.isdir("flags"):
+              for entry in os.listdir("flags"):
+                  if entry.startswith("flag-"):
+                      idx = entry.replace("flag-", "")
                       retry_indices.append(idx)
+          
+          # 对列表进行排序，看着更舒服
+          retry_indices = sorted(retry_indices, key=lambda x: int(x))
           output = json.dumps(retry_indices)
+          print(f"检测到需要补扫的分片: {output}")
           with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as f:
               f.write(f"retry_list={output}\n")
           EOF
 
   scan_shard_second:
     needs: [master, collect_unfinished]
-    if: fromJson(needs.collect_unfinished.outputs.retry_list).length > 0
+    # 【修复3】绝不使用 .length，改用 GitHub 官方推荐的字符串比对法！
+    if: needs.collect_unfinished.outputs.retry_list != '[]' && needs.collect_unfinished.outputs.retry_list != ''
     runs-on: ubuntu-latest
     timeout-minutes: 340
     strategy:
@@ -159,7 +166,6 @@ jobs:
           name: unfinished-cids-${{ matrix.shard_idx }}
       - name: 生成补扫配置
         run: |
-          # 【修复核心5】将补扫配置强行挂载 cid_list_file 参数，避免盲扫全量
           echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[${{ matrix.shard_idx }}]" | jq '. + {should_scan: true, cid_list_file: "unfinished_cids_${{ matrix.shard_idx }}.txt"}' > config.json
           cat config.json
       - uses: actions/setup-python@v5
