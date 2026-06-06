@@ -7,6 +7,7 @@ import os
 import sys
 import random
 import signal
+import atexit
 import multiprocessing as mp
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 
@@ -115,7 +116,12 @@ def worker_sync(worker_id, cid_list, config_dict, proxy_list, user_agents):
         cleanup()
         sys.exit(0)
 
-    signal.signal(signal.SIGTERM, signal_handler)
+    # 注册信号处理器（Unix系统）
+    if sys.platform != 'win32':
+        signal.signal(signal.SIGTERM, signal_handler)
+        signal.signal(signal.SIGINT, signal_handler)
+    # 注册atexit处理器（所有系统）
+    atexit.register(cleanup)
 
     try:
         with sync_playwright() as p:
@@ -283,14 +289,9 @@ def main():
     if not all_done:
         print(f"软超时已达 {soft_timeout} 秒，强制终止所有 Worker 进程...", flush=True)
         pool.terminate()
-        pool.join()
-        hard_timeout_start = time.time()
-        while time.time() - hard_timeout_start < FORCE_EXIT_WAIT:
-            time.sleep(1)
-        if not all(res.ready() for res in async_results):
-            print("硬超时，强制 kill", flush=True)
-            pool.terminate()
-            pool.join()
+        # GitHub Actions环境：等待较短时间后直接退出，依赖workflow的timeout-minutes
+        time.sleep(10)
+        print("超时退出，未完成的CID将记录到unfinished文件", flush=True)
     else:
         pool.close()
         pool.join()
