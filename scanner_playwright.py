@@ -24,7 +24,7 @@ if not config.get("should_scan", True):
 START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
-MAX_CONCURRENT = config.get("max_concurrent", 40)
+MAX_CONCURRENT = config.get("max_concurrent_pages", 40)
 WAIT_TIMEOUT = config.get("wait_timeout", 25)
 RENDER_WAIT = config.get("render_wait", 2.0)
 SLEEP_BETWEEN = config.get("sleep_between", 0.3)
@@ -106,7 +106,7 @@ def worker_sync(worker_id, cid_list, config_dict, proxy_list, user_agents):
         while i < len(cid_list):
             cid = cid_list[i]
             if closed_retry.get(cid, 0) >= MAX_RETRY_ON_CLOSED:
-                with open(unfin_file, "a") as f:
+                with open(unfin_file, "a", encoding="utf-8") as f:
                     f.write(f"{cid}\n")
                 i += 1
                 continue
@@ -160,6 +160,15 @@ def worker_sync(worker_id, cid_list, config_dict, proxy_list, user_agents):
                         page.close()
                     except:
                         pass
+                    # 检测browser是否关闭，如果关闭则重新创建
+                    try:
+                        browser.is_connected()
+                    except:
+                        browser.close()
+                        browser = p.chromium.launch(
+                            headless=True,
+                            args=["--disable-gpu", "--disable-dev-shm-usage", "--no-sandbox"]
+                        )
                     context = browser.new_context(
                         user_agent=random.choice(user_agents),
                         proxy={"server": random.choice(proxy_list)} if proxy_list else None,
@@ -167,7 +176,7 @@ def worker_sync(worker_id, cid_list, config_dict, proxy_list, user_agents):
                     )
                     page = context.new_page()
                 else:
-                    with open(unfin_file, "a") as f:
+                    with open(unfin_file, "a", encoding="utf-8") as f:
                         f.write(f"{cid}\n")
                     i += 1
             time.sleep(SLEEP_BETWEEN)
@@ -181,9 +190,12 @@ def main():
     global START_CID, END_CID, CID_LIST_FILE, OUTPUT_FILE, SHARD_IDX, UNFINISHED_FLAG
 
     if CID_LIST_FILE:
-        with open(CID_LIST_FILE, "r") as f:
+        with open(CID_LIST_FILE, "r", encoding="utf-8") as f:
             cid_list = [int(line.strip()) for line in f if line.strip()]
         total = len(cid_list)
+        if total == 0:
+            print("错误: CID列表文件为空", flush=True)
+            sys.exit(1)
         print(f"列表模式: 从 {CID_LIST_FILE} 读取 {total} 个班级")
     else:
         if START_CID is None or END_CID is None:
@@ -256,14 +268,17 @@ def main():
     for i in range(worker_count):
         temp_file = f"data/worker_{i}_temp.txt"
         if os.path.exists(temp_file):
-            with open(temp_file, "r") as f:
+            with open(temp_file, "r", encoding="utf-8") as f:
                 all_valid.extend(f.readlines())
             os.remove(temp_file)
 
     seen = set()
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         for line in all_valid:
-            cid = line.split()[0]
+            parts = line.strip().split()
+            if not parts:
+                continue
+            cid = parts[0]
             if cid not in seen:
                 seen.add(cid)
                 f.write(line)
@@ -272,7 +287,7 @@ def main():
     for i in range(worker_count):
         ufile = f"unfinished_worker_{i}.txt"
         if os.path.exists(ufile):
-            with open(ufile, "r") as f:
+            with open(ufile, "r", encoding="utf-8") as f:
                 for line in f:
                     line = line.strip()
                     if line and line.isdigit():
@@ -280,7 +295,7 @@ def main():
             os.remove(ufile)
 
     if unfinished_cids:
-        with open(f"unfinished_cids_{SHARD_IDX}.txt", "w") as f:
+        with open(f"unfinished_cids_{SHARD_IDX}.txt", "w", encoding="utf-8") as f:
             for cid in sorted(unfinished_cids):
                 f.write(f"{cid}\n")
         print(f"记录了 {len(unfinished_cids)} 个未完成的 CID", flush=True)
