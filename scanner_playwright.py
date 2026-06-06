@@ -174,6 +174,7 @@ def worker_sync(worker_id, cid_list, config_dict, proxy_list, user_agents):
                     if not (class_name == "无" and school == "无"):
                         line = f"{cid} https://www.eeo.cn/s/a/?cid={cid} {school} {class_name}\n"
                         add_line(line)
+                        print(f"[Worker {worker_id}] CID: {cid}, 学校: {school}, 班级: {class_name}", flush=True)
 
                     if cid in closed_retry:
                         del closed_retry[cid]
