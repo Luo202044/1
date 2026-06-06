@@ -1,4 +1,4 @@
-name: ClassIn Scanner 2.0 (Auto Retry + Statistics)
+name: ClassIn Scanner 3.0 (Auto Retry + Statistics)
 
 on:
   workflow_dispatch:
