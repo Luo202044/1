@@ -6,6 +6,7 @@ import time
 import os
 import sys
 import random
+import signal
 import multiprocessing as mp
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 
@@ -77,6 +78,9 @@ def worker_sync(worker_id, cid_list, config_dict, proxy_list, user_agents):
     worker_out_file = f"data/worker_{worker_id}_temp.txt"
     unfin_file = f"unfinished_worker_{worker_id}.txt"
     write_buffer = []
+    browser = None
+    context = None
+    page = None
 
     def flush():
         if write_buffer:
@@ -89,100 +93,126 @@ def worker_sync(worker_id, cid_list, config_dict, proxy_list, user_agents):
         if len(write_buffer) >= BATCH_SIZE:
             flush()
 
-    with sync_playwright() as p:
-        browser = p.chromium.launch(
-            headless=True,
-            args=["--disable-gpu", "--disable-dev-shm-usage", "--no-sandbox"]
-        )
-        context = browser.new_context(
-            user_agent=random.choice(user_agents),
-            proxy={"server": random.choice(proxy_list)} if proxy_list else None,
-            ignore_https_errors=True
-        )
-        page = context.new_page()
+    def cleanup():
+        nonlocal browser, context, page
+        try:
+            if page:
+                page.close()
+        except:
+            pass
+        try:
+            if context:
+                context.close()
+        except:
+            pass
+        try:
+            if browser:
+                browser.close()
+        except:
+            pass
 
-        i = 0
-        closed_retry = {}
-        while i < len(cid_list):
-            cid = cid_list[i]
-            if closed_retry.get(cid, 0) >= MAX_RETRY_ON_CLOSED:
-                with open(unfin_file, "a", encoding="utf-8") as f:
-                    f.write(f"{cid}\n")
-                i += 1
-                continue
+    def signal_handler(signum, frame):
+        cleanup()
+        sys.exit(0)
 
-            try:
-                page.goto(f"https://www.eeo.cn/s/a/?cid={cid}", timeout=WAIT_TIMEOUT*1000, wait_until="domcontentloaded")
-                body = page.text_content("body") or ""
-                if len(body.strip()) < 50:
-                    school, class_name = "无", "无"
-                else:
-                    try:
-                        page.wait_for_selector("p.courseName, p.schoolName", timeout=RENDER_WAIT*1000)
-                    except:
-                        pass
-                    # 班级名
-                    class_name = "无"
-                    elem = page.query_selector("p.courseName")
-                    if elem:
-                        text = elem.inner_text().strip()
-                        if text and len(text) >= 2:
-                            class_name = text
-                    if class_name == "无":
-                        title = page.title()
-                        if "|" in title and "Join the class" not in title:
-                            parts = title.split("|")
-                            if len(parts) > 1:
-                                class_name = parts[-1].strip()
-                    # 学校名
-                    school = "无"
-                    elem = page.query_selector("p.schoolName")
-                    if elem:
-                        text = elem.inner_text().strip()
-                        if text and len(text) >= 2:
-                            school = text
+    signal.signal(signal.SIGTERM, signal_handler)
 
-                if not (class_name == "无" and school == "无"):
-                    line = f"{cid} https://www.eeo.cn/s/a/?cid={cid} {school} {class_name}\n"
-                    add_line(line)
+    try:
+        with sync_playwright() as p:
+            browser = p.chromium.launch(
+                headless=True,
+                args=["--disable-gpu", "--disable-dev-shm-usage", "--no-sandbox"]
+            )
+            context = browser.new_context(
+                user_agent=random.choice(user_agents),
+                proxy={"server": random.choice(proxy_list)} if proxy_list else None,
+                ignore_https_errors=True
+            )
+            page = context.new_page()
 
-                if cid in closed_retry:
-                    del closed_retry[cid]
-                i += 1
-
-            except Exception as e:
-                err_msg = str(e).lower()
-                is_closed = any(phrase in err_msg for phrase in ["closed", "context", "browser"])
-                if is_closed:
-                    closed_retry[cid] = closed_retry.get(cid, 0) + 1
-                    try:
-                        context.close()
-                        page.close()
-                    except:
-                        pass
-                    # 检测browser是否关闭，如果关闭则重新创建
-                    try:
-                        browser.is_connected()
-                    except:
-                        browser.close()
-                        browser = p.chromium.launch(
-                            headless=True,
-                            args=["--disable-gpu", "--disable-dev-shm-usage", "--no-sandbox"]
-                        )
-                    context = browser.new_context(
-                        user_agent=random.choice(user_agents),
-                        proxy={"server": random.choice(proxy_list)} if proxy_list else None,
-                        ignore_https_errors=True
-                    )
-                    page = context.new_page()
-                else:
+            i = 0
+            closed_retry = {}
+            while i < len(cid_list):
+                cid = cid_list[i]
+                if closed_retry.get(cid, 0) >= MAX_RETRY_ON_CLOSED:
                     with open(unfin_file, "a", encoding="utf-8") as f:
                         f.write(f"{cid}\n")
                     i += 1
-            time.sleep(SLEEP_BETWEEN)
+                    continue
 
-        flush()
-        browser.close()
+                try:
+                    page.goto(f"https://www.eeo.cn/s/a/?cid={cid}", timeout=WAIT_TIMEOUT*1000, wait_until="domcontentloaded")
+                    body = page.text_content("body") or ""
+                    if len(body.strip()) < 50:
+                        school, class_name = "无", "无"
+                    else:
+                        try:
+                            page.wait_for_selector("p.courseName, p.schoolName", timeout=RENDER_WAIT*1000)
+                        except:
+                            pass
+                        # 班级名
+                        class_name = "无"
+                        elem = page.query_selector("p.courseName")
+                        if elem:
+                            text = elem.inner_text().strip()
+                            if text and len(text) >= 2:
+                                class_name = text
+                        if class_name == "无":
+                            title = page.title()
+                            if "|" in title and "Join the class" not in title:
+                                parts = title.split("|")
+                                if len(parts) > 1:
+                                    class_name = parts[-1].strip()
+                        # 学校名
+                        school = "无"
+                        elem = page.query_selector("p.schoolName")
+                        if elem:
+                            text = elem.inner_text().strip()
+                            if text and len(text) >= 2:
+                                school = text
+
+                    if not (class_name == "无" and school == "无"):
+                        line = f"{cid} https://www.eeo.cn/s/a/?cid={cid} {school} {class_name}\n"
+                        add_line(line)
+
+                    if cid in closed_retry:
+                        del closed_retry[cid]
+                    i += 1
+
+                except Exception as e:
+                    err_msg = str(e).lower()
+                    is_closed = any(phrase in err_msg for phrase in ["closed", "context", "browser"])
+                    if is_closed:
+                        closed_retry[cid] = closed_retry.get(cid, 0) + 1
+                        try:
+                            context.close()
+                            page.close()
+                        except:
+                            pass
+                        # 检测browser是否关闭，如果关闭则重新创建
+                        try:
+                            browser.is_connected()
+                        except:
+                            browser.close()
+                            browser = p.chromium.launch(
+                                headless=True,
+                                args=["--disable-gpu", "--disable-dev-shm-usage", "--no-sandbox"]
+                            )
+                        context = browser.new_context(
+                            user_agent=random.choice(user_agents),
+                            proxy={"server": random.choice(proxy_list)} if proxy_list else None,
+                            ignore_https_errors=True
+                        )
+                        page = context.new_page()
+                    else:
+                        with open(unfin_file, "a", encoding="utf-8") as f:
+                            f.write(f"{cid}\n")
+                        i += 1
+                time.sleep(SLEEP_BETWEEN)
+
+            flush()
+    finally:
+        cleanup()
     return worker_id
 
 # ---------- 主函数 ----------
