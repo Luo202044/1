@@ -115,58 +115,96 @@ jobs:
 
   collect_unfinished:
     needs: scan_shard_first
-    # 【修复1】就算有节点崩溃爆炸了，收集节点也要坚强启动，把活着的节点产生的 Flag 汇总起来！
-    if: success() || failure() 
+    if: success() || failure()
     runs-on: ubuntu-latest
     outputs:
-      retry_list: ${{ steps.retry.outputs.retry_list }}
+      retry_matrix: ${{ steps.reshard.outputs.retry_matrix }}
     steps:
-      - name: 下载标志
+      - name: 下载所有未完成名单
         uses: actions/download-artifact@v4
         with:
-          pattern: flag-*
-          path: flags
-          merge-multiple: false
-      - name: 解析需要重跑的分片
-        id: retry
+          pattern: unfinished-cids-*
+          path: unfinished_raw
+          merge-multiple: true
+      - name: 动态容量计算与重切分
+        id: reshard
         run: |
           python << 'EOF'
-          import os, json
-          retry_indices = []
-          # 【修复2】更暴力的底层遍历，直接绕过因为跨平台路径问题带来的隐患
-          if os.path.isdir("flags"):
-              for entry in os.listdir("flags"):
-                  if entry.startswith("flag-"):
-                      idx = entry.replace("flag-", "")
-                      retry_indices.append(idx)
+          import os, json, math, glob
           
-          # 对列表进行排序，看着更舒服
-          retry_indices = sorted(retry_indices, key=lambda x: int(x))
-          output = json.dumps(retry_indices)
-          print(f"检测到需要补扫的分片: {output}")
-          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as f:
-              f.write(f"retry_list={output}\n")
+          all_cids = set()
+          if os.path.exists("unfinished_raw"):
+              for f in glob.glob("unfinished_raw/*.txt"):
+                  with open(f, 'r', encoding='utf-8') as file:
+                      for line in file:
+                          line = line.strip()
+                          if line.isdigit():
+                              all_cids.add(int(line))
+          
+          cid_list = sorted(list(all_cids))
+          total = len(cid_list)
+          print(f"总计收集到 {total} 个需要补扫的 CID。")
+          
+          retry_matrix = []
+          if total > 0:
+              TARGET_CHUNK_SIZE = 10000
+              MAX_SHARDS = 20
+              
+              shards = math.ceil(total / TARGET_CHUNK_SIZE)
+              
+              if shards > MAX_SHARDS:
+                  print(f"警告：计算分片数 {shards} 超出上限 {MAX_SHARDS}，已触发保护机制。")
+                  shards = MAX_SHARDS
+              
+              actual_chunk_size = math.ceil(total / shards)
+              print(f"动态调配完毕: 将启动 {shards} 个补扫并发，每个约负责 {actual_chunk_size} 个任务。")
+              
+              os.makedirs("retry_chunks", exist_ok=True)
+              
+              for i in range(shards):
+                  start = i * actual_chunk_size
+                  end = min(start + actual_chunk_size, total)
+                  if start >= total:
+                      break 
+                  
+                  chunk = cid_list[start:end]
+                  with open(f"retry_chunks/retry_{i}.txt", "w", encoding="utf-8") as out:
+                      for cid in chunk:
+                          out.write(f"{cid}\n")
+                  retry_matrix.append(str(i))
+                  print(f"补扫分片 {i} 真实分配: {len(chunk)} 个任务。")
+          
+          output = json.dumps(retry_matrix)
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as env_file:
+              env_file.write(f"retry_matrix={output}\n")
           EOF
+      - name: 上传重组后的补扫分片文件
+        if: steps.reshard.outputs.retry_matrix != '[]'
+        uses: actions/upload-artifact@v4
+        with:
+          name: retry-chunks
+          path: retry_chunks/
+          retention-days: 1
 
   scan_shard_second:
     needs: [master, collect_unfinished]
-    # 【修复3】绝不使用 .length，改用 GitHub 官方推荐的字符串比对法！
-    if: needs.collect_unfinished.outputs.retry_list != '[]' && needs.collect_unfinished.outputs.retry_list != ''
+    if: needs.collect_unfinished.outputs.retry_matrix != '[]' && needs.collect_unfinished.outputs.retry_matrix != ''
     runs-on: ubuntu-latest
     timeout-minutes: 340
     strategy:
       fail-fast: false
       matrix:
-        shard_idx: ${{ fromJson(needs.collect_unfinished.outputs.retry_list) }}
+        retry_idx: ${{ fromJson(needs.collect_unfinished.outputs.retry_matrix) }}
     steps:
       - uses: actions/checkout@v4
-      - name: 下载前置未完成名单
+      - name: 下载重组后的补扫名单
         uses: actions/download-artifact@v4
         with:
-          name: unfinished-cids-${{ matrix.shard_idx }}
+          name: retry-chunks
+          path: retry_chunks
       - name: 生成补扫配置
         run: |
-          echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[${{ matrix.shard_idx }}]" | jq '. + {should_scan: true, cid_list_file: "unfinished_cids_${{ matrix.shard_idx }}.txt"}' > config.json
+          echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[0]" | jq '. + {should_scan: true, cid_list_file: "retry_chunks/retry_${{ matrix.retry_idx }}.txt"}' > config.json
           cat config.json
       - uses: actions/setup-python@v5
         with:
@@ -180,23 +218,23 @@ jobs:
         run: |
           pip install playwright psutil
           playwright install chromium
-      - name: 补扫
+      - name: 补扫执行
         env:
           PYTHONUNBUFFERED: 1
-          SHARD_IDX: ${{ matrix.shard_idx }}
+          SHARD_IDX: retry_${{ matrix.retry_idx }}
         run: python scanner_playwright.py
       - name: 上传补扫结果
         uses: actions/upload-artifact@v4
         with:
-          name: second-ok-shard-${{ matrix.shard_idx }}
+          name: second-ok-shard-${{ matrix.retry_idx }}
           path: data/*.txt
           if-no-files-found: warn
           retention-days: 1
       - name: 上传最终遗留未完成CID
         uses: actions/upload-artifact@v4
         with:
-          name: final-unfinished-cids-${{ matrix.shard_idx }}
-          path: unfinished_cids_${{ matrix.shard_idx }}.txt
+          name: final-unfinished-cids-${{ matrix.retry_idx }}
+          path: unfinished_cids_retry_${{ matrix.retry_idx }}.txt
           if-no-files-found: ignore
           retention-days: 1
 
