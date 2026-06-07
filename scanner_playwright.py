@@ -292,8 +292,8 @@ def main():
             break
         
         now = time.time()
-        # 每隔 10 秒打印一次监控信息
-        if now - last_print_time >= 10:
+        # 每隔 60 秒打印一次监控信息
+        if now - last_print_time >= 60:
             c = completed_count.value
             elapsed = now - start_time
             if c > 0:
