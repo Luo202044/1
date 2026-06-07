@@ -56,23 +56,36 @@ USER_AGENTS = [
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
 ]
 
-# ========== 进程池初始化 ==========
-global_task_queue = None
-global_counter = None
-global_lock = None
+def format_time(seconds):
+    if seconds < 0: return "0s"
+    if seconds < 60: return f"{int(seconds)}s"
+    m, s = divmod(int(seconds), 60)
+    if m < 60: return f"{m}m {s}s"
+    h, m = divmod(m, 60)
+    return f"{h}h {m}m"
 
-def init_worker(q, counter, lock):
+# ========== 进程池初始化 (队列与进度计数器) ==========
+global_task_queue = None
+global_completed_count = None
+
+def init_worker(q, counter):
     """
-    将队列、共享计数器和锁挂载到 Worker 的独立内存中
+    进程池初始化函数：将原生 Queue 和安全计数器挂载到每个 Worker 的全局变量中
     """
-    global global_task_queue, global_counter, global_lock
+    global global_task_queue, global_completed_count
     global_task_queue = q
-    global_counter = counter
-    global_lock = lock
+    global_completed_count = counter
+
+def increment_progress():
+    """安全地增加已完成任务计数"""
+    global global_completed_count
+    if global_completed_count is not None:
+        with global_completed_count.get_lock():
+            global_completed_count.value += 1
 
 # ---------- Worker 同步函数 (动态抢单模式) ----------
 def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
-    global global_task_queue, global_counter, global_lock
+    global global_task_queue
     task_queue = global_task_queue
 
     time.sleep(worker_id * 1.5)
@@ -110,11 +123,6 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
             if browser: browser.close()
         except: pass
 
-    def mark_done():
-        """原子的方式增加进度条"""
-        with global_lock:
-            global_counter.value += 1
-
     atexit.register(cleanup)
     
     try:
@@ -134,31 +142,26 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
             current_cid = None
 
             while True:
-                # 软超时处理
                 if time.time() > deadline:
                     print(f"[Worker {worker_id}] 触发软超时，准备下班...", flush=True)
                     if current_cid is not None:
                         with open(unfin_file, "a", encoding="utf-8") as f:
                             f.write(f"{current_cid}\n")
-                        mark_done() # 超时抛弃也算处理完毕该任务
                     break
 
-                # 抢单
                 if current_cid is None:
                     try:
                         current_cid = task_queue.get_nowait()
                     except queue.Empty:
                         break
 
-                # 坏死链接抛弃
                 if closed_retry.get(current_cid, 0) >= MAX_RETRY_ON_CLOSED:
                     with open(unfin_file, "a", encoding="utf-8") as f:
                         f.write(f"{current_cid}\n")
+                    increment_progress() # 放弃也算处理完了一条
                     current_cid = None
-                    mark_done() # 坏死链接记录完毕，算作进度+1
                     continue
 
-                # 执行扫描
                 try:
                     page.goto(f"https://www.eeo.cn/s/a/?cid={current_cid}", timeout=WAIT_TIMEOUT*1000, wait_until="domcontentloaded")
                     body = page.text_content("body") or ""
@@ -189,26 +192,23 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                     if not (class_name == "无" and school == "无"):
                         line = f"{current_cid} https://www.eeo.cn/s/a/?cid={current_cid} {school} {class_name}\n"
                         add_line(line)
-                        # 为减少日志刷屏，取消成功抓取的打印，让主进程进度条发挥作用
-                        # print(f"[Worker {worker_id}] CID: {current_cid}, 学校: {school}, 班级: {class_name}", flush=True)
+                        print(f"[Worker {worker_id}] CID: {current_cid}, 学校: {school}, 班级: {class_name}", flush=True)
 
                     if current_cid in closed_retry: del closed_retry[current_cid]
+                    increment_progress() # 成功扫描，计数器+1
                     current_cid = None
-                    mark_done() # 成功抓取！进度+1
 
                 except Exception as e:
                     err_msg = str(e).lower()
                     is_closed = any(phrase in err_msg for phrase in ["closed", "context", "browser"])
                     
                     if is_closed:
-                        # 浏览器闭合崩溃：增加重试次数，【不增加进度】，下一次循环继续扫它
                         closed_retry[current_cid] = closed_retry.get(current_cid, 0) + 1
                         cleanup()
                         browser = p.chromium.launch(headless=True, args=["--disable-gpu", "--disable-dev-shm-usage", "--no-sandbox"])
                         context = browser.new_context(user_agent=random.choice(user_agents), ignore_https_errors=True)
                         page = context.new_page()
                     else:
-                        # 其他异常抛弃
                         with open(unfin_file, "a", encoding="utf-8") as f:
                             f.write(f"{current_cid}\n")
                         
@@ -217,8 +217,8 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                         try: page = context.new_page()
                         except: pass
                         
+                        increment_progress() # 遭遇死链记录失败，也算处理完了一条
                         current_cid = None
-                        mark_done() # 异常抛弃记录完毕，进度+1
 
                 time.sleep(SLEEP_BETWEEN)
 
@@ -261,20 +261,19 @@ def main():
     }
 
     worker_count = min(MAX_CONCURRENT, len(cid_list))
+
     task_queue = mp.Queue()
-    completed_counter = mp.Value('i', 0)
-    counter_lock = mp.Lock()
+    completed_count = mp.Value('i', 0) # 共享内存中的进度计数器
     
     print(f"正在将 {total} 个任务装载入并发队列，请稍候...", flush=True)
     for cid in cid_list:
         task_queue.put(cid)
-    print("✅ 队列装载完毕，准备启动引擎！", flush=True)
+    print("✅ 队列装载完毕，准备启动引擎！\n", flush=True)
 
     deadline = time.time() + TIMEOUT_SECONDS - 60
-    start_time = time.time()
-    last_print_time = start_time
 
-    pool = mp.Pool(processes=worker_count, initializer=init_worker, initargs=(task_queue, completed_counter, counter_lock))
+    # 传递 Queue 和 Counter 给各个子进程
+    pool = mp.Pool(processes=worker_count, initializer=init_worker, initargs=(task_queue, completed_count))
     async_results = []
     
     for i in range(worker_count):
@@ -283,42 +282,34 @@ def main():
 
     pool.close()
     
-    hard_limit = time.time() + TIMEOUT_SECONDS + FORCE_EXIT_WAIT
-    
-    # === 主进程进度监工 ===
-    print("\n" + "="*50)
-    print("🚀 开始高并发扫描，每 5 秒汇报一次进度...")
-    print("="*50 + "\n")
-    
+    start_time = time.time()
+    last_print_time = start_time
+    hard_limit = start_time + TIMEOUT_SECONDS + FORCE_EXIT_WAIT
+
+    # --- 进度监控大屏主循环 ---
     while time.time() < hard_limit:
         if all(res.ready() for res in async_results):
             break
+        
+        now = time.time()
+        # 每隔 10 秒打印一次监控信息
+        if now - last_print_time >= 10:
+            c = completed_count.value
+            elapsed = now - start_time
+            if c > 0:
+                speed = c / elapsed
+                rem = total - c
+                eta = rem / speed if speed > 0 else 0
+                eta_str = format_time(eta)
+            else:
+                speed = 0
+                eta_str = "计算中..."
             
-        current_time = time.time()
-        # 每隔 5 秒计算并打印一次进度
-        if current_time - last_print_time >= 5.0:
-            completed = completed_counter.value
-            elapsed = current_time - start_time
-            speed = completed / elapsed if elapsed > 0 else 0
-            remaining_tasks = total - completed
-            eta_seconds = remaining_tasks / speed if speed > 0 else 0
-            
-            percent = (completed / total) * 100 if total > 0 else 100
-            
-            # 格式化 ETA 时间 (HH:MM:SS)
-            h = int(eta_seconds // 3600)
-            m = int((eta_seconds % 3600) // 60)
-            s = int(eta_seconds % 60)
-            eta_str = f"{h:02d}:{m:02d}:{s:02d}"
-            
-            # 打印优雅的单行进度条
-            bar_len = 30
-            filled_len = int(bar_len * completed // total) if total > 0 else bar_len
-            bar = '█' * filled_len + '-' * (bar_len - filled_len)
-            
-            print(f"📊 进度: |{bar}| {percent:.1f}% ({completed}/{total}) | ⚡ 速度: {speed:.1f} 个/秒 | ⏳ 预计剩余: {eta_str}", flush=True)
-            last_print_time = current_time
-            
+            pct = (c / total) * 100 if total > 0 else 0
+            # 加上 \n 让进度条在茫茫日志中足够显眼
+            print(f"\n📊 [全局监控] 已完成: {c}/{total} ({pct:.2f}%) | ⚡ 速度: {speed:.1f} 个/秒 | ⏳ 剩余时间: {eta_str}\n", flush=True)
+            last_print_time = now
+
         time.sleep(1)
 
     if not all(res.ready() for res in async_results):
@@ -327,7 +318,6 @@ def main():
     pool.join()
 
     # --- 数据合并与清洗 ---
-    print("\n正在合并并清洗最终数据...", flush=True)
     all_valid = []
     for i in range(worker_count):
         temp_file = f"data/worker_{i}_temp.txt"
@@ -369,9 +359,9 @@ def main():
             for cid in sorted(unfinished_cids):
                 f.write(f"{cid}\n")
         open(UNFINISHED_FLAG, "w").close() 
-        print(f"✅ 记录了 {len(unfinished_cids)} 个未完成的 CID，已生成补扫信标 ({UNFINISHED_FLAG})", flush=True)
+        print(f"记录了 {len(unfinished_cids)} 个未完成的 CID，已生成补扫信标 ({UNFINISHED_FLAG})", flush=True)
     else:
-        print("✅ 所有CID已成功处理，无遗漏！", flush=True)
+        print("所有CID已成功处理", flush=True)
 
 if __name__ == "__main__":
     mp.freeze_support()
