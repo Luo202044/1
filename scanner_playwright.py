@@ -6,10 +6,9 @@ import time
 import os
 import sys
 import random
-import signal
 import atexit
 import queue
-import traceback  # 【补丁2】新增：用于打印致命崩溃堆栈
+import traceback
 import multiprocessing as mp
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 
@@ -57,9 +56,23 @@ USER_AGENTS = [
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
 ]
 
+# ========== 进程池初始化 (解决原生队列传递的序列化问题) ==========
+global_task_queue = None
+
+def init_worker(q):
+    """
+    进程池初始化函数：将原生 Queue 挂载到每个 Worker 的独立内存全局变量中
+    """
+    global global_task_queue
+    global_task_queue = q
+
 # ---------- Worker 同步函数 (动态抢单模式) ----------
-def worker_sync(worker_id, task_queue, config_dict, proxy_list, user_agents, deadline):
-    # 【补丁1】错峰启动：让 Worker 们排队启动，防止 CPU 瞬间被打满死锁
+def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
+    # 从全局变量获取队列
+    global global_task_queue
+    task_queue = global_task_queue
+
+    # 【补丁1】错峰启动：让 Worker 们排队启动，防止 4 核 CPU 瞬间被打满死锁
     time.sleep(worker_id * 1.5)
     print(f"[Worker {worker_id}] 正在启动浏览器引擎...", flush=True)
 
@@ -115,6 +128,7 @@ def worker_sync(worker_id, task_queue, config_dict, proxy_list, user_agents, dea
             current_cid = None
 
             while True:
+                # 检查软超时下班
                 if time.time() > deadline:
                     print(f"[Worker {worker_id}] 触发软超时，准备下班...", flush=True)
                     if current_cid is not None:
@@ -122,18 +136,21 @@ def worker_sync(worker_id, task_queue, config_dict, proxy_list, user_agents, dea
                             f.write(f"{current_cid}\n")
                     break
 
+                # 抢单
                 if current_cid is None:
                     try:
                         current_cid = task_queue.get_nowait()
                     except queue.Empty:
                         break
 
+                # 放弃坏死链接
                 if closed_retry.get(current_cid, 0) >= MAX_RETRY_ON_CLOSED:
                     with open(unfin_file, "a", encoding="utf-8") as f:
                         f.write(f"{current_cid}\n")
                     current_cid = None
                     continue
 
+                # 执行扫描
                 try:
                     page.goto(f"https://www.eeo.cn/s/a/?cid={current_cid}", timeout=WAIT_TIMEOUT*1000, wait_until="domcontentloaded")
                     body = page.text_content("body") or ""
@@ -167,7 +184,7 @@ def worker_sync(worker_id, task_queue, config_dict, proxy_list, user_agents, dea
                         print(f"[Worker {worker_id}] CID: {current_cid}, 学校: {school}, 班级: {class_name}", flush=True)
 
                     if current_cid in closed_retry: del closed_retry[current_cid]
-                    current_cid = None
+                    current_cid = None  # 顺利完成，清空手牌
 
                 except Exception as e:
                     err_msg = str(e).lower()
@@ -233,7 +250,7 @@ def main():
 
     worker_count = min(MAX_CONCURRENT, len(cid_list))
 
-    # 【补丁3】使用原生队列替代 Manager 代理，彻底杜绝 IPC 通信死锁
+    # 【补丁3】使用原生队列替代 Manager 代理，极速且杜绝死锁
     task_queue = mp.Queue()
     
     print(f"正在将 {total} 个任务装载入并发队列，请稍候...", flush=True)
@@ -243,11 +260,13 @@ def main():
 
     deadline = time.time() + TIMEOUT_SECONDS - 60
 
-    pool = mp.Pool(processes=worker_count)
+    # 【补丁4】使用 initializer 挂载原生 Queue
+    pool = mp.Pool(processes=worker_count, initializer=init_worker, initargs=(task_queue,))
     async_results = []
     
     for i in range(worker_count):
-        res = pool.apply_async(worker_sync, (i, task_queue, config_dict, PROXY_LIST, USER_AGENTS, deadline))
+        # 注意这里不再传递 task_queue
+        res = pool.apply_async(worker_sync, (i, config_dict, PROXY_LIST, USER_AGENTS, deadline))
         async_results.append(res)
 
     pool.close()
