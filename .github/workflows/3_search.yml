@@ -1,0 +1,101 @@
+name: "Workflow 3: 数据库按需检索 (Search DB)"
+
+on:
+  workflow_dispatch:
+    inputs:
+      keyword:
+        description: '搜索关键词 (多个关键词请用空格分隔)'
+        required: true
+      match_mode:
+        description: '匹配逻辑 (影响多关键词)'
+        required: true
+        type: choice
+        options:
+          - '严格同包 (AND - 必须包含所有词)'
+          - '通配模糊 (OR - 包含任意一个词即可)'
+          - '连贯匹配 (EXACT - 完整包含这串字)'
+
+jobs:
+  search_database:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout data 分支
+        uses: actions/checkout@v4
+        with:
+          ref: data
+          
+      - name: 运行检索引擎
+        env:
+          KEYWORD: ${{ github.event.inputs.keyword }}
+          MATCH_MODE: ${{ github.event.inputs.match_mode }}
+        run: |
+          python << 'EOF'
+          import os, glob, sys
+
+          keyword_str = os.environ.get("KEYWORD", "").strip()
+          match_mode = os.environ.get("MATCH_MODE", "")
+
+          print(f"🔍 搜索关键词: '{keyword_str}'")
+          print(f"⚙️ 匹配模式: {match_mode}")
+
+          if not keyword_str:
+              print("❌ 未提供关键词。")
+              sys.exit(0)
+
+          # 解析输入模式
+          if "AND" in match_mode:
+              mode = "AND"
+              keywords = keyword_str.split()
+          elif "OR" in match_mode:
+              mode = "OR"
+              keywords = keyword_str.split()
+          else:
+              mode = "EXACT"
+              keywords = [keyword_str]
+
+          results = []
+          
+          # 在 data 分支的 data/ 文件夹下进行扫描
+          if os.path.exists("data"):
+              for f in sorted(glob.glob("data/*.txt")):
+                  with open(f, 'r', encoding='utf-8') as file:
+                      for line in file:
+                          text = line.strip()
+                          if not text: continue
+
+                          # 核心匹配引擎
+                          if mode == "AND":
+                              if all(k in text for k in keywords): results.append(text)
+                          elif mode == "OR":
+                              if any(k in text for k in keywords): results.append(text)
+                          elif mode == "EXACT":
+                              if keywords[0] in text: results.append(text)
+
+          os.makedirs("search_results", exist_ok=True)
+          total_hits = len(results)
+
+          if total_hits == 0:
+              print("⚠️ 未找到匹配的记录。")
+              with open("search_results/0_未找到记录.txt", "w", encoding="utf-8") as f:
+                  f.write(f"在数据库中未找到与 '{keyword_str}' 匹配的任何记录。\n")
+          else:
+              print(f"🎉 共命中 {total_hits} 条数据！正在打包导出...")
+              chunk_size = 600
+              for i in range(0, total_hits, chunk_size):
+                  chunk = results[i:i+chunk_size]
+                  file_idx = (i // chunk_size) + 1
+                  
+                  # 取第一个关键词的一部分作为文件名防超长报错
+                  safe_kw = keywords[0][:10].replace('/', '_').replace('\\', '_')
+                  filename = f"search_results/{safe_kw}_{file_idx:03d}.txt"
+                  with open(filename, 'w', encoding='utf-8') as f:
+                      for line in chunk:
+                          f.write(line + "\n")
+          EOF
+          
+      - name: 导出检索结果
+        uses: actions/upload-artifact@v4
+        with:
+          name: 🔍Search-Result-${{ github.event.inputs.keyword }}
+          path: search_results/
+          retention-days: 7
