@@ -1,0 +1,274 @@
+name: "Workflow 1: 扫描并生成草稿 (Scrape -> Review)"
+
+on:
+  workflow_dispatch:
+    inputs:
+      shards:
+        description: '分片数量'
+        required: true
+        default: '20'
+
+permissions:
+  contents: write
+
+jobs:
+  master:
+    runs-on: ubuntu-latest
+    outputs:
+      shard_list: ${{ steps.calc_shards.outputs.shard_list }}
+      shard_configs: ${{ steps.calc_shards.outputs.shard_configs }}
+      total_cids: ${{ steps.calc_shards.outputs.total_cids }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: 记录开始时间
+        run: date -u +"%Y-%m-%d %H:%M:%S" > start_time.txt
+      - name: 上传开始时间
+        uses: actions/upload-artifact@v4
+        with:
+          name: start-time
+          path: start_time.txt
+          retention-days: 1
+      - name: 计算分片配置
+        id: calc_shards
+        run: |
+          START=$(jq -r '.start_cid' config.json)
+          END=$(jq -r '.end_cid' config.json)
+          SHARDS=${{ github.event.inputs.shards }}
+          export START END SHARDS
+          python << 'EOF'
+          import json, math, os
+          start = int(os.environ['START'])
+          end = int(os.environ['END'])
+          shards = int(os.environ['SHARDS'])
+          total = end - start + 1
+          shard_size = math.ceil(total / shards)
+          with open('config.json', encoding='utf-8') as f:
+              orig = json.load(f)
+          shard_indices = []
+          shard_configs = []
+          for i in range(shards):
+              s = start + i * shard_size
+              e = min(start + (i+1)*shard_size - 1, end)
+              shard_indices.append(str(i))
+              cfg = orig.copy()
+              cfg['start_cid'] = s
+              cfg['end_cid'] = e
+              cfg['should_scan'] = True
+              shard_configs.append(cfg)
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as out:
+              out.write(f"shard_list={json.dumps(shard_indices)}\n")
+              out.write(f"shard_configs={json.dumps(shard_configs)}\n")
+              out.write(f"total_cids={total}\n")
+          EOF
+
+  scan_shard_first:
+    needs: master
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      matrix:
+        shard_idx: ${{ fromJson(needs.master.outputs.shard_list) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: 生成分片配置
+        run: |
+          echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[${{ matrix.shard_idx }}]" > config.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: 缓存 Playwright
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-chromium
+      - name: 安装依赖
+        run: |
+          pip install playwright psutil
+          playwright install chromium
+      - name: 扫描
+        env:
+          PYTHONUNBUFFERED: 1
+          SHARD_IDX: ${{ matrix.shard_idx }}
+        run: python scanner_playwright.py
+      - name: 上传结果
+        uses: actions/upload-artifact@v4
+        with:
+          name: first-ok-shard-${{ matrix.shard_idx }}
+          path: data/*.txt
+          if-no-files-found: warn
+          retention-days: 1
+      - name: 上传未完成标志
+        uses: actions/upload-artifact@v4
+        with:
+          name: flag-${{ matrix.shard_idx }}
+          path: unfinished_${{ matrix.shard_idx }}.flag
+          if-no-files-found: ignore
+          retention-days: 1
+      - name: 上传未完成CID列表
+        uses: actions/upload-artifact@v4
+        with:
+          name: unfinished-cids-${{ matrix.shard_idx }}
+          path: unfinished_cids_${{ matrix.shard_idx }}.txt
+          if-no-files-found: ignore
+          retention-days: 1
+
+  collect_unfinished:
+    needs: scan_shard_first
+    if: success() || failure()
+    runs-on: ubuntu-latest
+    outputs:
+      retry_matrix: ${{ steps.reshard.outputs.retry_matrix }}
+    steps:
+      - name: 下载所有未完成名单
+        uses: actions/download-artifact@v4
+        with:
+          pattern: unfinished-cids-*
+          path: unfinished_raw
+          merge-multiple: true
+      - name: 动态容量计算与重切分
+        id: reshard
+        run: |
+          python << 'EOF'
+          import os, json, math, glob
+          all_cids = set()
+          if os.path.exists("unfinished_raw"):
+              for f in glob.glob("unfinished_raw/*.txt"):
+                  with open(f, 'r', encoding='utf-8') as file:
+                      for line in file:
+                          line = line.strip()
+                          if line.isdigit():
+                              all_cids.add(int(line))
+          cid_list = sorted(list(all_cids))
+          total = len(cid_list)
+          retry_matrix = []
+          if total > 0:
+              TARGET_CHUNK_SIZE = 10000
+              MAX_SHARDS = 20
+              shards = math.ceil(total / TARGET_CHUNK_SIZE)
+              if shards > MAX_SHARDS: shards = MAX_SHARDS
+              actual_chunk_size = math.ceil(total / shards)
+              os.makedirs("retry_chunks", exist_ok=True)
+              for i in range(shards):
+                  start = i * actual_chunk_size
+                  end = min(start + actual_chunk_size, total)
+                  if start >= total: break 
+                  chunk = cid_list[start:end]
+                  with open(f"retry_chunks/retry_{i}.txt", "w", encoding="utf-8") as out:
+                      for cid in chunk: out.write(f"{cid}\n")
+                  retry_matrix.append(str(i))
+          output = json.dumps(retry_matrix)
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as env_file:
+              env_file.write(f"retry_matrix={output}\n")
+          EOF
+      - name: 上传重组分片
+        if: steps.reshard.outputs.retry_matrix != '[]'
+        uses: actions/upload-artifact@v4
+        with:
+          name: retry-chunks
+          path: retry_chunks/
+          retention-days: 1
+
+  scan_shard_second:
+    needs: [master, collect_unfinished]
+    if: needs.collect_unfinished.outputs.retry_matrix != '[]' && needs.collect_unfinished.outputs.retry_matrix != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      matrix:
+        retry_idx: ${{ fromJson(needs.collect_unfinished.outputs.retry_matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: 下载重组补扫名单
+        uses: actions/download-artifact@v4
+        with:
+          name: retry-chunks
+          path: retry_chunks
+      - name: 生成补扫配置
+        run: |
+          echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[0]" | jq '. + {should_scan: true, cid_list_file: "retry_chunks/retry_${{ matrix.retry_idx }}.txt"}' > config.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: 恢复 Playwright 缓存
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-chromium
+      - name: 安装依赖
+        run: |
+          pip install playwright psutil
+          playwright install chromium
+      - name: 补扫执行
+        env:
+          PYTHONUNBUFFERED: 1
+          SHARD_IDX: retry_${{ matrix.retry_idx }}
+        run: python scanner_playwright.py
+      - name: 上传补扫结果
+        uses: actions/upload-artifact@v4
+        with:
+          name: second-ok-shard-${{ matrix.retry_idx }}
+          path: data/*.txt
+          if-no-files-found: warn
+          retention-days: 1
+      - name: 上传最终遗留
+        uses: actions/upload-artifact@v4
+        with:
+          name: final-unfinished-cids-${{ matrix.retry_idx }}
+          path: unfinished_cids_retry_${{ matrix.retry_idx }}.txt
+          if-no-files-found: ignore
+          retention-days: 1
+
+  final_upload:
+    needs: [master, scan_shard_first, scan_shard_second]
+    if: always() && !cancelled()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 下载结果
+        uses: actions/download-artifact@v4
+        with:
+          pattern: '*-ok-*'
+          path: all_results
+          merge-multiple: true
+        continue-on-error: true
+      - name: 统计合并
+        run: |
+          set -e
+          mkdir -p final_data
+          if find all_results -name "*.txt" -print0 2>/dev/null | xargs -0 cat > all_merged.txt 2>/dev/null; then
+            if [ -s all_merged.txt ]; then
+              sort -n -k1 all_merged.txt -o all_merged_sorted.txt
+              awk 'NR%600==1 {file=sprintf("final_data/part_%03d.txt", ++c)} {print > file}' all_merged_sorted.txt
+            fi
+          fi
+      - name: 提交并推送到 review 分支 (隔离存放草稿)
+        run: |
+          # 保护刚生成的数据
+          mv final_data /tmp/final_data_safe
+          
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # 智能创建或切换 review 分支
+          if git fetch origin review 2>/dev/null; then
+            git checkout review
+          else
+            git checkout --orphan review
+            git rm -rf . || true
+            git clean -fdx
+          fi
+          
+          # 用新的草稿覆盖旧的草稿
+          rm -rf final_data
+          cp -r /tmp/final_data_safe ./final_data
+          git add final_data/
+          
+          COMMIT_TIME=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          if git commit -m "📝 待审查草稿: $COMMIT_TIME [skip ci]"; then
+            git push origin review
+            echo "🎉 数据已推送到 review 分支等待您的审查！"
+          else
+            echo "⚠️ 无任何数据变更"
+          fi
