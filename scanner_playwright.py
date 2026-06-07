@@ -140,6 +140,10 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
 
             closed_retry = {}
             current_cid = None
+            
+            # 【修复核心】：引入生命周期计数器，防止内存泄漏和页面越跑越慢
+            lifecycle_count = 0
+            MAX_LIFECYCLE = 200
 
             while True:
                 if time.time() > deadline:
@@ -158,7 +162,7 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                 if closed_retry.get(current_cid, 0) >= MAX_RETRY_ON_CLOSED:
                     with open(unfin_file, "a", encoding="utf-8") as f:
                         f.write(f"{current_cid}\n")
-                    increment_progress() # 放弃也算处理完了一条
+                    increment_progress() 
                     current_cid = None
                     continue
 
@@ -192,11 +196,13 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                     if not (class_name == "无" and school == "无"):
                         line = f"{current_cid} https://www.eeo.cn/s/a/?cid={current_cid} {school} {class_name}\n"
                         add_line(line)
-                        print(f"[Worker {worker_id}] CID: {current_cid}, 学校: {school}, 班级: {class_name}", flush=True)
+                        # 为了不刷屏，Worker 级别的信息可以注释掉，主要看全局大屏
+                        # print(f"[Worker {worker_id}] CID: {current_cid}, 学校: {school}, 班级: {class_name}", flush=True)
 
                     if current_cid in closed_retry: del closed_retry[current_cid]
-                    increment_progress() # 成功扫描，计数器+1
+                    increment_progress() 
                     current_cid = None
+                    lifecycle_count += 1 # 成功跑完一个任务，生命周期增加
 
                 except Exception as e:
                     err_msg = str(e).lower()
@@ -217,10 +223,26 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                         try: page = context.new_page()
                         except: pass
                         
-                        increment_progress() # 遭遇死链记录失败，也算处理完了一条
+                        increment_progress() 
                         current_cid = None
+                        lifecycle_count += 1 # 失败抛弃也算跑完了一个任务
 
                 time.sleep(SLEEP_BETWEEN)
+
+                # 【修复核心】：定期转生，强制释放 Chromium 堆积内存
+                if lifecycle_count >= MAX_LIFECYCLE:
+                    try: page.close()
+                    except: pass
+                    try: context.close()
+                    except: pass
+                    
+                    context = browser.new_context(
+                        user_agent=random.choice(user_agents),
+                        proxy={"server": random.choice(proxy_list)} if proxy_list else None,
+                        ignore_https_errors=True
+                    )
+                    page = context.new_page()
+                    lifecycle_count = 0  # 计数器清零，焕发第二春
 
             flush()
             
@@ -263,7 +285,7 @@ def main():
     worker_count = min(MAX_CONCURRENT, len(cid_list))
 
     task_queue = mp.Queue()
-    completed_count = mp.Value('i', 0) # 共享内存中的进度计数器
+    completed_count = mp.Value('i', 0) 
     
     print(f"正在将 {total} 个任务装载入并发队列，请稍候...", flush=True)
     for cid in cid_list:
@@ -272,7 +294,6 @@ def main():
 
     deadline = time.time() + TIMEOUT_SECONDS - 60
 
-    # 传递 Queue 和 Counter 给各个子进程
     pool = mp.Pool(processes=worker_count, initializer=init_worker, initargs=(task_queue, completed_count))
     async_results = []
     
@@ -306,7 +327,6 @@ def main():
                 eta_str = "计算中..."
             
             pct = (c / total) * 100 if total > 0 else 0
-            # 加上 \n 让进度条在茫茫日志中足够显眼
             print(f"\n📊 [全局监控] 已完成: {c}/{total} ({pct:.2f}%) | ⚡ 速度: {speed:.1f} 个/秒 | ⏳ 剩余时间: {eta_str}\n", flush=True)
             last_print_time = now
 
