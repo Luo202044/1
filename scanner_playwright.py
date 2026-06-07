@@ -27,10 +27,10 @@ if not config.get("should_scan", True):
 START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
-MAX_CONCURRENT = config.get("max_concurrent_pages", 15)
-WAIT_TIMEOUT = config.get("wait_timeout", 20)
-RENDER_WAIT = config.get("render_wait", 1.0)
-SLEEP_BETWEEN = config.get("sleep_between", 0.6)
+MAX_CONCURRENT = config.get("max_concurrent_pages", 20)
+WAIT_TIMEOUT = config.get("wait_timeout", 15)
+RENDER_WAIT = config.get("render_wait", 0.5)
+SLEEP_BETWEEN = config.get("sleep_between", 0.1)
 RETRY_TIMES = config.get("retry_times", 1)
 RETRY_DELAY = config.get("retry_delay", 0.3)
 TIMEOUT_HOURS = config.get("timeout_hours", 5.0)
@@ -69,15 +69,11 @@ global_task_queue = None
 global_completed_count = None
 
 def init_worker(q, counter):
-    """
-    进程池初始化函数：将原生 Queue 和安全计数器挂载到每个 Worker 的全局变量中
-    """
     global global_task_queue, global_completed_count
     global_task_queue = q
     global_completed_count = counter
 
 def increment_progress():
-    """安全地增加已完成任务计数"""
     global global_completed_count
     if global_completed_count is not None:
         with global_completed_count.get_lock():
@@ -93,7 +89,7 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
 
     WAIT_TIMEOUT = config_dict.get("wait_timeout", 25)
     RENDER_WAIT = config_dict.get("render_wait", 2.0)
-    SLEEP_BETWEEN = config_dict.get("sleep_between", 0.3)
+    SLEEP_BETWEEN = config_dict.get("sleep_between", 0.1)
     MAX_RETRY_ON_CLOSED = config_dict.get("max_retry_on_closed", 3)
     BATCH_SIZE = config_dict.get("batch_size", 100)
 
@@ -138,10 +134,12 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
             )
             page = context.new_page()
 
+            # 【提速黑科技】：屏蔽图片、CSS、字体加载，速度翻倍
+            page.route("**/*", lambda route: route.abort() if route.request.resource_type in ["image", "media", "font", "stylesheet"] else route.continue_())
+
             closed_retry = {}
             current_cid = None
             
-            # 引入生命周期计数器，防止内存泄漏和页面越跑越慢
             lifecycle_count = 0
             MAX_LIFECYCLE = 200
 
@@ -196,13 +194,13 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                     if not (class_name == "无" and school == "无"):
                         line = f"{current_cid} https://www.eeo.cn/s/a/?cid={current_cid} {school} {class_name}\n"
                         add_line(line)
-                        # 保留了正常发现班级时的打印输出
-                        print(f"[Worker {worker_id}] CID: {current_cid}, 学校: {school}, 班级: {class_name}", flush=True)
+                        # 【恢复高亮打印】：发现有效班级立刻显示
+                        print(f"✅ [发现班级] Worker-{worker_id} | CID: {current_cid} | 学校: {school} | 班级: {class_name}", flush=True)
 
                     if current_cid in closed_retry: del closed_retry[current_cid]
                     increment_progress() 
                     current_cid = None
-                    lifecycle_count += 1 # 成功跑完一个任务，生命周期增加
+                    lifecycle_count += 1 
 
                 except Exception as e:
                     err_msg = str(e).lower()
@@ -214,6 +212,7 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                         browser = p.chromium.launch(headless=True, args=["--disable-gpu", "--disable-dev-shm-usage", "--no-sandbox"])
                         context = browser.new_context(user_agent=random.choice(user_agents), ignore_https_errors=True)
                         page = context.new_page()
+                        page.route("**/*", lambda route: route.abort() if route.request.resource_type in ["image", "media", "font", "stylesheet"] else route.continue_())
                     else:
                         with open(unfin_file, "a", encoding="utf-8") as f:
                             f.write(f"{current_cid}\n")
@@ -225,11 +224,11 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                         
                         increment_progress() 
                         current_cid = None
-                        lifecycle_count += 1 # 失败抛弃也算跑完了一个任务
+                        lifecycle_count += 1
 
                 time.sleep(SLEEP_BETWEEN)
 
-                # 定期转生，强制释放 Chromium 堆积内存
+                # 【防止越跑越慢】：定期转生
                 if lifecycle_count >= MAX_LIFECYCLE:
                     try: page.close()
                     except: pass
@@ -242,7 +241,10 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                         ignore_https_errors=True
                     )
                     page = context.new_page()
-                    lifecycle_count = 0  # 计数器清零
+                    # 转生后重新挂载请求拦截器
+                    page.route("**/*", lambda route: route.abort() if route.request.resource_type in ["image", "media", "font", "stylesheet"] else route.continue_())
+                    
+                    lifecycle_count = 0
 
             flush()
             
@@ -307,13 +309,12 @@ def main():
     last_print_time = start_time
     hard_limit = start_time + TIMEOUT_SECONDS + FORCE_EXIT_WAIT
 
-    # --- 进度监控大屏主循环 ---
+    # --- 进度监控大屏主循环 (60秒刷新) ---
     while time.time() < hard_limit:
         if all(res.ready() for res in async_results):
             break
         
         now = time.time()
-        # 每隔 60 秒打印一次监控信息
         if now - last_print_time >= 60:
             c = completed_count.value
             elapsed = now - start_time
