@@ -95,6 +95,9 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
 
     worker_out_file = f"data/worker_{worker_id}_temp.txt"
     unfin_file = f"unfinished_worker_{worker_id}.txt"
+    # 【掉线保护凭证】记录当前手里拿着什么任务
+    working_file = f"data/working_{worker_id}.txt"
+    
     write_buffer = []
     browser = None
     context = None
@@ -110,6 +113,11 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
         write_buffer.append(line)
         if len(write_buffer) >= BATCH_SIZE:
             flush()
+            
+    def clear_working_flag():
+        if os.path.exists(working_file):
+            try: os.remove(working_file)
+            except: pass
 
     def cleanup():
         nonlocal browser, context, page
@@ -133,45 +141,51 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                 ignore_https_errors=True
             )
             page = context.new_page()
-
-            # 【提速黑科技】：屏蔽图片、CSS、字体加载，速度翻倍
             page.route("**/*", lambda route: route.abort() if route.request.resource_type in ["image", "media", "font", "stylesheet"] else route.continue_())
 
             closed_retry = {}
             current_cid = None
-            
             lifecycle_count = 0
             MAX_LIFECYCLE = 200
 
             while True:
-                if time.time() > deadline:
-                    print(f"[Worker {worker_id}] 触发软超时，准备下班...", flush=True)
+                remaining_time = deadline - time.time()
+                if remaining_time <= 0:
+                    print(f"[Worker {worker_id}] 触发软超时，安全丢弃手头的班级并下班...", flush=True)
                     if current_cid is not None:
                         with open(unfin_file, "a", encoding="utf-8") as f:
                             f.write(f"{current_cid}\n")
+                        clear_working_flag()
                     break
 
                 if current_cid is None:
                     try:
                         current_cid = task_queue.get_nowait()
+                        # 【核心防丢】：一旦拿到任务，立马存盘标记！如果被硬杀，主程序能捡回来。
+                        with open(working_file, "w", encoding="utf-8") as f:
+                            f.write(str(current_cid))
                     except queue.Empty:
                         break
 
                 if closed_retry.get(current_cid, 0) >= MAX_RETRY_ON_CLOSED:
                     with open(unfin_file, "a", encoding="utf-8") as f:
                         f.write(f"{current_cid}\n")
+                    clear_working_flag()
                     increment_progress() 
                     current_cid = None
                     continue
 
                 try:
-                    page.goto(f"https://www.eeo.cn/s/a/?cid={current_cid}", timeout=WAIT_TIMEOUT*1000, wait_until="domcontentloaded")
+                    # 【强制打断机制】: 把剩余下班时间注入 Playwright，防止它在内部死锁无限期挂起
+                    pw_timeout = min(WAIT_TIMEOUT * 1000, remaining_time * 1000)
+                    page.goto(f"https://www.eeo.cn/s/a/?cid={current_cid}", timeout=pw_timeout, wait_until="domcontentloaded")
                     body = page.text_content("body") or ""
                     
                     if len(body.strip()) < 50:
                         school, class_name = "无", "无"
                     else:
-                        try: page.wait_for_selector("p.courseName, p.schoolName", timeout=RENDER_WAIT*1000)
+                        render_timeout = min(RENDER_WAIT * 1000, remaining_time * 1000)
+                        try: page.wait_for_selector("p.courseName, p.schoolName", timeout=render_timeout)
                         except: pass
                         
                         class_name = "无"
@@ -194,11 +208,11 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                     if not (class_name == "无" and school == "无"):
                         line = f"{current_cid} https://www.eeo.cn/s/a/?cid={current_cid} {school} {class_name}\n"
                         add_line(line)
-                        # 【恢复高亮打印】：发现有效班级立刻显示
                         print(f"✅ [发现班级] Worker-{worker_id} | CID: {current_cid} | 学校: {school} | 班级: {class_name}", flush=True)
 
                     if current_cid in closed_retry: del closed_retry[current_cid]
                     increment_progress() 
+                    clear_working_flag()  # 顺利完成，清空手头的死亡凭证
                     current_cid = None
                     lifecycle_count += 1 
 
@@ -222,13 +236,13 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                         try: page = context.new_page()
                         except: pass
                         
-                        increment_progress() 
+                        increment_progress()
+                        clear_working_flag() # 出错放弃，也视作当前任务了结，清空凭证
                         current_cid = None
                         lifecycle_count += 1
 
                 time.sleep(SLEEP_BETWEEN)
 
-                # 【防止越跑越慢】：定期转生
                 if lifecycle_count >= MAX_LIFECYCLE:
                     try: page.close()
                     except: pass
@@ -241,9 +255,7 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                         ignore_https_errors=True
                     )
                     page = context.new_page()
-                    # 转生后重新挂载请求拦截器
                     page.route("**/*", lambda route: route.abort() if route.request.resource_type in ["image", "media", "font", "stylesheet"] else route.continue_())
-                    
                     lifecycle_count = 0
 
             flush()
@@ -309,7 +321,6 @@ def main():
     last_print_time = start_time
     hard_limit = start_time + TIMEOUT_SECONDS + FORCE_EXIT_WAIT
 
-    # --- 进度监控大屏主循环 (60秒刷新) ---
     while time.time() < hard_limit:
         if all(res.ready() for res in async_results):
             break
@@ -334,7 +345,7 @@ def main():
         time.sleep(1)
 
     if not all(res.ready() for res in async_results):
-        print("警告: 存在未能响应超时的僵死 Worker，执行强制终止", flush=True)
+        print("警告: 存在未能响应超时的僵死 Worker，执行硬超时强制终止...", flush=True)
         pool.terminate()
     pool.join()
 
@@ -357,10 +368,11 @@ def main():
                 seen.add(cid)
                 f.write(line)
 
-    # --- 收集未完成数据 ---
+    # --- 收集未完成数据 (包含被拔电源死亡瞬间拿着的 CID) ---
     unfinished_cids = set()
     
     for i in range(worker_count):
+        # 1. 正常软超时退出的未完成名单
         ufile = f"unfinished_worker_{i}.txt"
         if os.path.exists(ufile):
             with open(ufile, "r", encoding="utf-8") as f:
@@ -368,7 +380,17 @@ def main():
                     if line.strip().isdigit():
                         unfinished_cids.add(int(line.strip()))
             os.remove(ufile)
+            
+        # 2. 【核心修复】：搜刮被硬超时杀死的 Worker 遗留的“最后一口气”凭证
+        working_file = f"data/working_{i}.txt"
+        if os.path.exists(working_file):
+            with open(working_file, "r", encoding="utf-8") as f:
+                content = f.read().strip()
+                if content.isdigit():
+                    unfinished_cids.add(int(content))
+            os.remove(working_file)
 
+    # 3. 收集队列里没动过的数据
     while not task_queue.empty():
         try:
             unfinished_cids.add(task_queue.get_nowait())
@@ -383,6 +405,11 @@ def main():
         print(f"记录了 {len(unfinished_cids)} 个未完成的 CID，已生成补扫信标 ({UNFINISHED_FLAG})", flush=True)
     else:
         print("所有CID已成功处理", flush=True)
+
+    # 【断头台退出】：防止队列后台线程导致卡死 11 分钟
+    print("✅ 引擎安全退出，释放所有底层资源。", flush=True)
+    sys.stdout.flush()
+    os._exit(0)
 
 if __name__ == "__main__":
     mp.freeze_support()
