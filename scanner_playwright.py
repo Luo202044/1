@@ -9,6 +9,7 @@ import random
 import signal
 import atexit
 import queue
+import traceback  # 【补丁2】新增：用于打印致命崩溃堆栈
 import multiprocessing as mp
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 
@@ -58,6 +59,10 @@ USER_AGENTS = [
 
 # ---------- Worker 同步函数 (动态抢单模式) ----------
 def worker_sync(worker_id, task_queue, config_dict, proxy_list, user_agents, deadline):
+    # 【补丁1】错峰启动：让 Worker 们排队启动，防止 CPU 瞬间被打满死锁
+    time.sleep(worker_id * 1.5)
+    print(f"[Worker {worker_id}] 正在启动浏览器引擎...", flush=True)
+
     WAIT_TIMEOUT = config_dict.get("wait_timeout", 25)
     RENDER_WAIT = config_dict.get("render_wait", 2.0)
     SLEEP_BETWEEN = config_dict.get("sleep_between", 0.3)
@@ -91,10 +96,12 @@ def worker_sync(worker_id, task_queue, config_dict, proxy_list, user_agents, dea
         except: pass
 
     atexit.register(cleanup)
-    try: os.setpgrp()
-    except: pass
-
+    
+    # 【补丁2】全局异常防弹衣：防止 Worker 遭遇环境问题直接静默死亡
     try:
+        try: os.setpgrp()
+        except: pass
+
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True, args=["--disable-gpu", "--disable-dev-shm-usage", "--no-sandbox"])
             context = browser.new_context(
@@ -186,6 +193,10 @@ def worker_sync(worker_id, task_queue, config_dict, proxy_list, user_agents, dea
                 time.sleep(SLEEP_BETWEEN)
 
             flush()
+            
+    except Exception as e:
+        # 如果走到这里，说明发生了不可逆的致命错误，大声报错！
+        print(f"\n❌ [Worker {worker_id}] 发生致命崩溃: {str(e)}\n{traceback.format_exc()}\n", flush=True)
     finally:
         cleanup()
     return worker_id
@@ -222,10 +233,13 @@ def main():
 
     worker_count = min(MAX_CONCURRENT, len(cid_list))
 
-    manager = mp.Manager()
-    task_queue = manager.Queue()
+    # 【补丁3】使用原生队列替代 Manager 代理，彻底杜绝 IPC 通信死锁
+    task_queue = mp.Queue()
+    
+    print(f"正在将 {total} 个任务装载入并发队列，请稍候...", flush=True)
     for cid in cid_list:
         task_queue.put(cid)
+    print("✅ 队列装载完毕，准备启动引擎！", flush=True)
 
     deadline = time.time() + TIMEOUT_SECONDS - 60
 
