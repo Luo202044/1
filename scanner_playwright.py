@@ -69,15 +69,11 @@ global_task_queue = None
 global_completed_count = None
 
 def init_worker(q, counter):
-    """
-    进程池初始化函数：将原生 Queue 和安全计数器挂载到每个 Worker 的全局变量中
-    """
     global global_task_queue, global_completed_count
     global_task_queue = q
     global_completed_count = counter
 
 def increment_progress():
-    """安全地增加已完成任务计数"""
     global global_completed_count
     if global_completed_count is not None:
         with global_completed_count.get_lock():
@@ -92,7 +88,6 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
     print(f"[Worker {worker_id}] 正在启动浏览器引擎...", flush=True)
 
     WAIT_TIMEOUT = config_dict.get("wait_timeout", 25)
-    RENDER_WAIT = config_dict.get("render_wait", 2.0)
     SLEEP_BETWEEN = config_dict.get("sleep_between", 0.3)
     MAX_RETRY_ON_CLOSED = config_dict.get("max_retry_on_closed", 3)
     BATCH_SIZE = config_dict.get("batch_size", 100)
@@ -141,7 +136,6 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
             closed_retry = {}
             current_cid = None
             
-            # 【修复核心】：引入生命周期计数器，防止内存泄漏和页面越跑越慢
             lifecycle_count = 0
             MAX_LIFECYCLE = 200
 
@@ -168,41 +162,42 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
 
                 try:
                     page.goto(f"https://www.eeo.cn/s/a/?cid={current_cid}", timeout=WAIT_TIMEOUT*1000, wait_until="domcontentloaded")
-                    body = page.text_content("body") or ""
                     
-                    if len(body.strip()) < 50:
-                        school, class_name = "无", "无"
-                    else:
-                        try: page.wait_for_selector("p.courseName, p.schoolName", timeout=RENDER_WAIT*1000)
-                        except: pass
-                        
-                        class_name = "无"
-                        elem = page.query_selector("p.courseName")
-                        if elem:
-                            text = elem.inner_text().strip()
-                            if text and len(text) >= 2: class_name = text
-                        if class_name == "无":
-                            title = page.title()
-                            if "|" in title and "Join the class" not in title:
-                                parts = title.split("|")
-                                if len(parts) > 1: class_name = parts[-1].strip()
-                        
-                        school = "无"
-                        elem = page.query_selector("p.schoolName")
-                        if elem:
-                            text = elem.inner_text().strip()
-                            if text and len(text) >= 2: school = text
+                    # 【核心修复】：删除 body<50 的判断。直接强制等待目标元素，给予最高 3 秒宽限期。
+                    # 如果页面有效，几乎会瞬间拿到元素；如果是死链，只会惩罚 3 秒的时间。绝对不漏数据。
+                    try: 
+                        page.wait_for_selector("p.courseName, p.schoolName", timeout=3000)
+                    except: 
+                        pass
+                    
+                    class_name = "无"
+                    elem = page.query_selector("p.courseName")
+                    if elem:
+                        text = elem.inner_text().strip()
+                        if text and len(text) >= 2: class_name = text
+                    
+                    if class_name == "无":
+                        title = page.title()
+                        if "|" in title and "Join the class" not in title:
+                            parts = title.split("|")
+                            if len(parts) > 1: class_name = parts[-1].strip()
+                    
+                    school = "无"
+                    elem = page.query_selector("p.schoolName")
+                    if elem:
+                        text = elem.inner_text().strip()
+                        if text and len(text) >= 2: school = text
 
                     if not (class_name == "无" and school == "无"):
                         line = f"{current_cid} https://www.eeo.cn/s/a/?cid={current_cid} {school} {class_name}\n"
                         add_line(line)
-                        # 为了不刷屏，Worker 级别的信息可以注释掉，主要看全局大屏
-                        # print(f"[Worker {worker_id}] CID: {current_cid}, 学校: {school}, 班级: {class_name}", flush=True)
+                        # 【核心修复】：恢复打印，并加上显眼的绿色勾号
+                        print(f"✅ [Worker {worker_id}] 捕获 -> CID: {current_cid} | {school} | {class_name}", flush=True)
 
                     if current_cid in closed_retry: del closed_retry[current_cid]
                     increment_progress() 
                     current_cid = None
-                    lifecycle_count += 1 # 成功跑完一个任务，生命周期增加
+                    lifecycle_count += 1 
 
                 except Exception as e:
                     err_msg = str(e).lower()
@@ -225,11 +220,10 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                         
                         increment_progress() 
                         current_cid = None
-                        lifecycle_count += 1 # 失败抛弃也算跑完了一个任务
+                        lifecycle_count += 1 
 
                 time.sleep(SLEEP_BETWEEN)
 
-                # 【修复核心】：定期转生，强制释放 Chromium 堆积内存
                 if lifecycle_count >= MAX_LIFECYCLE:
                     try: page.close()
                     except: pass
@@ -242,7 +236,7 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                         ignore_https_errors=True
                     )
                     page = context.new_page()
-                    lifecycle_count = 0  # 计数器清零，焕发第二春
+                    lifecycle_count = 0  
 
             flush()
             
@@ -265,124 +259,4 @@ def main():
             sys.exit(1)
         print(f"列表模式: 从 {CID_LIST_FILE} 读取 {total} 个班级")
     else:
-        if START_CID is None or END_CID is None:
-            print("错误: 必须指定 start_cid/end_cid 或 cid_list_file", flush=True)
-            sys.exit(1)
-        if START_CID > END_CID:
-            START_CID, END_CID = END_CID, START_CID
-        cid_list = list(range(START_CID, END_CID + 1))
-        total = len(cid_list)
-        print(f"区间模式: {START_CID} ~ {END_CID} (共 {total} 个)")
-
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f: f.write("")
-
-    config_dict = {
-        "wait_timeout": WAIT_TIMEOUT, "render_wait": RENDER_WAIT,
-        "sleep_between": SLEEP_BETWEEN, "max_retry_on_closed": MAX_RETRY_ON_CLOSED,
-        "batch_size": BATCH_SIZE,
-    }
-
-    worker_count = min(MAX_CONCURRENT, len(cid_list))
-
-    task_queue = mp.Queue()
-    completed_count = mp.Value('i', 0) 
-    
-    print(f"正在将 {total} 个任务装载入并发队列，请稍候...", flush=True)
-    for cid in cid_list:
-        task_queue.put(cid)
-    print("✅ 队列装载完毕，准备启动引擎！\n", flush=True)
-
-    deadline = time.time() + TIMEOUT_SECONDS - 60
-
-    pool = mp.Pool(processes=worker_count, initializer=init_worker, initargs=(task_queue, completed_count))
-    async_results = []
-    
-    for i in range(worker_count):
-        res = pool.apply_async(worker_sync, (i, config_dict, PROXY_LIST, USER_AGENTS, deadline))
-        async_results.append(res)
-
-    pool.close()
-    
-    start_time = time.time()
-    last_print_time = start_time
-    hard_limit = start_time + TIMEOUT_SECONDS + FORCE_EXIT_WAIT
-
-    # --- 进度监控大屏主循环 ---
-    while time.time() < hard_limit:
-        if all(res.ready() for res in async_results):
-            break
-        
-        now = time.time()
-        # 每隔 60 秒打印一次监控信息
-        if now - last_print_time >= 60:
-            c = completed_count.value
-            elapsed = now - start_time
-            if c > 0:
-                speed = c / elapsed
-                rem = total - c
-                eta = rem / speed if speed > 0 else 0
-                eta_str = format_time(eta)
-            else:
-                speed = 0
-                eta_str = "计算中..."
-            
-            pct = (c / total) * 100 if total > 0 else 0
-            print(f"\n📊 [全局监控] 已完成: {c}/{total} ({pct:.2f}%) | ⚡ 速度: {speed:.1f} 个/秒 | ⏳ 剩余时间: {eta_str}\n", flush=True)
-            last_print_time = now
-
-        time.sleep(1)
-
-    if not all(res.ready() for res in async_results):
-        print("警告: 存在未能响应超时的僵死 Worker，执行强制终止", flush=True)
-        pool.terminate()
-    pool.join()
-
-    # --- 数据合并与清洗 ---
-    all_valid = []
-    for i in range(worker_count):
-        temp_file = f"data/worker_{i}_temp.txt"
-        if os.path.exists(temp_file):
-            with open(temp_file, "r", encoding="utf-8") as f:
-                all_valid.extend(f.readlines())
-            os.remove(temp_file)
-
-    seen = set()
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-        for line in all_valid:
-            parts = line.strip().split()
-            if not parts: continue
-            cid = parts[0]
-            if cid not in seen:
-                seen.add(cid)
-                f.write(line)
-
-    # --- 收集未完成数据 ---
-    unfinished_cids = set()
-    
-    for i in range(worker_count):
-        ufile = f"unfinished_worker_{i}.txt"
-        if os.path.exists(ufile):
-            with open(ufile, "r", encoding="utf-8") as f:
-                for line in f:
-                    if line.strip().isdigit():
-                        unfinished_cids.add(int(line.strip()))
-            os.remove(ufile)
-
-    while not task_queue.empty():
-        try:
-            unfinished_cids.add(task_queue.get_nowait())
-        except queue.Empty:
-            break
-
-    if unfinished_cids:
-        with open(f"unfinished_cids_{SHARD_IDX}.txt", "w", encoding="utf-8") as f:
-            for cid in sorted(unfinished_cids):
-                f.write(f"{cid}\n")
-        open(UNFINISHED_FLAG, "w").close() 
-        print(f"记录了 {len(unfinished_cids)} 个未完成的 CID，已生成补扫信标 ({UNFINISHED_FLAG})", flush=True)
-    else:
-        print("所有CID已成功处理", flush=True)
-
-if __name__ == "__main__":
-    mp.freeze_support()
-    main()
+        if START_
