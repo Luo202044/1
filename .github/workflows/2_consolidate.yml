@@ -1,0 +1,105 @@
+name: "Workflow 2: 审查通过与入库整理 (Consolidate DB)"
+
+on: workflow_dispatch
+
+permissions:
+  contents: write
+
+jobs:
+  consolidate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
+
+      - name: 归档与清洗数据
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # 1. 提取 review 分支中的改后数据
+          mkdir -p /tmp/review_data
+          if git checkout origin/review -- final_data/ 2>/dev/null; then
+            mv final_data/*.txt /tmp/review_data/ 2>/dev/null || true
+            echo "✅ 成功拉取 review 分支待入库数据"
+          else
+            echo "⚠️ 未找到 review 分支或暂无数据"
+          fi
+
+          # 2. 切换到 data 分支
+          if git show-ref --verify --quiet refs/remotes/origin/data; then
+            git checkout data
+          else
+            git checkout --orphan data
+            git rm -rf . || true
+            git clean -fdx
+          fi
+
+          # 3. 运行 Python 洗盘脚本
+          python << 'EOF'
+          import os, glob
+
+          data_dir = "data"
+          review_dir = "/tmp/review_data"
+          all_records = {}
+
+          # 加载现有的 data 数据库
+          if os.path.exists(data_dir):
+              for f in glob.glob(f"{data_dir}/*.txt"):
+                  with open(f, 'r', encoding='utf-8') as file:
+                      for line in file:
+                          parts = line.strip().split(' ', 1)
+                          if len(parts) >= 1 and parts[0].isdigit():
+                              all_records[int(parts[0])] = line.strip()
+
+          # 加载 review 的新数据 (如果有重复 CID，会自动覆盖为修改后的最新数据)
+          if os.path.exists(review_dir):
+              for f in glob.glob(f"{review_dir}/*.txt"):
+                  with open(f, 'r', encoding='utf-8') as file:
+                      for line in file:
+                          parts = line.strip().split(' ', 1)
+                          if len(parts) >= 1 and parts[0].isdigit():
+                              all_records[int(parts[0])] = line.strip()
+
+          sorted_cids = sorted(all_records.keys())
+
+          # 清空旧数据库文件
+          os.makedirs(data_dir, exist_ok=True)
+          for f in glob.glob(f"{data_dir}/*.txt"):
+              os.remove(f)
+
+          # 重新按每 600 行一个文件进行切割重写
+          chunk_size = 600
+          for i in range(0, len(sorted_cids), chunk_size):
+              chunk = sorted_cids[i:i+chunk_size]
+              file_idx = (i // chunk_size) + 1
+              filename = f"{data_dir}/class_{file_idx:03d}.txt"
+              with open(filename, 'w', encoding='utf-8') as f:
+                  for cid in chunk:
+                      f.write(all_records[cid] + "\n")
+
+          print(f"🎉 数据库洗盘完成！目前总收录: {len(sorted_cids)} 个有效班级。")
+          EOF
+
+          # 4. 提交到 data 分支
+          git add data/
+          COMMIT_TIME=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          if git commit -m "🗄️ 数据库更新与大扫除: $COMMIT_TIME [skip ci]"; then
+            git push origin data
+            echo "✅ 已成功入库并推送至 data 分支！"
+          else
+            echo "⚠️ 数据库无新增变化"
+          fi
+
+          # 5. 阅后即焚：清理 review 分支
+          if git show-ref --verify --quiet refs/remotes/origin/review; then
+            git checkout -B review origin/review
+            if [ -d "final_data" ]; then
+              git rm -rf final_data/ || true
+              git commit -m "🧹 数据已入库，清空审查草稿 [skip ci]" || true
+              git push origin review || true
+              echo "✅ review 分支草稿已清空"
+            fi
+          fi
