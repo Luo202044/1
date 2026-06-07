@@ -14,35 +14,42 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 备份新数据并清理当前分支
+      - name: 备份新数据并强校验
         run: |
-          # 1. 配置 Git 身份
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # 2. 排除 nto.txt，提取有效的班级数据
-          rm -f final_data/nto.txt || true
           mkdir -p /tmp/new_data
-          if [ -d "final_data" ]; then
-            cp -r final_data/* /tmp/new_data/ 2>/dev/null || true
-            echo "✅ 成功提取待入库数据"
-          else
-            echo "⚠️ 未找到 final_data 文件夹，可能是已经归档过了。"
-            exit 0
+          
+          # 1. 检查数据源文件夹是否存在
+          if [ ! -d "final_data" ]; then
+            echo "❌ 致命错误：当前运行的分支 (${{ github.ref_name }}) 下不存在 final_data/ 文件夹！"
+            echo "💡 提示：请在启动工作流的下拉菜单中，选择你刚刚提交了修改的那个分支！"
+            exit 1
           fi
 
-          # 3. 阅后即焚：从当前工作分支删除 final_data 并提交
+          # 2. 精准复制所有班级文件（排除 nto.txt）
+          find final_data/ -maxdepth 1 -name "*.txt" ! -name "nto.txt" -exec cp {} /tmp/new_data/ \;
+          
+          # 3. 强校验：到底有没有抓到数据？
+          FILE_COUNT=$(ls -1 /tmp/new_data/*.txt 2>/dev/null | wc -l)
+          if [ "$FILE_COUNT" -eq 0 ]; then
+            echo "❌ 致命错误：在 final_data/ 中没有提取到任何有效的 .txt 班级文件！"
+            exit 1
+          fi
+          echo "✅ 成功提取了 $FILE_COUNT 个待入库的数据文件。"
+
+          # 4. 阅后即焚：从当前工作分支删除 final_data
           git rm -rf final_data/ || true
           if git commit -m "🧹 数据已移交归档，清空工作区 [skip ci]"; then
             git push origin ${{ github.ref_name }}
             echo "✅ 当前分支的 final_data 已清理完毕"
           fi
 
-      - name: 切换到 data 分支
+      - name: 切换到 data 分支 (数据中心)
         run: |
           if git show-ref --verify --quiet refs/remotes/origin/data; then
             echo "✅ 发现已存在的 data 分支，正在切换..."
-            # 【修复核心】：明确指定分支来源，彻底消除文件夹重名歧义
             git checkout -B data origin/data
           else
             echo "🆕 data 分支不存在，正在创建纯净数据中心..."
@@ -50,7 +57,7 @@ jobs:
             git rm -rf . || true
             git clean -fdx
           fi
-          
+
       - name: 运行核心数据库清洗引擎
         run: |
           python << 'EOF'
@@ -60,7 +67,7 @@ jobs:
           db_dir = "data"
           all_records = {}
 
-          # 1. 挂载历史数据库数据
+          # 1. 挂载历史数据库数据 (如果有的话)
           if os.path.exists(db_dir):
               for f in glob.glob(f"{db_dir}/*.txt"):
                   with open(f, 'r', encoding='utf-8') as file:
@@ -71,7 +78,7 @@ jobs:
           
           initial_count = len(all_records)
 
-          # 2. 挂载最新审查完的数据（覆盖历史同 CID 数据）
+          # 2. 挂载最新审查完的数据（如果有重复 CID，新修改的数据会自动覆盖旧数据！）
           new_count = 0
           if os.path.exists(new_data_dir):
               for f in glob.glob(f"{new_data_dir}/*.txt"):
@@ -85,12 +92,12 @@ jobs:
           # 3. 严格按 CID 数字大小进行升序排序
           sorted_cids = sorted(all_records.keys())
 
-          # 4. 格式化旧磁盘
+          # 4. 格式化旧磁盘，防止幽灵文件残留
           os.makedirs(db_dir, exist_ok=True)
           for f in glob.glob(f"{db_dir}/*.txt"):
               os.remove(f)
 
-          # 5. 碎片整理：严格按 600 行/文件 进行写盘
+          # 5. 碎片整理：严格按 600 行/文件 进行安全写盘
           chunk_size = 600
           for i in range(0, len(sorted_cids), chunk_size):
               chunk = sorted_cids[i:i+chunk_size]
@@ -103,14 +110,19 @@ jobs:
           print(f"====================================")
           print(f"📊 入库统计报告")
           print(f"====================================")
-          print(f"历史记录数: {initial_count}")
-          print(f"本次新入库/更新数: {new_count}")
-          print(f"去重后总收录规模: {len(sorted_cids)} 个有效班级")
+          print(f"历史记录总数: {initial_count}")
+          print(f"本次读取新行数: {new_count}")
+          print(f"智能去重后规模: {len(sorted_cids)} 个有效班级")
           EOF
 
       - name: 提交保存到 data 分支
         run: |
           git add data/
+          
+          # 双重保险：强制覆盖暂存区状态
+          git reset
+          git add data/
+          
           COMMIT_TIME=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
           if git commit -m "🗄️ 数据库更新与大扫除: $COMMIT_TIME [skip ci]"; then
             git push origin data
