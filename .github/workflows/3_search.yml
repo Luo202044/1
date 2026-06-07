@@ -1,4 +1,4 @@
-name: "Workflow 3: 数据库按需检索 (Search DB)"
+name: "Workflow 2: 数据库检索提取 (Search DB)"
 
 on:
   workflow_dispatch:
@@ -7,24 +7,24 @@ on:
         description: '搜索关键词 (多个关键词请用空格分隔)'
         required: true
       match_mode:
-        description: '匹配逻辑 (影响多关键词)'
+        description: '匹配逻辑 (针对多关键词)'
         required: true
         type: choice
         options:
-          - '严格同包 (AND - 必须包含所有词)'
-          - '通配模糊 (OR - 包含任意一个词即可)'
-          - '连贯匹配 (EXACT - 完整包含这串字)'
+          - '严格且 (AND - 必须同时包含所有词)'
+          - '通配或 (OR - 包含任意一个词即可)'
+          - '连贯原样 (EXACT - 完整匹配这一长串字)'
 
 jobs:
   search_database:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout data 分支
+      - name: 直接检出数据中台 (data 分支)
         uses: actions/checkout@v4
         with:
           ref: data
           
-      - name: 运行检索引擎
+      - name: 启动检索引擎
         env:
           KEYWORD: ${{ github.event.inputs.keyword }}
           MATCH_MODE: ${{ github.event.inputs.match_mode }}
@@ -36,13 +36,13 @@ jobs:
           match_mode = os.environ.get("MATCH_MODE", "")
 
           print(f"🔍 搜索关键词: '{keyword_str}'")
-          print(f"⚙️ 匹配模式: {match_mode}")
+          print(f"⚙️ 匹配逻辑: {match_mode}")
 
           if not keyword_str:
-              print("❌ 未提供关键词。")
+              print("❌ 错误：搜索关键词为空。")
               sys.exit(0)
 
-          # 解析输入模式
+          # 智能解析模式
           if "AND" in match_mode:
               mode = "AND"
               keywords = keyword_str.split()
@@ -55,7 +55,7 @@ jobs:
 
           results = []
           
-          # 在 data 分支的 data/ 文件夹下进行扫描
+          # 遍历 data 文件夹进行光速扫描
           if os.path.exists("data"):
               for f in sorted(glob.glob("data/*.txt")):
                   with open(f, 'r', encoding='utf-8') as file:
@@ -63,7 +63,7 @@ jobs:
                           text = line.strip()
                           if not text: continue
 
-                          # 核心匹配引擎
+                          # 核心比对器
                           if mode == "AND":
                               if all(k in text for k in keywords): results.append(text)
                           elif mode == "OR":
@@ -75,25 +75,28 @@ jobs:
           total_hits = len(results)
 
           if total_hits == 0:
-              print("⚠️ 未找到匹配的记录。")
+              print("\n⚠️ 抱歉，在所有归档数据中未找到匹配记录。")
               with open("search_results/0_未找到记录.txt", "w", encoding="utf-8") as f:
-                  f.write(f"在数据库中未找到与 '{keyword_str}' 匹配的任何记录。\n")
+                  f.write(f"在数据库中未找到与 '{keyword_str}' 匹配的任何班级记录。\n")
           else:
-              print(f"🎉 共命中 {total_hits} 条数据！正在打包导出...")
+              print(f"\n🎉 检索成功！共命中 {total_hits} 条数据，正在打包导出...")
+              
+              # 依然遵循 600 行一个文件的安全输出规则
               chunk_size = 600
               for i in range(0, total_hits, chunk_size):
                   chunk = results[i:i+chunk_size]
                   file_idx = (i // chunk_size) + 1
                   
-                  # 取第一个关键词的一部分作为文件名防超长报错
-                  safe_kw = keywords[0][:10].replace('/', '_').replace('\\', '_')
-                  filename = f"search_results/{safe_kw}_{file_idx:03d}.txt"
+                  # 截取安全的文件名
+                  safe_kw = keywords[0][:12].replace('/', '_').replace('\\', '_')
+                  filename = f"search_results/{safe_kw}_检索结果_{file_idx:03d}.txt"
+                  
                   with open(filename, 'w', encoding='utf-8') as f:
                       for line in chunk:
                           f.write(line + "\n")
           EOF
           
-      - name: 导出检索结果
+      - name: 提供打包下载通道
         uses: actions/upload-artifact@v4
         with:
           name: 🔍Search-Result-${{ github.event.inputs.keyword }}
