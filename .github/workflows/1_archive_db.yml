@@ -42,14 +42,15 @@ jobs:
         run: |
           if git show-ref --verify --quiet refs/remotes/origin/data; then
             echo "✅ 发现已存在的 data 分支，正在切换..."
-            git checkout data
+            # 【修复核心】：明确指定分支来源，彻底消除文件夹重名歧义
+            git checkout -B data origin/data
           else
             echo "🆕 data 分支不存在，正在创建纯净数据中心..."
             git checkout --orphan data
             git rm -rf . || true
             git clean -fdx
           fi
-
+          
       - name: 运行核心数据库清洗引擎
         run: |
           python << 'EOF'
