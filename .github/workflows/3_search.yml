@@ -27,20 +27,22 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 临时提取数据中台 (data 分支) 的数据
+      - name: 纯净提取数据中台 (data 分支) 的数据 (零污染暂存区)
         run: |
           mkdir -p /tmp/db_data
-          # 仅将 origin/data 远程分支下的 data/ 文件夹检出到临时目录
-          if git checkout origin/data -- data/ 2>/dev/null; then
-            mv data/*.txt /tmp/db_data/ 2>/dev/null || true
-            echo "✅ 成功提取 data 分支数据库"
-          else
+          
+          # 【核心修复】：使用 ls-tree 和 show 纯净流读取远程分支文件，不污染、不拉取到当前工作区索引
+          for file in $(git ls-tree -r --name-only origin/data data/ 2>/dev/null); do
+            git show origin/data:"$file" > "/tmp/db_data/$(basename "$file")"
+          done
+          
+          # 验证提取结果
+          if [ -z "$(ls -A /tmp/db_data 2>/dev/null)" ]; then
             echo "❌ 错误：未找到归档的 data 分支或数据为空，请先运行入库工作流！"
             exit 1
+          else
+            echo "✅ 成功纯净提取 data 分支数据库文件，未污染当前分支状态"
           fi
-          
-          # 恢复本地工作区状态，确保呆在当前主分支
-          git checkout ${{ github.ref_name }}
 
       - name: 启动检索引擎并切分文件
         env:
@@ -60,7 +62,6 @@ jobs:
               print("❌ 错误：搜索关键词为空。")
               sys.exit(1)
 
-          # 智能解析模式
           if "AND" in match_mode:
               mode = "AND"
               keywords = keyword_str.split()
@@ -74,7 +75,6 @@ jobs:
           results = []
           db_dir = "/tmp/db_data"
           
-          # 遍历临时数据库进行快速全扫描
           if os.path.exists(db_dir):
               for f in sorted(glob.glob(f"{db_dir}/*.txt")):
                   with open(f, 'r', encoding='utf-8') as file:
@@ -82,7 +82,6 @@ jobs:
                           text = line.strip()
                           if not text: continue
 
-                          # 核心比对器
                           if mode == "AND":
                               if all(k in text for k in keywords): results.append(text)
                           elif mode == "OR":
@@ -90,7 +89,6 @@ jobs:
                           elif mode == "EXACT":
                               if keywords[0] in text: results.append(text)
 
-          # 强制刷新当前分支下的 search 文件夹
           output_dir = "search"
           if os.path.exists(output_dir):
               shutil.rmtree(output_dir)
@@ -105,13 +103,11 @@ jobs:
           else:
               print(f"\n🎉 检索成功！共命中 {total_hits} 条数据，开始写入 search 文件夹...")
               
-              # 严格遵循 600 行一个文件的安全输出规则
               chunk_size = 600
               for i in range(0, total_hits, chunk_size):
                   chunk = results[i:i+chunk_size]
                   file_idx = (i // chunk_size) + 1
                   
-                  # 截取安全的关键词作为文件名前缀
                   safe_kw = keywords[0][:10].replace('/', '_').replace('\\', '_').replace(' ', '_')
                   filename = f"{output_dir}/{safe_kw}_{file_idx:03d}.txt"
                   
@@ -127,10 +123,12 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
-          # 强制将整个 search 文件夹添加到暂存区
+          # 【双重保险】：强行重置所有潜在的、被污染的暂存文件状态
+          git reset
+          
+          # 只精准添加 search 文件夹，彻底断绝 data/ 文件夹混入 main 分支的可能
           git add search/
           
-          # 动态获取时间及关键词用于 commit 记录
           COMMIT_TIME=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
           SAFE_KW=$(echo "${{ github.event.inputs.keyword }}" | head -c 20)
           
