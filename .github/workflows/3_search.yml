@@ -101,7 +101,7 @@ jobs:
               with open(f"{output_dir}/0_未找到记录.txt", "w", encoding="utf-8") as f:
                   f.write(f"在数据库中未找到与 '{keyword_str}' 匹配的任何班级记录。\n")
           else:
-              print(f"\n🎉 检索成功！共命中 {total_hits} 条数据，开始写入 search 文件夹...")
+              print(f"\n🎉 数据库检索成功！共命中 {total_hits} 条数据，开始写入 search 文件夹...")
               
               chunk_size = 600
               for i in range(0, total_hits, chunk_size):
