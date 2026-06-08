@@ -57,8 +57,8 @@ jobs:
               os.remove(f)
           os.makedirs(db_dir, exist_ok=True)
 
-          # 4. 碎片整理：严格按照每 600 行一个文件的规则重新分箱写入
-          chunk_size = 600
+          # 4. 碎片整理：严格按照每 1200 行一个文件的规则重新分箱写入
+          chunk_size = 1200
           total_files = 0
           
           for i in range(0, len(sorted_cids), chunk_size):
