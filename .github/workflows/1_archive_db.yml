@@ -97,8 +97,8 @@ jobs:
           for f in glob.glob(f"{db_dir}/*.txt"):
               os.remove(f)
 
-          # 5. 碎片整理：严格按 600 行/文件 进行安全写盘
-          chunk_size = 600
+          # 5. 碎片整理：严格按 1200 行/文件 进行安全写盘
+          chunk_size = 1200
           for i in range(0, len(sorted_cids), chunk_size):
               chunk = sorted_cids[i:i+chunk_size]
               file_idx = (i // chunk_size) + 1
