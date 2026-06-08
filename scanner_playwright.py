@@ -95,7 +95,6 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
 
     worker_out_file = f"data/worker_{worker_id}_temp.txt"
     unfin_file = f"unfinished_worker_{worker_id}.txt"
-    # 【掉线保护凭证】记录当前手里拿着什么任务
     working_file = f"data/working_{worker_id}.txt"
     
     write_buffer = []
@@ -141,7 +140,7 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                 ignore_https_errors=True
             )
             page = context.new_page()
-            # 提速核心：不加载无关资源
+            # 极限提速：切断一切多余资源加载
             page.route("**/*", lambda route: route.abort() if route.request.resource_type in ["image", "media", "font", "stylesheet"] else route.continue_())
 
             closed_retry = {}
@@ -162,7 +161,7 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                 if current_cid is None:
                     try:
                         current_cid = task_queue.get_nowait()
-                        # 【核心防丢】：一旦拿到任务，立马存盘标记！如果被硬杀，主程序能捡回来。
+                        # 防丢凭证：硬超时被杀时可用此凭证复活任务
                         with open(working_file, "w", encoding="utf-8") as f:
                             f.write(str(current_cid))
                     except queue.Empty:
@@ -177,46 +176,56 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                     continue
 
                 try:
-                    # 【强制打断机制】: 把剩余下班时间注入 Playwright，防止死锁
+                    # 动态超时注入，防止底层死锁
                     pw_timeout = min(WAIT_TIMEOUT * 1000, remaining_time * 1000)
                     page.goto(f"https://www.eeo.cn/s/a/?cid={current_cid}", timeout=pw_timeout, wait_until="domcontentloaded")
-                    body = page.text_content("body") or ""
                     
-                    if len(body.strip()) < 50:
+                    title = page.title() or ""
+                    
+                    # --- 【风控侦测雷达】 ---
+                    interception_keywords = ["just a moment", "access denied", "attention required", "security", "403", "404", "拦截", "验证码", "error"]
+                    if any(k in title.lower() for k in interception_keywords):
+                        if random.random() < 0.1: 
+                            print(f"⚠️ [风控拦截警告] Worker-{worker_id} 遭遇防火墙！当前页面标题: {title}", flush=True)
                         school, class_name = "无", "无"
-                    else:
-                        # 【无 CSS 暴力提取机制】
-                        render_timeout = min(1500, remaining_time * 1000)
-                        try: page.wait_for_selector("p.courseName, p.schoolName", timeout=render_timeout)
-                        except: pass
+                        time.sleep(2) # 强行冷却被盯上的 IP
                         
-                        class_name = "无"
-                        for selector in ["p.courseName", ".courseName", "h1", ".title"]:
-                            elem = page.query_selector(selector)
-                            if elem:
-                                text = (elem.text_content() or "").strip()
-                                text = " ".join(text.split())
-                                if text and len(text) >= 2:
-                                    class_name = text
-                                    break
-                                    
-                        if class_name == "无":
-                            title = page.title() or ""
-                            if title and "Join the class" not in title and "eeo.cn" not in title:
-                                if "|" in title:
-                                    class_name = title.split("|")[-1].strip()
-                                elif "-" in title:
-                                    class_name = title.split("-")[0].strip()
+                    else:
+                        # --- 【纯文本暴力提取核心】 ---
+                        body = page.text_content("body") or ""
+                        if len(body.strip()) < 50:
+                            school, class_name = "无", "无"
+                        else:
+                            render_timeout = min(1500, remaining_time * 1000)
+                            try: page.wait_for_selector("p.courseName, p.schoolName", timeout=render_timeout)
+                            except: pass
+                            
+                            class_name = "无"
+                            for selector in ["p.courseName", ".courseName", "h1", ".title"]:
+                                elem = page.query_selector(selector)
+                                if elem:
+                                    text = (elem.text_content() or "").strip()
+                                    text = " ".join(text.split())
+                                    if text and len(text) >= 2:
+                                        class_name = text
+                                        break
+                                        
+                            if class_name == "无":
+                                if title and "Join the class" not in title and "eeo.cn" not in title:
+                                    if "|" in title:
+                                        class_name = title.split("|")[-1].strip()
+                                    elif "-" in title:
+                                        class_name = title.split("-")[0].strip()
 
-                        school = "无"
-                        for selector in ["p.schoolName", ".schoolName", ".orgName"]:
-                            elem = page.query_selector(selector)
-                            if elem:
-                                text = (elem.text_content() or "").strip()
-                                text = " ".join(text.split())
-                                if text and len(text) >= 2:
-                                    school = text
-                                    break
+                            school = "无"
+                            for selector in ["p.schoolName", ".schoolName", ".orgName"]:
+                                elem = page.query_selector(selector)
+                                if elem:
+                                    text = (elem.text_content() or "").strip()
+                                    text = " ".join(text.split())
+                                    if text and len(text) >= 2:
+                                        school = text
+                                        break
 
                     if not (class_name == "无" and school == "无"):
                         line = f"{current_cid} https://www.eeo.cn/s/a/?cid={current_cid} {school} {class_name}\n"
@@ -225,13 +234,13 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
 
                     if current_cid in closed_retry: del closed_retry[current_cid]
                     increment_progress() 
-                    clear_working_flag()  # 顺利完成，清空手头的死亡凭证
+                    clear_working_flag()
                     current_cid = None
                     lifecycle_count += 1 
 
                 except Exception as e:
                     err_msg = str(e).lower()
-                    is_closed = any(phrase in err_msg for phrase in ["closed", "context", "browser"])
+                    is_closed = any(phrase in err_msg for phrase in ["closed", "context", "browser", "target closed"])
                     
                     if is_closed:
                         closed_retry[current_cid] = closed_retry.get(current_cid, 0) + 1
@@ -250,13 +259,13 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                         except: pass
                         
                         increment_progress()
-                        clear_working_flag() # 出错放弃，也视作当前任务了结，清空凭证
+                        clear_working_flag()
                         current_cid = None
                         lifecycle_count += 1
 
                 time.sleep(SLEEP_BETWEEN)
 
-                # 定期转生内存防爆机制
+                # 定期转生：清理堆积内存
                 if lifecycle_count >= MAX_LIFECYCLE:
                     try: page.close()
                     except: pass
@@ -382,11 +391,10 @@ def main():
                 seen.add(cid)
                 f.write(line)
 
-    # --- 收集未完成数据 (包含被拔电源死亡瞬间拿着的 CID) ---
+    # --- 收集未完成数据 (包含被拔电源死亡瞬间拿着的凭证) ---
     unfinished_cids = set()
     
     for i in range(worker_count):
-        # 1. 正常软超时退出的未完成名单
         ufile = f"unfinished_worker_{i}.txt"
         if os.path.exists(ufile):
             with open(ufile, "r", encoding="utf-8") as f:
@@ -395,7 +403,6 @@ def main():
                         unfinished_cids.add(int(line.strip()))
             os.remove(ufile)
             
-        # 2. 【核心修复】：搜刮被硬超时杀死的 Worker 遗留的“最后一口气”凭证
         working_file = f"data/working_{i}.txt"
         if os.path.exists(working_file):
             with open(working_file, "r", encoding="utf-8") as f:
@@ -404,7 +411,6 @@ def main():
                     unfinished_cids.add(int(content))
             os.remove(working_file)
 
-    # 3. 收集队列里没动过的数据
     while not task_queue.empty():
         try:
             unfinished_cids.add(task_queue.get_nowait())
@@ -420,7 +426,7 @@ def main():
     else:
         print("所有CID已成功处理", flush=True)
 
-    # 【断头台退出】：防止队列后台线程导致卡死 11 分钟
+    # 【断头台退出】：切断后台所有幽灵线程，秒级释放 GitHub 机器资源
     print("✅ 引擎安全退出，释放所有底层资源。", flush=True)
     sys.stdout.flush()
     os._exit(0)
