@@ -141,6 +141,7 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                 ignore_https_errors=True
             )
             page = context.new_page()
+            # 提速核心：不加载无关资源
             page.route("**/*", lambda route: route.abort() if route.request.resource_type in ["image", "media", "font", "stylesheet"] else route.continue_())
 
             closed_retry = {}
@@ -176,7 +177,7 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                     continue
 
                 try:
-                    # 【强制打断机制】: 把剩余下班时间注入 Playwright，防止它在内部死锁无限期挂起
+                    # 【强制打断机制】: 把剩余下班时间注入 Playwright，防止死锁
                     pw_timeout = min(WAIT_TIMEOUT * 1000, remaining_time * 1000)
                     page.goto(f"https://www.eeo.cn/s/a/?cid={current_cid}", timeout=pw_timeout, wait_until="domcontentloaded")
                     body = page.text_content("body") or ""
@@ -184,26 +185,38 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                     if len(body.strip()) < 50:
                         school, class_name = "无", "无"
                     else:
-                        render_timeout = min(RENDER_WAIT * 1000, remaining_time * 1000)
+                        # 【无 CSS 暴力提取机制】
+                        render_timeout = min(1500, remaining_time * 1000)
                         try: page.wait_for_selector("p.courseName, p.schoolName", timeout=render_timeout)
                         except: pass
                         
                         class_name = "无"
-                        elem = page.query_selector("p.courseName")
-                        if elem:
-                            text = elem.inner_text().strip()
-                            if text and len(text) >= 2: class_name = text
+                        for selector in ["p.courseName", ".courseName", "h1", ".title"]:
+                            elem = page.query_selector(selector)
+                            if elem:
+                                text = (elem.text_content() or "").strip()
+                                text = " ".join(text.split())
+                                if text and len(text) >= 2:
+                                    class_name = text
+                                    break
+                                    
                         if class_name == "无":
-                            title = page.title()
-                            if "|" in title and "Join the class" not in title:
-                                parts = title.split("|")
-                                if len(parts) > 1: class_name = parts[-1].strip()
-                        
+                            title = page.title() or ""
+                            if title and "Join the class" not in title and "eeo.cn" not in title:
+                                if "|" in title:
+                                    class_name = title.split("|")[-1].strip()
+                                elif "-" in title:
+                                    class_name = title.split("-")[0].strip()
+
                         school = "无"
-                        elem = page.query_selector("p.schoolName")
-                        if elem:
-                            text = elem.inner_text().strip()
-                            if text and len(text) >= 2: school = text
+                        for selector in ["p.schoolName", ".schoolName", ".orgName"]:
+                            elem = page.query_selector(selector)
+                            if elem:
+                                text = (elem.text_content() or "").strip()
+                                text = " ".join(text.split())
+                                if text and len(text) >= 2:
+                                    school = text
+                                    break
 
                     if not (class_name == "无" and school == "无"):
                         line = f"{current_cid} https://www.eeo.cn/s/a/?cid={current_cid} {school} {class_name}\n"
@@ -243,6 +256,7 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
 
                 time.sleep(SLEEP_BETWEEN)
 
+                # 定期转生内存防爆机制
                 if lifecycle_count >= MAX_LIFECYCLE:
                     try: page.close()
                     except: pass
