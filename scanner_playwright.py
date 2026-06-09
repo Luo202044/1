@@ -64,7 +64,7 @@ def format_time(seconds):
     h, m = divmod(m, 60)
     return f"{h}h {m}m"
 
-# ========== 进程池初始化 (队列与进度计数器) ==========
+# ========== 进程池初始化 ==========
 global_task_queue = None
 global_completed_count = None
 
@@ -79,7 +79,7 @@ def increment_progress():
         with global_completed_count.get_lock():
             global_completed_count.value += 1
 
-# ---------- Worker 同步函数 (动态抢单模式) ----------
+# ---------- Worker 同步函数 ----------
 def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
     global global_task_queue
     task_queue = global_task_queue
@@ -126,6 +126,12 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
             if browser: browser.close()
         except: pass
 
+    # 【核心修复1】：强制挂载拦截器的安全开页函数，杜绝僵尸进程产生
+    def get_fast_page(ctx):
+        new_p = ctx.new_page()
+        new_p.route("**/*", lambda route: route.abort() if route.request.resource_type in ["image", "media", "font", "stylesheet"] else route.continue_())
+        return new_p
+
     atexit.register(cleanup)
     
     try:
@@ -139,19 +145,17 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                 proxy={"server": random.choice(proxy_list)} if proxy_list else None,
                 ignore_https_errors=True
             )
-            page = context.new_page()
-            # 极限提速：切断一切多余资源加载
-            page.route("**/*", lambda route: route.abort() if route.request.resource_type in ["image", "media", "font", "stylesheet"] else route.continue_())
+            page = get_fast_page(context)
 
             closed_retry = {}
             current_cid = None
             lifecycle_count = 0
+            consecutive_errors = 0
             MAX_LIFECYCLE = 200
 
             while True:
                 remaining_time = deadline - time.time()
                 if remaining_time <= 0:
-                    print(f"[Worker {worker_id}] 触发软超时，安全丢弃手头的班级并下班...", flush=True)
                     if current_cid is not None:
                         with open(unfin_file, "a", encoding="utf-8") as f:
                             f.write(f"{current_cid}\n")
@@ -161,7 +165,6 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                 if current_cid is None:
                     try:
                         current_cid = task_queue.get_nowait()
-                        # 防丢凭证：硬超时被杀时可用此凭证复活任务
                         with open(working_file, "w", encoding="utf-8") as f:
                             f.write(str(current_cid))
                     except queue.Empty:
@@ -176,56 +179,55 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                     continue
 
                 try:
-                    # 动态超时注入，防止底层死锁
                     pw_timeout = min(WAIT_TIMEOUT * 1000, remaining_time * 1000)
                     page.goto(f"https://www.eeo.cn/s/a/?cid={current_cid}", timeout=pw_timeout, wait_until="domcontentloaded")
                     
                     title = page.title() or ""
+                    body_text = page.text_content("body") or ""
                     
-                    # --- 【风控侦测雷达】 ---
-                    interception_keywords = ["just a moment", "access denied", "attention required", "security", "403", "404", "拦截", "验证码", "error"]
-                    if any(k in title.lower() for k in interception_keywords):
-                        if random.random() < 0.1: 
-                            print(f"⚠️ [风控拦截警告] Worker-{worker_id} 遭遇防火墙！当前页面标题: {title}", flush=True)
-                        school, class_name = "无", "无"
-                        time.sleep(2) # 强行冷却被盯上的 IP
+                    # 【核心增强】：深度 WAF 风控侦测 (包含标题和内容的隐性拦截)
+                    is_waf = False
+                    waf_keywords = ["just a moment", "access denied", "attention required", "security", "403", "404", "拦截", "验证码", "error", "cloudflare", "verify you are human", "滑动验证"]
+                    
+                    if any(k in title.lower() for k in waf_keywords) or any(k in body_text.lower() for k in ["cloudflare", "verify you are human", "滑动验证"]):
+                        is_waf = True
                         
+                    if is_waf:
+                        if random.random() < 0.1: 
+                            print(f"⚠️ [风控侦测] Worker-{worker_id} 遭遇防火墙软拦截！准备强制核爆重置 IP 会话...", flush=True)
+                        raise Exception("WAF_BLOCKED_FORCED_RESET")
+                        
+                    if len(body_text.strip()) < 50:
+                        school, class_name = "无", "无"
                     else:
-                        # --- 【纯文本暴力提取核心】 ---
-                        body = page.text_content("body") or ""
-                        if len(body.strip()) < 50:
-                            school, class_name = "无", "无"
-                        else:
-                            render_timeout = min(1500, remaining_time * 1000)
-                            try: page.wait_for_selector("p.courseName, p.schoolName", timeout=render_timeout)
-                            except: pass
-                            
-                            class_name = "无"
-                            for selector in ["p.courseName", ".courseName", "h1", ".title"]:
-                                elem = page.query_selector(selector)
-                                if elem:
-                                    text = (elem.text_content() or "").strip()
-                                    text = " ".join(text.split())
-                                    if text and len(text) >= 2:
-                                        class_name = text
-                                        break
-                                        
-                            if class_name == "无":
-                                if title and "Join the class" not in title and "eeo.cn" not in title:
-                                    if "|" in title:
-                                        class_name = title.split("|")[-1].strip()
-                                    elif "-" in title:
-                                        class_name = title.split("-")[0].strip()
+                        render_timeout = min(1500, remaining_time * 1000)
+                        try: page.wait_for_selector("p.courseName, p.schoolName", timeout=render_timeout)
+                        except: pass
+                        
+                        class_name = "无"
+                        for selector in ["p.courseName", ".courseName", "h1", ".title"]:
+                            elem = page.query_selector(selector)
+                            if elem:
+                                text = (elem.text_content() or "").strip()
+                                text = " ".join(text.split())
+                                if text and len(text) >= 2:
+                                    class_name = text
+                                    break
+                                    
+                        if class_name == "无":
+                            if title and "Join the class" not in title and "eeo.cn" not in title:
+                                if "|" in title: class_name = title.split("|")[-1].strip()
+                                elif "-" in title: class_name = title.split("-")[0].strip()
 
-                            school = "无"
-                            for selector in ["p.schoolName", ".schoolName", ".orgName"]:
-                                elem = page.query_selector(selector)
-                                if elem:
-                                    text = (elem.text_content() or "").strip()
-                                    text = " ".join(text.split())
-                                    if text and len(text) >= 2:
-                                        school = text
-                                        break
+                        school = "无"
+                        for selector in ["p.schoolName", ".schoolName", ".orgName"]:
+                            elem = page.query_selector(selector)
+                            if elem:
+                                text = (elem.text_content() or "").strip()
+                                text = " ".join(text.split())
+                                if text and len(text) >= 2:
+                                    school = text
+                                    break
 
                     if not (class_name == "无" and school == "无"):
                         line = f"{current_cid} https://www.eeo.cn/s/a/?cid={current_cid} {school} {class_name}\n"
@@ -237,35 +239,45 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                     clear_working_flag()
                     current_cid = None
                     lifecycle_count += 1 
+                    consecutive_errors = 0  # 成功后清零错误计数器
 
                 except Exception as e:
                     err_msg = str(e).lower()
                     is_closed = any(phrase in err_msg for phrase in ["closed", "context", "browser", "target closed"])
+                    is_timeout = "timeout" in err_msg
+                    is_waf_error = "waf_blocked" in err_msg
                     
-                    if is_closed:
-                        closed_retry[current_cid] = closed_retry.get(current_cid, 0) + 1
+                    # 记录未完成数据
+                    with open(unfin_file, "a", encoding="utf-8") as f:
+                        f.write(f"{current_cid}\n")
+                        
+                    consecutive_errors += 1
+                    
+                    # 【核心修复 2】：连续错误或 WAF 拦截时，触发“核爆级别”的浏览器重建，清理毒瘤状态
+                    if is_closed or is_timeout or is_waf_error or consecutive_errors >= 2:
                         cleanup()
+                        if is_waf_error or consecutive_errors >= 3:
+                            time.sleep(3) # 触发网络避险冷却
+                        
                         browser = p.chromium.launch(headless=True, args=["--disable-gpu", "--disable-dev-shm-usage", "--no-sandbox"])
                         context = browser.new_context(user_agent=random.choice(user_agents), ignore_https_errors=True)
-                        page = context.new_page()
-                        page.route("**/*", lambda route: route.abort() if route.request.resource_type in ["image", "media", "font", "stylesheet"] else route.continue_())
+                        page = get_fast_page(context)
+                        consecutive_errors = 0
                     else:
-                        with open(unfin_file, "a", encoding="utf-8") as f:
-                            f.write(f"{current_cid}\n")
-                        
                         try: page.close()
                         except: pass
-                        try: page = context.new_page()
+                        # 此处如果只建新页面，必须调用封装好的带有拦截器的创建函数！
+                        try: page = get_fast_page(context)
                         except: pass
                         
-                        increment_progress()
-                        clear_working_flag()
-                        current_cid = None
-                        lifecycle_count += 1
+                    increment_progress()
+                    clear_working_flag()
+                    current_cid = None
+                    lifecycle_count += 1
 
                 time.sleep(SLEEP_BETWEEN)
 
-                # 定期转生：清理堆积内存
+                # 定期转生内存清理
                 if lifecycle_count >= MAX_LIFECYCLE:
                     try: page.close()
                     except: pass
@@ -277,8 +289,7 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                         proxy={"server": random.choice(proxy_list)} if proxy_list else None,
                         ignore_https_errors=True
                     )
-                    page = context.new_page()
-                    page.route("**/*", lambda route: route.abort() if route.request.resource_type in ["image", "media", "font", "stylesheet"] else route.continue_())
+                    page = get_fast_page(context)
                     lifecycle_count = 0
 
             flush()
@@ -368,7 +379,6 @@ def main():
         time.sleep(1)
 
     if not all(res.ready() for res in async_results):
-        print("警告: 存在未能响应超时的僵死 Worker，执行硬超时强制终止...", flush=True)
         pool.terminate()
     pool.join()
 
@@ -426,7 +436,6 @@ def main():
     else:
         print("所有CID已成功处理", flush=True)
 
-    # 【断头台退出】：切断后台所有幽灵线程，秒级释放 GitHub 机器资源
     print("✅ 引擎安全退出，释放所有底层资源。", flush=True)
     sys.stdout.flush()
     os._exit(0)
