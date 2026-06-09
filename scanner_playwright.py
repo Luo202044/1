@@ -215,7 +215,8 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                                     class_name = text
                                     break
                                     
-                        if class_name == "无":
+                        # 兜底补充判断：如果选择器抓到的是个占位符，也尝试从 title 里捞一下真名
+                        if class_name in ["无", "", "-", "--"]:
                             if title and "Join the class" not in title and "eeo.cn" not in title:
                                 if "|" in title: class_name = title.split("|")[-1].strip()
                                 elif "-" in title: class_name = title.split("-")[0].strip()
@@ -231,7 +232,10 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                                     school = text
                                     break
 
-                    if not (class_name == "无" and school == "无"):
+                    # --- 【终极垃圾过滤黑名单】 ---
+                    invalid_marks = {"无", "-", "--", "---", "—", "_", ""}
+                    # 如果 class_name 和 school 都掉进了黑名单，才视为彻底无效数据并抛弃
+                    if not (class_name in invalid_marks and school in invalid_marks):
                         line = f"{current_cid} https://www.eeo.cn/s/a/?cid={current_cid} {school} {class_name}\n"
                         add_line(line)
                         print(f"✅ [发现班级] Worker-{worker_id} | CID: {current_cid} | 学校: {school} | 班级: {class_name}", flush=True)
