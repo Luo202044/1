@@ -14,6 +14,14 @@ on:
           - '严格且 (AND - 必须同时包含所有词)'
           - '通配或 (OR - 包含任意一个词即可)'
           - '连贯原样 (EXACT - 完整匹配这一长串字)'
+      target_mode:
+        description: '扫描雷达 (解决 CID 数字误杀问题)'
+        required: true
+        type: choice
+        options:
+          - '查 学校/班级内容 (排除 CID 干扰，最常用！)'
+          - '精准查 CID (只匹配班级号)'
+          - '全局模糊 (全文任何位置包含均可)'
 
 permissions:
   contents: write
@@ -22,41 +30,31 @@ jobs:
   search_database:
     runs-on: ubuntu-latest
     steps:
-      - name: 检出当前主分支 (main)
+      - name: 检出当前主分支 (用于存放 search 结果)
+        uses: actions/checkout@v4
+        
+      - name: 隔离检出数据库 (完美杜绝 Index 污染)
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-
-      - name: 纯净提取数据中台 (data 分支) 的数据 (零污染暂存区)
-        run: |
-          mkdir -p /tmp/db_data
+          ref: data
+          path: temp_db_repo   # 将 data 分支放在一个独立的临时文件夹中
           
-          # 【核心修复】：使用 ls-tree 和 show 纯净流读取远程分支文件，不污染、不拉取到当前工作区索引
-          for file in $(git ls-tree -r --name-only origin/data data/ 2>/dev/null); do
-            git show origin/data:"$file" > "/tmp/db_data/$(basename "$file")"
-          done
-          
-          # 验证提取结果
-          if [ -z "$(ls -A /tmp/db_data 2>/dev/null)" ]; then
-            echo "❌ 错误：未找到归档的 data 分支或数据为空，请先运行入库工作流！"
-            exit 1
-          else
-            echo "✅ 成功纯净提取 data 分支数据库文件，未污染当前分支状态"
-          fi
-
       - name: 启动检索引擎并切分文件
         env:
           KEYWORD: ${{ github.event.inputs.keyword }}
           MATCH_MODE: ${{ github.event.inputs.match_mode }}
+          TARGET_MODE: ${{ github.event.inputs.target_mode }}
         run: |
           python << 'EOF'
           import os, glob, sys, shutil
 
           keyword_str = os.environ.get("KEYWORD", "").strip()
           match_mode = os.environ.get("MATCH_MODE", "")
+          target_mode = os.environ.get("TARGET_MODE", "")
 
           print(f"🔍 搜索关键词: '{keyword_str}'")
           print(f"⚙️ 匹配逻辑: {match_mode}")
+          print(f"🎯 扫描雷达: {target_mode}")
 
           if not keyword_str:
               print("❌ 错误：搜索关键词为空。")
@@ -73,21 +71,45 @@ jobs:
               keywords = [keyword_str]
 
           results = []
-          db_dir = "/tmp/db_data"
+          db_dir = "temp_db_repo/data"
           
           if os.path.exists(db_dir):
-              for f in sorted(glob.glob(f"{db_dir}/*.txt")):
+              # 兼容双层路由结构：同时扫描旧的根目录文件，和新的子文件夹(百万级)文件
+              txt_files = glob.glob(f"{db_dir}/*/*.txt") + glob.glob(f"{db_dir}/*.txt")
+              
+              for f in sorted(txt_files):
                   with open(f, 'r', encoding='utf-8') as file:
                       for line in file:
                           text = line.strip()
                           if not text: continue
 
+                          # 【核心解析：分离 CID 和 文字内容】
+                          parts = text.split(' ', 1)
+                          cid = parts[0] if len(parts) > 0 else ""
+                          
+                          # 去除 CID 和 URL 的干扰，提纯出干干净净的“学校+班级”内容
+                          url = f"https://www.eeo.cn/s/a/?cid={cid}"
+                          content_text = text.replace(f"{cid} {url} ", "", 1)
+
+                          # 【定向扫描器】
+                          if "精准查 CID" in target_mode:
+                              search_text = cid
+                          elif "学校/班级内容" in target_mode:
+                              search_text = content_text
+                          else:
+                              search_text = text # 全局模式
+
+                          # 核心比对器
+                          is_match = False
                           if mode == "AND":
-                              if all(k in text for k in keywords): results.append(text)
+                              is_match = all(k in search_text for k in keywords)
                           elif mode == "OR":
-                              if any(k in text for k in keywords): results.append(text)
+                              is_match = any(k in search_text for k in keywords)
                           elif mode == "EXACT":
-                              if keywords[0] in text: results.append(text)
+                              is_match = keywords[0] in search_text
+
+                          if is_match:
+                              results.append(text)
 
           output_dir = "search"
           if os.path.exists(output_dir):
@@ -101,7 +123,7 @@ jobs:
               with open(f"{output_dir}/0_未找到记录.txt", "w", encoding="utf-8") as f:
                   f.write(f"在数据库中未找到与 '{keyword_str}' 匹配的任何班级记录。\n")
           else:
-              print(f"\n🎉 数据库检索成功！共命中 {total_hits} 条数据，开始写入 search 文件夹...")
+              print(f"\n🎉 检索成功！共命中 {total_hits} 条数据，开始写入 search 文件夹...")
               
               chunk_size = 600
               for i in range(0, total_hits, chunk_size):
@@ -118,15 +140,14 @@ jobs:
               print(f"✅ 文件切分写入完成，共生成 {file_idx} 个结果文件。")
           EOF
           
+      - name: 销毁临时数据仓库 (阅后即焚)
+        run: rm -rf temp_db_repo
+          
       - name: 提交 search 文件夹并推送到当前分支
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
-          # 【双重保险】：强行重置所有潜在的、被污染的暂存文件状态
-          git reset
-          
-          # 只精准添加 search 文件夹，彻底断绝 data/ 文件夹混入 main 分支的可能
           git add search/
           
           COMMIT_TIME=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
@@ -134,7 +155,7 @@ jobs:
           
           if git commit -m "🔍 检索归档完成: [$SAFE_KW] 产生于 $COMMIT_TIME"; then
             git push origin ${{ github.ref_name }}
-            echo "🎉 搜索结果已成功推送到主分支的 search/ 文件夹下，请刷新网页查看！"
+            echo "🎉 搜索结果已成功推送，请刷新网页查看！"
           else
             echo "⚠️ 搜索结果与上一次完全一致，无代码变更需要推送。"
           fi
