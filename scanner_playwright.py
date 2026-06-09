@@ -126,7 +126,7 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
             if browser: browser.close()
         except: pass
 
-    # 【核心修复1】：强制挂载拦截器的安全开页函数，杜绝僵尸进程产生
+    # 【防僵尸安全开页函数】：永远挂载资源拦截器，杜绝网速拖累
     def get_fast_page(ctx):
         new_p = ctx.new_page()
         new_p.route("**/*", lambda route: route.abort() if route.request.resource_type in ["image", "media", "font", "stylesheet"] else route.continue_())
@@ -185,7 +185,7 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                     title = page.title() or ""
                     body_text = page.text_content("body") or ""
                     
-                    # 【核心增强】：深度 WAF 风控侦测 (包含标题和内容的隐性拦截)
+                    # 深度 WAF 风控侦测
                     is_waf = False
                     waf_keywords = ["just a moment", "access denied", "attention required", "security", "403", "404", "拦截", "验证码", "error", "cloudflare", "verify you are human", "滑动验证"]
                     
@@ -210,7 +210,8 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                             if elem:
                                 text = (elem.text_content() or "").strip()
                                 text = " ".join(text.split())
-                                if text and len(text) >= 2:
+                                # 【极限界限突破】：放开单字符限制，支持单标点符号班级名
+                                if text and len(text) >= 1:
                                     class_name = text
                                     break
                                     
@@ -225,7 +226,8 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                             if elem:
                                 text = (elem.text_content() or "").strip()
                                 text = " ".join(text.split())
-                                if text and len(text) >= 2:
+                                # 【极限界限突破】：放开单字符限制
+                                if text and len(text) >= 1:
                                     school = text
                                     break
 
@@ -239,7 +241,7 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                     clear_working_flag()
                     current_cid = None
                     lifecycle_count += 1 
-                    consecutive_errors = 0  # 成功后清零错误计数器
+                    consecutive_errors = 0
 
                 except Exception as e:
                     err_msg = str(e).lower()
@@ -247,17 +249,16 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                     is_timeout = "timeout" in err_msg
                     is_waf_error = "waf_blocked" in err_msg
                     
-                    # 记录未完成数据
                     with open(unfin_file, "a", encoding="utf-8") as f:
                         f.write(f"{current_cid}\n")
                         
                     consecutive_errors += 1
                     
-                    # 【核心修复 2】：连续错误或 WAF 拦截时，触发“核爆级别”的浏览器重建，清理毒瘤状态
+                    # 核爆级环境清理
                     if is_closed or is_timeout or is_waf_error or consecutive_errors >= 2:
                         cleanup()
                         if is_waf_error or consecutive_errors >= 3:
-                            time.sleep(3) # 触发网络避险冷却
+                            time.sleep(3) 
                         
                         browser = p.chromium.launch(headless=True, args=["--disable-gpu", "--disable-dev-shm-usage", "--no-sandbox"])
                         context = browser.new_context(user_agent=random.choice(user_agents), ignore_https_errors=True)
@@ -266,7 +267,6 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                     else:
                         try: page.close()
                         except: pass
-                        # 此处如果只建新页面，必须调用封装好的带有拦截器的创建函数！
                         try: page = get_fast_page(context)
                         except: pass
                         
@@ -277,7 +277,6 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
 
                 time.sleep(SLEEP_BETWEEN)
 
-                # 定期转生内存清理
                 if lifecycle_count >= MAX_LIFECYCLE:
                     try: page.close()
                     except: pass
