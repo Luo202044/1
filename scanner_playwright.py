@@ -28,7 +28,7 @@ END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
 
 # 极限加速：单节点总并发。4核机器建议设为 40~50
-MAX_CONCURRENT = config.get("max_concurrent_pages", 40)
+MAX_CONCURRENT = config.get("max_concurrent_pages", 48)
 WAIT_TIMEOUT = config.get("wait_timeout", 15)
 TIMEOUT_HOURS = config.get("timeout_hours", 5.0)
 TIMEOUT_SECONDS = TIMEOUT_HOURS * 3600
@@ -57,11 +57,6 @@ def format_time(seconds):
     h, m = divmod(m, 60)
     return f"{h}h {m}m"
 
-# ========== 进程池共享计数器 ==========
-def init_globals(counter):
-    global shared_counter
-    shared_counter = counter
-
 # ========== 异步资源拦截器 ==========
 async def abort_route(route):
     if route.request.resource_type in ["image", "media", "font", "stylesheet"]:
@@ -70,9 +65,8 @@ async def abort_route(route):
         await route.continue_()
 
 # ========== 单个进程内的异步爬虫逻辑 ==========
-async def async_process_worker(process_id, cid_chunk, concurrency, deadline):
-    global shared_counter
-    
+# 【修复核心】：明确接收 shared_counter 参数
+async def async_process_worker(process_id, cid_chunk, concurrency, deadline, shared_counter):
     in_flight_cids = set()
     results = []
     local_queue = asyncio.Queue()
@@ -178,29 +172,31 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline):
                     results.append(line)
                     print(f"✅ [发现] P{process_id}-C{coro_id:02d} | {cid} | 🏫 {school} | 🧑‍🏫 {teacher} | 🎓 {class_name}", flush=True)
 
-                in_flight_cids.remove(cid)
-                local_queue.task_done()
-                
-                with shared_counter.get_lock(): shared_counter.value += 1
                 consecutive_errors = 0
-                lifecycle += 1
 
             except Exception as e:
-                local_queue.task_done()
                 consecutive_errors += 1
-                with shared_counter.get_lock(): shared_counter.value += 1
-
                 if consecutive_errors >= 2 or "WAF" in str(e):
                     if consecutive_errors >= 3: await asyncio.sleep(2)
                     await init_page()
                     consecutive_errors = 0
+            
+            # 【修复核心】：无论成功失败，确保从 in_flight_cids 移除，并调用 task_done
+            finally:
+                if cid in in_flight_cids:
+                    in_flight_cids.remove(cid)
+                local_queue.task_done()
+                
+                # 跨进程安全的进度汇报
+                with shared_counter.get_lock():
+                    shared_counter.value += 1
+                    
                 lifecycle += 1
 
             if lifecycle >= 150:
                 await init_page()
                 lifecycle = 0
 
-            # 边跑边存，防止内存撑爆
             if len(results) >= 100:
                 with open(f"data/proc_{process_id}_temp.txt", "a", encoding="utf-8") as f:
                     f.writelines(results)
@@ -210,7 +206,6 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline):
             try: await page.close()
             except: pass
 
-    # 启动异步框架
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True, args=["--disable-gpu", "--disable-dev-shm-usage", "--no-sandbox"])
         context = await browser.new_context(user_agent=random.choice(USER_AGENTS), ignore_https_errors=True)
@@ -228,7 +223,6 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline):
         await context.close()
         await browser.close()
 
-    # 扫尾
     if results:
         with open(f"data/proc_{process_id}_temp.txt", "a", encoding="utf-8") as f:
             f.writelines(results)
@@ -241,11 +235,12 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline):
             for cid in in_flight_cids: f.write(f"{cid}\n")
 
 # ========== 进程包裹壳 ==========
-def process_runner(process_id, cid_chunk, concurrency, deadline):
+# 【修复核心】：明确接收并传递 shared_counter 参数，增加进程崩溃打印
+def process_runner(process_id, cid_chunk, concurrency, deadline, shared_counter):
     try:
-        asyncio.run(async_process_worker(process_id, cid_chunk, concurrency, deadline))
-    except KeyboardInterrupt:
-        pass
+        asyncio.run(async_process_worker(process_id, cid_chunk, concurrency, deadline, shared_counter))
+    except Exception as e:
+        print(f"\n❌ [进程 {process_id}] 发生内部崩溃: {e}\n{traceback.format_exc()}\n", flush=True)
 
 # ========== 主监控循环 ==========
 def main():
@@ -265,7 +260,6 @@ def main():
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f: f.write("")
 
     total_tasks = len(cid_list)
-    # 动态计算最佳核数：强制使用 4 个进程榨干 GitHub Actions 4核 CPU
     process_count = min(4, total_tasks) 
     coros_per_process = max(1, MAX_CONCURRENT // process_count)
 
@@ -281,7 +275,8 @@ def main():
 
     processes = []
     for i in range(len(chunks)):
-        p = mp.Process(target=process_runner, args=(i, chunks[i], coros_per_process, deadline))
+        # 【修复核心】：把 shared_counter 喂给子进程
+        p = mp.Process(target=process_runner, args=(i, chunks[i], coros_per_process, deadline, shared_counter))
         processes.append(p)
         p.start()
 
@@ -289,7 +284,7 @@ def main():
     try:
         while any(p.is_alive() for p in processes):
             now = time.time()
-            if now - last_print >= 5: # 每5秒极速播报
+            if now - last_print >= 5: 
                 c = shared_counter.value
                 elapsed = now - start_time
                 speed = c / elapsed if elapsed > 0 else 0
@@ -311,7 +306,6 @@ def main():
         p.terminate()
         p.join()
 
-    # === 合并数据与生成补扫 ===
     print("💾 正在执行数据持久化与未完成收集...")
     
     seen = set()
@@ -327,7 +321,6 @@ def main():
                         valid_lines.append(line)
             os.remove(tmp_file)
             
-    # 【修复核心点】：这行代码被完整闭合了
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         f.writelines(valid_lines)
 
