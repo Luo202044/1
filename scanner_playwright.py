@@ -6,11 +6,9 @@ import time
 import os
 import sys
 import random
-import atexit
-import queue
+import asyncio
 import traceback
-import multiprocessing as mp
-from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
+from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeoutError
 
 # ========== 配置加载 ==========
 if not os.path.exists("config.json"):
@@ -27,17 +25,12 @@ if not config.get("should_scan", True):
 START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
-MAX_CONCURRENT = config.get("max_concurrent_pages", 20)
+
+# 极限加速：异步架构下，并发数可以直接拉高到 30
+MAX_CONCURRENT = config.get("max_concurrent_pages", 30)
 WAIT_TIMEOUT = config.get("wait_timeout", 15)
-RENDER_WAIT = config.get("render_wait", 0.5)
-SLEEP_BETWEEN = config.get("sleep_between", 0.1)
-RETRY_TIMES = config.get("retry_times", 1)
-RETRY_DELAY = config.get("retry_delay", 0.3)
 TIMEOUT_HOURS = config.get("timeout_hours", 5.0)
 TIMEOUT_SECONDS = TIMEOUT_HOURS * 3600
-FORCE_EXIT_WAIT = config.get("force_exit_wait", 300)
-BATCH_SIZE = config.get("batch_size", 100)
-MAX_RETRY_ON_CLOSED = config.get("max_retry_on_closed", 3)
 
 os.makedirs("data", exist_ok=True)
 
@@ -49,8 +42,8 @@ else:
 
 SHARD_IDX = os.environ.get("SHARD_IDX", "unknown")
 UNFINISHED_FLAG = f"unfinished_{SHARD_IDX}.flag"
+UNFINISHED_FILE = f"unfinished_cids_{SHARD_IDX}.txt"
 
-PROXY_LIST = []
 USER_AGENTS = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
@@ -64,419 +57,316 @@ def format_time(seconds):
     h, m = divmod(m, 60)
     return f"{h}h {m}m"
 
-# ========== 进程池初始化 ==========
-global_task_queue = None
-global_completed_count = None
+# ========== 核心异步引擎状态 ==========
+class ScannerState:
+    def __init__(self):
+        self.completed_count = 0
+        self.total_count = 0
+        self.in_flight_cids = set() # 内存级掉线保护，极速追踪当前正在处理的 CID
+        self.results = []
+        self.lock = asyncio.Lock()
+        self.start_time = time.time()
+        self.deadline = self.start_time + TIMEOUT_SECONDS - 60
+        self.is_shutting_down = False
 
-def init_worker(q, counter):
-    global global_task_queue, global_completed_count
-    global_task_queue = q
-    global_completed_count = counter
+state = ScannerState()
 
-def increment_progress():
-    global global_completed_count
-    if global_completed_count is not None:
-        with global_completed_count.get_lock():
-            global_completed_count.value += 1
+# ========== 异步资源拦截器 ==========
+async def abort_route(route):
+    if route.request.resource_type in ["image", "media", "font", "stylesheet"]:
+        await route.abort()
+    else:
+        await route.continue_()
 
-# ---------- Worker 同步函数 ----------
-def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
-    global global_task_queue
-    task_queue = global_task_queue
-
-    time.sleep(worker_id * 1.5)
-    print(f"[Worker {worker_id}] 正在启动浏览器引擎...", flush=True)
-
-    WAIT_TIMEOUT = config_dict.get("wait_timeout", 25)
-    RENDER_WAIT = config_dict.get("render_wait", 2.0)
-    SLEEP_BETWEEN = config_dict.get("sleep_between", 0.1)
-    MAX_RETRY_ON_CLOSED = config_dict.get("max_retry_on_closed", 3)
-    BATCH_SIZE = config_dict.get("batch_size", 100)
-
-    worker_out_file = f"data/worker_{worker_id}_temp.txt"
-    unfin_file = f"unfinished_worker_{worker_id}.txt"
-    working_file = f"data/working_{worker_id}.txt"
+# ========== 异步 Worker 逻辑 ==========
+async def worker_task(worker_id, task_queue, context):
+    global state
     
-    write_buffer = []
-    browser = None
-    context = None
+    # 每个 Worker 维护自己的 page 实例
     page = None
+    
+    async def init_page():
+        nonlocal page
+        if page:
+            try: await page.close()
+            except: pass
+        page = await context.new_page()
+        await page.route("**/*", abort_route)
+        
+    await init_page()
+    consecutive_errors = 0
+    lifecycle_count = 0
 
-    def flush():
-        if write_buffer:
-            with open(worker_out_file, "a", encoding="utf-8") as f:
-                f.write("".join(write_buffer))
-            write_buffer.clear()
+    while not state.is_shutting_down:
+        if time.time() > state.deadline:
+            break
 
-    def add_line(line):
-        write_buffer.append(line)
-        if len(write_buffer) >= BATCH_SIZE:
-            flush()
+        try:
+            cid = task_queue.get_nowait()
+        except asyncio.QueueEmpty:
+            break
+
+        # 记录凭证到内存
+        state.in_flight_cids.add(cid)
+
+        try:
+            # 极限提速：wait_until="commit" 只等待网络响应头，不等待整个 DOM 树解析完成！
+            pw_timeout = min(WAIT_TIMEOUT * 1000, (state.deadline - time.time()) * 1000)
+            await page.goto(f"https://www.eeo.cn/s/a/?cid={cid}", timeout=pw_timeout, wait_until="commit")
             
-    def clear_working_flag():
-        if os.path.exists(working_file):
-            try: os.remove(working_file)
+            # 手动等待核心元素出现，避免无效挂起
+            try:
+                await page.wait_for_selector("p.courseName, p.schoolName, body", timeout=1500)
             except: pass
 
-    def cleanup():
-        nonlocal browser, context, page
-        try:
-            if page: page.close()
-            if context: context.close()
-            if browser: browser.close()
-        except: pass
-
-    def get_fast_page(ctx):
-        new_p = ctx.new_page()
-        new_p.route("**/*", lambda route: route.abort() if route.request.resource_type in ["image", "media", "font", "stylesheet"] else route.continue_())
-        return new_p
-
-    atexit.register(cleanup)
-    
-    try:
-        try: os.setpgrp()
-        except: pass
-
-        with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True, args=["--disable-gpu", "--disable-dev-shm-usage", "--no-sandbox"])
-            context = browser.new_context(
-                user_agent=random.choice(user_agents),
-                proxy={"server": random.choice(proxy_list)} if proxy_list else None,
-                ignore_https_errors=True
-            )
-            page = get_fast_page(context)
-
-            closed_retry = {}
-            current_cid = None
-            lifecycle_count = 0
-            consecutive_errors = 0
-            MAX_LIFECYCLE = 200
-
-            while True:
-                remaining_time = deadline - time.time()
-                if remaining_time <= 0:
-                    if current_cid is not None:
-                        with open(unfin_file, "a", encoding="utf-8") as f:
-                            f.write(f"{current_cid}\n")
-                        clear_working_flag()
-                    break
-
-                if current_cid is None:
-                    try:
-                        current_cid = task_queue.get_nowait()
-                        with open(working_file, "w", encoding="utf-8") as f:
-                            f.write(str(current_cid))
-                    except queue.Empty:
-                        break
-
-                if closed_retry.get(current_cid, 0) >= MAX_RETRY_ON_CLOSED:
-                    with open(unfin_file, "a", encoding="utf-8") as f:
-                        f.write(f"{current_cid}\n")
-                    clear_working_flag()
-                    increment_progress() 
-                    current_cid = None
-                    continue
-
-                try:
-                    pw_timeout = min(WAIT_TIMEOUT * 1000, remaining_time * 1000)
-                    page.goto(f"https://www.eeo.cn/s/a/?cid={current_cid}", timeout=pw_timeout, wait_until="domcontentloaded")
-                    
-                    title = page.title() or ""
-                    body_text = page.text_content("body") or ""
-                    
-                    is_waf = False
-                    waf_keywords = ["just a moment", "access denied", "attention required", "security", "403", "404", "拦截", "验证码", "error", "cloudflare", "verify you are human", "滑动验证"]
-                    
-                    if any(k in title.lower() for k in waf_keywords) or any(k in body_text.lower() for k in ["cloudflare", "verify you are human", "滑动验证"]):
-                        is_waf = True
-                        
-                    if is_waf:
-                        if random.random() < 0.1: 
-                            print(f"⚠️ [风控侦测] Worker-{worker_id} 遭遇防火墙！核爆重置中...", flush=True)
-                        raise Exception("WAF_BLOCKED_FORCED_RESET")
-                        
-                    invalid_marks = {"无", "-", "--", "---", "—", "_", ""}
-                    
-                    if len(body_text.strip()) < 50:
-                        school, class_name, teacher = "无", "无", "无"
-                    else:
-                        render_timeout = min(1500, remaining_time * 1000)
-                        try: page.wait_for_selector("p.courseName, p.schoolName", timeout=render_timeout)
-                        except: pass
-                        
-                        # --- 1. 抓取班级 ---
-                        class_name = "无"
-                        for selector in ["p.courseName", ".courseName", "h1", ".title"]:
-                            elem = page.query_selector(selector)
-                            if elem:
-                                text = (elem.text_content() or "").strip()
-                                text = " ".join(text.split())
-                                if text and len(text) >= 1:
-                                    class_name = text
-                                    break
-                        if class_name in invalid_marks:
-                            if title and "Join the class" not in title and "eeo.cn" not in title:
-                                if "|" in title: class_name = title.split("|")[-1].strip()
-                                elif "-" in title: class_name = title.split("-")[0].strip()
-
-                        # --- 2. 抓取学校 ---
-                        school = "无"
-                        for selector in ["p.schoolName", ".schoolName", ".orgName"]:
-                            elem = page.query_selector(selector)
-                            if elem:
-                                text = (elem.text_content() or "").strip()
-                                text = " ".join(text.split())
-                                if text and len(text) >= 1:
-                                    school = text
-                                    break
-
-                        # --- 3. 抓取教师 (新增核心逻辑) ---
-                        teacher = "无"
-                        for selector in [".teacherName", ".teaName", ".userName", ".nickName", ".teacher-name", "p.name"]:
-                            elem = page.query_selector(selector)
-                            if elem:
-                                text = (elem.text_content() or "").strip()
-                                text = " ".join(text.split())
-                                if text and len(text) >= 1:
-                                    teacher = text
-                                    break
-                                    
-                        # 教师智能兜底解析：应对跨行和纯文本
-                        if teacher in invalid_marks or teacher == "教师" or teacher == "教师：" or teacher == "教师:":
-                            teacher = "无"
-                            try:
-                                elems = page.query_selector_all("p, div, span, label, li")
-                                for i in range(len(elems)):
-                                    text = (elems[i].text_content() or "").strip()
-                                    text = " ".join(text.split())
-                                    
-                                    # 场景 A: 标签与内容跨行，名字在下一个 DOM 节点中
-                                    if text in ["教师：", "教师:", "授课教师：", "Teacher:"]:
-                                        if i + 1 < len(elems):
-                                            next_text = (elems[i+1].text_content() or "").strip()
-                                            next_text = " ".join(next_text.split())
-                                            if next_text and len(next_text) >= 1 and len(next_text) < 50:
-                                                teacher = next_text
-                                                break
-                                                
-                                    # 场景 B: 标签与内容连在一起，如 "教师：张三"
-                                    elif "教师：" in text or "授课教师：" in text:
-                                        extracted = text.replace("授课教师：", "").replace("教师：", "").strip()
-                                        if extracted and len(extracted) >= 1 and len(extracted) < 50:
-                                            teacher = extracted
-                                            break
-                            except: pass
-
-                    # --- 【终极垃圾过滤与 TSV 格式化组装】 ---
-                    if not (class_name in invalid_marks and school in invalid_marks):
-                        # 核心修改：使用 \t (制表符) 严丝合缝地连接每一个字段，绝不使用空格！
-                        line = f"{current_cid}\thttps://www.eeo.cn/s/a/?cid={current_cid}\t{school}\t{teacher}\t{class_name}\n"
-                        add_line(line)
-                        print(f"✅ [发现] W-{worker_id} | {current_cid} | 🏫 {school} | 🧑‍🏫 {teacher} | 🎓 {class_name}", flush=True)
-
-                    if current_cid in closed_retry: del closed_retry[current_cid]
-                    increment_progress() 
-                    clear_working_flag()
-                    current_cid = None
-                    lifecycle_count += 1 
-                    consecutive_errors = 0
-
-                except Exception as e:
-                    err_msg = str(e).lower()
-                    is_closed = any(phrase in err_msg for phrase in ["closed", "context", "browser", "target closed"])
-                    is_timeout = "timeout" in err_msg
-                    is_waf_error = "waf_blocked" in err_msg
-                    
-                    with open(unfin_file, "a", encoding="utf-8") as f:
-                        f.write(f"{current_cid}\n")
-                        
-                    consecutive_errors += 1
-                    
-                    if is_closed or is_timeout or is_waf_error or consecutive_errors >= 2:
-                        cleanup()
-                        if is_waf_error or consecutive_errors >= 3:
-                            time.sleep(3) 
-                        
-                        browser = p.chromium.launch(headless=True, args=["--disable-gpu", "--disable-dev-shm-usage", "--no-sandbox"])
-                        context = browser.new_context(user_agent=random.choice(user_agents), ignore_https_errors=True)
-                        page = get_fast_page(context)
-                        consecutive_errors = 0
-                    else:
-                        try: page.close()
-                        except: pass
-                        try: page = get_fast_page(context)
-                        except: pass
-                        
-                    increment_progress()
-                    clear_working_flag()
-                    current_cid = None
-                    lifecycle_count += 1
-
-                time.sleep(SLEEP_BETWEEN)
-
-                if lifecycle_count >= MAX_LIFECYCLE:
-                    try: page.close()
-                    except: pass
-                    try: context.close()
-                    except: pass
-                    
-                    context = browser.new_context(
-                        user_agent=random.choice(user_agents),
-                        proxy={"server": random.choice(proxy_list)} if proxy_list else None,
-                        ignore_https_errors=True
-                    )
-                    page = get_fast_page(context)
-                    lifecycle_count = 0
-
-            flush()
+            title = await page.title() or ""
+            body_text = await page.text_content("body") or ""
             
-    except Exception as e:
-        print(f"\n❌ [Worker {worker_id}] 发生致命崩溃: {str(e)}\n{traceback.format_exc()}\n", flush=True)
-    finally:
-        cleanup()
-    return worker_id
+            # --- 风控侦测 ---
+            is_waf = False
+            waf_keywords = ["just a moment", "access denied", "attention required", "security", "403", "404", "拦截", "验证码", "error", "cloudflare", "verify you are human", "滑动验证"]
+            if any(k in title.lower() for k in waf_keywords) or any(k in body_text.lower() for k in ["cloudflare", "verify you are human", "滑动验证"]):
+                is_waf = True
+                
+            if is_waf:
+                if random.random() < 0.1: 
+                    print(f"⚠️ [风控侦测] 协程-{worker_id} 遭遇拦截，自动重置...", flush=True)
+                raise Exception("WAF_BLOCKED")
 
-# ---------- 主函数 ----------
+            invalid_marks = {"无", "-", "--", "---", "—", "_", ""}
+            school, class_name, teacher = "无", "无", "无"
+
+            if len(body_text.strip()) >= 50:
+                # 1. 抓取班级
+                for selector in ["p.courseName", ".courseName", "h1", ".title"]:
+                    elem = await page.query_selector(selector)
+                    if elem:
+                        text = (await elem.text_content() or "").strip()
+                        text = " ".join(text.split())
+                        if text and len(text) >= 1:
+                            class_name = text
+                            break
+                if class_name in invalid_marks:
+                    if title and "Join the class" not in title and "eeo.cn" not in title:
+                        if "|" in title: class_name = title.split("|")[-1].strip()
+                        elif "-" in title: class_name = title.split("-")[0].strip()
+
+                # 2. 抓取学校
+                for selector in ["p.schoolName", ".schoolName", ".orgName"]:
+                    elem = await page.query_selector(selector)
+                    if elem:
+                        text = (await elem.text_content() or "").strip()
+                        text = " ".join(text.split())
+                        if text and len(text) >= 1:
+                            school = text
+                            break
+
+                # 3. 抓取教师
+                for selector in [".teacherName", ".teaName", ".userName", ".nickName", ".teacher-name", "p.name"]:
+                    elem = await page.query_selector(selector)
+                    if elem:
+                        text = (await elem.text_content() or "").strip()
+                        text = " ".join(text.split())
+                        if text and len(text) >= 1:
+                            teacher = text
+                            break
+                            
+                # 教师兜底解析
+                if teacher in invalid_marks or teacher == "教师" or teacher == "教师：" or teacher == "教师:":
+                    teacher = "无"
+                    try:
+                        elems = await page.query_selector_all("p, div, span, label, li")
+                        for i in range(len(elems)):
+                            text = (await elems[i].text_content() or "").strip()
+                            text = " ".join(text.split())
+                            
+                            if text in ["教师：", "教师:", "授课教师：", "Teacher:"]:
+                                if i + 1 < len(elems):
+                                    next_text = (await elems[i+1].text_content() or "").strip()
+                                    next_text = " ".join(next_text.split())
+                                    if next_text and len(next_text) >= 1 and len(next_text) < 50:
+                                        teacher = next_text
+                                        break
+                            elif "教师：" in text or "授课教师：" in text:
+                                extracted = text.replace("授课教师：", "").replace("教师：", "").strip()
+                                if extracted and len(extracted) >= 1 and len(extracted) < 50:
+                                    teacher = extracted
+                                    break
+                    except: pass
+
+            # --- TSV 数据打包 ---
+            if not (class_name in invalid_marks and school in invalid_marks):
+                line = f"{cid}\thttps://www.eeo.cn/s/a/?cid={cid}\t{school}\t{teacher}\t{class_name}\n"
+                async with state.lock:
+                    state.results.append(line)
+                print(f"✅ [发现] C-{worker_id:02d} | {cid} | 🏫 {school} | 🧑‍🏫 {teacher} | 🎓 {class_name}", flush=True)
+
+            # 成功完成，从内存队列移除
+            state.in_flight_cids.remove(cid)
+            task_queue.task_done()
+            
+            async with state.lock:
+                state.completed_count += 1
+                
+            consecutive_errors = 0
+            lifecycle_count += 1
+
+        except Exception as e:
+            # 失败的记录依然标记完成，避免队列卡死，但将其保留在 in_flight_cids 中用于最后生成未完成名单
+            task_queue.task_done()
+            consecutive_errors += 1
+            
+            async with state.lock:
+                state.completed_count += 1
+
+            if consecutive_errors >= 2 or "WAF" in str(e):
+                if consecutive_errors >= 3:
+                    await asyncio.sleep(2)
+                await init_page() # 极速重建被污染的上下文
+                consecutive_errors = 0
+                
+            lifecycle_count += 1
+
+        # 内存泄漏防线：定期转生
+        if lifecycle_count >= 150:
+            await init_page()
+            lifecycle_count = 0
+
+    if page:
+        try: await page.close()
+        except: pass
+
+# ========== 异步状态汇报 ==========
+async def monitor_task():
+    global state
+    last_print = time.time()
+    while not state.is_shutting_down:
+        await asyncio.sleep(1)
+        now = time.time()
+        if now - last_print >= 10: # 提高播报频率到 10 秒，让你直观感受速度！
+            async with state.lock:
+                c = state.completed_count
+                total = state.total_count
+                
+            elapsed = now - state.start_time
+            speed = c / elapsed if elapsed > 0 else 0
+            rem = total - c
+            eta_str = format_time(rem / speed if speed > 0 else 0)
+            pct = (c / total) * 100 if total > 0 else 0
+            
+            print(f"\n📊 [异步引擎] 完成: {c}/{total} ({pct:.2f}%) | ⚡ 极限速度: {speed:.1f} 个/秒 | ⏳ 剩余: {eta_str}\n", flush=True)
+            last_print = now
+            
+            # 定期持久化写入，防中途崩溃
+            async with state.lock:
+                if state.results:
+                    with open(OUTPUT_FILE, "a", encoding="utf-8") as f:
+                        f.writelines(state.results)
+                    state.results.clear()
+
+# ========== 异步主函数 ==========
+async def run_scanner(cid_list):
+    global state
+    state.total_count = len(cid_list)
+    task_queue = asyncio.Queue()
+    
+    print(f"⚡ 正在启动全异步高速协程引擎，装载 {state.total_count} 个任务...", flush=True)
+    for cid in cid_list:
+        task_queue.put_nowait(cid)
+
+    # 启动 Playwright 异步环境
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True, args=["--disable-gpu", "--disable-dev-shm-usage", "--no-sandbox"])
+        # 创建单个全局高并发 Context
+        context = await browser.new_context(
+            user_agent=random.choice(USER_AGENTS),
+            ignore_https_errors=True
+        )
+
+        # 启动 30 个并发协程 worker
+        worker_count = min(MAX_CONCURRENT, state.total_count)
+        workers = [asyncio.create_task(worker_task(i, task_queue, context)) for i in range(worker_count)]
+        monitor = asyncio.create_task(monitor_task())
+
+        # 等待队列清空或超时
+        wait_task = asyncio.create_task(task_queue.join())
+        timeout_wait = state.deadline - time.time()
+        
+        try:
+            if timeout_wait > 0:
+                await asyncio.wait_for(wait_task, timeout=timeout_wait)
+        except asyncio.TimeoutError:
+            print("\n⏰ 触发安全软超时，准备下班...", flush=True)
+
+        # 发送关闭信号
+        state.is_shutting_down = True
+        
+        # 强制取消残留 worker
+        for w in workers: w.cancel()
+        monitor.cancel()
+        
+        await context.close()
+        await browser.close()
+
+# ========== 入口逻辑与善后扫尾 ==========
 def main():
-    global START_CID, END_CID, CID_LIST_FILE, OUTPUT_FILE, SHARD_IDX, UNFINISHED_FLAG
+    global START_CID, END_CID, CID_LIST_FILE, OUTPUT_FILE
 
     if CID_LIST_FILE:
         with open(CID_LIST_FILE, "r", encoding="utf-8") as f:
             cid_list = [int(line.strip()) for line in f if line.strip()]
-        total = len(cid_list)
-        if total == 0:
-            print("错误: CID列表文件为空", flush=True)
-            sys.exit(1)
-        print(f"列表模式: 从 {CID_LIST_FILE} 读取 {total} 个班级")
     else:
-        if START_CID is None or END_CID is None:
-            print("错误: 必须指定 start_cid/end_cid 或 cid_list_file", flush=True)
-            sys.exit(1)
-        if START_CID > END_CID:
-            START_CID, END_CID = END_CID, START_CID
+        if START_CID > END_CID: START_CID, END_CID = END_CID, START_CID
         cid_list = list(range(START_CID, END_CID + 1))
-        total = len(cid_list)
-        print(f"区间模式: {START_CID} ~ {END_CID} (共 {total} 个)")
+
+    if not cid_list:
+        print("错误: 任务列表为空", flush=True)
+        sys.exit(1)
 
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f: f.write("")
 
-    config_dict = {
-        "wait_timeout": WAIT_TIMEOUT, "render_wait": RENDER_WAIT,
-        "sleep_between": SLEEP_BETWEEN, "max_retry_on_closed": MAX_RETRY_ON_CLOSED,
-        "batch_size": BATCH_SIZE,
-    }
-
-    worker_count = min(MAX_CONCURRENT, len(cid_list))
-
-    task_queue = mp.Queue()
-    completed_count = mp.Value('i', 0) 
-    
-    print(f"正在将 {total} 个任务装载入并发队列，请稍候...", flush=True)
-    for cid in cid_list:
-        task_queue.put(cid)
-    print("✅ 队列装载完毕，准备启动引擎！\n", flush=True)
-
-    deadline = time.time() + TIMEOUT_SECONDS - 60
-
-    pool = mp.Pool(processes=worker_count, initializer=init_worker, initargs=(task_queue, completed_count))
-    async_results = []
-    
-    for i in range(worker_count):
-        res = pool.apply_async(worker_sync, (i, config_dict, PROXY_LIST, USER_AGENTS, deadline))
-        async_results.append(res)
-
-    pool.close()
-    
-    start_time = time.time()
-    last_print_time = start_time
-    hard_limit = start_time + TIMEOUT_SECONDS + FORCE_EXIT_WAIT
-
-    while time.time() < hard_limit:
-        if all(res.ready() for res in async_results):
-            break
+    try:
+        # 启动核心异步事件循环
+        asyncio.run(run_scanner(cid_list))
+    except KeyboardInterrupt:
+        print("\n⚠️ 收到强制中断信号！")
+    finally:
+        # === 终极扫尾：写入遗留数据与未完成凭证 ===
+        print("💾 正在执行数据持久化与未完成遗嘱收集...")
         
-        now = time.time()
-        if now - last_print_time >= 60:
-            c = completed_count.value
-            elapsed = now - start_time
-            if c > 0:
-                speed = c / elapsed
-                rem = total - c
-                eta = rem / speed if speed > 0 else 0
-                eta_str = format_time(eta)
-            else:
-                speed = 0
-                eta_str = "计算中..."
-            
-            pct = (c / total) * 100 if total > 0 else 0
-            print(f"\n📊 [监控] 已完成: {c}/{total} ({pct:.2f}%) | ⚡ 速度: {speed:.1f} 个/秒 | ⏳ 剩余: {eta_str}\n", flush=True)
-            last_print_time = now
-
-        time.sleep(1)
-
-    if not all(res.ready() for res in async_results):
-        pool.terminate()
-    pool.join()
-
-    # --- 数据合并与清洗 ---
-    all_valid = []
-    for i in range(worker_count):
-        temp_file = f"data/worker_{i}_temp.txt"
-        if os.path.exists(temp_file):
-            with open(temp_file, "r", encoding="utf-8") as f:
-                all_valid.extend(f.readlines())
-            os.remove(temp_file)
-
-    seen = set()
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-        for line in all_valid:
-            # 安全切分：兼容新版 \t 格式和偶尔的空格错位
-            parts = line.strip().split()
-            if not parts: continue
-            cid = parts[0]
-            if cid not in seen:
-                seen.add(cid)
-                f.write(line)
-
-    # --- 收集未完成数据 ---
-    unfinished_cids = set()
-    
-    for i in range(worker_count):
-        ufile = f"unfinished_worker_{i}.txt"
-        if os.path.exists(ufile):
-            with open(ufile, "r", encoding="utf-8") as f:
+        # 把内存里没来得及写的成功数据写盘
+        if state.results:
+            with open(OUTPUT_FILE, "a", encoding="utf-8") as f:
+                f.writelines(state.results)
+                
+        # 去重清理输出文件
+        if os.path.exists(OUTPUT_FILE):
+            seen = set()
+            valid_lines = []
+            with open(OUTPUT_FILE, "r", encoding="utf-8") as f:
                 for line in f:
-                    if line.strip().isdigit():
-                        unfinished_cids.add(int(line.strip()))
-            os.remove(ufile)
-            
-        working_file = f"data/working_{i}.txt"
-        if os.path.exists(working_file):
-            with open(working_file, "r", encoding="utf-8") as f:
-                content = f.read().strip()
-                if content.isdigit():
-                    unfinished_cids.add(int(content))
-            os.remove(working_file)
+                    parts = line.strip().split()
+                    if parts and parts[0] not in seen:
+                        seen.add(parts[0])
+                        valid_lines.append(line)
+            with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+                f.writelines(valid_lines)
 
-    while not task_queue.empty():
-        try:
-            unfinished_cids.add(task_queue.get_nowait())
-        except queue.Empty:
-            break
+        # 搜刮内存里的在途 CID（因断电或软超时被遗留的）
+        unfinished_cids = set(state.in_flight_cids)
+        
+        if unfinished_cids:
+            with open(UNFINISHED_FILE, "w", encoding="utf-8") as f:
+                for cid in sorted(unfinished_cids):
+                    f.write(f"{cid}\n")
+            open(UNFINISHED_FLAG, "w").close() 
+            print(f"🚩 记录了 {len(unfinished_cids)} 个未完成的 CID，已生成补扫信标 ({UNFINISHED_FLAG})", flush=True)
+        else:
+            print("✅ 所有 CID 已完美处理完毕！", flush=True)
 
-    if unfinished_cids:
-        with open(f"unfinished_cids_{SHARD_IDX}.txt", "w", encoding="utf-8") as f:
-            for cid in sorted(unfinished_cids):
-                f.write(f"{cid}\n")
-        open(UNFINISHED_FLAG, "w").close() 
-        print(f"记录了 {len(unfinished_cids)} 个未完成的 CID，已生成补扫信标 ({UNFINISHED_FLAG})", flush=True)
-    else:
-        print("所有CID已成功处理", flush=True)
-
-    print("✅ 引擎安全退出，释放所有底层资源。", flush=True)
-    sys.stdout.flush()
-    os._exit(0)
+        print("🛑 引擎安全退出，释放所有底层资源。", flush=True)
+        sys.stdout.flush()
+        os._exit(0)
 
 if __name__ == "__main__":
-    mp.freeze_support()
     main()
