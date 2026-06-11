@@ -65,7 +65,6 @@ async def abort_route(route):
         await route.continue_()
 
 # ========== 单个进程内的异步爬虫逻辑 ==========
-# 【修复核心】：明确接收 shared_counter 参数
 async def async_process_worker(process_id, cid_chunk, concurrency, deadline, shared_counter):
     in_flight_cids = set()
     results = []
@@ -124,18 +123,22 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                 school, class_name, teacher = "无", "无", "无"
 
                 if len(body_text.strip()) >= 50:
-                    for selector in ["p.courseName", ".courseName", "h1", ".title"]:
+                    # 1. 扩大寻找范围，加入 h2, h3 和常见变体
+                    for selector in ["p.courseName", ".courseName", "h1", "h2", "h3", ".title", ".course-title", ".class-name"]:
                         elem = await page.query_selector(selector)
                         if elem:
                             text = (await elem.text_content() or "").strip()
                             text = " ".join(text.split())
                             if text and len(text) >= 1: class_name = text; break
                             
+                    # 2. 终极标题兜底：如果没有 | 或 -，直接征用整个有效标题
                     if class_name in invalid_marks:
-                        if title and "Join the class" not in title and "eeo.cn" not in title:
+                        if title and "Join the class" not in title and "eeo.cn" not in title and "ClassIn" not in title:
                             if "|" in title: class_name = title.split("|")[-1].strip()
                             elif "-" in title: class_name = title.split("-")[0].strip()
+                            else: class_name = title.strip() # <== 核心修复：直接拿来用！
 
+                    # 3. 抓取学校
                     for selector in ["p.schoolName", ".schoolName", ".orgName"]:
                         elem = await page.query_selector(selector)
                         if elem:
@@ -143,6 +146,7 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                             text = " ".join(text.split())
                             if text and len(text) >= 1: school = text; break
 
+                    # 4. 抓取教师
                     for selector in [".teacherName", ".teaName", ".userName", ".nickName", ".teacher-name", "p.name"]:
                         elem = await page.query_selector(selector)
                         if elem:
@@ -181,13 +185,11 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                     await init_page()
                     consecutive_errors = 0
             
-            # 【修复核心】：无论成功失败，确保从 in_flight_cids 移除，并调用 task_done
             finally:
                 if cid in in_flight_cids:
                     in_flight_cids.remove(cid)
                 local_queue.task_done()
                 
-                # 跨进程安全的进度汇报
                 with shared_counter.get_lock():
                     shared_counter.value += 1
                     
@@ -235,7 +237,6 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
             for cid in in_flight_cids: f.write(f"{cid}\n")
 
 # ========== 进程包裹壳 ==========
-# 【修复核心】：明确接收并传递 shared_counter 参数，增加进程崩溃打印
 def process_runner(process_id, cid_chunk, concurrency, deadline, shared_counter):
     try:
         asyncio.run(async_process_worker(process_id, cid_chunk, concurrency, deadline, shared_counter))
@@ -275,7 +276,6 @@ def main():
 
     processes = []
     for i in range(len(chunks)):
-        # 【修复核心】：把 shared_counter 喂给子进程
         p = mp.Process(target=process_runner, args=(i, chunks[i], coros_per_process, deadline, shared_counter))
         processes.append(p)
         p.start()
