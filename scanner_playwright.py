@@ -126,7 +126,6 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
             if browser: browser.close()
         except: pass
 
-    # 【防僵尸安全开页函数】：永远挂载资源拦截器，杜绝网速拖累
     def get_fast_page(ctx):
         new_p = ctx.new_page()
         new_p.route("**/*", lambda route: route.abort() if route.request.resource_type in ["image", "media", "font", "stylesheet"] else route.continue_())
@@ -185,7 +184,6 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                     title = page.title() or ""
                     body_text = page.text_content("body") or ""
                     
-                    # 深度 WAF 风控侦测
                     is_waf = False
                     waf_keywords = ["just a moment", "access denied", "attention required", "security", "403", "404", "拦截", "验证码", "error", "cloudflare", "verify you are human", "滑动验证"]
                     
@@ -194,51 +192,87 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                         
                     if is_waf:
                         if random.random() < 0.1: 
-                            print(f"⚠️ [风控侦测] Worker-{worker_id} 遭遇防火墙软拦截！准备强制核爆重置 IP 会话...", flush=True)
+                            print(f"⚠️ [风控侦测] Worker-{worker_id} 遭遇防火墙！核爆重置中...", flush=True)
                         raise Exception("WAF_BLOCKED_FORCED_RESET")
                         
+                    invalid_marks = {"无", "-", "--", "---", "—", "_", ""}
+                    
                     if len(body_text.strip()) < 50:
-                        school, class_name = "无", "无"
+                        school, class_name, teacher = "无", "无", "无"
                     else:
                         render_timeout = min(1500, remaining_time * 1000)
                         try: page.wait_for_selector("p.courseName, p.schoolName", timeout=render_timeout)
                         except: pass
                         
+                        # --- 1. 抓取班级 ---
                         class_name = "无"
                         for selector in ["p.courseName", ".courseName", "h1", ".title"]:
                             elem = page.query_selector(selector)
                             if elem:
                                 text = (elem.text_content() or "").strip()
                                 text = " ".join(text.split())
-                                # 【极限界限突破】：放开单字符限制，支持单标点符号班级名
                                 if text and len(text) >= 1:
                                     class_name = text
                                     break
-                                    
-                        # 兜底补充判断：如果选择器抓到的是个占位符，也尝试从 title 里捞一下真名
-                        if class_name in ["无", "", "-", "--"]:
+                        if class_name in invalid_marks:
                             if title and "Join the class" not in title and "eeo.cn" not in title:
                                 if "|" in title: class_name = title.split("|")[-1].strip()
                                 elif "-" in title: class_name = title.split("-")[0].strip()
 
+                        # --- 2. 抓取学校 ---
                         school = "无"
                         for selector in ["p.schoolName", ".schoolName", ".orgName"]:
                             elem = page.query_selector(selector)
                             if elem:
                                 text = (elem.text_content() or "").strip()
                                 text = " ".join(text.split())
-                                # 【极限界限突破】：放开单字符限制
                                 if text and len(text) >= 1:
                                     school = text
                                     break
 
-                    # --- 【终极垃圾过滤黑名单】 ---
-                    invalid_marks = {"无", "-", "--", "---", "—", "_", ""}
-                    # 如果 class_name 和 school 都掉进了黑名单，才视为彻底无效数据并抛弃
+                        # --- 3. 抓取教师 (新增核心逻辑) ---
+                        teacher = "无"
+                        for selector in [".teacherName", ".teaName", ".userName", ".nickName", ".teacher-name", "p.name"]:
+                            elem = page.query_selector(selector)
+                            if elem:
+                                text = (elem.text_content() or "").strip()
+                                text = " ".join(text.split())
+                                if text and len(text) >= 1:
+                                    teacher = text
+                                    break
+                                    
+                        # 教师智能兜底解析：应对跨行和纯文本
+                        if teacher in invalid_marks or teacher == "教师" or teacher == "教师：" or teacher == "教师:":
+                            teacher = "无"
+                            try:
+                                elems = page.query_selector_all("p, div, span, label, li")
+                                for i in range(len(elems)):
+                                    text = (elems[i].text_content() or "").strip()
+                                    text = " ".join(text.split())
+                                    
+                                    # 场景 A: 标签与内容跨行，名字在下一个 DOM 节点中
+                                    if text in ["教师：", "教师:", "授课教师：", "Teacher:"]:
+                                        if i + 1 < len(elems):
+                                            next_text = (elems[i+1].text_content() or "").strip()
+                                            next_text = " ".join(next_text.split())
+                                            if next_text and len(next_text) >= 1 and len(next_text) < 50:
+                                                teacher = next_text
+                                                break
+                                                
+                                    # 场景 B: 标签与内容连在一起，如 "教师：张三"
+                                    elif "教师：" in text or "授课教师：" in text:
+                                        extracted = text.replace("授课教师：", "").replace("教师：", "").strip()
+                                        if extracted and len(extracted) >= 1 and len(extracted) < 50:
+                                            teacher = extracted
+                                            break
+                            except: pass
+
+                    # --- 【终极垃圾过滤与 TSV 格式化组装】 ---
                     if not (class_name in invalid_marks and school in invalid_marks):
-                        line = f"{current_cid} https://www.eeo.cn/s/a/?cid={current_cid} {school} {class_name}\n"
+                        # 核心修改：使用 \t (制表符) 严丝合缝地连接每一个字段，绝不使用空格！
+                        line = f"{current_cid}\thttps://www.eeo.cn/s/a/?cid={current_cid}\t{school}\t{teacher}\t{class_name}\n"
                         add_line(line)
-                        print(f"✅ [发现班级] Worker-{worker_id} | CID: {current_cid} | 学校: {school} | 班级: {class_name}", flush=True)
+                        print(f"✅ [发现] W-{worker_id} | {current_cid} | 🏫 {school} | 🧑‍🏫 {teacher} | 🎓 {class_name}", flush=True)
 
                     if current_cid in closed_retry: del closed_retry[current_cid]
                     increment_progress() 
@@ -258,7 +292,6 @@ def worker_sync(worker_id, config_dict, proxy_list, user_agents, deadline):
                         
                     consecutive_errors += 1
                     
-                    # 核爆级环境清理
                     if is_closed or is_timeout or is_waf_error or consecutive_errors >= 2:
                         cleanup()
                         if is_waf_error or consecutive_errors >= 3:
@@ -376,7 +409,7 @@ def main():
                 eta_str = "计算中..."
             
             pct = (c / total) * 100 if total > 0 else 0
-            print(f"\n📊 [全局监控] 已完成: {c}/{total} ({pct:.2f}%) | ⚡ 速度: {speed:.1f} 个/秒 | ⏳ 剩余时间: {eta_str}\n", flush=True)
+            print(f"\n📊 [监控] 已完成: {c}/{total} ({pct:.2f}%) | ⚡ 速度: {speed:.1f} 个/秒 | ⏳ 剩余: {eta_str}\n", flush=True)
             last_print_time = now
 
         time.sleep(1)
@@ -397,6 +430,7 @@ def main():
     seen = set()
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         for line in all_valid:
+            # 安全切分：兼容新版 \t 格式和偶尔的空格错位
             parts = line.strip().split()
             if not parts: continue
             cid = parts[0]
@@ -404,7 +438,7 @@ def main():
                 seen.add(cid)
                 f.write(line)
 
-    # --- 收集未完成数据 (包含被拔电源死亡瞬间拿着的凭证) ---
+    # --- 收集未完成数据 ---
     unfinished_cids = set()
     
     for i in range(worker_count):
