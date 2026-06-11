@@ -273,7 +273,7 @@ def main():
     chunks = [cid_list[i:i + chunk_size] for i in range(0, total_tasks, chunk_size)]
 
     print(f"🚀 [多进程+协程 混合引擎] 启动！", flush=True)
-    print(f"⚙️ 分配: 4个物理核心 ✕ 每核 {coros_per_process} 个协程并发 = {process_count * coros_per_process} 总并发", flush=True)
+    print(f"⚙️ 分配: {process_count}个物理核心 ✕ 每核 {coros_per_process} 个协程并发 = {process_count * coros_per_process} 总并发", flush=True)
 
     shared_counter = mp.Value('i', 0)
     deadline = time.time() + TIMEOUT_SECONDS - 60
@@ -289,7 +289,7 @@ def main():
     try:
         while any(p.is_alive() for p in processes):
             now = time.time()
-            if now - last_print >= 5: # 每5秒极速播报，肉眼感受飙车快感
+            if now - last_print >= 5: # 每5秒极速播报
                 c = shared_counter.value
                 elapsed = now - start_time
                 speed = c / elapsed if elapsed > 0 else 0
@@ -327,4 +327,30 @@ def main():
                         valid_lines.append(line)
             os.remove(tmp_file)
             
-    with open(OUTPUT_FILE, "w", encoding="
+    # 【修复核心点】：这行代码被完整闭合了
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+        f.writelines(valid_lines)
+
+    unfinished_cids = set()
+    for i in range(process_count):
+        ufile = f"unfinished_proc_{i}.txt"
+        if os.path.exists(ufile):
+            with open(ufile, "r", encoding="utf-8") as f:
+                for line in f:
+                    if line.strip().isdigit(): unfinished_cids.add(int(line.strip()))
+            os.remove(ufile)
+
+    if unfinished_cids:
+        with open(f"unfinished_cids_{SHARD_IDX}.txt", "w", encoding="utf-8") as f:
+            for cid in sorted(unfinished_cids): f.write(f"{cid}\n")
+        open(UNFINISHED_FLAG, "w").close() 
+        print(f"🚩 记录了 {len(unfinished_cids)} 个未完成 CID，生成补扫信标 ({UNFINISHED_FLAG})")
+    else:
+        print("✅ 所有 CID 已完美处理完毕！")
+
+    print("🛑 引擎安全退出，释放所有底层资源。", flush=True)
+    os._exit(0)
+
+if __name__ == "__main__":
+    mp.set_start_method('spawn')
+    main()
