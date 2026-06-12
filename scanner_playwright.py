@@ -57,6 +57,11 @@ def format_time(seconds):
     h, m = divmod(m, 60)
     return f"{h}h {m}m"
 
+# ========== 进程池共享计数器 ==========
+def init_globals(counter):
+    global shared_counter
+    shared_counter = counter
+
 # ========== 异步资源拦截器 ==========
 async def abort_route(route):
     if route.request.resource_type in ["image", "media", "font", "stylesheet"]:
@@ -101,9 +106,11 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
             
             try:
                 pw_timeout = min(WAIT_TIMEOUT * 1000, (deadline - time.time()) * 1000)
-                await page.goto(f"https://www.eeo.cn/s/a/?cid={cid}", timeout=pw_timeout, wait_until="commit")
+                # 【核心修复1】：为了 Vue.js 的 SPA 页面，改回 domcontentloaded
+                await page.goto(f"https://www.eeo.cn/s/a/?cid={cid}", timeout=pw_timeout, wait_until="domcontentloaded")
                 
-                try: await page.wait_for_selector("p.courseName, p.schoolName, body", timeout=1500)
+                # 【核心修复2】：去掉了 body，强制必须等到真正的元素渲染出来！
+                try: await page.wait_for_selector(".courseName, .schoolName, .courseTeacher, h1", timeout=2000)
                 except: pass
 
                 title = await page.title() or ""
@@ -122,8 +129,9 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                 invalid_marks = {"无", "-", "--", "---", "—", "_", ""}
                 school, class_name, teacher = "无", "无", "无"
 
-                if len(body_text.strip()) >= 50:
-                    # 1. 扩大寻找范围，加入 h2, h3 和常见变体
+                if len(body_text.strip()) >= 20: # 放宽字数限制，以防 Vue 页面字数少
+                    
+                    # 1. 抓取班级
                     for selector in ["p.courseName", ".courseName", "h1", "h2", "h3", ".title", ".course-title", ".class-name"]:
                         elem = await page.query_selector(selector)
                         if elem:
@@ -131,14 +139,17 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                             text = " ".join(text.split())
                             if text and len(text) >= 1: class_name = text; break
                             
-                    # 2. 终极标题兜底：如果没有 | 或 -，直接征用整个有效标题
                     if class_name in invalid_marks:
-                        if title and "Join the class" not in title and "eeo.cn" not in title and "ClassIn" not in title:
-                            if "|" in title: class_name = title.split("|")[-1].strip()
-                            elif "-" in title: class_name = title.split("-")[0].strip()
-                            else: class_name = title.strip() # <== 核心修复：直接拿来用！
+                        if title and "Join the class" not in title and "eeo.cn" not in title:
+                            clean_title = title.replace("- ClassIn", "").replace("-ClassIn", "").replace("ClassIn", "").strip()
+                            if "|" in clean_title: 
+                                class_name = clean_title.split("|")[-1].strip()
+                            elif "-" in clean_title: 
+                                class_name = clean_title.split("-")[0].strip()
+                            elif clean_title: 
+                                class_name = clean_title
 
-                    # 3. 抓取学校
+                    # 2. 抓取学校
                     for selector in ["p.schoolName", ".schoolName", ".orgName"]:
                         elem = await page.query_selector(selector)
                         if elem:
@@ -146,29 +157,42 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                             text = " ".join(text.split())
                             if text and len(text) >= 1: school = text; break
 
-                    # 4. 抓取教师
-                    for selector in [".teacherName", ".teaName", ".userName", ".nickName", ".teacher-name", "p.name"]:
+                    # 3. 抓取教师
+                    # 【核心修复3】：直接加入了你源码里的 .courseTeacher
+                    for selector in [".teacherName", ".teaName", ".userName", ".nickName", ".teacher-name", "p.name", ".courseTeacher"]:
                         elem = await page.query_selector(selector)
                         if elem:
                             text = (await elem.text_content() or "").strip()
                             text = " ".join(text.split())
+                            # 如果原生抓到类似 "教师： 徐飞腾"，直接清洗掉前缀
+                            if "教师：" in text or "授课教师：" in text:
+                                text = text.replace("授课教师：", "").replace("教师：", "").strip()
                             if text and len(text) >= 1: teacher = text; break
                                 
                     if teacher in invalid_marks or teacher == "教师" or "教师:" in teacher or "教师：" in teacher:
                         teacher = "无"
                         try:
-                            elems = await page.query_selector_all("p, div, span, label, li")
-                            for i in range(len(elems)):
-                                text = (await elems[i].text_content() or "").strip()
-                                text = " ".join(text.split())
-                                if text in ["教师：", "教师:", "授课教师：", "Teacher:"]:
-                                    if i + 1 < len(elems):
-                                        n_text = (await elems[i+1].text_content() or "").strip()
-                                        n_text = " ".join(n_text.split())
-                                        if n_text and 1 <= len(n_text) < 50: teacher = n_text; break
-                                elif "教师：" in text or "授课教师：" in text:
-                                    ext = text.replace("授课教师：", "").replace("教师：", "").strip()
-                                    if ext and 1 <= len(ext) < 50: teacher = ext; break
+                            js_code = '''() => {
+                                let els = document.querySelectorAll("p, div, span, label, li");
+                                for (let i=0; i<els.length; i++) {
+                                    let txt = (els[i].innerText || els[i].textContent || "").trim();
+                                    txt = txt.replace(/\\s+/g, " ");
+                                    if (txt === "教师：" || txt === "教师:" || txt === "授课教师：" || txt === "Teacher:") {
+                                        if (i + 1 < els.length) {
+                                            let n_text = (els[i+1].innerText || els[i+1].textContent || "").trim();
+                                            n_text = n_text.replace(/\\s+/g, " ");
+                                            if (n_text && n_text.length >= 1 && n_text.length < 50) return n_text;
+                                        }
+                                    } else if (txt.includes("教师：") || txt.includes("授课教师：")) {
+                                        let ext = txt.replace("授课教师：", "").replace("教师：", "").trim();
+                                        if (ext && ext.length >= 1 && ext.length < 50) return ext;
+                                    }
+                                }
+                                return "无";
+                            }'''
+                            t_eval = await page.evaluate(js_code)
+                            if t_eval and t_eval not in invalid_marks:
+                                teacher = t_eval
                         except: pass
 
                 if not (class_name in invalid_marks and school in invalid_marks):
