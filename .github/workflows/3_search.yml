@@ -11,17 +11,18 @@ on:
         required: true
         type: choice
         options:
-          - '严格且 (AND - 必须同时包含所有词)'
           - '通配或 (OR - 包含任意一个词即可)'
+          - '严格且 (AND - 必须同时包含所有词)'
           - '连贯原样 (EXACT - 完整匹配这一长串字)'
-          - '批量精准 CID (直接精确匹配输入的多个完整班级号)'
+          - '批量绝对相等 (BATCH - 专门用于大批量完整 CID 提取)'
       target_mode:
-        description: '扫描雷达 (解决 CID 数字误杀问题)'
+        description: '扫描雷达 (精确定位搜索区域)'
         required: true
         type: choice
         options:
-          - '查 学校/教师/班级 (排除 CID 干扰，最常用！)'
-          - '精准查 CID (只包含匹配即可)'
+          - '查 学校/班级 (排除 CID 干扰，最常用！)'
+          - '查 教师 (专属雷达)'
+          - '精准查 CID(批量) (只包含匹配即可)'
           - '全局模糊 (全文任何位置包含均可)'
 
 permissions:
@@ -68,9 +69,8 @@ jobs:
           elif "OR" in match_mode:
               mode = "OR"
               keywords = keyword_str.split()
-          elif "批量精准" in match_mode:
-              mode = "BATCH_CID"
-              # 专门的批量 CID 模式，切割关键词
+          elif "BATCH" in match_mode:
+              mode = "BATCH"
               keywords = keyword_str.split()
           else:
               mode = "EXACT"
@@ -88,29 +88,44 @@ jobs:
                           text = line.strip()
                           if not text: continue
 
-                          parts = text.split(maxsplit=1)
-                          cid = parts[0] if len(parts) > 0 else ""
-                          
-                          # 【核心新增】：如果是“批量精准 CID”模式，直接进行绝对全匹配，绕过雷达！
-                          if mode == "BATCH_CID":
-                              # 这里的 `in` 是判断 list，意味着只有 cid 完全等于你输入的某个词时，才会命中
-                              if cid in keywords:
-                                  results.append(text)
-                              continue
+                          # 【高级字段切分】：优先尝试使用 \t 切分最新版数据
+                          parts = text.split('\t')
+                          if len(parts) >= 5:
+                              cid = parts[0]
+                              url = parts[1]
+                              school = parts[2]
+                              teacher = parts[3]
+                              class_name = parts[4]
+                              content_text = f"{school} {teacher} {class_name}" # 兜底用的纯文本
+                          else:
+                              # 兼容历史遗留的旧版空格数据
+                              parts_space = text.split(maxsplit=1)
+                              cid = parts_space[0] if len(parts_space) > 0 else ""
+                              url = f"https://www.eeo.cn/s/a/?cid={cid}"
+                              content_text = text.replace(f"{cid} {url} ", "", 1)
+                              school = ""
+                              teacher = ""
+                              class_name = content_text
 
-                          # ---------------- 正常模式的定向雷达 ----------------
-                          url = f"https://www.eeo.cn/s/a/?cid={cid}"
-                          content_text = text.replace(f"{cid}\t{url}\t", "", 1).replace(f"{cid} {url} ", "", 1)
-
+                          # ---------------- 智能定向雷达 ----------------
                           if "精准查 CID" in target_mode:
                               search_text = cid
-                          elif "学校/教师/班级" in target_mode:
-                              search_text = content_text
+                          elif "查 教师" in target_mode:
+                              # 如果是新版数据，精确锁定 teacher 字段；如果是旧数据，在后面全部内容中找
+                              search_text = teacher if teacher else content_text
+                          elif "查 学校/班级" in target_mode:
+                              search_text = f"{school} {class_name}" if school else content_text
                           else:
-                              search_text = text 
+                              search_text = text # 全局模糊
 
+                          # ---------------- 核心匹配引擎 ----------------
                           is_match = False
-                          if mode == "AND":
+                          
+                          if mode == "BATCH":
+                              # 批量绝对相等匹配（防止搜 305 误杀 305123）
+                              if cid in keywords:
+                                  is_match = True
+                          elif mode == "AND":
                               is_match = all(k in search_text for k in keywords)
                           elif mode == "OR":
                               is_match = any(k in search_text for k in keywords)
