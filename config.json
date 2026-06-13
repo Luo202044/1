@@ -9,6 +9,6 @@
     "retry_delay": 0.3,
     "batch_size": 100,
     "max_retry_on_closed": 2,
-    "timeout_hours": 5.5,
+    "timeout_hours": 5.,
     "should_scan": true
 }
