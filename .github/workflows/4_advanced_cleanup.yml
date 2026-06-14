@@ -1,0 +1,172 @@
+name: "Workflow 4: 数据库高级清洗去重 (Advanced DB Cleanup)"
+
+on:
+  workflow_dispatch:
+    inputs:
+      blocklist:
+        description: '机构黑名单关键词 (多个请用逗号 "," 分隔)'
+        required: false
+        default: '测试,test,API,接口测试,体验机构'
+      enable_dedup:
+        description: '开启防机海战术去重 (相同学校+老师+班级只留最新一个)'
+        required: true
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+jobs:
+  advanced_cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 严格检出数据中台 (data 分支)
+        uses: actions/checkout@v4
+        with:
+          ref: data
+          fetch-depth: 0
+
+      - name: 运行高级 Python 清洗引擎
+        env:
+          BLOCKLIST: ${{ github.event.inputs.blocklist }}
+          ENABLE_DEDUP: ${{ github.event.inputs.enable_dedup }}
+        run: |
+          python << 'EOF'
+          import os, glob, shutil
+
+          db_dir = "data"
+          blocklist_input = os.environ.get("BLOCKLIST", "")
+          enable_dedup = os.environ.get("ENABLE_DEDUP", "true").lower() == "true"
+
+          # 格式化黑名单
+          blocklist = [w.strip().lower() for w in blocklist_input.replace('，', ',').split(',') if w.strip()]
+          print(f"🛡️ 当前生效的机构黑名单: {blocklist}")
+          print(f"♻️ 防机海战术强力去重: {'开启' if enable_dedup else '关闭'}\n")
+
+          if not os.path.exists(db_dir):
+              print("❌ 错误：未找到 data/ 文件夹，请确认分支是否正确。")
+              import sys
+              sys.exit(1)
+
+          all_records = []
+          txt_files = glob.glob(f"{db_dir}/*/*.txt") + glob.glob(f"{db_dir}/*.txt")
+          
+          for f in txt_files:
+              with open(f, 'r', encoding='utf-8') as file:
+                  for line in file:
+                      text = line.strip()
+                      if text:
+                          all_records.append(text)
+
+          print(f"📦 成功读取原始数据总量: {len(all_records)} 条，开始清洗...")
+
+          cleaned_records = {}
+          signature_map = {}  # 用于记录 signature -> cid
+          
+          blocked_count = 0
+          duplicate_count = 0
+          format_error_count = 0
+
+          for line in all_records:
+              parts = line.split('\t')
+              
+              # 剔除格式被破坏的数据
+              if len(parts) < 5:
+                  format_error_count += 1
+                  continue
+                  
+              cid, url, school, teacher, class_name = parts[:5]
+              
+              # --- 1. 机构黑名单核打击 ---
+              is_blocked = False
+              school_lower = school.lower()
+              for black_word in blocklist:
+                  if black_word in school_lower:
+                      is_blocked = True
+                      break
+                      
+              if is_blocked:
+                  blocked_count += 1
+                  continue
+
+              # --- 2. 防机海测试战术去重 ---
+              if not cid.isdigit():
+                  continue
+              cid_int = int(cid)
+
+              if enable_dedup:
+                  # 核心：学校+老师+班级名 作为特征指纹
+                  signature = f"{school}|{teacher}|{class_name}"
+                  
+                  if signature in signature_map:
+                      existing_cid = signature_map[signature]
+                      # 如果当前行的 CID 更大（更新），则替换掉老的
+                      if cid_int > existing_cid:
+                          del cleaned_records[existing_cid]
+                          signature_map[signature] = cid_int
+                          cleaned_records[cid_int] = line
+                          duplicate_count += 1
+                      else:
+                          # 当前行较老，作为垃圾抛弃
+                          duplicate_count += 1
+                  else:
+                      signature_map[signature] = cid_int
+                      cleaned_records[cid_int] = line
+              else:
+                  # 不开强力去重，只做基本的 CID 去重
+                  cleaned_records[cid_int] = line
+
+          # --- 重新打包写入双层路由 ---
+          sorted_cids = sorted(cleaned_records.keys())
+
+          shutil.rmtree(db_dir)
+          os.makedirs(db_dir, exist_ok=True)
+
+          chunk_size = 1200       
+          files_per_folder = 100  
+          total_files = 0
+          folder_idx = 0
+          
+          for i in range(0, len(sorted_cids), chunk_size):
+              chunk = sorted_cids[i:i+chunk_size]
+              
+              file_idx = i // chunk_size                
+              folder_idx = file_idx // files_per_folder 
+              
+              folder_path = f"{db_dir}/{folder_idx:03d}"
+              os.makedirs(folder_path, exist_ok=True)
+              
+              filename = f"{folder_path}/class_{file_idx:04d}.txt"
+              with open(filename, 'w', encoding='utf-8') as f:
+                  for cid in chunk:
+                      f.write(cleaned_records[cid] + "\n")
+              total_files += 1
+
+          print(f"\n====================================")
+          print(f"✨ 数据库高级清洗与瘦身完成！")
+          print(f"====================================")
+          print(f"▶️ 原始数据总量: {len(all_records)} 条")
+          print(f"🚫 黑名单摧毁数据: {blocked_count} 条")
+          print(f"♻️ 测试机海去重数据: {duplicate_count} 条")
+          if format_error_count > 0:
+              print(f"⚠️ 格式异常丢弃数据: {format_error_count} 条")
+          print(f"✅ 最终保留精华数据: {len(sorted_cids)} 条")
+          print(f"▶️ 重新生成规范文件: {total_files} 个")
+          EOF
+
+      - name: 提交瘦身后的数据并推回 data 分支
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git reset
+          git add data/
+          
+          COMMIT_TIME=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          
+          if git commit -m "🧹 高级清洗完毕: 摧毁黑名单与机海重复数据 ($COMMIT_TIME) [skip ci]"; then
+            git push origin data
+            echo "🎉 数据库瘦身成功，无用负担已彻底清除！"
+          else
+            echo "⚠️ 检查完毕：数据库非常纯净，没有发现黑名单和测试机海重复数据。"
+          fi
