@@ -67,7 +67,6 @@ jobs:
   scan_shard_first:
     needs: master
     runs-on: ubuntu-latest
-    timeout-minutes: 340
     strategy:
       fail-fast: false
       matrix:
@@ -172,7 +171,6 @@ jobs:
     needs: [master, collect_unfinished]
     if: needs.collect_unfinished.outputs.retry_matrix != '[]' && needs.collect_unfinished.outputs.retry_matrix != ''
     runs-on: ubuntu-latest
-    timeout-minutes: 340
     strategy:
       fail-fast: false
       matrix:
@@ -282,7 +280,6 @@ jobs:
     needs: [master, collect_unfinished_second]
     if: needs.collect_unfinished_second.outputs.retry2_matrix != '[]' && needs.collect_unfinished_second.outputs.retry2_matrix != ''
     runs-on: ubuntu-latest
-    timeout-minutes: 340
     strategy:
       fail-fast: false
       matrix:
@@ -321,7 +318,7 @@ jobs:
           path: data/*.txt
           if-no-files-found: warn
           retention-days: 1
-      - name: 上传最终遗留未完成CID (第三轮)
+      - name: 上传遗留未完成CID (第三轮)
         uses: actions/upload-artifact@v4
         with:
           name: unfinished-3-${{ matrix.retry2_idx }}
@@ -330,16 +327,125 @@ jobs:
           retention-days: 1
 
   # ==========================================
-  # 最终汇总汇报
+  # 第四轮：绝地清扫 (新增的第四层)
+  # ==========================================
+  collect_unfinished_third:
+    needs: scan_shard_third
+    if: always() && (needs.scan_shard_third.result == 'success' || needs.scan_shard_third.result == 'failure')
+    runs-on: ubuntu-latest
+    outputs:
+      retry3_matrix: ${{ steps.reshard3.outputs.retry3_matrix }}
+    steps:
+      - name: 下载未完成名单 (第三轮)
+        uses: actions/download-artifact@v4
+        with:
+          pattern: unfinished-3-*
+          path: unfinished_raw_3
+          merge-multiple: true
+      - name: 动态容量计算与重切分 (第四轮)
+        id: reshard3
+        run: |
+          python << 'EOF'
+          import os, json, math, glob
+          all_cids = set()
+          if os.path.exists("unfinished_raw_3"):
+              for f in glob.glob("unfinished_raw_3/*.txt"):
+                  with open(f, 'r', encoding='utf-8') as file:
+                      for line in file:
+                          line = line.strip()
+                          if line.isdigit(): all_cids.add(int(line))
+          cid_list = sorted(list(all_cids))
+          total = len(cid_list)
+          print(f"总计收集到 {total} 个需要第四轮绝地清扫的顽固 CID。")
+          retry_matrix = []
+          if total > 0:
+              TARGET_CHUNK_SIZE = 10000
+              MAX_SHARDS = 20
+              shards = math.ceil(total / TARGET_CHUNK_SIZE)
+              if shards > MAX_SHARDS: shards = MAX_SHARDS
+              actual_chunk_size = math.ceil(total / shards)
+              os.makedirs("retry3_chunks", exist_ok=True)
+              for i in range(shards):
+                  start = i * actual_chunk_size
+                  end = min(start + actual_chunk_size, total)
+                  if start >= total: break 
+                  chunk = cid_list[start:end]
+                  with open(f"retry3_chunks/retry3_{i}.txt", "w", encoding="utf-8") as out:
+                      for cid in chunk: out.write(f"{cid}\n")
+                  retry_matrix.append(str(i))
+          output = json.dumps(retry_matrix)
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as env_file:
+              env_file.write(f"retry3_matrix={output}\n")
+          EOF
+      - name: 上传补扫分片 (第四轮)
+        if: steps.reshard3.outputs.retry3_matrix != '[]'
+        uses: actions/upload-artifact@v4
+        with:
+          name: retry3-chunks
+          path: retry3_chunks/
+          retention-days: 1
+
+  scan_shard_fourth:
+    needs: [master, collect_unfinished_third]
+    if: needs.collect_unfinished_third.outputs.retry3_matrix != '[]' && needs.collect_unfinished_third.outputs.retry3_matrix != ''
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        retry3_idx: ${{ fromJson(needs.collect_unfinished_third.outputs.retry3_matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: 下载补扫名单 (第四轮)
+        uses: actions/download-artifact@v4
+        with:
+          name: retry3-chunks
+          path: retry3_chunks
+      - name: 生成补扫配置
+        run: |
+          echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[0]" | jq '. + {should_scan: true, cid_list_file: "retry3_chunks/retry3_${{ matrix.retry3_idx }}.txt"}' > config.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: 恢复 Playwright 缓存
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-chromium
+      - name: 安装依赖
+        run: |
+          pip install playwright psutil
+          playwright install chromium
+      - name: 补扫执行 (第四轮)
+        env:
+          PYTHONUNBUFFERED: 1
+          SHARD_IDX: retry3_${{ matrix.retry3_idx }}
+        run: python scanner_playwright.py
+      - name: 上传结果 (第四轮)
+        uses: actions/upload-artifact@v4
+        with:
+          name: fourth-ok-shard-${{ matrix.retry3_idx }}
+          path: data/*.txt
+          if-no-files-found: warn
+          retention-days: 1
+      - name: 上传最终遗留未完成CID (第四轮)
+        uses: actions/upload-artifact@v4
+        with:
+          name: unfinished-4-${{ matrix.retry3_idx }}
+          path: unfinished_cids_retry3_${{ matrix.retry3_idx }}.txt
+          if-no-files-found: ignore
+          retention-days: 1
+
+  # ==========================================
+  # 最终汇总汇报 (兼容四轮数据)
   # ==========================================
   final_upload:
-    needs: [master, scan_shard_first, scan_shard_second, scan_shard_third]
+    needs: [master, scan_shard_first, scan_shard_second, scan_shard_third, scan_shard_fourth]
     if: always() && !cancelled()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       
-      - name: 下载所有有效结果 (三轮合并)
+      - name: 下载所有有效结果 (四轮合并)
         uses: actions/download-artifact@v4
         with:
           pattern: '*-ok-*'
@@ -370,6 +476,14 @@ jobs:
           path: unfinished_3
           merge-multiple: true
         continue-on-error: true
+
+      - name: 下载未完成名单(四轮)
+        uses: actions/download-artifact@v4
+        with:
+          pattern: 'unfinished-4-*'
+          path: unfinished_4
+          merge-multiple: true
+        continue-on-error: true
         
       - name: 下载开始时间
         uses: actions/download-artifact@v4
@@ -387,7 +501,6 @@ jobs:
             if [ -s all_merged.txt ]; then
               sort -n -k1 all_merged.txt -o all_merged_sorted.txt
               mv all_merged_sorted.txt all_merged.txt
-              # 优化：使用 awk 提取第一列，完美兼容空格和制表符
               VALID_COUNT=$(awk '{print $1}' all_merged.txt | sort -u | wc -l)
               awk 'NR%600==1 {file=sprintf("final_data/part_%03d.txt", ++c)} {print > file}' all_merged.txt
               rm all_merged.txt
@@ -397,8 +510,9 @@ jobs:
           TOTAL="${{ needs.master.outputs.total_cids }}"
           UNFINISHED_COUNT=0
           
-          # 智能定位：自动寻找跑到最后一轮的遗留名单
-          if ls unfinished_3/*.txt 1> /dev/null 2>&1; then
+          if ls unfinished_4/*.txt 1> /dev/null 2>&1; then
+            cat unfinished_4/*.txt | sort -u > tmp_unfinished
+          elif ls unfinished_3/*.txt 1> /dev/null 2>&1; then
             cat unfinished_3/*.txt | sort -u > tmp_unfinished
           elif ls unfinished_2/*.txt 1> /dev/null 2>&1; then
             cat unfinished_2/*.txt | sort -u > tmp_unfinished
@@ -445,7 +559,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add final_data/
-          if git commit -m "最终扫描结果（三层极致补扫合并+统计报告） [skip ci]"; then
+          if git commit -m "最终扫描结果（四层极致补扫合并+统计报告） [skip ci]"; then
             git push
           else
             echo "无变更需要提交"
