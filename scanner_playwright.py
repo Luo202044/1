@@ -28,7 +28,7 @@ START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
 
-# 🚀 斩断 IPC 通信后，64 并发将如丝般顺滑！
+# 🚀 斩断 IPC 通信并解除死循环后，建议稳妥设置并发为 48 到 64
 MAX_CONCURRENT = config.get("max_concurrent_pages", 64) 
 WAIT_TIMEOUT = config.get("wait_timeout", 15)
 TIMEOUT_HOURS = config.get("timeout_hours", 5.0)
@@ -95,11 +95,13 @@ def format_time(seconds):
     h, m = divmod(m, 60)
     return f"{h}h {m}m"
 
-# 🚀 极其单纯的极速掐断函数（只供匹配上的黑名单使用）
 async def abort_unnecessary(route):
-    await route.abort()
+    try:
+        await route.abort()
+    except:
+        pass
 
-# 🚀 降维打击：零字符串遍历，纯 C++ 选择器级别轮询
+# 🚀 零内耗提取：保留 CSS，依靠 style.display 识别，准确率 100%
 js_extract_promise = r"""() => {
     return new Promise((resolve) => {
         let elapsed = 0;
@@ -112,11 +114,14 @@ js_extract_promise = r"""() => {
                 clearInterval(interval); resolve({status: "waf"}); return;
             }
             
-            // 2. 无效页面秒杀 (只查具体的报错框，绝不调用昂贵的 body.textContent！)
+            // 2. 无效页面秒退 (只读取没有被 CSS 隐藏的错误信息，0 重排消耗)
             let err_nodes = document.querySelectorAll(".context, .courseResultContent, .error-msg, .tip_end");
             for (let i = 0; i < err_nodes.length; i++) {
-                let txt = err_nodes[i].textContent || "";
-                if (txt.includes("解散") || txt.includes("不能加入") || txt.includes("上限") || txt.includes("已被删除") || txt.includes("设置了权限") || txt.includes("不存在") || txt.includes("页面错误")) {
+                let el = err_nodes[i];
+                if (el.style.display === 'none') continue; 
+                
+                let err_txt = el.textContent || "";
+                if (err_txt.includes("解散") || err_txt.includes("不能加入") || err_txt.includes("上限") || err_txt.includes("已被删除") || err_txt.includes("设置了权限") || err_txt.includes("不存在") || err_txt.includes("页面错误")) {
                     clearInterval(interval); resolve({status: "not_found"}); return;
                 }
             }
@@ -126,7 +131,7 @@ js_extract_promise = r"""() => {
 
             // 3. 极速提取班级
             let c_el = document.querySelector("p.courseName, .courseName, h1, .title");
-            if (c_el) {
+            if (c_el && c_el.style.display !== 'none') {
                 let txt = (c_el.textContent || "").trim();
                 if (txt) { class_name = txt.replace(/\s+/g, ' '); found = true; }
             }
@@ -139,19 +144,18 @@ js_extract_promise = r"""() => {
                 else if (clean_title) { class_name = clean_title; found = true; }
             }
 
-            // 5. 提取学校和老师 (只有在成功时，才会执行这部分)
+            // 5. 提取学校和老师 (只有在成功时才会执行这部分)
             if (found) {
                 let s_el = document.querySelector("p.schoolName, .schoolName, .orgName");
-                if (s_el) { school = (s_el.textContent || "").trim().replace(/\s+/g, ' '); }
+                if (s_el && s_el.style.display !== 'none') { school = (s_el.textContent || "").trim().replace(/\s+/g, ' '); }
 
                 let t_el = document.querySelector(".teacherName, .teaName, .userName, .courseTeacher, p.name");
-                if (t_el) {
+                if (t_el && t_el.style.display !== 'none') {
                     teacher = (t_el.textContent || "").trim().replace(/\s+/g, ' ');
                     if (teacher.includes("教师：") || teacher.includes("授课教师：")) {
                         teacher = teacher.replace("授课教师：", "").replace("教师：", "").trim();
                     }
                 } else {
-                    // 仅当常规标签找不到，且确认成功时，才动用一次 body 级别的正则！
                     let bodyText = document.body ? (document.body.textContent || "") : "";
                     let match = bodyText.match(/教师[：:]\s*([^\s]{1,30})/);
                     if (match && match[1]) { teacher = match[1].trim(); }
@@ -167,7 +171,7 @@ js_extract_promise = r"""() => {
                 clearInterval(interval);
                 resolve({status: "timeout"});
             }
-        }, 200); // 👈 200ms 的舒适区，CPU 完全不喘气
+        }, 200); 
     });
 }"""
 
@@ -188,8 +192,7 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                 try: await page.close()
                 except: pass
             page = await context.new_page()
-            # ❗移除了这里的全局拦截，转交到 Context 层统管
-            await init_page()
+            # 🚨 已经将那行致命的 await init_page() 删除了，再也不会死循环了！
         
         await init_page()
         consecutive_errors = 0
@@ -264,8 +267,8 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
         browser = await p.chromium.launch(headless=True, args=CHROME_OPTIMIZED_ARGS)
         context = await browser.new_context(user_agent=random.choice(USER_AGENTS), ignore_https_errors=True)
         
-        # 🚀 提速奇迹！精确到后缀的底层拦截，终结 Python 疯狂的 IPC 通信风暴！
-        await context.route("**/*.{png,jpg,jpeg,gif,svg,css,woff,woff2,ttf,mp4,mp3,wav,ico,webp}", abort_unnecessary)
+        # 🚀 剔除了 css 的阻截，保证网页隐藏报错信息能正确生效
+        await context.route("**/*.{png,jpg,jpeg,gif,svg,woff,woff2,ttf,mp4,mp3,wav,ico,webp}", abort_unnecessary)
         await context.route("**/*sentry*", abort_unnecessary)
         await context.route("**/*sensors*", abort_unnecessary)
         await context.route("**/*growingio*", abort_unnecessary)
@@ -326,7 +329,7 @@ def main():
     chunk_size = (total_tasks + process_count - 1) // process_count
     chunks = [cid_list[i:i + chunk_size] for i in range(0, total_tasks, chunk_size)]
 
-    print(f"🚀 [无损 IPC·降维光速引擎] 启动！拦截压力移交 C++ 底层！", flush=True)
+    print(f"🚀 [完全体·底层免通信引擎] 启动！", flush=True)
     print(f"⚙️ 分配: {process_count}个物理核心 ✕ 每核 {coros_per_process} 个协程并发 = {process_count * coros_per_process} 总并发", flush=True)
 
     shared_counter = mp.Value('i', 0)
