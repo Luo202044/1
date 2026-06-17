@@ -28,8 +28,8 @@ START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
 
-# 建议在 config.json 配合此脚本设置为 40~48
-MAX_CONCURRENT = config.get("max_concurrent_pages", 40) 
+# CPU 达到 100% 说明遇到物理瓶颈，建议并发设为 32。这能让网络请求有足够的 CPU 切片去完成
+MAX_CONCURRENT = config.get("max_concurrent_pages", 32) 
 WAIT_TIMEOUT = config.get("wait_timeout", 15)
 TIMEOUT_HOURS = config.get("timeout_hours", 5.0)
 TIMEOUT_SECONDS = TIMEOUT_HOURS * 3600
@@ -95,27 +95,29 @@ def format_time(seconds):
     h, m = divmod(m, 60)
     return f"{h}h {m}m"
 
-# 🚀 提速核心1：原生级别 AdBlocker，掐断所有吸血的第三方 JS 和无用资源
+# 🚀 修复误杀：只拦截最明确的垃圾资源，确保 Vue 的 API 能顺利返回数据
 async def abort_route(route):
     try:
         req_type = route.request.resource_type
         url = route.request.url.lower()
         
-        # 拦截多媒体、字体、样式和无用长链接
         if req_type in ["image", "media", "font", "stylesheet", "websocket", "eventsource", "manifest"]:
             await route.abort()
-        # 拦截极其消耗 CPU 的数据埋点和统计 JS
-        elif any(x in url for x in ["google-analytics", "baidu", "sentry", "sensors", "growingio", "track", "log"]):
+            return
+            
+        if any(x in url for x in ["google-analytics", "sentry", "growingio", "sensorsdata", "baidu.com"]):
             await route.abort()
-        else:
-            await route.continue_()
-    except:
+            return
+            
         await route.continue_()
+    except:
+        pass
 
-# 🚀 提速核心2：750ms 快刀斩乱麻轮询引擎
+# 🚀 稳健提速核心：2.1秒生命线 + 150ms 轮询 + 极速秒退
 js_extract_promise = r"""() => {
     return new Promise((resolve) => {
         let elapsed = 0;
+        // 降低轮询频率到 150ms，大幅释放 CPU 压力
         let interval = setInterval(() => {
             let title = document.title || "";
             let lower_title = title.toLowerCase();
@@ -129,10 +131,23 @@ js_extract_promise = r"""() => {
                 }
             }
 
+            // 2. 精准无效页面秒退机制 (发现死链接直接0.15秒内退出，绝不浪费时间)
+            let err_el = document.querySelector(".context, .courseResultContent, .error-msg, .tip_end");
+            if (err_el) {
+                let err_txt = err_el.textContent || "";
+                let failure_keywords = ["解散", "不能加入", "人数已达上限", "已被删除", "设置了权限", "不存在", "页面错误", "dismissed"];
+                for (let k of failure_keywords) {
+                     if (err_txt.includes(k)) {
+                         clearInterval(interval);
+                         resolve({status: "not_found"}); return;
+                     }
+                }
+            }
+
             let class_name = "无", school = "无", teacher = "无";
             let found = false;
 
-            // 2. 寻找成功标识 
+            // 3. 寻找成功标识 
             let c_el = document.querySelector("p.courseName, .courseName, h1, h2, h3, .title, .course-title, .class-name");
             if (c_el && (c_el.textContent || "").trim().length >= 1) {
                 class_name = (c_el.textContent || "").trim().replace(/\s+/g, ' ');
@@ -146,7 +161,7 @@ js_extract_promise = r"""() => {
                 else if (clean_title) { class_name = clean_title; found = true; }
             }
 
-            // 3. 提取有效数据
+            // 4. 提取有效数据
             if (found) {
                 let s_el = document.querySelector("p.schoolName, .schoolName, .orgName");
                 if(s_el) { school = (s_el.textContent || "").trim().replace(/\s+/g, ' '); }
@@ -185,26 +200,13 @@ js_extract_promise = r"""() => {
                 resolve({status: "success", class_name, school, teacher}); return;
             }
 
-            // 4. 精准无效页面秒退机制 
-            let err_el = document.querySelector(".context, .courseResultContent, .error-msg, .tip_end");
-            if (err_el) {
-                let err_txt = err_el.textContent || "";
-                let failure_keywords = ["班级解散", "不能加入", "人数已达上限", "已被删除", "设置了权限", "不存在", "页面错误"];
-                for (let k of failure_keywords) {
-                     if (err_txt.includes(k)) {
-                         clearInterval(interval);
-                         resolve({status: "not_found"}); return;
-                     }
-                }
-            }
-
-            // 5. 极致缩短的超时断头台！从 1200ms 降至 750ms！
-            elapsed += 75;
-            if (elapsed >= 750) {
+            // 5. 超时判定: 放宽至 2100ms，确保 API 有时间响应！
+            elapsed += 150;
+            if (elapsed >= 2100) {
                 clearInterval(interval);
                 resolve({status: "timeout"});
             }
-        }, 75);
+        }, 150);
     });
 }"""
 
@@ -243,10 +245,9 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
             in_flight_cids.add(cid)
             
             try:
-                # 即使是死链接，超时也锁死在极短的时间内
-                pw_timeout = min(4000, (deadline - time.time()) * 1000)
-                
-                await page.goto(f"https://www.eeo.cn/s/a/?cid={cid}", timeout=pw_timeout, wait_until="commit")
+                # 恢复 domcontentloaded，确保页面的 JS 执行上下文完全准备好
+                pw_timeout = min(5000, (deadline - time.time()) * 1000)
+                await page.goto(f"https://www.eeo.cn/s/a/?cid={cid}", timeout=pw_timeout, wait_until="domcontentloaded")
                 
                 data = await page.evaluate(js_extract_promise)
                 status = data.get('status', 'timeout')
@@ -355,7 +356,7 @@ def main():
     chunk_size = (total_tasks + process_count - 1) // process_count
     chunks = [cid_list[i:i + chunk_size] for i in range(0, total_tasks, chunk_size)]
 
-    print(f"🚀 [750ms极限断头台·净网引擎] 启动！拦截一切无用埋点，榨干最后潜能！", flush=True)
+    print(f"🚀 [精准回旋·零漏抓引擎] 启动！恢复 API 渲染窗口，稳定压倒一切！", flush=True)
     print(f"⚙️ 分配: {process_count}个物理核心 ✕ 每核 {coros_per_process} 个协程并发 = {process_count * coros_per_process} 总并发", flush=True)
 
     shared_counter = mp.Value('i', 0)
