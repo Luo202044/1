@@ -28,8 +28,8 @@ START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
 
-# CPU 达到 100% 说明遇到物理瓶颈，建议并发设为 32。这能让网络请求有足够的 CPU 切片去完成
-MAX_CONCURRENT = config.get("max_concurrent_pages", 32) 
+# 🚀 此版本已修复误杀与瓶颈，请在 config.json 放心调至 40 或 48 并发！
+MAX_CONCURRENT = config.get("max_concurrent_pages", 48) 
 WAIT_TIMEOUT = config.get("wait_timeout", 15)
 TIMEOUT_HOURS = config.get("timeout_hours", 5.0)
 TIMEOUT_SECONDS = TIMEOUT_HOURS * 3600
@@ -95,7 +95,6 @@ def format_time(seconds):
     h, m = divmod(m, 60)
     return f"{h}h {m}m"
 
-# 🚀 修复误杀：只拦截最明确的垃圾资源，确保 Vue 的 API 能顺利返回数据
 async def abort_route(route):
     try:
         req_type = route.request.resource_type
@@ -113,11 +112,10 @@ async def abort_route(route):
     except:
         pass
 
-# 🚀 稳健提速核心：2.1秒生命线 + 150ms 轮询 + 极速秒退
+# 🚀 拨乱反正版 JS 轮询：严格核对可见性，杜绝隐藏组件误杀！
 js_extract_promise = r"""() => {
     return new Promise((resolve) => {
         let elapsed = 0;
-        // 降低轮询频率到 150ms，大幅释放 CPU 压力
         let interval = setInterval(() => {
             let title = document.title || "";
             let lower_title = title.toLowerCase();
@@ -131,16 +129,18 @@ js_extract_promise = r"""() => {
                 }
             }
 
-            // 2. 精准无效页面秒退机制 (发现死链接直接0.15秒内退出，绝不浪费时间)
-            let err_el = document.querySelector(".context, .courseResultContent, .error-msg, .tip_end");
-            if (err_el) {
-                let err_txt = err_el.textContent || "";
-                let failure_keywords = ["解散", "不能加入", "人数已达上限", "已被删除", "设置了权限", "不存在", "页面错误", "dismissed"];
-                for (let k of failure_keywords) {
-                     if (err_txt.includes(k)) {
-                         clearInterval(interval);
-                         resolve({status: "not_found"}); return;
-                     }
+            // 2. 精准无效页面秒退机制 【核心修复：必须 offsetHeight > 0 才是真报错！】
+            let err_nodes = document.querySelectorAll(".context, .courseResultContent, .error-msg, .tip_end");
+            for (let el of err_nodes) {
+                if (el && el.offsetHeight > 0) { // 👈 只有眼睛能看见的错误，才是真错误！
+                    let err_txt = el.innerText || "";
+                    let failure_keywords = ["解散", "不能加入", "人数已达上限", "已被删除", "设置了权限", "不存在", "页面错误", "dismissed"];
+                    for (let k of failure_keywords) {
+                         if (err_txt.includes(k)) {
+                             clearInterval(interval);
+                             resolve({status: "not_found"}); return;
+                         }
+                    }
                 }
             }
 
@@ -149,8 +149,8 @@ js_extract_promise = r"""() => {
 
             // 3. 寻找成功标识 
             let c_el = document.querySelector("p.courseName, .courseName, h1, h2, h3, .title, .course-title, .class-name");
-            if (c_el && (c_el.textContent || "").trim().length >= 1) {
-                class_name = (c_el.textContent || "").trim().replace(/\s+/g, ' ');
+            if (c_el && c_el.offsetHeight > 0 && (c_el.innerText || "").trim().length >= 1) {
+                class_name = (c_el.innerText || "").trim().replace(/\s+/g, ' ');
                 found = true;
             }
 
@@ -164,14 +164,14 @@ js_extract_promise = r"""() => {
             // 4. 提取有效数据
             if (found) {
                 let s_el = document.querySelector("p.schoolName, .schoolName, .orgName");
-                if(s_el) { school = (s_el.textContent || "").trim().replace(/\s+/g, ' '); }
+                if (s_el && s_el.offsetHeight > 0) { school = (s_el.innerText || "").trim().replace(/\s+/g, ' '); }
 
                 let t_selectors = [".teacherName", ".teaName", ".userName", ".nickName", ".teacher-name", "p.name", ".courseTeacher"];
-                for(let s of t_selectors){
+                for (let s of t_selectors) {
                     let t_el = document.querySelector(s);
-                    if(t_el && (t_el.textContent || "").trim().length >= 1){
-                        teacher = (t_el.textContent || "").trim().replace(/\s+/g, ' ');
-                        if(teacher.includes("教师：") || teacher.includes("授课教师：")){
+                    if (t_el && t_el.offsetHeight > 0 && (t_el.innerText || "").trim().length >= 1) {
+                        teacher = (t_el.innerText || "").trim().replace(/\s+/g, ' ');
+                        if (teacher.includes("教师：") || teacher.includes("授课教师：")) {
                             teacher = teacher.replace("授课教师：", "").replace("教师：", "").trim();
                         }
                         break;
@@ -183,10 +183,11 @@ js_extract_promise = r"""() => {
                      teacher = "无";
                      let els = document.querySelectorAll("p, div, span, label, li");
                      for (let i=0; i<els.length; i++) {
-                         let txt = (els[i].textContent || "").trim().replace(/\s+/g, " ");
+                         if (els[i].offsetHeight === 0) continue; // 👈 忽略隐藏元素
+                         let txt = (els[i].innerText || "").trim().replace(/\s+/g, " ");
                          if (txt === "教师：" || txt === "教师:" || txt === "授课教师：" || txt === "Teacher:") {
-                             if (i + 1 < els.length) {
-                                 let n_text = (els[i+1].textContent || "").trim().replace(/\s+/g, " ");
+                             if (i + 1 < els.length && els[i+1].offsetHeight > 0) {
+                                 let n_text = (els[i+1].innerText || "").trim().replace(/\s+/g, " ");
                                  if (n_text && n_text.length >= 1 && n_text.length < 50) { teacher = n_text; break; }
                              }
                          } else if (txt.includes("教师：") || txt.includes("授课教师：")) {
@@ -200,13 +201,13 @@ js_extract_promise = r"""() => {
                 resolve({status: "success", class_name, school, teacher}); return;
             }
 
-            // 5. 超时判定: 放宽至 2100ms，确保 API 有时间响应！
-            elapsed += 150;
-            if (elapsed >= 2100) {
+            // 5. 超时判定: 保护性等待 1.8 秒
+            elapsed += 100;
+            if (elapsed >= 1800) {
                 clearInterval(interval);
                 resolve({status: "timeout"});
             }
-        }, 150);
+        }, 100);
     });
 }"""
 
@@ -245,9 +246,9 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
             in_flight_cids.add(cid)
             
             try:
-                # 恢复 domcontentloaded，确保页面的 JS 执行上下文完全准备好
-                pw_timeout = min(5000, (deadline - time.time()) * 1000)
-                await page.goto(f"https://www.eeo.cn/s/a/?cid={cid}", timeout=pw_timeout, wait_until="domcontentloaded")
+                # 🚀 恢复 "commit" 极速秒加载模式，把一切都交给底层 JS 处理！
+                pw_timeout = min(4000, (deadline - time.time()) * 1000)
+                await page.goto(f"https://www.eeo.cn/s/a/?cid={cid}", timeout=pw_timeout, wait_until="commit")
                 
                 data = await page.evaluate(js_extract_promise)
                 status = data.get('status', 'timeout')
@@ -265,7 +266,7 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                     if not (class_name in invalid_marks and school in invalid_marks):
                         line = f"{cid}\thttps://www.eeo.cn/s/a/?cid={cid}\t{school}\t{teacher}\t{class_name}\n"
                         results.append(line)
-                        print(f"✅ [发现] P{process_id}-C{coro_id:02d} | {cid} | 🏫 {school} | 🧑‍🏫 {teacher} | 🎓 {class_name}", flush=True)
+                        print(f"✅ [发现] P{process_id}-C{coro_id:02d} | {cid} | 🏫 {school} | 🧑🏫 {teacher} | 🎓 {class_name}", flush=True)
 
                 consecutive_errors = 0
 
@@ -356,7 +357,7 @@ def main():
     chunk_size = (total_tasks + process_count - 1) // process_count
     chunks = [cid_list[i:i + chunk_size] for i in range(0, total_tasks, chunk_size)]
 
-    print(f"🚀 [精准回旋·零漏抓引擎] 启动！恢复 API 渲染窗口，稳定压倒一切！", flush=True)
+    print(f"🚀 [视觉判定过滤引擎] 启动！彻底杜绝隐藏框架干扰！", flush=True)
     print(f"⚙️ 分配: {process_count}个物理核心 ✕ 每核 {coros_per_process} 个协程并发 = {process_count * coros_per_process} 总并发", flush=True)
 
     shared_counter = mp.Value('i', 0)
