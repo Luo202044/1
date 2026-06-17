@@ -28,8 +28,8 @@ START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
 
-# 建议在 config.json 配合此脚本设置为 32~40。
-MAX_CONCURRENT = config.get("max_concurrent_pages", 32) 
+# 建议在 config.json 配合此脚本设置为 40~48
+MAX_CONCURRENT = config.get("max_concurrent_pages", 40) 
 WAIT_TIMEOUT = config.get("wait_timeout", 15)
 TIMEOUT_HOURS = config.get("timeout_hours", 5.0)
 TIMEOUT_SECONDS = TIMEOUT_HOURS * 3600
@@ -95,22 +95,32 @@ def format_time(seconds):
     h, m = divmod(m, 60)
     return f"{h}h {m}m"
 
+# 🚀 提速核心1：原生级别 AdBlocker，掐断所有吸血的第三方 JS 和无用资源
 async def abort_route(route):
-    if route.request.resource_type in ["image", "media", "font", "stylesheet"]:
-        await route.abort()
-    else:
+    try:
+        req_type = route.request.resource_type
+        url = route.request.url.lower()
+        
+        # 拦截多媒体、字体、样式和无用长链接
+        if req_type in ["image", "media", "font", "stylesheet", "websocket", "eventsource", "manifest"]:
+            await route.abort()
+        # 拦截极其消耗 CPU 的数据埋点和统计 JS
+        elif any(x in url for x in ["google-analytics", "baidu", "sentry", "sensors", "growingio", "track", "log"]):
+            await route.abort()
+        else:
+            await route.continue_()
+    except:
         await route.continue_()
 
-# ========== 极限黑科技：无 CSS 重排 JS 轮询 ==========
+# 🚀 提速核心2：750ms 快刀斩乱麻轮询引擎
 js_extract_promise = r"""() => {
     return new Promise((resolve) => {
         let elapsed = 0;
-        // 【提速核心1】：将轮询频率从 50ms 放宽到 100ms，CPU 开销瞬间减半
         let interval = setInterval(() => {
             let title = document.title || "";
             let lower_title = title.toLowerCase();
 
-            // 1. 深度风控拦截侦测 (仅靠 title 极速判断)
+            // 1. 深度风控拦截侦测 
             let waf_keywords = ["just a moment", "access denied", "attention required", "security", "403", "404", "拦截", "验证码", "error", "cloudflare", "verify you are human", "滑动验证"];
             for (let k of waf_keywords) {
                 if (lower_title.includes(k)) {
@@ -119,11 +129,10 @@ js_extract_promise = r"""() => {
                 }
             }
 
-            // 【提速核心2】：彻底弃用 innerText，改用 querySelector + textContent，实现 0 排版消耗
             let class_name = "无", school = "无", teacher = "无";
             let found = false;
 
-            // 2. 优先寻找成功标识 (直接定位核心元素)
+            // 2. 寻找成功标识 
             let c_el = document.querySelector("p.courseName, .courseName, h1, h2, h3, .title, .course-title, .class-name");
             if (c_el && (c_el.textContent || "").trim().length >= 1) {
                 class_name = (c_el.textContent || "").trim().replace(/\s+/g, ' ');
@@ -137,7 +146,7 @@ js_extract_promise = r"""() => {
                 else if (clean_title) { class_name = clean_title; found = true; }
             }
 
-            // 3. 一旦确认是有效班级，提取并极速返回
+            // 3. 提取有效数据
             if (found) {
                 let s_el = document.querySelector("p.schoolName, .schoolName, .orgName");
                 if(s_el) { school = (s_el.textContent || "").trim().replace(/\s+/g, ' '); }
@@ -176,7 +185,7 @@ js_extract_promise = r"""() => {
                 resolve({status: "success", class_name, school, teacher}); return;
             }
 
-            // 4. 精准无效页面秒退机制 (只抓取特定的错误框，不去扫描全网页)
+            // 4. 精准无效页面秒退机制 
             let err_el = document.querySelector(".context, .courseResultContent, .error-msg, .tip_end");
             if (err_el) {
                 let err_txt = err_el.textContent || "";
@@ -189,13 +198,13 @@ js_extract_promise = r"""() => {
                 }
             }
 
-            // 5. 超时判定 
-            elapsed += 100;
-            if (elapsed >= 1200) {
+            // 5. 极致缩短的超时断头台！从 1200ms 降至 750ms！
+            elapsed += 75;
+            if (elapsed >= 750) {
                 clearInterval(interval);
                 resolve({status: "timeout"});
             }
-        }, 100);
+        }, 75);
     });
 }"""
 
@@ -234,8 +243,9 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
             in_flight_cids.add(cid)
             
             try:
-                pw_timeout = min(WAIT_TIMEOUT * 1000, (deadline - time.time()) * 1000)
-                # 【提速核心3】：最极端的等待策略。只要拿到头部响应，立刻释放控制权，交给 JS 去等！
+                # 即使是死链接，超时也锁死在极短的时间内
+                pw_timeout = min(4000, (deadline - time.time()) * 1000)
+                
                 await page.goto(f"https://www.eeo.cn/s/a/?cid={cid}", timeout=pw_timeout, wait_until="commit")
                 
                 data = await page.evaluate(js_extract_promise)
@@ -345,7 +355,7 @@ def main():
     chunk_size = (total_tasks + process_count - 1) // process_count
     chunks = [cid_list[i:i + chunk_size] for i in range(0, total_tasks, chunk_size)]
 
-    print(f"🚀 [0排版重绘·超光速引擎] 启动！彻底解放 100% CPU 算力！", flush=True)
+    print(f"🚀 [750ms极限断头台·净网引擎] 启动！拦截一切无用埋点，榨干最后潜能！", flush=True)
     print(f"⚙️ 分配: {process_count}个物理核心 ✕ 每核 {coros_per_process} 个协程并发 = {process_count * coros_per_process} 总并发", flush=True)
 
     shared_counter = mp.Value('i', 0)
