@@ -28,8 +28,7 @@ START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
 
-# 🚀 突破极限：由于更换了零开销的 JS 注入引擎，并发可以直接拉高到 80！
-MAX_CONCURRENT = config.get("max_concurrent_pages", 80)
+MAX_CONCURRENT = config.get("max_concurrent_pages", 32) # 建议改为 24~32 以降低 CPU 切换内耗
 WAIT_TIMEOUT = config.get("wait_timeout", 15)
 TIMEOUT_HOURS = config.get("timeout_hours", 5.0)
 TIMEOUT_SECONDS = TIMEOUT_HOURS * 3600
@@ -50,6 +49,44 @@ USER_AGENTS = [
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
 ]
 
+# 🚀 爬虫界顶级 Chromium 性能阉割参数（彻底释放 CPU）
+CHROME_OPTIMIZED_ARGS = [
+    "--disable-gpu",
+    "--disable-dev-shm-usage",
+    "--no-sandbox",
+    "--disable-background-networking",
+    "--disable-background-timer-throttling",
+    "--disable-backgrounding-occluded-windows",
+    "--disable-breakpad",
+    "--disable-component-update",
+    "--disable-default-apps",
+    "--disable-domain-reliability",
+    "--disable-extensions",
+    "--disable-features=AudioServiceOutOfProcess",
+    "--disable-hang-monitor",
+    "--disable-ipc-flooding-protection",
+    "--disable-notifications",
+    "--disable-offer-store-unmasked-wallet-cards",
+    "--disable-popup-blocking",
+    "--disable-print-preview",
+    "--disable-prompt-on-repost",
+    "--disable-renderer-backgrounding",
+    "--disable-setuid-sandbox",
+    "--disable-speech-api",
+    "--disable-sync",
+    "--hide-scrollbars",
+    "--ignore-gpu-blacklist",
+    "--metrics-recording-only",
+    "--mute-audio",
+    "--no-default-browser-check",
+    "--no-first-run",
+    "--no-pings",
+    "--no-zygote",
+    "--password-store=basic",
+    "--use-gl=swiftshader",
+    "--use-mock-keychain"
+]
+
 def format_time(seconds):
     if seconds < 0: return "0s"
     if seconds < 60: return f"{int(seconds)}s"
@@ -58,25 +95,18 @@ def format_time(seconds):
     h, m = divmod(m, 60)
     return f"{h}h {m}m"
 
-def init_globals(counter):
-    global shared_counter
-    shared_counter = counter
-
 async def abort_route(route):
     if route.request.resource_type in ["image", "media", "font", "stylesheet"]:
         await route.abort()
     else:
         await route.continue_()
 
-# ========== 核心黑科技：浏览器端原生 JS 提取引擎 ==========
-# 这段 JS 会在浏览器底层瞬间执行完毕，将 15 次通信压缩为 1 次，零 CPU 损耗！
 js_extract = r"""() => {
     let text = document.body ? (document.body.innerText || "") : "";
     let title = document.title || "";
     let lower_title = title.toLowerCase();
     let lower_text = text.toLowerCase();
 
-    // 风控侦测
     let waf_keywords = ["just a moment", "access denied", "attention required", "security", "403", "404", "拦截", "验证码", "error", "cloudflare", "verify you are human", "滑动验证"];
     let is_waf = false;
     for (let k of waf_keywords) {
@@ -93,7 +123,6 @@ js_extract = r"""() => {
         return {is_waf: false, class_name, school, teacher, title};
     }
 
-    // 抓取班级
     let c_selectors = ["p.courseName", ".courseName", "h1", "h2", "h3", ".title", ".course-title", ".class-name"];
     for(let s of c_selectors){
         let el = document.querySelector(s);
@@ -103,7 +132,6 @@ js_extract = r"""() => {
         }
     }
 
-    // 抓取学校
     let s_selectors = ["p.schoolName", ".schoolName", ".orgName"];
     for(let s of s_selectors){
         let el = document.querySelector(s);
@@ -113,7 +141,6 @@ js_extract = r"""() => {
         }
     }
 
-    // 抓取教师
     let t_selectors = [".teacherName", ".teaName", ".userName", ".nickName", ".teacher-name", "p.name", ".courseTeacher"];
     for(let s of t_selectors){
         let el = document.querySelector(s);
@@ -126,7 +153,6 @@ js_extract = r"""() => {
         }
     }
 
-    // 教师跨行智能兜底
     let invalid_marks = ["无", "-", "--", "---", "—", "_", ""];
     let needs_fallback = invalid_marks.includes(teacher) || teacher === "教师" || teacher.includes("教师:") || teacher.includes("教师：");
 
@@ -150,7 +176,6 @@ js_extract = r"""() => {
     return {is_waf, class_name, school, teacher, title};
 }"""
 
-# ========== 单个进程内的异步爬虫逻辑 ==========
 async def async_process_worker(process_id, cid_chunk, concurrency, deadline, shared_counter):
     in_flight_cids = set()
     results = []
@@ -189,11 +214,9 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                 pw_timeout = min(WAIT_TIMEOUT * 1000, (deadline - time.time()) * 1000)
                 await page.goto(f"https://www.eeo.cn/s/a/?cid={cid}", timeout=pw_timeout, wait_until="domcontentloaded")
                 
-                # 缩短等待僵死时间：如果有效，1.2秒足够 Vue 渲染完毕。超时直接判定无效，不再傻等 2 秒
                 try: await page.wait_for_selector(".courseName, .schoolName, .courseTeacher, h1", timeout=1200)
                 except: pass
 
-                # 🚀 瞬间提速点：一键注入，1毫秒内拿到所有结果
                 data = await page.evaluate(js_extract)
                 
                 if data.get('is_waf'):
@@ -208,7 +231,6 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
 
                 invalid_marks = {"无", "-", "--", "---", "—", "_", ""}
 
-                # 标题兜底逻辑
                 if class_name in invalid_marks:
                     if title and "Join the class" not in title and "eeo.cn" not in title:
                         clean_title = title.replace("- ClassIn", "").replace("-ClassIn", "").replace("ClassIn", "").strip()
@@ -257,7 +279,8 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
             except: pass
 
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=True, args=["--disable-gpu", "--disable-dev-shm-usage", "--no-sandbox"])
+        # 【应用极限参数】：全面封杀不必要的 Chrome 进程
+        browser = await p.chromium.launch(headless=True, args=CHROME_OPTIMIZED_ARGS)
         context = await browser.new_context(user_agent=random.choice(USER_AGENTS), ignore_https_errors=True)
         
         tasks = [asyncio.create_task(fetcher(i, context)) for i in range(concurrency)]
@@ -313,7 +336,7 @@ def main():
     chunk_size = (total_tasks + process_count - 1) // process_count
     chunks = [cid_list[i:i + chunk_size] for i in range(0, total_tasks, chunk_size)]
 
-    print(f"🚀 [JS注入·极致引擎] 启动！", flush=True)
+    print(f"🚀 [极致降载引擎] 启动！开启 34 项 Chromium 底层优化！", flush=True)
     print(f"⚙️ 分配: {process_count}个物理核心 ✕ 每核 {coros_per_process} 个协程并发 = {process_count * coros_per_process} 总并发", flush=True)
 
     shared_counter = mp.Value('i', 0)
