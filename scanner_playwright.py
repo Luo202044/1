@@ -28,7 +28,7 @@ START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
 
-# 🚀 降频释压后，4核机器可以完美吃满 64 并发
+# 🚀 斩断 IPC 通信后，64 并发将如丝般顺滑！
 MAX_CONCURRENT = config.get("max_concurrent_pages", 64) 
 WAIT_TIMEOUT = config.get("wait_timeout", 15)
 TIMEOUT_HOURS = config.get("timeout_hours", 5.0)
@@ -95,48 +95,28 @@ def format_time(seconds):
     h, m = divmod(m, 60)
     return f"{h}h {m}m"
 
-# 🚀 提速核心1：终极白名单拦截！不仅拦截类型，还拦截域名！
-async def abort_route(route):
-    try:
-        req_type = route.request.resource_type
-        url = route.request.url.lower()
-        
-        # 拦截极其拖慢速度的无用资源
-        if req_type in ["image", "media", "font", "websocket", "eventsource", "manifest"]:
-            await route.abort()
-            return
-            
-        # 【白名单模式】只允许官方的 eeo.cn 和 classin 域名通行，其它任何第三方的杂七杂八 JS 和统计全军覆没！
-        if not ("eeo.cn" in url or "classin" in url):
-            await route.abort()
-            return
-            
-        await route.continue_()
-    except:
-        pass
+# 🚀 极其单纯的极速掐断函数（只供匹配上的黑名单使用）
+async def abort_unnecessary(route):
+    await route.abort()
 
-# 🚀 提速核心2：400ms 超低频轮询，彻底释放 CPU 堵塞
+# 🚀 降维打击：零字符串遍历，纯 C++ 选择器级别轮询
 js_extract_promise = r"""() => {
     return new Promise((resolve) => {
         let elapsed = 0;
-        // 【核心修改】频率降至 400ms，让 CPU 有时间去处理真正的网络渲染，而不是空转！
         let interval = setInterval(() => {
             let title = document.title || "";
             let lower_title = title.toLowerCase();
 
-            // 1. WAF 秒退
+            // 1. WAF 极速拦截
             if (lower_title.includes("just a moment") || lower_title.includes("access denied") || lower_title.includes("403") || lower_title.includes("拦截")) {
                 clearInterval(interval); resolve({status: "waf"}); return;
             }
-
-            // 2. 无效页面秒退
+            
+            // 2. 无效页面秒杀 (只查具体的报错框，绝不调用昂贵的 body.textContent！)
             let err_nodes = document.querySelectorAll(".context, .courseResultContent, .error-msg, .tip_end");
             for (let i = 0; i < err_nodes.length; i++) {
-                let el = err_nodes[i];
-                if (el.style.display === 'none') continue; 
-                
-                let err_txt = el.textContent || "";
-                if (err_txt.includes("解散") || err_txt.includes("不能加入") || err_txt.includes("上限") || err_txt.includes("不存在") || err_txt.includes("页面错误")) {
+                let txt = err_nodes[i].textContent || "";
+                if (txt.includes("解散") || txt.includes("不能加入") || txt.includes("上限") || txt.includes("已被删除") || txt.includes("设置了权限") || txt.includes("不存在") || txt.includes("页面错误")) {
                     clearInterval(interval); resolve({status: "not_found"}); return;
                 }
             }
@@ -145,47 +125,33 @@ js_extract_promise = r"""() => {
             let found = false;
 
             // 3. 极速提取班级
-            let c_el = document.querySelector("p.courseName, .courseName, h1");
-            if (c_el && c_el.style.display !== 'none') {
+            let c_el = document.querySelector("p.courseName, .courseName, h1, .title");
+            if (c_el) {
                 let txt = (c_el.textContent || "").trim();
                 if (txt) { class_name = txt.replace(/\s+/g, ' '); found = true; }
             }
 
             // 4. 标题兜底
-            if (!found && title && !title.includes("Join the class") && !title.includes("eeo.cn")) {
-                let clean_title = title.replace("- ClassIn", "").replace("-ClassIn", "").replace("ClassIn", "").trim();
+            if (!found && title && !title.includes("Join") && !title.includes("eeo.cn")) {
+                let clean_title = title.replace("- ClassIn", "").trim();
                 if (clean_title.includes("|")) { class_name = clean_title.split("|").pop().trim(); if(class_name) found = true; } 
                 else if (clean_title.includes("-")) { class_name = clean_title.split("-")[0].trim(); if(class_name) found = true; } 
                 else if (clean_title) { class_name = clean_title; found = true; }
             }
 
-            // 5. 提取学校和老师
+            // 5. 提取学校和老师 (只有在成功时，才会执行这部分)
             if (found) {
                 let s_el = document.querySelector("p.schoolName, .schoolName, .orgName");
-                if (s_el && s_el.style.display !== 'none') { 
-                    school = (s_el.textContent || "").trim().replace(/\s+/g, ' '); 
-                }
+                if (s_el) { school = (s_el.textContent || "").trim().replace(/\s+/g, ' '); }
 
-                let t_selectors = [".teacherName", ".teaName", ".userName", ".courseTeacher", "p.name"];
-                let teacherFound = false;
-                for (let s of t_selectors) {
-                    let t_el = document.querySelector(s);
-                    if (t_el && t_el.style.display !== 'none') {
-                        let txt = (t_el.textContent || "").trim().replace(/\s+/g, ' ');
-                        if (txt.length >= 1) {
-                            teacher = txt;
-                            if (teacher.includes("教师：") || teacher.includes("授课教师：")) {
-                                teacher = teacher.replace("授课教师：", "").replace("教师：", "").trim();
-                            }
-                            teacherFound = true;
-                            break;
-                        }
+                let t_el = document.querySelector(".teacherName, .teaName, .userName, .courseTeacher, p.name");
+                if (t_el) {
+                    teacher = (t_el.textContent || "").trim().replace(/\s+/g, ' ');
+                    if (teacher.includes("教师：") || teacher.includes("授课教师：")) {
+                        teacher = teacher.replace("授课教师：", "").replace("教师：", "").trim();
                     }
-                }
-                
-                // 教师正则兜底
-                let invalid_marks = ["无", "-", "--", "---", "—", "_", "教师", "教师：", ""];
-                if (!teacherFound || invalid_marks.includes(teacher)) {
+                } else {
+                    // 仅当常规标签找不到，且确认成功时，才动用一次 body 级别的正则！
                     let bodyText = document.body ? (document.body.textContent || "") : "";
                     let match = bodyText.match(/教师[：:]\s*([^\s]{1,30})/);
                     if (match && match[1]) { teacher = match[1].trim(); }
@@ -195,13 +161,13 @@ js_extract_promise = r"""() => {
                 resolve({status: "success", class_name, school, teacher}); return;
             }
 
-            // 6. 给 API 2.4秒 的容忍时间
-            elapsed += 400;
+            // 6. 等待容忍上限：2.4 秒
+            elapsed += 200;
             if (elapsed >= 2400) {
                 clearInterval(interval);
                 resolve({status: "timeout"});
             }
-        }, 400); // 👈 从 150ms 降频到 400ms，解救被堵死的 CPU！
+        }, 200); // 👈 200ms 的舒适区，CPU 完全不喘气
     });
 }"""
 
@@ -222,8 +188,9 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                 try: await page.close()
                 except: pass
             page = await context.new_page()
-            await page.route("**/*", abort_route)
-            
+            # ❗移除了这里的全局拦截，转交到 Context 层统管
+            await init_page()
+        
         await init_page()
         consecutive_errors = 0
         lifecycle = 0
@@ -297,6 +264,15 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
         browser = await p.chromium.launch(headless=True, args=CHROME_OPTIMIZED_ARGS)
         context = await browser.new_context(user_agent=random.choice(USER_AGENTS), ignore_https_errors=True)
         
+        # 🚀 提速奇迹！精确到后缀的底层拦截，终结 Python 疯狂的 IPC 通信风暴！
+        await context.route("**/*.{png,jpg,jpeg,gif,svg,css,woff,woff2,ttf,mp4,mp3,wav,ico,webp}", abort_unnecessary)
+        await context.route("**/*sentry*", abort_unnecessary)
+        await context.route("**/*sensors*", abort_unnecessary)
+        await context.route("**/*growingio*", abort_unnecessary)
+        await context.route("**/*track*", abort_unnecessary)
+        await context.route("**/*google-analytics*", abort_unnecessary)
+        await context.route("**/*baidu*", abort_unnecessary)
+        
         tasks = [asyncio.create_task(fetcher(i, context)) for i in range(concurrency)]
         
         wait_task = asyncio.create_task(local_queue.join())
@@ -350,7 +326,7 @@ def main():
     chunk_size = (total_tasks + process_count - 1) // process_count
     chunks = [cid_list[i:i + chunk_size] for i in range(0, total_tasks, chunk_size)]
 
-    print(f"🚀 [白名单极限降频引擎] 启动！全面封杀外链，打破堵塞魔咒！", flush=True)
+    print(f"🚀 [无损 IPC·降维光速引擎] 启动！拦截压力移交 C++ 底层！", flush=True)
     print(f"⚙️ 分配: {process_count}个物理核心 ✕ 每核 {coros_per_process} 个协程并发 = {process_count * coros_per_process} 总并发", flush=True)
 
     shared_counter = mp.Value('i', 0)
