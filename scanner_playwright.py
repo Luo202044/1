@@ -28,8 +28,8 @@ START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
 
-# 🚀 因为消除了标签页重建的 CPU 损耗，并发可以安全地拉回到 48 或 60！
-MAX_CONCURRENT = config.get("max_concurrent_pages", 48) 
+# 建议在 config.json 配合此脚本设置为 32~40。
+MAX_CONCURRENT = config.get("max_concurrent_pages", 32) 
 WAIT_TIMEOUT = config.get("wait_timeout", 15)
 TIMEOUT_HOURS = config.get("timeout_hours", 5.0)
 TIMEOUT_SECONDS = TIMEOUT_HOURS * 3600
@@ -101,45 +101,33 @@ async def abort_route(route):
     else:
         await route.continue_()
 
-# ========== 核心黑科技：JS 内部轮询，杜绝 Python 异常阻塞 ==========
+# ========== 极限黑科技：无 CSS 重排 JS 轮询 ==========
 js_extract_promise = r"""() => {
     return new Promise((resolve) => {
         let elapsed = 0;
+        // 【提速核心1】：将轮询频率从 50ms 放宽到 100ms，CPU 开销瞬间减半
         let interval = setInterval(() => {
-            let text = document.body ? (document.body.innerText || "") : "";
             let title = document.title || "";
             let lower_title = title.toLowerCase();
-            let lower_text = text.toLowerCase();
 
-            // 1. 深度风控拦截侦测 (秒级中止)
+            // 1. 深度风控拦截侦测 (仅靠 title 极速判断)
             let waf_keywords = ["just a moment", "access denied", "attention required", "security", "403", "404", "拦截", "验证码", "error", "cloudflare", "verify you are human", "滑动验证"];
             for (let k of waf_keywords) {
-                if (lower_title.includes(k) || lower_text.includes(k)) {
+                if (lower_title.includes(k)) {
                     clearInterval(interval);
                     resolve({status: "waf"}); return;
                 }
             }
 
-            // 2. 无效页面秒退机制 (发现已知错误关键字，0.1秒内立刻退出，绝不傻等1.2秒)
-            let failure_keywords = ["班级解散", "不能加入", "人数已达上限", "已被删除", "设置了权限", "不存在", "页面错误"];
-            for (let k of failure_keywords) {
-                 if (text.includes(k)) {
-                     clearInterval(interval);
-                     resolve({status: "not_found"}); return;
-                 }
-            }
-
+            // 【提速核心2】：彻底弃用 innerText，改用 querySelector + textContent，实现 0 排版消耗
             let class_name = "无", school = "无", teacher = "无";
             let found = false;
 
-            // 3. 寻找成功标识
-            let c_selectors = ["p.courseName", ".courseName", "h1", "h2", "h3", ".title", ".course-title", ".class-name"];
-            for(let s of c_selectors){
-                let el = document.querySelector(s);
-                if(el && el.innerText.trim().length >= 1){
-                    class_name = el.innerText.trim().replace(/\s+/g, ' ');
-                    found = true; break;
-                }
+            // 2. 优先寻找成功标识 (直接定位核心元素)
+            let c_el = document.querySelector("p.courseName, .courseName, h1, h2, h3, .title, .course-title, .class-name");
+            if (c_el && (c_el.textContent || "").trim().length >= 1) {
+                class_name = (c_el.textContent || "").trim().replace(/\s+/g, ' ');
+                found = true;
             }
 
             if (!found && title && !title.includes("Join the class") && !title.includes("eeo.cn")) {
@@ -149,19 +137,16 @@ js_extract_promise = r"""() => {
                 else if (clean_title) { class_name = clean_title; found = true; }
             }
 
-            // 4. 一旦发现班级，提取全部信息并极速返回
+            // 3. 一旦确认是有效班级，提取并极速返回
             if (found) {
-                let s_selectors = ["p.schoolName", ".schoolName", ".orgName"];
-                for(let s of s_selectors){
-                    let el = document.querySelector(s);
-                    if(el && el.innerText.trim().length >= 1){ school = el.innerText.trim().replace(/\s+/g, ' '); break; }
-                }
+                let s_el = document.querySelector("p.schoolName, .schoolName, .orgName");
+                if(s_el) { school = (s_el.textContent || "").trim().replace(/\s+/g, ' '); }
 
                 let t_selectors = [".teacherName", ".teaName", ".userName", ".nickName", ".teacher-name", "p.name", ".courseTeacher"];
                 for(let s of t_selectors){
-                    let el = document.querySelector(s);
-                    if(el && el.innerText.trim().length >= 1){
-                        teacher = el.innerText.trim().replace(/\s+/g, ' ');
+                    let t_el = document.querySelector(s);
+                    if(t_el && (t_el.textContent || "").trim().length >= 1){
+                        teacher = (t_el.textContent || "").trim().replace(/\s+/g, ' ');
                         if(teacher.includes("教师：") || teacher.includes("授课教师：")){
                             teacher = teacher.replace("授课教师：", "").replace("教师：", "").trim();
                         }
@@ -174,10 +159,10 @@ js_extract_promise = r"""() => {
                      teacher = "无";
                      let els = document.querySelectorAll("p, div, span, label, li");
                      for (let i=0; i<els.length; i++) {
-                         let txt = (els[i].innerText || els[i].textContent || "").trim().replace(/\s+/g, " ");
+                         let txt = (els[i].textContent || "").trim().replace(/\s+/g, " ");
                          if (txt === "教师：" || txt === "教师:" || txt === "授课教师：" || txt === "Teacher:") {
                              if (i + 1 < els.length) {
-                                 let n_text = (els[i+1].innerText || els[i+1].textContent || "").trim().replace(/\s+/g, " ");
+                                 let n_text = (els[i+1].textContent || "").trim().replace(/\s+/g, " ");
                                  if (n_text && n_text.length >= 1 && n_text.length < 50) { teacher = n_text; break; }
                              }
                          } else if (txt.includes("教师：") || txt.includes("授课教师：")) {
@@ -191,13 +176,26 @@ js_extract_promise = r"""() => {
                 resolve({status: "success", class_name, school, teacher}); return;
             }
 
-            // 5. 超时判定 (达到 1.2 秒没有任何有效内容，视为无效页面)
-            elapsed += 50;
+            // 4. 精准无效页面秒退机制 (只抓取特定的错误框，不去扫描全网页)
+            let err_el = document.querySelector(".context, .courseResultContent, .error-msg, .tip_end");
+            if (err_el) {
+                let err_txt = err_el.textContent || "";
+                let failure_keywords = ["班级解散", "不能加入", "人数已达上限", "已被删除", "设置了权限", "不存在", "页面错误"];
+                for (let k of failure_keywords) {
+                     if (err_txt.includes(k)) {
+                         clearInterval(interval);
+                         resolve({status: "not_found"}); return;
+                     }
+                }
+            }
+
+            // 5. 超时判定 
+            elapsed += 100;
             if (elapsed >= 1200) {
                 clearInterval(interval);
                 resolve({status: "timeout"});
             }
-        }, 50);
+        }, 100);
     });
 }"""
 
@@ -237,9 +235,9 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
             
             try:
                 pw_timeout = min(WAIT_TIMEOUT * 1000, (deadline - time.time()) * 1000)
-                await page.goto(f"https://www.eeo.cn/s/a/?cid={cid}", timeout=pw_timeout, wait_until="domcontentloaded")
+                # 【提速核心3】：最极端的等待策略。只要拿到头部响应，立刻释放控制权，交给 JS 去等！
+                await page.goto(f"https://www.eeo.cn/s/a/?cid={cid}", timeout=pw_timeout, wait_until="commit")
                 
-                # 🚀 这里移除了 wait_for_selector，直接进入 JS Promise 轮询，再也不会触发 Python 的抛错重建机制了！
                 data = await page.evaluate(js_extract_promise)
                 status = data.get('status', 'timeout')
                 
@@ -261,7 +259,6 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                 consecutive_errors = 0
 
             except Exception as e:
-                # 只有遇到极其恶劣的真·网络断线或者 WAF 封锁时，才会进入这里的错误处理
                 consecutive_errors += 1
                 if consecutive_errors >= 2 or "WAF" in str(e):
                     if consecutive_errors >= 3: await asyncio.sleep(2)
@@ -278,7 +275,6 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                     
                 lifecycle += 1
 
-            # 放宽生命周期，减少无谓的关闭开启
             if lifecycle >= 300:
                 await init_page()
                 lifecycle = 0
@@ -349,7 +345,7 @@ def main():
     chunk_size = (total_tasks + process_count - 1) // process_count
     chunks = [cid_list[i:i + chunk_size] for i in range(0, total_tasks, chunk_size)]
 
-    print(f"🚀 [无损轮询·极速引擎] 启动！彻底消除标签页重建设损耗！", flush=True)
+    print(f"🚀 [0排版重绘·超光速引擎] 启动！彻底解放 100% CPU 算力！", flush=True)
     print(f"⚙️ 分配: {process_count}个物理核心 ✕ 每核 {coros_per_process} 个协程并发 = {process_count * coros_per_process} 总并发", flush=True)
 
     shared_counter = mp.Value('i', 0)
