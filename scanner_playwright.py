@@ -28,7 +28,8 @@ START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
 
-MAX_CONCURRENT = config.get("max_concurrent_pages", 32) # 建议改为 24~32 以降低 CPU 切换内耗
+# 🚀 因为消除了标签页重建的 CPU 损耗，并发可以安全地拉回到 48 或 60！
+MAX_CONCURRENT = config.get("max_concurrent_pages", 48) 
 WAIT_TIMEOUT = config.get("wait_timeout", 15)
 TIMEOUT_HOURS = config.get("timeout_hours", 5.0)
 TIMEOUT_SECONDS = TIMEOUT_HOURS * 3600
@@ -49,7 +50,6 @@ USER_AGENTS = [
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
 ]
 
-# 🚀 爬虫界顶级 Chromium 性能阉割参数（彻底释放 CPU）
 CHROME_OPTIMIZED_ARGS = [
     "--disable-gpu",
     "--disable-dev-shm-usage",
@@ -101,79 +101,104 @@ async def abort_route(route):
     else:
         await route.continue_()
 
-js_extract = r"""() => {
-    let text = document.body ? (document.body.innerText || "") : "";
-    let title = document.title || "";
-    let lower_title = title.toLowerCase();
-    let lower_text = text.toLowerCase();
+# ========== 核心黑科技：JS 内部轮询，杜绝 Python 异常阻塞 ==========
+js_extract_promise = r"""() => {
+    return new Promise((resolve) => {
+        let elapsed = 0;
+        let interval = setInterval(() => {
+            let text = document.body ? (document.body.innerText || "") : "";
+            let title = document.title || "";
+            let lower_title = title.toLowerCase();
+            let lower_text = text.toLowerCase();
 
-    let waf_keywords = ["just a moment", "access denied", "attention required", "security", "403", "404", "拦截", "验证码", "error", "cloudflare", "verify you are human", "滑动验证"];
-    let is_waf = false;
-    for (let k of waf_keywords) {
-        if (lower_title.includes(k) || lower_text.includes(k)) {
-            is_waf = true; break;
-        }
-    }
-
-    let class_name = "无";
-    let school = "无";
-    let teacher = "无";
-
-    if (text.trim().length < 20 && !is_waf) {
-        return {is_waf: false, class_name, school, teacher, title};
-    }
-
-    let c_selectors = ["p.courseName", ".courseName", "h1", "h2", "h3", ".title", ".course-title", ".class-name"];
-    for(let s of c_selectors){
-        let el = document.querySelector(s);
-        if(el && el.innerText.trim().length >= 1){
-            class_name = el.innerText.trim().replace(/\s+/g, ' ');
-            break;
-        }
-    }
-
-    let s_selectors = ["p.schoolName", ".schoolName", ".orgName"];
-    for(let s of s_selectors){
-        let el = document.querySelector(s);
-        if(el && el.innerText.trim().length >= 1){
-            school = el.innerText.trim().replace(/\s+/g, ' ');
-            break;
-        }
-    }
-
-    let t_selectors = [".teacherName", ".teaName", ".userName", ".nickName", ".teacher-name", "p.name", ".courseTeacher"];
-    for(let s of t_selectors){
-        let el = document.querySelector(s);
-        if(el && el.innerText.trim().length >= 1){
-            teacher = el.innerText.trim().replace(/\s+/g, ' ');
-            if(teacher.includes("教师：") || teacher.includes("授课教师：")){
-                teacher = teacher.replace("授课教师：", "").replace("教师：", "").trim();
+            // 1. 深度风控拦截侦测 (秒级中止)
+            let waf_keywords = ["just a moment", "access denied", "attention required", "security", "403", "404", "拦截", "验证码", "error", "cloudflare", "verify you are human", "滑动验证"];
+            for (let k of waf_keywords) {
+                if (lower_title.includes(k) || lower_text.includes(k)) {
+                    clearInterval(interval);
+                    resolve({status: "waf"}); return;
+                }
             }
-            break;
-        }
-    }
 
-    let invalid_marks = ["无", "-", "--", "---", "—", "_", ""];
-    let needs_fallback = invalid_marks.includes(teacher) || teacher === "教师" || teacher.includes("教师:") || teacher.includes("教师：");
-
-    if (needs_fallback) {
-         teacher = "无";
-         let els = document.querySelectorAll("p, div, span, label, li");
-         for (let i=0; i<els.length; i++) {
-             let txt = (els[i].innerText || els[i].textContent || "").trim().replace(/\s+/g, " ");
-             if (txt === "教师：" || txt === "教师:" || txt === "授课教师：" || txt === "Teacher:") {
-                 if (i + 1 < els.length) {
-                     let n_text = (els[i+1].innerText || els[i+1].textContent || "").trim().replace(/\s+/g, " ");
-                     if (n_text && n_text.length >= 1 && n_text.length < 50) { teacher = n_text; break; }
+            // 2. 无效页面秒退机制 (发现已知错误关键字，0.1秒内立刻退出，绝不傻等1.2秒)
+            let failure_keywords = ["班级解散", "不能加入", "人数已达上限", "已被删除", "设置了权限", "不存在", "页面错误"];
+            for (let k of failure_keywords) {
+                 if (text.includes(k)) {
+                     clearInterval(interval);
+                     resolve({status: "not_found"}); return;
                  }
-             } else if (txt.includes("教师：") || txt.includes("授课教师：")) {
-                 let ext = txt.replace("授课教师：", "").replace("教师：", "").trim();
-                 if (ext && ext.length >= 1 && ext.length < 50) { teacher = ext; break; }
-             }
-         }
-    }
+            }
 
-    return {is_waf, class_name, school, teacher, title};
+            let class_name = "无", school = "无", teacher = "无";
+            let found = false;
+
+            // 3. 寻找成功标识
+            let c_selectors = ["p.courseName", ".courseName", "h1", "h2", "h3", ".title", ".course-title", ".class-name"];
+            for(let s of c_selectors){
+                let el = document.querySelector(s);
+                if(el && el.innerText.trim().length >= 1){
+                    class_name = el.innerText.trim().replace(/\s+/g, ' ');
+                    found = true; break;
+                }
+            }
+
+            if (!found && title && !title.includes("Join the class") && !title.includes("eeo.cn")) {
+                let clean_title = title.replace("- ClassIn", "").replace("-ClassIn", "").replace("ClassIn", "").trim();
+                if (clean_title.includes("|")) { class_name = clean_title.split("|").pop().trim(); if(class_name) found = true; } 
+                else if (clean_title.includes("-")) { class_name = clean_title.split("-")[0].trim(); if(class_name) found = true; } 
+                else if (clean_title) { class_name = clean_title; found = true; }
+            }
+
+            // 4. 一旦发现班级，提取全部信息并极速返回
+            if (found) {
+                let s_selectors = ["p.schoolName", ".schoolName", ".orgName"];
+                for(let s of s_selectors){
+                    let el = document.querySelector(s);
+                    if(el && el.innerText.trim().length >= 1){ school = el.innerText.trim().replace(/\s+/g, ' '); break; }
+                }
+
+                let t_selectors = [".teacherName", ".teaName", ".userName", ".nickName", ".teacher-name", "p.name", ".courseTeacher"];
+                for(let s of t_selectors){
+                    let el = document.querySelector(s);
+                    if(el && el.innerText.trim().length >= 1){
+                        teacher = el.innerText.trim().replace(/\s+/g, ' ');
+                        if(teacher.includes("教师：") || teacher.includes("授课教师：")){
+                            teacher = teacher.replace("授课教师：", "").replace("教师：", "").trim();
+                        }
+                        break;
+                    }
+                }
+
+                let invalid_marks = ["无", "-", "--", "---", "—", "_", ""];
+                if (invalid_marks.includes(teacher) || teacher === "教师" || teacher.includes("教师:") || teacher.includes("教师：")) {
+                     teacher = "无";
+                     let els = document.querySelectorAll("p, div, span, label, li");
+                     for (let i=0; i<els.length; i++) {
+                         let txt = (els[i].innerText || els[i].textContent || "").trim().replace(/\s+/g, " ");
+                         if (txt === "教师：" || txt === "教师:" || txt === "授课教师：" || txt === "Teacher:") {
+                             if (i + 1 < els.length) {
+                                 let n_text = (els[i+1].innerText || els[i+1].textContent || "").trim().replace(/\s+/g, " ");
+                                 if (n_text && n_text.length >= 1 && n_text.length < 50) { teacher = n_text; break; }
+                             }
+                         } else if (txt.includes("教师：") || txt.includes("授课教师：")) {
+                             let ext = txt.replace("授课教师：", "").replace("教师：", "").trim();
+                             if (ext && ext.length >= 1 && ext.length < 50) { teacher = ext; break; }
+                         }
+                     }
+                }
+
+                clearInterval(interval);
+                resolve({status: "success", class_name, school, teacher}); return;
+            }
+
+            // 5. 超时判定 (达到 1.2 秒没有任何有效内容，视为无效页面)
+            elapsed += 50;
+            if (elapsed >= 1200) {
+                clearInterval(interval);
+                resolve({status: "timeout"});
+            }
+        }, 50);
+    });
 }"""
 
 async def async_process_worker(process_id, cid_chunk, concurrency, deadline, shared_counter):
@@ -214,41 +239,29 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                 pw_timeout = min(WAIT_TIMEOUT * 1000, (deadline - time.time()) * 1000)
                 await page.goto(f"https://www.eeo.cn/s/a/?cid={cid}", timeout=pw_timeout, wait_until="domcontentloaded")
                 
-                try: await page.wait_for_selector(".courseName, .schoolName, .courseTeacher, h1", timeout=1200)
-                except: pass
-
-                data = await page.evaluate(js_extract)
+                # 🚀 这里移除了 wait_for_selector，直接进入 JS Promise 轮询，再也不会触发 Python 的抛错重建机制了！
+                data = await page.evaluate(js_extract_promise)
+                status = data.get('status', 'timeout')
                 
-                if data.get('is_waf'):
+                if status == 'waf':
                     if random.random() < 0.1: 
                         print(f"⚠️ [风控侦测] P{process_id}-C{coro_id} 遭遇拦截，重置...", flush=True)
                     raise Exception("WAF_BLOCKED")
-
-                class_name = data.get('class_name', '无')
-                school = data.get('school', '无')
-                teacher = data.get('teacher', '无')
-                title = data.get('title', '')
-
-                invalid_marks = {"无", "-", "--", "---", "—", "_", ""}
-
-                if class_name in invalid_marks:
-                    if title and "Join the class" not in title and "eeo.cn" not in title:
-                        clean_title = title.replace("- ClassIn", "").replace("-ClassIn", "").replace("ClassIn", "").strip()
-                        if "|" in clean_title: 
-                            class_name = clean_title.split("|")[-1].strip()
-                        elif "-" in clean_title: 
-                            class_name = clean_title.split("-")[0].strip()
-                        elif clean_title: 
-                            class_name = clean_title
-
-                if not (class_name in invalid_marks and school in invalid_marks):
-                    line = f"{cid}\thttps://www.eeo.cn/s/a/?cid={cid}\t{school}\t{teacher}\t{class_name}\n"
-                    results.append(line)
-                    print(f"✅ [发现] P{process_id}-C{coro_id:02d} | {cid} | 🏫 {school} | 🧑‍🏫 {teacher} | 🎓 {class_name}", flush=True)
+                    
+                elif status == 'success':
+                    class_name = data.get('class_name', '无')
+                    school = data.get('school', '无')
+                    teacher = data.get('teacher', '无')
+                    invalid_marks = {"无", "-", "--", "---", "—", "_", ""}
+                    if not (class_name in invalid_marks and school in invalid_marks):
+                        line = f"{cid}\thttps://www.eeo.cn/s/a/?cid={cid}\t{school}\t{teacher}\t{class_name}\n"
+                        results.append(line)
+                        print(f"✅ [发现] P{process_id}-C{coro_id:02d} | {cid} | 🏫 {school} | 🧑‍🏫 {teacher} | 🎓 {class_name}", flush=True)
 
                 consecutive_errors = 0
 
             except Exception as e:
+                # 只有遇到极其恶劣的真·网络断线或者 WAF 封锁时，才会进入这里的错误处理
                 consecutive_errors += 1
                 if consecutive_errors >= 2 or "WAF" in str(e):
                     if consecutive_errors >= 3: await asyncio.sleep(2)
@@ -265,7 +278,8 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                     
                 lifecycle += 1
 
-            if lifecycle >= 150:
+            # 放宽生命周期，减少无谓的关闭开启
+            if lifecycle >= 300:
                 await init_page()
                 lifecycle = 0
 
@@ -279,7 +293,6 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
             except: pass
 
     async with async_playwright() as p:
-        # 【应用极限参数】：全面封杀不必要的 Chrome 进程
         browser = await p.chromium.launch(headless=True, args=CHROME_OPTIMIZED_ARGS)
         context = await browser.new_context(user_agent=random.choice(USER_AGENTS), ignore_https_errors=True)
         
@@ -336,7 +349,7 @@ def main():
     chunk_size = (total_tasks + process_count - 1) // process_count
     chunks = [cid_list[i:i + chunk_size] for i in range(0, total_tasks, chunk_size)]
 
-    print(f"🚀 [极致降载引擎] 启动！开启 34 项 Chromium 底层优化！", flush=True)
+    print(f"🚀 [无损轮询·极速引擎] 启动！彻底消除标签页重建设损耗！", flush=True)
     print(f"⚙️ 分配: {process_count}个物理核心 ✕ 每核 {coros_per_process} 个协程并发 = {process_count * coros_per_process} 总并发", flush=True)
 
     shared_counter = mp.Value('i', 0)
