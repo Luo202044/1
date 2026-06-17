@@ -28,8 +28,8 @@ START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
 
-# 🚀 目标 13+/s：在保留 CSS 渲染的情况下，并发建议设为 48 到 60
-MAX_CONCURRENT = config.get("max_concurrent_pages", 48) 
+# 🚀 降频释压后，4核机器可以完美吃满 64 并发
+MAX_CONCURRENT = config.get("max_concurrent_pages", 64) 
 WAIT_TIMEOUT = config.get("wait_timeout", 15)
 TIMEOUT_HOURS = config.get("timeout_hours", 5.0)
 TIMEOUT_SECONDS = TIMEOUT_HOURS * 3600
@@ -50,7 +50,6 @@ USER_AGENTS = [
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
 ]
 
-# 屏蔽所有不必要的系统开销
 CHROME_OPTIMIZED_ARGS = [
     "--disable-gpu",
     "--disable-dev-shm-usage",
@@ -96,19 +95,19 @@ def format_time(seconds):
     h, m = divmod(m, 60)
     return f"{h}h {m}m"
 
-# 🚀 聪明的拦截器：放行 CSS 保证逻辑正确，杀掉多媒体和字体保证速度
+# 🚀 提速核心1：终极白名单拦截！不仅拦截类型，还拦截域名！
 async def abort_route(route):
     try:
         req_type = route.request.resource_type
         url = route.request.url.lower()
         
-        # 拦截：图片、多媒体、字体、长链接（保留 stylesheet 样式表）
+        # 拦截极其拖慢速度的无用资源
         if req_type in ["image", "media", "font", "websocket", "eventsource", "manifest"]:
             await route.abort()
             return
             
-        # 拦截吸血埋点
-        if any(x in url for x in ["google-analytics", "sentry", "growingio", "sensorsdata", "baidu.com", "track"]):
+        # 【白名单模式】只允许官方的 eeo.cn 和 classin 域名通行，其它任何第三方的杂七杂八 JS 和统计全军覆没！
+        if not ("eeo.cn" in url or "classin" in url):
             await route.abort()
             return
             
@@ -116,10 +115,11 @@ async def abort_route(route):
     except:
         pass
 
-# 🚀 零内耗提取：保留 CSS，依靠 style.display 识别，速度与准确率的完美结合
+# 🚀 提速核心2：400ms 超低频轮询，彻底释放 CPU 堵塞
 js_extract_promise = r"""() => {
     return new Promise((resolve) => {
         let elapsed = 0;
+        // 【核心修改】频率降至 400ms，让 CPU 有时间去处理真正的网络渲染，而不是空转！
         let interval = setInterval(() => {
             let title = document.title || "";
             let lower_title = title.toLowerCase();
@@ -129,11 +129,11 @@ js_extract_promise = r"""() => {
                 clearInterval(interval); resolve({status: "waf"}); return;
             }
 
-            // 2. 无效页面秒退 (只读取没有被 CSS 隐藏的错误信息，0 重排消耗)
+            // 2. 无效页面秒退
             let err_nodes = document.querySelectorAll(".context, .courseResultContent, .error-msg, .tip_end");
             for (let i = 0; i < err_nodes.length; i++) {
                 let el = err_nodes[i];
-                if (el.style.display === 'none') continue; // 👈 完美跳过隐藏组件，不误杀！
+                if (el.style.display === 'none') continue; 
                 
                 let err_txt = el.textContent || "";
                 if (err_txt.includes("解散") || err_txt.includes("不能加入") || err_txt.includes("上限") || err_txt.includes("不存在") || err_txt.includes("页面错误")) {
@@ -183,7 +183,7 @@ js_extract_promise = r"""() => {
                     }
                 }
                 
-                // 教师跨行智能兜底 (不再用高昂的穷举查找，直接正则极速秒切)
+                // 教师正则兜底
                 let invalid_marks = ["无", "-", "--", "---", "—", "_", "教师", "教师：", ""];
                 if (!teacherFound || invalid_marks.includes(teacher)) {
                     let bodyText = document.body ? (document.body.textContent || "") : "";
@@ -195,13 +195,13 @@ js_extract_promise = r"""() => {
                 resolve({status: "success", class_name, school, teacher}); return;
             }
 
-            // 6. 最大容忍 2 秒，查无此班直接抛弃
-            elapsed += 150;
-            if (elapsed >= 2000) {
+            // 6. 给 API 2.4秒 的容忍时间
+            elapsed += 400;
+            if (elapsed >= 2400) {
                 clearInterval(interval);
                 resolve({status: "timeout"});
             }
-        }, 150);
+        }, 400); // 👈 从 150ms 降频到 400ms，解救被堵死的 CPU！
     });
 }"""
 
@@ -241,7 +241,6 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
             
             try:
                 pw_timeout = min(5000, (deadline - time.time()) * 1000)
-                # 无缝衔接：让 Python 立刻释放，把等待工作全部推给高效的底层 JS
                 await page.goto(f"https://www.eeo.cn/s/a/?cid={cid}", timeout=pw_timeout, wait_until="commit")
                 
                 data = await page.evaluate(js_extract_promise)
@@ -351,7 +350,7 @@ def main():
     chunk_size = (total_tasks + process_count - 1) // process_count
     chunks = [cid_list[i:i + chunk_size] for i in range(0, total_tasks, chunk_size)]
 
-    print(f"🚀 [稳定光速引擎] 启动！重载核心渲染，智能绕过无用节点！", flush=True)
+    print(f"🚀 [白名单极限降频引擎] 启动！全面封杀外链，打破堵塞魔咒！", flush=True)
     print(f"⚙️ 分配: {process_count}个物理核心 ✕ 每核 {coros_per_process} 个协程并发 = {process_count * coros_per_process} 总并发", flush=True)
 
     shared_counter = mp.Value('i', 0)
