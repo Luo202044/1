@@ -28,8 +28,8 @@ START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
 
-# 🚀 治好内存泄漏后，48 并发是 16GB 内存最完美的性能甜点！
-MAX_CONCURRENT = config.get("max_concurrent_pages", 48) 
+# 🚀 并发保持 64~80，依靠事件驱动来保证速度
+MAX_CONCURRENT = config.get("max_concurrent_pages", 64) 
 WAIT_TIMEOUT = config.get("wait_timeout", 15)
 TIMEOUT_HOURS = config.get("timeout_hours", 5.0)
 TIMEOUT_SECONDS = TIMEOUT_HOURS * 3600
@@ -50,7 +50,6 @@ USER_AGENTS = [
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
 ]
 
-# 🚀 极致防爆内存黑科技：全面锁死 V8 堆内存，封杀缓存！
 CHROME_OPTIMIZED_ARGS = [
     "--disable-gpu",
     "--disable-dev-shm-usage",
@@ -87,8 +86,6 @@ CHROME_OPTIMIZED_ARGS = [
     "--use-mock-keychain",
     "--blink-settings=imagesEnabled=false",
     "--host-resolver-rules=MAP *google-analytics.com 127.0.0.1, MAP *sentry* 127.0.0.1, MAP *sensors* 127.0.0.1, MAP *growingio.com 127.0.0.1, MAP *baidu.com 127.0.0.1, MAP *track* 127.0.0.1",
-    
-    # 👇👇👇 核心内存防爆参数：强制回收垃圾，禁用前进后退缓存，限制进程！
     "--js-flags=--max-old-space-size=128", 
     "--disable-features=IsolateOrigins,site-per-process,AudioServiceOutOfProcess,BackForwardCache",
     "--renderer-process-limit=4"
@@ -118,6 +115,7 @@ js_extract_promise = r"""() => {
                 return {status: "waf"};
             }
             
+            // 🚀 这里非常关键：不管服务器多慢，只要官方 API 返回了“解散”或者“不存在”，DOM 就会变化，这里瞬间就会捕获并退出，完全不消耗时间！
             let err_nodes = document.querySelectorAll(".context, .courseResultContent, .error-msg, .tip_end");
             for (let i = 0; i < err_nodes.length; i++) {
                 let el = err_nodes[i];
@@ -179,10 +177,13 @@ js_extract_promise = r"""() => {
         
         observer.observe(document, { childList: true, subtree: true, characterData: true });
 
+        // 🚀 核心纠偏：恢复宽容度！
+        // 放宽到 4500 毫秒（4.5秒）。只有那些“一直白屏加载不出来”的死链接才会等这么久。
+        // 而大多数“解散的死链接”，在 0.5 秒内就会被上面的 MutationObserver 秒杀拦截。
         let timeoutId = setTimeout(() => {
             observer.disconnect();
             resolve({status: "timeout"});
-        }, 2400);
+        }, 4500); 
     });
 }"""
 
@@ -220,12 +221,12 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
             in_flight_cids.add(cid)
             
             try:
-                pw_timeout = min(5000, (deadline - time.time()) * 1000)
+                # 给网络传输充足的时间：上限拉到 8 秒，因为底层的 JS 才是判断核心
+                pw_timeout = min(8000, (deadline - time.time()) * 1000)
                 await page.goto(f"https://www.eeo.cn/s/a/?cid={cid}", timeout=pw_timeout, wait_until="commit")
                 
                 data = await page.evaluate(js_extract_promise)
                 
-                # 🚨 终极内存拔管机制：不管拿到什么数据，瞬间切断后续所有幽灵网络请求，释放内存！
                 try:
                     await page.evaluate("window.stop()")
                 except:
@@ -267,7 +268,6 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                     
                 lifecycle += 1
 
-            # 🚨 极速垃圾回收：每扫 40 个页面强行销毁重建标签页，彻底清空内存碎片！
             if lifecycle >= 40:
                 await init_page()
                 lifecycle = 0
@@ -346,7 +346,7 @@ def main():
     chunk_size = (total_tasks + process_count - 1) // process_count
     chunks = [cid_list[i:i + chunk_size] for i in range(0, total_tasks, chunk_size)]
 
-    print(f"🚀 [防爆内存·Zero-Leak引擎] 启动！全面封杀交换空间消耗！", flush=True)
+    print(f"🚀 [高容错防漏引擎] 启动！重置 4.5 秒生命线，决不漏掉一个数据！", flush=True)
     print(f"⚙️ 分配: {process_count}个物理核心 ✕ 每核 {coros_per_process} 个协程并发 = {process_count * coros_per_process} 总并发", flush=True)
 
     shared_counter = mp.Value('i', 0)
