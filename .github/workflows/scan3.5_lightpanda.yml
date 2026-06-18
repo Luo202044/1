@@ -1,4 +1,4 @@
-name: ClassIn Scanner (原生极速版)
+name: ClassIn Scanner (Native Lightpanda 宿主机直连版)
 
 on:
   workflow_dispatch:
@@ -61,6 +61,9 @@ jobs:
               out.write(f"total_cids={total}\n")
           EOF
 
+  # ==========================================
+  # 第一轮：全量并发扫描
+  # ==========================================
   scan_shard_first:
     needs: master
     runs-on: ubuntu-latest
@@ -74,24 +77,48 @@ jobs:
         run: |
           echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[${{ matrix.shard_idx }}]" > config.json
           
+      # 🚀 降维打击：直接下载原生二进制文件，不再用 Docker！
+      - name: 下载并后台启动原生 Lightpanda
+        run: |
+          echo "⬇️ 正在从 GitHub Releases 获取原生二进制文件..."
+          # 获取 Linux-amd64 的下载链接
+          DOWNLOAD_URL=$(curl -s https://api.github.com/repos/lightpanda-io/browser/releases/latest | grep "browser_download_url" | grep "linux_amd64.tar.gz" | cut -d '"' -f 4 | head -n 1)
+          
+          # 鲁棒性：如果获取失败，使用固定 fallback 版本
+          if [ -z "$DOWNLOAD_URL" ]; then
+            echo "API 获取失败，使用 fallback 链接"
+            DOWNLOAD_URL="https://github.com/lightpanda-io/browser/releases/download/v0.1.1/lightpanda_0.1.1_linux_amd64.tar.gz"
+          fi
+          
+          echo "🔗 URL: $DOWNLOAD_URL"
+          wget -qO lightpanda.tar.gz "$DOWNLOAD_URL"
+          tar -xzf lightpanda.tar.gz
+          
+          echo "🚀 正在后台拉起 Native 进程..."
+          chmod +x lightpanda
+          # 让 lightpanda 在后台监听 9222 端口，并将日志丢入虚无
+          nohup ./lightpanda --port=9222 > /dev/null 2>&1 &
+          
+          echo "⌛ 正在检查端口探针..."
+          for i in {1..15}; do
+            if curl -s http://127.0.0.1:9222/json/version > /dev/null; then
+              echo "✅ Native Lightpanda 已在宿主机准备就绪！"
+              break
+            fi
+            sleep 1
+          done
+          
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: 恢复 Playwright 缓存
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-chromium
-      - name: 安装依赖与浏览器内核
-        run: |
-          pip install playwright psutil
-          playwright install chromium
+      - name: 安装 Python 依赖
+        run: pip install playwright psutil
           
-      - name: 扫描执行 (原生引擎)
+      - name: 扫描执行 (Native 零延迟互连)
         env:
           PYTHONUNBUFFERED: 1
           SHARD_IDX: ${{ matrix.shard_idx }}
-        run: python scanner_native.py
+        run: python scanner_lightpanda.py
         
       - name: 上传结果
         uses: actions/upload-artifact@v4
@@ -108,6 +135,9 @@ jobs:
           if-no-files-found: ignore
           retention-days: 1
 
+  # ==========================================
+  # 第二轮：收集漏网之鱼并动态分配
+  # ==========================================
   collect_unfinished:
     needs: scan_shard_first
     if: success() || failure()
@@ -178,23 +208,31 @@ jobs:
         run: |
           echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[0]" | jq '. + {should_scan: true, cid_list_file: "retry_chunks/retry_${{ matrix.retry_idx }}.txt"}' > config.json
           
+      # 第二轮依然拉起原生二进制
+      - name: 下载并后台启动原生 Lightpanda
+        run: |
+          DOWNLOAD_URL=$(curl -s https://api.github.com/repos/lightpanda-io/browser/releases/latest | grep "browser_download_url" | grep "linux_amd64.tar.gz" | cut -d '"' -f 4 | head -n 1)
+          if [ -z "$DOWNLOAD_URL" ]; then
+            DOWNLOAD_URL="https://github.com/lightpanda-io/browser/releases/download/v0.1.1/lightpanda_0.1.1_linux_amd64.tar.gz"
+          fi
+          wget -qO lightpanda.tar.gz "$DOWNLOAD_URL"
+          tar -xzf lightpanda.tar.gz
+          chmod +x lightpanda
+          nohup ./lightpanda --port=9222 > /dev/null 2>&1 &
+          for i in {1..15}; do
+            if curl -s http://127.0.0.1:9222/json/version > /dev/null; then break; fi; sleep 1
+          done
+          
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: 恢复 Playwright 缓存
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-chromium
       - name: 安装依赖
-        run: |
-          pip install playwright psutil
-          playwright install chromium
+        run: pip install playwright psutil
       - name: 补扫执行
         env:
           PYTHONUNBUFFERED: 1
           SHARD_IDX: retry_${{ matrix.retry_idx }}
-        run: python scanner_native.py
+        run: python scanner_lightpanda.py
       - name: 上传结果
         uses: actions/upload-artifact@v4
         with:
@@ -210,12 +248,16 @@ jobs:
           if-no-files-found: ignore
           retention-days: 1
 
+  # ==========================================
+  # 最终汇总汇报
+  # ==========================================
   final_upload:
     needs: [master, scan_shard_first, scan_shard_second]
     if: always() && !cancelled()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      
       - name: 下载有效结果
         uses: actions/download-artifact@v4
         with:
@@ -223,6 +265,7 @@ jobs:
           path: all_results
           merge-multiple: true
         continue-on-error: true
+        
       - name: 下载未完成名单(一轮)
         uses: actions/download-artifact@v4
         with:
@@ -230,6 +273,7 @@ jobs:
           path: unfinished_1
           merge-multiple: true
         continue-on-error: true
+        
       - name: 下载未完成名单(二轮)
         uses: actions/download-artifact@v4
         with:
@@ -237,12 +281,14 @@ jobs:
           path: unfinished_2
           merge-multiple: true
         continue-on-error: true
+        
       - name: 下载开始时间
         uses: actions/download-artifact@v4
         with:
           name: start-time
           path: start_time
         continue-on-error: true
+        
       - name: 统计并生成报告
         run: |
           set -e
@@ -257,8 +303,10 @@ jobs:
               rm all_merged.txt
             fi
           fi
+          
           TOTAL="${{ needs.master.outputs.total_cids }}"
           UNFINISHED_COUNT=0
+          
           if ls unfinished_2/*.txt 1> /dev/null 2>&1; then
             cat unfinished_2/*.txt | sort -u > tmp_unfinished
           elif ls unfinished_1/*.txt 1> /dev/null 2>&1; then
@@ -266,15 +314,18 @@ jobs:
           else
             touch tmp_unfinished
           fi
+          
           if [ -s tmp_unfinished ]; then
             UNFINISHED_COUNT=$(wc -l < tmp_unfinished)
           fi
           rm -f tmp_unfinished
+          
           SCANNED=$((TOTAL - UNFINISHED_COUNT))
           PERCENT=0
           if [ $TOTAL -gt 0 ]; then
             PERCENT=$(echo "scale=2; $SCANNED * 100 / $TOTAL" | bc)
           fi
+          
           END_TIME=$(date -u +"%Y-%m-%d %H:%M:%S")
           DURATION="未知"
           if [ -f start_time/start_time.txt ]; then
@@ -285,6 +336,7 @@ jobs:
             minutes=$(((diff % 3600) / 60))
             DURATION="${hours}小时${minutes}分钟"
           fi
+          
           cat > final_data/nto.txt << EOF
           总班级数: $TOTAL
           有效班级: $VALID_COUNT
@@ -294,12 +346,13 @@ jobs:
           工作时间: $DURATION
           EOF
           cat final_data/nto.txt
+          
       - name: 提交到仓库
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add final_data/
-          if git commit -m "最终扫描结果（原生稳定版） [skip ci]"; then
+          if git commit -m "最终扫描结果（Native Lightpanda 直连极速版） [skip ci]"; then
             git push
           else
             echo "无变更需要提交"
