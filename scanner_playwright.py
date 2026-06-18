@@ -28,7 +28,7 @@ START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
 
-# 🚀 并发保持 64
+# 🚀 剥离了通信风暴后，64 并发将如入无人之境
 MAX_CONCURRENT = config.get("max_concurrent_pages", 64) 
 WAIT_TIMEOUT = config.get("wait_timeout", 15)
 TIMEOUT_HOURS = config.get("timeout_hours", 5.0)
@@ -50,6 +50,7 @@ USER_AGENTS = [
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
 ]
 
+# 🚀 极致性能参数组合（C++ 层面的直接降维管控）
 CHROME_OPTIMIZED_ARGS = [
     "--disable-gpu",
     "--disable-dev-shm-usage",
@@ -84,7 +85,9 @@ CHROME_OPTIMIZED_ARGS = [
     "--password-store=basic",
     "--use-gl=swiftshader",
     "--use-mock-keychain",
+    # 👇 Blink 引擎级图片封杀，无需 Python 参与
     "--blink-settings=imagesEnabled=false",
+    # 👇 DNS 级黑洞映射，彻底截断跟踪器请求，无需 Python 参与
     "--host-resolver-rules=MAP *google-analytics.com 127.0.0.1, MAP *sentry* 127.0.0.1, MAP *sensors* 127.0.0.1, MAP *growingio.com 127.0.0.1, MAP *baidu.com 127.0.0.1, MAP *track* 127.0.0.1",
     "--js-flags=--max-old-space-size=128", 
     "--disable-features=IsolateOrigins,site-per-process,AudioServiceOutOfProcess,BackForwardCache",
@@ -99,13 +102,7 @@ def format_time(seconds):
     h, m = divmod(m, 60)
     return f"{h}h {m}m"
 
-async def abort_unnecessary(route):
-    try:
-        await route.abort()
-    except:
-        pass
-
-# 🚀 拨乱反正：成功绝对优先！绝不误杀！
+# 🚀 高精度且 0 内耗的事件驱动轮询
 js_extract_promise = r"""() => {
     return new Promise((resolve) => {
         let elapsed = 0;
@@ -113,7 +110,7 @@ js_extract_promise = r"""() => {
             let title = document.title || "";
             let lower_title = title.toLowerCase();
 
-            // 1. WAF 秒退 (只看标题)
+            // 1. WAF 拦截
             if (lower_title.includes("just a moment") || lower_title.includes("access denied") || lower_title.includes("403") || lower_title.includes("拦截")) {
                 clearInterval(interval); resolve({status: "waf"}); return;
             }
@@ -121,15 +118,13 @@ js_extract_promise = r"""() => {
             let class_name = "无", school = "无", teacher = "无";
             let found = false;
 
-            // 🌟 2. 【核心修复】：第一优先级，寻找成功标识！
-            // 只要找到班级名字，立刻判定为有效，绝对不去看报错信息！
+            // 🌟 2. 成功绝对优先：只用 textContent，速度最快
             let c_el = document.querySelector("p.courseName, .courseName, h1, .title");
             if (c_el) {
-                let txt = (c_el.innerText || "").trim();
+                let txt = (c_el.textContent || "").trim();
                 if (txt.length >= 1) { class_name = txt.replace(/\s+/g, ' '); found = true; }
             }
 
-            // 标题兜底
             if (!found && title && !title.includes("Join") && !title.includes("eeo.cn")) {
                 let clean_title = title.replace("- ClassIn", "").trim();
                 if (clean_title.includes("|")) { class_name = clean_title.split("|").pop().trim(); if(class_name) found = true; } 
@@ -137,19 +132,18 @@ js_extract_promise = r"""() => {
                 else if (clean_title) { class_name = clean_title; found = true; }
             }
 
-            // 只要成功拿到名字，立刻提取剩余信息并退出！
             if (found) {
                 let s_el = document.querySelector("p.schoolName, .schoolName, .orgName");
-                if (s_el) { school = (s_el.innerText || "").trim().replace(/\s+/g, ' '); }
+                if (s_el) { school = (s_el.textContent || "").trim().replace(/\s+/g, ' '); }
 
                 let t_el = document.querySelector(".teacherName, .teaName, .userName, .courseTeacher, p.name");
                 if (t_el) {
-                    teacher = (t_el.innerText || "").trim().replace(/\s+/g, ' ');
+                    teacher = (t_el.textContent || "").trim().replace(/\s+/g, ' ');
                     if (teacher.includes("教师：") || teacher.includes("授课教师：")) {
                         teacher = teacher.replace("授课教师：", "").replace("教师：", "").trim();
                     }
                 } else {
-                    let bodyText = document.body ? (document.body.innerText || "") : "";
+                    let bodyText = document.body ? (document.body.textContent || "") : "";
                     let match = bodyText.match(/教师[：:]\s*([^\s]{1,30})/);
                     if (match && match[1]) { teacher = match[1].trim(); }
                 }
@@ -158,23 +152,26 @@ js_extract_promise = r"""() => {
                 resolve({status: "success", class_name, school, teacher}); return;
             }
 
-            // 🌟 3. 只有在【没找到班级名】的前提下，才去看是不是死链接！
-            // 移除了危险的 .context，只查特定的错误框！
+            // 🌟 3. 失败判定：使用极速的 offsetParent 替代昂贵的 innerText！
+            // offsetParent === null 是浏览器判断元素是否 display:none 的最快方法，完全不消耗 CPU 重排计算！
             let err_nodes = document.querySelectorAll(".courseResultContent, .error-msg, .tip_end, .error-box");
-            for (let el of err_nodes) {
-                let err_txt = el.innerText || ""; 
-                if (err_txt.includes("解散") || err_txt.includes("不能加入") || err_txt.includes("上限") || err_txt.includes("已被删除") || err_txt.includes("设置了权限") || err_txt.includes("不存在") || err_txt.includes("页面错误") || err_txt.includes("dismissed")) {
+            for (let i = 0; i < err_nodes.length; i++) {
+                let el = err_nodes[i];
+                if (el.offsetParent === null) continue; // 👈 隐藏元素光速跳过
+                
+                let err_txt = el.textContent || ""; // 直接取字，无损耗
+                if (/解散|不能加入|上限|已被删除|设置了权限|不存在|页面错误|dismissed/.test(err_txt)) {
                     clearInterval(interval); resolve({status: "not_found"}); return;
                 }
             }
 
-            // 4. 超时保护期放宽至 3.6 秒，给网络抖动留足时间
-            elapsed += 300;
-            if (elapsed >= 3600) {
+            // 4. 超时断头台：3.5 秒。既照顾网络波动，又能快速斩断僵尸请求
+            elapsed += 150;
+            if (elapsed >= 3500) {
                 clearInterval(interval);
                 resolve({status: "timeout"});
             }
-        }, 300); 
+        }, 150); 
     });
 }"""
 
@@ -195,6 +192,7 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                 try: await page.close()
                 except: pass
             page = await context.new_page()
+            # 🚨 这里绝不要加 page.route！让 Python 彻底摆脱通信风暴！
         
         await init_page()
         consecutive_errors = 0
@@ -212,11 +210,13 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
             in_flight_cids.add(cid)
             
             try:
+                # 留出充足等待期，底层 JS 会在有结果时瞬间返回截断
                 pw_timeout = min(5000, (deadline - time.time()) * 1000)
                 await page.goto(f"https://www.eeo.cn/s/a/?cid={cid}", timeout=pw_timeout, wait_until="commit")
                 
                 data = await page.evaluate(js_extract_promise)
                 
+                # 物理拔管：瞬间阻止后台渲染继续消耗内存
                 try:
                     await page.evaluate("window.stop()")
                 except:
@@ -258,7 +258,8 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                     
                 lifecycle += 1
 
-            if lifecycle >= 40:
+            # 放宽重建周期：因为没有了内存积压，一个标签页可以平滑扫 150 个链接再重建
+            if lifecycle >= 150:
                 await init_page()
                 lifecycle = 0
 
@@ -275,13 +276,9 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
         browser = await p.chromium.launch(headless=True, args=CHROME_OPTIMIZED_ARGS)
         context = await browser.new_context(user_agent=random.choice(USER_AGENTS), ignore_https_errors=True)
         
-        await context.route("**/*.{png,jpg,jpeg,gif,svg,woff,woff2,ttf,mp4,mp3,wav,ico,webp}", abort_unnecessary)
-        await context.route("**/*sentry*", abort_unnecessary)
-        await context.route("**/*sensors*", abort_unnecessary)
-        await context.route("**/*growingio*", abort_unnecessary)
-        await context.route("**/*track*", abort_unnecessary)
-        await context.route("**/*google-analytics*", abort_unnecessary)
-        await context.route("**/*baidu*", abort_unnecessary)
+        # 🚨 全局禁令：这里没有任何 context.route。
+        # 所有的拦截已经在上方 C++ 启动参数的 DNS 映射和 Blink 引擎中被底层处理掉了。
+        # Python asyncio 事件循环现在唯一需要做的事就是“发起跳转”，毫无阻力！
         
         tasks = [asyncio.create_task(fetcher(i, context)) for i in range(concurrency)]
         
@@ -336,7 +333,7 @@ def main():
     chunk_size = (total_tasks + process_count - 1) // process_count
     chunks = [cid_list[i:i + chunk_size] for i in range(0, total_tasks, chunk_size)]
 
-    print(f"🚀 [无误杀护城河引擎] 启动！成功绝对优先，绝不遗漏有效数据！", flush=True)
+    print(f"🚀 [原生脱管引擎] 启动！切断 Python 通信死结，全面依靠底层 C++ 极速拉取！", flush=True)
     print(f"⚙️ 分配: {process_count}个物理核心 ✕ 每核 {coros_per_process} 个协程并发 = {process_count * coros_per_process} 总并发", flush=True)
 
     shared_counter = mp.Value('i', 0)
