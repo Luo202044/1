@@ -1,10 +1,10 @@
-name: ClassIn Scanner 3.3 (C++ 极速内核版)
+name: ClassIn Scanner 3.5 (Lightpanda 极致渲染版)
 
 on:
   workflow_dispatch:
     inputs:
       shards:
-        description: '分片数量'
+        description: '分片数量 (Lightpanda 极快，可自行调整)'
         required: true
         default: '19'
 
@@ -77,31 +77,21 @@ jobs:
         run: |
           echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[${{ matrix.shard_idx }}]" > config.json
           
-      # 🚀 彻底修复的 Docker 启动命令！
-      - name: 启动极速内核服务
+      # 🚀 启动 Lightpanda 内核服务 (Zig 语言编写，极度轻量级)
+      - name: 启动 Lightpanda CDP 服务
         run: |
-          # 注入了 --remote-allow-origins=* 解决 Hang Up 断线问题！
-          docker run -d --name cdp_shell -p 9222:9222 --shm-size=2gb chromedp/headless-shell:latest \
-            --no-sandbox \
-            --disable-setuid-sandbox \
-            --remote-debugging-address=0.0.0.0 \
-            --remote-debugging-port=9222 \
-            --disable-gpu \
-            --disable-dev-shm-usage \
-            --remote-allow-origins=* \
-            --blink-settings=imagesEnabled=false
-
-          echo "⌛ 正在等待 CDP 内核完全就绪..."
-          # 健康探针：不断请求内核接口，确认存活后再放行 Python
+          # 拉起官方容器，映射 9222 端口，不设任何包袱参数
+          docker run -d --name lightpanda -p 9222:9222 ghcr.io/lightpanda-io/lightpanda
+          
+          echo "⌛ 正在等待 Lightpanda 就绪..."
+          # 健康探针验证
           for i in {1..15}; do
             if curl -s http://127.0.0.1:9222/json/version > /dev/null; then
-              echo "✅ CDP 内核已成功启动并可接受连接！"
+              echo "✅ Lightpanda 已成功启动！"
               break
             fi
             sleep 1
           done
-          echo "📊 Docker 内部运行日志:"
-          docker logs cdp_shell
           
       - uses: actions/setup-python@v5
         with:
@@ -109,11 +99,11 @@ jobs:
       - name: 安装 Python 依赖
         run: pip install playwright psutil
           
-      - name: 扫描执行 (CDP 直连引擎)
+      - name: 扫描执行 (连接 Lightpanda)
         env:
           PYTHONUNBUFFERED: 1
           SHARD_IDX: ${{ matrix.shard_idx }}
-        run: python scanner_nextgen.py
+        run: python scanner_lightpanda.py
         
       - name: 上传结果
         uses: actions/upload-artifact@v4
@@ -203,18 +193,12 @@ jobs:
         run: |
           echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[0]" | jq '. + {should_scan: true, cid_list_file: "retry_chunks/retry_${{ matrix.retry_idx }}.txt"}' > config.json
           
-      - name: 启动极速内核服务
+      - name: 启动 Lightpanda CDP 服务
         run: |
-          docker run -d --name cdp_shell -p 9222:9222 --shm-size=2gb chromedp/headless-shell:latest \
-            --no-sandbox \
-            --disable-setuid-sandbox \
-            --remote-debugging-address=0.0.0.0 \
-            --remote-debugging-port=9222 \
-            --disable-gpu \
-            --disable-dev-shm-usage \
-            --remote-allow-origins=* \
-            --blink-settings=imagesEnabled=false
-          sleep 3
+          docker run -d --name lightpanda -p 9222:9222 ghcr.io/lightpanda-io/lightpanda
+          for i in {1..15}; do
+            if curl -s http://127.0.0.1:9222/json/version > /dev/null; then break; fi; sleep 1
+          done
           
       - uses: actions/setup-python@v5
         with:
@@ -225,7 +209,7 @@ jobs:
         env:
           PYTHONUNBUFFERED: 1
           SHARD_IDX: retry_${{ matrix.retry_idx }}
-        run: python scanner_nextgen.py
+        run: python scanner_lightpanda.py
       - name: 上传结果
         uses: actions/upload-artifact@v4
         with:
@@ -345,7 +329,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add final_data/
-          if git commit -m "最终扫描结果（C++极速内核版） [skip ci]"; then
+          if git commit -m "最终扫描结果（Lightpanda引擎版） [skip ci]"; then
             git push
           else
             echo "无变更需要提交"
