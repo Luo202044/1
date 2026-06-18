@@ -28,8 +28,8 @@ START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
 
-# 🚀 剥离了通信风暴后，64 并发将如入无人之境
-MAX_CONCURRENT = config.get("max_concurrent_pages", 64) 
+# 🚀 CPU 防抖释放算力后，并发可稳妥冲刺 80~96！
+MAX_CONCURRENT = config.get("max_concurrent_pages", 80) 
 WAIT_TIMEOUT = config.get("wait_timeout", 15)
 TIMEOUT_HOURS = config.get("timeout_hours", 5.0)
 TIMEOUT_SECONDS = TIMEOUT_HOURS * 3600
@@ -50,7 +50,6 @@ USER_AGENTS = [
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
 ]
 
-# 🚀 极致性能参数组合（C++ 层面的直接降维管控）
 CHROME_OPTIMIZED_ARGS = [
     "--disable-gpu",
     "--disable-dev-shm-usage",
@@ -85,9 +84,7 @@ CHROME_OPTIMIZED_ARGS = [
     "--password-store=basic",
     "--use-gl=swiftshader",
     "--use-mock-keychain",
-    # 👇 Blink 引擎级图片封杀，无需 Python 参与
     "--blink-settings=imagesEnabled=false",
-    # 👇 DNS 级黑洞映射，彻底截断跟踪器请求，无需 Python 参与
     "--host-resolver-rules=MAP *google-analytics.com 127.0.0.1, MAP *sentry* 127.0.0.1, MAP *sensors* 127.0.0.1, MAP *growingio.com 127.0.0.1, MAP *baidu.com 127.0.0.1, MAP *track* 127.0.0.1",
     "--js-flags=--max-old-space-size=128", 
     "--disable-features=IsolateOrigins,site-per-process,AudioServiceOutOfProcess,BackForwardCache",
@@ -102,27 +99,30 @@ def format_time(seconds):
     h, m = divmod(m, 60)
     return f"{h}h {m}m"
 
-# 🚀 高精度且 0 内耗的事件驱动轮询
+async def abort_unnecessary(route):
+    try:
+        await route.abort()
+    except:
+        pass
+
+# 🚀 V8 引擎微任务防抖：彻底消除 Vue.js 的渲染风暴 CPU 消耗！
 js_extract_promise = r"""() => {
     return new Promise((resolve) => {
-        let elapsed = 0;
-        let interval = setInterval(() => {
+        function checkDOM() {
             let title = document.title || "";
             let lower_title = title.toLowerCase();
 
-            // 1. WAF 拦截
             if (lower_title.includes("just a moment") || lower_title.includes("access denied") || lower_title.includes("403") || lower_title.includes("拦截")) {
-                clearInterval(interval); resolve({status: "waf"}); return;
+                return {status: "waf"};
             }
 
             let class_name = "无", school = "无", teacher = "无";
             let found = false;
 
-            // 🌟 2. 成功绝对优先：只用 textContent，速度最快
             let c_el = document.querySelector("p.courseName, .courseName, h1, .title");
-            if (c_el) {
+            if (c_el && c_el.style.display !== 'none') {
                 let txt = (c_el.textContent || "").trim();
-                if (txt.length >= 1) { class_name = txt.replace(/\s+/g, ' '); found = true; }
+                if (txt) { class_name = txt.replace(/\s+/g, ' '); found = true; }
             }
 
             if (!found && title && !title.includes("Join") && !title.includes("eeo.cn")) {
@@ -134,10 +134,10 @@ js_extract_promise = r"""() => {
 
             if (found) {
                 let s_el = document.querySelector("p.schoolName, .schoolName, .orgName");
-                if (s_el) { school = (s_el.textContent || "").trim().replace(/\s+/g, ' '); }
+                if (s_el && s_el.style.display !== 'none') { school = (s_el.textContent || "").trim().replace(/\s+/g, ' '); }
 
                 let t_el = document.querySelector(".teacherName, .teaName, .userName, .courseTeacher, p.name");
-                if (t_el) {
+                if (t_el && t_el.style.display !== 'none') {
                     teacher = (t_el.textContent || "").trim().replace(/\s+/g, ' ');
                     if (teacher.includes("教师：") || teacher.includes("授课教师：")) {
                         teacher = teacher.replace("授课教师：", "").replace("教师：", "").trim();
@@ -148,30 +148,48 @@ js_extract_promise = r"""() => {
                     if (match && match[1]) { teacher = match[1].trim(); }
                 }
 
-                clearInterval(interval);
-                resolve({status: "success", class_name, school, teacher}); return;
+                return {status: "success", class_name, school, teacher};
             }
 
-            // 🌟 3. 失败判定：使用极速的 offsetParent 替代昂贵的 innerText！
-            // offsetParent === null 是浏览器判断元素是否 display:none 的最快方法，完全不消耗 CPU 重排计算！
+            // 检查错误框
             let err_nodes = document.querySelectorAll(".courseResultContent, .error-msg, .tip_end, .error-box");
             for (let i = 0; i < err_nodes.length; i++) {
                 let el = err_nodes[i];
-                if (el.offsetParent === null) continue; // 👈 隐藏元素光速跳过
-                
-                let err_txt = el.textContent || ""; // 直接取字，无损耗
-                if (/解散|不能加入|上限|已被删除|设置了权限|不存在|页面错误|dismissed/.test(err_txt)) {
-                    clearInterval(interval); resolve({status: "not_found"}); return;
+                if (el.style.display === 'none') continue; 
+                let err_txt = el.textContent || "";
+                if (err_txt.includes("解散") || err_txt.includes("不能加入") || err_txt.includes("上限") || err_txt.includes("已被删除") || err_txt.includes("设置了权限") || err_txt.includes("不存在") || err_txt.includes("页面错误") || err_txt.includes("dismissed")) {
+                    return {status: "not_found"};
                 }
             }
+            return null; 
+        }
 
-            // 4. 超时断头台：3.5 秒。既照顾网络波动，又能快速斩断僵尸请求
-            elapsed += 150;
-            if (elapsed >= 3500) {
-                clearInterval(interval);
-                resolve({status: "timeout"});
-            }
-        }, 150); 
+        let initial_check = checkDOM();
+        if (initial_check) return resolve(initial_check);
+
+        // 🌟 核心防抖逻辑：无论 DOM 变化多剧烈，一次事件循环（Microtask）内只允许检查一次！
+        let isChecking = false;
+        let observer = new MutationObserver(() => {
+            if (isChecking) return; 
+            isChecking = true;
+            Promise.resolve().then(() => {
+                let res = checkDOM();
+                if (res) {
+                    observer.disconnect(); 
+                    clearTimeout(timeoutId);
+                    resolve(res);
+                }
+                isChecking = false;
+            });
+        });
+        
+        observer.observe(document, { childList: true, subtree: true, characterData: true });
+
+        // 超时斩断：3.5秒
+        let timeoutId = setTimeout(() => {
+            observer.disconnect();
+            resolve({status: "timeout"});
+        }, 3500); 
     });
 }"""
 
@@ -192,7 +210,6 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                 try: await page.close()
                 except: pass
             page = await context.new_page()
-            # 🚨 这里绝不要加 page.route！让 Python 彻底摆脱通信风暴！
         
         await init_page()
         consecutive_errors = 0
@@ -210,13 +227,11 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
             in_flight_cids.add(cid)
             
             try:
-                # 留出充足等待期，底层 JS 会在有结果时瞬间返回截断
                 pw_timeout = min(5000, (deadline - time.time()) * 1000)
                 await page.goto(f"https://www.eeo.cn/s/a/?cid={cid}", timeout=pw_timeout, wait_until="commit")
                 
                 data = await page.evaluate(js_extract_promise)
                 
-                # 物理拔管：瞬间阻止后台渲染继续消耗内存
                 try:
                     await page.evaluate("window.stop()")
                 except:
@@ -258,8 +273,7 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                     
                 lifecycle += 1
 
-            # 放宽重建周期：因为没有了内存积压，一个标签页可以平滑扫 150 个链接再重建
-            if lifecycle >= 150:
+            if lifecycle >= 40:
                 await init_page()
                 lifecycle = 0
 
@@ -276,9 +290,13 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
         browser = await p.chromium.launch(headless=True, args=CHROME_OPTIMIZED_ARGS)
         context = await browser.new_context(user_agent=random.choice(USER_AGENTS), ignore_https_errors=True)
         
-        # 🚨 全局禁令：这里没有任何 context.route。
-        # 所有的拦截已经在上方 C++ 启动参数的 DNS 映射和 Blink 引擎中被底层处理掉了。
-        # Python asyncio 事件循环现在唯一需要做的事就是“发起跳转”，毫无阻力！
+        await context.route("**/*.{png,jpg,jpeg,gif,svg,woff,woff2,ttf,mp4,mp3,wav,ico,webp}", abort_unnecessary)
+        await context.route("**/*sentry*", abort_unnecessary)
+        await context.route("**/*sensors*", abort_unnecessary)
+        await context.route("**/*growingio*", abort_unnecessary)
+        await context.route("**/*track*", abort_unnecessary)
+        await context.route("**/*google-analytics*", abort_unnecessary)
+        await context.route("**/*baidu*", abort_unnecessary)
         
         tasks = [asyncio.create_task(fetcher(i, context)) for i in range(concurrency)]
         
@@ -333,7 +351,7 @@ def main():
     chunk_size = (total_tasks + process_count - 1) // process_count
     chunks = [cid_list[i:i + chunk_size] for i in range(0, total_tasks, chunk_size)]
 
-    print(f"🚀 [原生脱管引擎] 启动！切断 Python 通信死结，全面依靠底层 C++ 极速拉取！", flush=True)
+    print(f"🚀 [微任务防抖引擎] 启动！彻底消除 Vue 渲染风暴！", flush=True)
     print(f"⚙️ 分配: {process_count}个物理核心 ✕ 每核 {coros_per_process} 个协程并发 = {process_count * coros_per_process} 总并发", flush=True)
 
     shared_counter = mp.Value('i', 0)
