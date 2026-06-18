@@ -28,7 +28,7 @@ START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
 
-# 🚀 黄金并发点：4 核机器的最优解是 32~48！过高会导致 CPU 踩踏效应变慢！
+# 🚀 黄金并发点：4 核机器的最优解是 40！过高会导致 CPU 踩踏效应变慢！
 MAX_CONCURRENT = config.get("max_concurrent_pages", 40) 
 TIMEOUT_SECONDS = config.get("timeout_hours", 5.0) * 3600
 
@@ -50,6 +50,12 @@ def format_time(seconds):
     if m < 60: return f"{m}m {s}s"
     h, m = divmod(m, 60)
     return f"{h}h {m}m"
+
+# 🚨 修复: 补回了遗漏的 USER_AGENTS 列表
+USER_AGENTS = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+]
 
 # 🚀 Chromium 官方内核极速阉割参数
 CHROME_OPTIMIZED_ARGS = [
@@ -270,7 +276,7 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
             except: pass
 
     async with async_playwright() as p:
-        # 🚀 纯净原生环境，没有 Node.js，没有 Docker！
+        # 🚀 纯净原生环境，直接裸跑原生 Chromium
         browser = await p.chromium.launch(headless=True, args=CHROME_OPTIMIZED_ARGS)
         context = await browser.new_context(user_agent=random.choice(USER_AGENTS), ignore_https_errors=True)
         
