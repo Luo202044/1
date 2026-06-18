@@ -28,12 +28,10 @@ START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
 
-MAX_CONCURRENT = config.get("max_concurrent_pages", 80) 
+# 🚀 回归原生后，建议将并发控制在 48-64，太高会被 ClassIn 官方当成 DDoS 拦截导致速度变慢！
+MAX_CONCURRENT = config.get("max_concurrent_pages", 64) 
 TIMEOUT_HOURS = config.get("timeout_hours", 5.0)
 TIMEOUT_SECONDS = TIMEOUT_HOURS * 3600
-
-# 🌟 核心修复：使用 HTTP 协议，Playwright 会自动完成 CDP 握手并解析真实的 WS 地址！
-CDP_URL = config.get("cdp_url", "http://127.0.0.1:9222")
 
 os.makedirs("data", exist_ok=True)
 
@@ -54,7 +52,54 @@ def format_time(seconds):
     h, m = divmod(m, 60)
     return f"{h}h {m}m"
 
-# 🚀 极限防抖侦测
+USER_AGENTS = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+]
+
+# 🚀 原生内核的终极参数（取代 Docker 的作用，直接在系统底层禁图、禁埋点、折叠进程）
+CHROME_OPTIMIZED_ARGS = [
+    "--disable-gpu",
+    "--disable-dev-shm-usage",
+    "--no-sandbox",
+    "--disable-background-networking",
+    "--disable-background-timer-throttling",
+    "--disable-backgrounding-occluded-windows",
+    "--disable-breakpad",
+    "--disable-component-update",
+    "--disable-default-apps",
+    "--disable-domain-reliability",
+    "--disable-extensions",
+    "--disable-hang-monitor",
+    "--disable-ipc-flooding-protection",
+    "--disable-notifications",
+    "--disable-popup-blocking",
+    "--disable-print-preview",
+    "--disable-prompt-on-repost",
+    "--disable-renderer-backgrounding",
+    "--disable-setuid-sandbox",
+    "--disable-speech-api",
+    "--disable-sync",
+    "--hide-scrollbars",
+    "--ignore-gpu-blacklist",
+    "--metrics-recording-only",
+    "--mute-audio",
+    "--no-default-browser-check",
+    "--no-first-run",
+    "--no-pings",
+    "--no-zygote",
+    "--password-store=basic",
+    "--use-gl=swiftshader",
+    "--use-mock-keychain",
+    # 核心降维打击
+    "--blink-settings=imagesEnabled=false",
+    "--host-resolver-rules=MAP *google-analytics.com 127.0.0.1, MAP *sentry* 127.0.0.1, MAP *sensors* 127.0.0.1, MAP *growingio.com 127.0.0.1, MAP *baidu.com 127.0.0.1, MAP *track* 127.0.0.1",
+    "--js-flags=--max-old-space-size=128", 
+    "--disable-features=IsolateOrigins,site-per-process,AudioServiceOutOfProcess,BackForwardCache",
+    "--renderer-process-limit=4"
+]
+
+# 🚀 依然保留我们千锤百炼的微任务防抖引擎，极其省 CPU！
 js_extract_promise = r"""() => {
     return new Promise((resolve) => {
         function checkDOM() {
@@ -132,6 +177,7 @@ js_extract_promise = r"""() => {
         
         observer.observe(document, { childList: true, subtree: true, characterData: true });
 
+        // 3.5秒斩断机制
         let timeoutId = setTimeout(() => {
             observer.disconnect();
             resolve({status: "timeout"});
@@ -186,7 +232,7 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                 
                 if status == 'waf':
                     if random.random() < 0.1: 
-                        print(f"⚠️ [风控侦测] P{process_id}-C{coro_id} 遭遇拦截...", flush=True)
+                        print(f"⚠️ [风控侦测] P{process_id}-C{coro_id} 遭遇拦截或限流，正在重试...", flush=True)
                     raise Exception("WAF_BLOCKED")
                     
                 elif status == 'success':
@@ -204,7 +250,8 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
             except Exception as e:
                 consecutive_errors += 1
                 if consecutive_errors >= 2 or "WAF" in str(e):
-                    if consecutive_errors >= 3: await asyncio.sleep(1.5)
+                    # 遭遇限流，必须退避休息，否则会被连续制裁导致 0.5/s
+                    if consecutive_errors >= 3: await asyncio.sleep(2)
                     await init_page()
                     consecutive_errors = 0
             
@@ -218,7 +265,7 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                     
                 lifecycle += 1
 
-            if lifecycle >= 200:
+            if lifecycle >= 150:
                 await init_page()
                 lifecycle = 0
 
@@ -231,23 +278,12 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
             try: await page.close()
             except: pass
 
-    # 重试连接机制，确保内核启动完成
-    browser = None
     async with async_playwright() as p:
-        for _ in range(5):
-            try:
-                # 🌟 核心对接：通过 HTTP 直连底层内核，跳过本地浏览器启动
-                browser = await p.chromium.connect_over_cdp(CDP_URL)
-                break
-            except Exception as e:
-                print(f"⌛ [等待内核] CDP 连接失败，1秒后重试... ({e})", flush=True)
-                await asyncio.sleep(1)
+        # 🚀 彻底抛弃 Docker！直接裸跑原生的 Chromium，把 C++ 参数全部送进去
+        browser = await p.chromium.launch(headless=True, args=CHROME_OPTIMIZED_ARGS)
+        context = await browser.new_context(user_agent=random.choice(USER_AGENTS), ignore_https_errors=True)
         
-        if not browser:
-            print(f"\n❌ [致命错误] 彻底无法连接到轻量级内核 ({CDP_URL})。", flush=True)
-            return
-
-        context = await browser.new_context(ignore_https_errors=True)
+        # 🚨 警告：这里绝对不加 page.route！完全靠启动参数在 C++ 层面拦截垃圾请求
         
         tasks = [asyncio.create_task(fetcher(i, context)) for i in range(concurrency)]
         
@@ -302,8 +338,8 @@ def main():
     chunk_size = (total_tasks + process_count - 1) // process_count
     chunks = [cid_list[i:i + chunk_size] for i in range(0, total_tasks, chunk_size)]
 
-    print(f"🚀 [纯C++轻内核 CDP引擎] 启动！", flush=True)
-    print(f"⚙️ 连接目标: {CDP_URL} | 总并发: {process_count * coros_per_process}", flush=True)
+    print(f"🚀 [原生 Playwright 极致回归版] 启动！彻底抛弃 Docker 网络损耗！", flush=True)
+    print(f"⚙️ 分配: {process_count}核 ✕ {coros_per_process}并发 = {process_count * coros_per_process} 总并发", flush=True)
 
     shared_counter = mp.Value('i', 0)
     deadline = time.time() + TIMEOUT_SECONDS - 60
@@ -345,8 +381,8 @@ def main():
                 mem_used_gb = mem_info.used / (1024 ** 3)
                 mem_total_gb = mem_info.total / (1024 ** 3)
                 
-                print(f"\n🔥 [满血监控] 完成: {c}/{total_tasks} ({pct:.2f}%) | ⚡ 超越时速: {speed:.1f} 个/秒 | ⏳ 剩余: {eta}")
-                print(f"🖥️  [降维减负] CPU: {cpu_usage}% (彻底释放) | 💾 内存: {mem_used_gb:.1f}GB / {mem_total_gb:.1f}GB\n", flush=True)
+                print(f"\n🔥 [满血监控] 完成: {c}/{total_tasks} ({pct:.2f}%) | ⚡ 稳定时速: {speed:.1f} 个/秒 | ⏳ 剩余: {eta}")
+                print(f"🖥️  [降维减负] CPU: {cpu_usage}% | 💾 内存: {mem_used_gb:.1f}GB / {mem_total_gb:.1f}GB\n", flush=True)
                 
                 last_print = now
                 
