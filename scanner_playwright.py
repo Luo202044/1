@@ -28,7 +28,6 @@ START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
 
-# 🚀 斩断 IPC 通信并解除死循环后，建议稳妥设置并发为 48 到 64
 MAX_CONCURRENT = config.get("max_concurrent_pages", 64) 
 WAIT_TIMEOUT = config.get("wait_timeout", 15)
 TIMEOUT_HOURS = config.get("timeout_hours", 5.0)
@@ -101,7 +100,6 @@ async def abort_unnecessary(route):
     except:
         pass
 
-# 🚀 零内耗提取：保留 CSS，依靠 style.display 识别，准确率 100%
 js_extract_promise = r"""() => {
     return new Promise((resolve) => {
         let elapsed = 0;
@@ -109,12 +107,10 @@ js_extract_promise = r"""() => {
             let title = document.title || "";
             let lower_title = title.toLowerCase();
 
-            // 1. WAF 极速拦截
             if (lower_title.includes("just a moment") || lower_title.includes("access denied") || lower_title.includes("403") || lower_title.includes("拦截")) {
                 clearInterval(interval); resolve({status: "waf"}); return;
             }
             
-            // 2. 无效页面秒退 (只读取没有被 CSS 隐藏的错误信息，0 重排消耗)
             let err_nodes = document.querySelectorAll(".context, .courseResultContent, .error-msg, .tip_end");
             for (let i = 0; i < err_nodes.length; i++) {
                 let el = err_nodes[i];
@@ -129,14 +125,12 @@ js_extract_promise = r"""() => {
             let class_name = "无", school = "无", teacher = "无";
             let found = false;
 
-            // 3. 极速提取班级
             let c_el = document.querySelector("p.courseName, .courseName, h1, .title");
             if (c_el && c_el.style.display !== 'none') {
                 let txt = (c_el.textContent || "").trim();
                 if (txt) { class_name = txt.replace(/\s+/g, ' '); found = true; }
             }
 
-            // 4. 标题兜底
             if (!found && title && !title.includes("Join") && !title.includes("eeo.cn")) {
                 let clean_title = title.replace("- ClassIn", "").trim();
                 if (clean_title.includes("|")) { class_name = clean_title.split("|").pop().trim(); if(class_name) found = true; } 
@@ -144,7 +138,6 @@ js_extract_promise = r"""() => {
                 else if (clean_title) { class_name = clean_title; found = true; }
             }
 
-            // 5. 提取学校和老师 (只有在成功时才会执行这部分)
             if (found) {
                 let s_el = document.querySelector("p.schoolName, .schoolName, .orgName");
                 if (s_el && s_el.style.display !== 'none') { school = (s_el.textContent || "").trim().replace(/\s+/g, ' '); }
@@ -165,7 +158,6 @@ js_extract_promise = r"""() => {
                 resolve({status: "success", class_name, school, teacher}); return;
             }
 
-            // 6. 等待容忍上限：2.4 秒
             elapsed += 200;
             if (elapsed >= 2400) {
                 clearInterval(interval);
@@ -192,7 +184,6 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                 try: await page.close()
                 except: pass
             page = await context.new_page()
-            # 🚨 已经将那行致命的 await init_page() 删除了，再也不会死循环了！
         
         await init_page()
         consecutive_errors = 0
@@ -267,7 +258,6 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
         browser = await p.chromium.launch(headless=True, args=CHROME_OPTIMIZED_ARGS)
         context = await browser.new_context(user_agent=random.choice(USER_AGENTS), ignore_https_errors=True)
         
-        # 🚀 剔除了 css 的阻截，保证网页隐藏报错信息能正确生效
         await context.route("**/*.{png,jpg,jpeg,gif,svg,woff,woff2,ttf,mp4,mp3,wav,ico,webp}", abort_unnecessary)
         await context.route("**/*sentry*", abort_unnecessary)
         await context.route("**/*sensors*", abort_unnecessary)
@@ -329,7 +319,7 @@ def main():
     chunk_size = (total_tasks + process_count - 1) // process_count
     chunks = [cid_list[i:i + chunk_size] for i in range(0, total_tasks, chunk_size)]
 
-    print(f"🚀 [完全体·底层免通信引擎] 启动！", flush=True)
+    print(f"🚀 [防死锁看门狗守护引擎] 启动！彻底杜绝收尾假死！", flush=True)
     print(f"⚙️ 分配: {process_count}个物理核心 ✕ 每核 {coros_per_process} 个协程并发 = {process_count * coros_per_process} 总并发", flush=True)
 
     shared_counter = mp.Value('i', 0)
@@ -345,11 +335,26 @@ def main():
         p.start()
 
     last_print = start_time
+    
+    # 🚀 新增：看门狗状态记录
+    last_c = 0
+    last_c_time = start_time
+
     try:
         while any(p.is_alive() for p in processes):
             now = time.time()
+            c = shared_counter.value
+            
+            # 🚀 看门狗核心逻辑：检测进度是否停滞
+            if c > last_c:
+                last_c = c
+                last_c_time = now
+            elif now - last_c_time > 180: # 180秒（3分钟）进度不变
+                print(f"\n🚨 [看门狗触发] 进度已停滞 3 分钟！判定为底层协程僵死。", flush=True)
+                print(f"🔪 正在强行中断进程，启动安全收尾与数据持久化机制...", flush=True)
+                break # 直接跳出循环，进入下方的资源释放与保存流程
+            
             if now - last_print >= 5: 
-                c = shared_counter.value
                 elapsed = now - start_time
                 speed = c / elapsed if elapsed > 0 else 0
                 rem = total_tasks - c
