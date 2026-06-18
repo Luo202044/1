@@ -28,13 +28,12 @@ START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
 
-# 🚀 降维打击：轻量级内核加持，并发直拉 100~200！
-MAX_CONCURRENT = config.get("max_concurrent_pages", 120) 
+MAX_CONCURRENT = config.get("max_concurrent_pages", 80) 
 TIMEOUT_HOURS = config.get("timeout_hours", 5.0)
 TIMEOUT_SECONDS = TIMEOUT_HOURS * 3600
 
-# 🌟 新增：轻量级内核的 CDP 直连地址 (默认端口通常是 9222 或 3000)
-CDP_URL = config.get("cdp_url", "ws://127.0.0.1:9222")
+# 🌟 核心修复：使用 HTTP 协议，Playwright 会自动完成 CDP 握手并解析真实的 WS 地址！
+CDP_URL = config.get("cdp_url", "http://127.0.0.1:9222")
 
 os.makedirs("data", exist_ok=True)
 
@@ -55,7 +54,7 @@ def format_time(seconds):
     h, m = divmod(m, 60)
     return f"{h}h {m}m"
 
-# 🚀 保留了最强的微任务防抖逻辑，配合新内核速度无敌
+# 🚀 极限防抖侦测
 js_extract_promise = r"""() => {
     return new Promise((resolve) => {
         function checkDOM() {
@@ -179,6 +178,10 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                 
                 data = await page.evaluate(js_extract_promise)
                 
+                try:
+                    await page.evaluate("window.stop()")
+                except: pass
+
                 status = data.get('status', 'timeout')
                 
                 if status == 'waf':
@@ -228,12 +231,20 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
             try: await page.close()
             except: pass
 
+    # 重试连接机制，确保内核启动完成
+    browser = None
     async with async_playwright() as p:
-        try:
-            # 🌟 终极革命：通过 CDP (WebSocket) 连接到外部的轻量级内核，不再启动 Chromium！
-            browser = await p.chromium.connect_over_cdp(CDP_URL)
-        except Exception as e:
-            print(f"\n❌ [致命错误] 无法连接到轻量级内核 ({CDP_URL})。请确保 Obscura/Lightpanda 已启动！\n报错详情: {e}", flush=True)
+        for _ in range(5):
+            try:
+                # 🌟 核心对接：通过 HTTP 直连底层内核，跳过本地浏览器启动
+                browser = await p.chromium.connect_over_cdp(CDP_URL)
+                break
+            except Exception as e:
+                print(f"⌛ [等待内核] CDP 连接失败，1秒后重试... ({e})", flush=True)
+                await asyncio.sleep(1)
+        
+        if not browser:
+            print(f"\n❌ [致命错误] 彻底无法连接到轻量级内核 ({CDP_URL})。", flush=True)
             return
 
         context = await browser.new_context(ignore_https_errors=True)
@@ -291,8 +302,8 @@ def main():
     chunk_size = (total_tasks + process_count - 1) // process_count
     chunks = [cid_list[i:i + chunk_size] for i in range(0, total_tasks, chunk_size)]
 
-    print(f"🚀 [下一代轻量内核引擎 (CDP直连)] 启动！", flush=True)
-    print(f"⚙️ 连接目标: {CDP_URL} | 并发开满: {process_count * coros_per_process}", flush=True)
+    print(f"🚀 [纯C++轻内核 CDP引擎] 启动！", flush=True)
+    print(f"⚙️ 连接目标: {CDP_URL} | 总并发: {process_count * coros_per_process}", flush=True)
 
     shared_counter = mp.Value('i', 0)
     deadline = time.time() + TIMEOUT_SECONDS - 60
