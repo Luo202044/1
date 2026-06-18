@@ -1,10 +1,10 @@
-name: ClassIn Scanner 3.0 (Auto Retry + Statistics)
+name: ClassIn Scanner 3.0 (HTTP API 极速版)
 
 on:
   workflow_dispatch:
     inputs:
       shards:
-        description: '分片数量'
+        description: '分片数量 (HTTP版极快，可适当减少分片或维持原样)'
         required: true
         default: '19'
 
@@ -79,20 +79,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: 缓存 Playwright
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-chromium
-      - name: 安装依赖
+      - name: 安装轻量级依赖
         run: |
-          pip install playwright psutil
-          playwright install chromium
+          pip install aiohttp psutil
       - name: 扫描执行 (第一轮)
         env:
           PYTHONUNBUFFERED: 1
           SHARD_IDX: ${{ matrix.shard_idx }}
-        run: python scanner_playwright.py
+        run: python scanner_http.py
       - name: 上传结果 (第一轮)
         uses: actions/upload-artifact@v4
         with:
@@ -188,20 +182,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: 恢复 Playwright 缓存
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-chromium
-      - name: 安装依赖
+      - name: 安装轻量级依赖
         run: |
-          pip install playwright psutil
-          playwright install chromium
+          pip install aiohttp psutil
       - name: 补扫执行 (第二轮)
         env:
           PYTHONUNBUFFERED: 1
           SHARD_IDX: retry_${{ matrix.retry_idx }}
-        run: python scanner_playwright.py
+        run: python scanner_http.py
       - name: 上传结果 (第二轮)
         uses: actions/upload-artifact@v4
         with:
@@ -297,20 +285,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: 恢复 Playwright 缓存
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-chromium
-      - name: 安装依赖
+      - name: 安装轻量级依赖
         run: |
-          pip install playwright psutil
-          playwright install chromium
+          pip install aiohttp psutil
       - name: 补扫执行 (第三轮)
         env:
           PYTHONUNBUFFERED: 1
           SHARD_IDX: retry2_${{ matrix.retry2_idx }}
-        run: python scanner_playwright.py
+        run: python scanner_http.py
       - name: 上传结果 (第三轮)
         uses: actions/upload-artifact@v4
         with:
@@ -406,20 +388,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: 恢复 Playwright 缓存
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-chromium
-      - name: 安装依赖
+      - name: 安装轻量级依赖
         run: |
-          pip install playwright psutil
-          playwright install chromium
+          pip install aiohttp psutil
       - name: 补扫执行 (第四轮)
         env:
           PYTHONUNBUFFERED: 1
           SHARD_IDX: retry3_${{ matrix.retry3_idx }}
-        run: python scanner_playwright.py
+        run: python scanner_http.py
       - name: 上传结果 (第四轮)
         uses: actions/upload-artifact@v4
         with:
@@ -559,7 +535,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add final_data/
-          if git commit -m "最终扫描结果（四层极致补扫合并+统计报告） [skip ci]"; then
+          if git commit -m "最终扫描结果（HTTP极速版+统计报告） [skip ci]"; then
             git push
           else
             echo "无变更需要提交"
