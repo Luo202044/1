@@ -1,4 +1,4 @@
-name: ClassIn Scanner (Node原生直连版)
+name: ClassIn Scanner (原生稳定版)
 
 on:
   workflow_dispatch:
@@ -74,25 +74,24 @@ jobs:
         run: |
           echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[${{ matrix.shard_idx }}]" > config.json
           
-      # 🚀 NPM 自动安装底层二进制包和 Python 依赖
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      - name: 安装 Node 依赖 (拉取原生内核)
-        run: npm install @chegger/node-obscura playwright-core
-        
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: 安装 Python 依赖
-        run: pip install playwright psutil
+      - name: 恢复 Playwright 缓存
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-chromium
+      - name: 安装原生依赖与内核
+        run: |
+          pip install playwright psutil
+          playwright install chromium
           
-      # 🚀 启动 Node.js 启动器，它会自动拉起内核和 Python
-      - name: 扫描执行 (Native 直连)
+      - name: 扫描执行 (原生 Playwright 引擎)
         env:
           PYTHONUNBUFFERED: 1
           SHARD_IDX: ${{ matrix.shard_idx }}
-        run: node launcher.js
+        run: python scanner_native.py
         
       - name: 上传结果
         uses: actions/upload-artifact@v4
@@ -109,7 +108,6 @@ jobs:
           if-no-files-found: ignore
           retention-days: 1
 
-  # ====== 收集补扫 ======
   collect_unfinished:
     needs: scan_shard_first
     if: success() || failure()
@@ -180,23 +178,23 @@ jobs:
         run: |
           echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[0]" | jq '. + {should_scan: true, cid_list_file: "retry_chunks/retry_${{ matrix.retry_idx }}.txt"}' > config.json
           
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      - name: 安装 Node 依赖 (拉取原生内核)
-        run: npm install @chegger/node-obscura playwright-core
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: 安装 Python 依赖
-        run: pip install playwright psutil
-        
+      - name: 恢复 Playwright 缓存
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-chromium
+      - name: 安装依赖
+        run: |
+          pip install playwright psutil
+          playwright install chromium
       - name: 补扫执行
         env:
           PYTHONUNBUFFERED: 1
           SHARD_IDX: retry_${{ matrix.retry_idx }}
-        run: node launcher.js
-        
+        run: python scanner_native.py
       - name: 上传结果
         uses: actions/upload-artifact@v4
         with:
@@ -212,7 +210,6 @@ jobs:
           if-no-files-found: ignore
           retention-days: 1
 
-  # ====== 最终汇总 ======
   final_upload:
     needs: [master, scan_shard_first, scan_shard_second]
     if: always() && !cancelled()
@@ -260,10 +257,8 @@ jobs:
               rm all_merged.txt
             fi
           fi
-          
           TOTAL="${{ needs.master.outputs.total_cids }}"
           UNFINISHED_COUNT=0
-          
           if ls unfinished_2/*.txt 1> /dev/null 2>&1; then
             cat unfinished_2/*.txt | sort -u > tmp_unfinished
           elif ls unfinished_1/*.txt 1> /dev/null 2>&1; then
@@ -271,18 +266,15 @@ jobs:
           else
             touch tmp_unfinished
           fi
-          
           if [ -s tmp_unfinished ]; then
             UNFINISHED_COUNT=$(wc -l < tmp_unfinished)
           fi
           rm -f tmp_unfinished
-          
           SCANNED=$((TOTAL - UNFINISHED_COUNT))
           PERCENT=0
           if [ $TOTAL -gt 0 ]; then
             PERCENT=$(echo "scale=2; $SCANNED * 100 / $TOTAL" | bc)
           fi
-          
           END_TIME=$(date -u +"%Y-%m-%d %H:%M:%S")
           DURATION="未知"
           if [ -f start_time/start_time.txt ]; then
@@ -293,7 +285,6 @@ jobs:
             minutes=$(((diff % 3600) / 60))
             DURATION="${hours}小时${minutes}分钟"
           fi
-          
           cat > final_data/nto.txt << EOF
           总班级数: $TOTAL
           有效班级: $VALID_COUNT
@@ -303,13 +294,12 @@ jobs:
           工作时间: $DURATION
           EOF
           cat final_data/nto.txt
-          
       - name: 提交到仓库
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add final_data/
-          if git commit -m "最终扫描结果（Native NPM 直连极速版） [skip ci]"; then
+          if git commit -m "最终扫描结果（原生稳定版） [skip ci]"; then
             git push
           else
             echo "无变更需要提交"
