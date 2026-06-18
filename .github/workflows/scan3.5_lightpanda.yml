@@ -77,11 +77,11 @@ jobs:
         run: |
           echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[${{ matrix.shard_idx }}]" > config.json
           
-      # 🚀 启动 Lightpanda 内核服务 (Zig 语言编写，极度轻量级)
+      # 🚀 修正：使用 Lightpanda 官方最新的公共 Docker Hub 镜像！
       - name: 启动 Lightpanda CDP 服务
         run: |
-          # 拉起官方容器，映射 9222 端口，不设任何包袱参数
-          docker run -d --name lightpanda -p 9222:9222 ghcr.io/lightpanda-io/lightpanda
+          # 拉起官方容器，映射 9222 端口
+          docker run -d --name lightpanda -p 127.0.0.1:9222:9222 lightpanda/browser:nightly
           
           echo "⌛ 正在等待 Lightpanda 就绪..."
           # 健康探针验证
@@ -193,9 +193,10 @@ jobs:
         run: |
           echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[0]" | jq '. + {should_scan: true, cid_list_file: "retry_chunks/retry_${{ matrix.retry_idx }}.txt"}' > config.json
           
+      # 🚀 第二轮同样使用最新官方镜像
       - name: 启动 Lightpanda CDP 服务
         run: |
-          docker run -d --name lightpanda -p 9222:9222 ghcr.io/lightpanda-io/lightpanda
+          docker run -d --name lightpanda -p 127.0.0.1:9222:9222 lightpanda/browser:nightly
           for i in {1..15}; do
             if curl -s http://127.0.0.1:9222/json/version > /dev/null; then break; fi; sleep 1
           done
