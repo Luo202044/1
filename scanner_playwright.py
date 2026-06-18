@@ -28,6 +28,7 @@ START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
 
+# 🚀 进程折叠与事件驱动加持下，64~80 并发毫无压力！
 MAX_CONCURRENT = config.get("max_concurrent_pages", 64) 
 WAIT_TIMEOUT = config.get("wait_timeout", 15)
 TIMEOUT_HOURS = config.get("timeout_hours", 5.0)
@@ -49,6 +50,7 @@ USER_AGENTS = [
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
 ]
 
+# 🚀 斩断所有系统内耗的最终形态参数
 CHROME_OPTIMIZED_ARGS = [
     "--disable-gpu",
     "--disable-dev-shm-usage",
@@ -61,7 +63,6 @@ CHROME_OPTIMIZED_ARGS = [
     "--disable-default-apps",
     "--disable-domain-reliability",
     "--disable-extensions",
-    "--disable-features=AudioServiceOutOfProcess",
     "--disable-hang-monitor",
     "--disable-ipc-flooding-protection",
     "--disable-notifications",
@@ -83,7 +84,13 @@ CHROME_OPTIMIZED_ARGS = [
     "--no-zygote",
     "--password-store=basic",
     "--use-gl=swiftshader",
-    "--use-mock-keychain"
+    "--use-mock-keychain",
+    "--blink-settings=imagesEnabled=false",
+    "--host-resolver-rules=MAP *google-analytics.com 127.0.0.1, MAP *sentry* 127.0.0.1, MAP *sensors* 127.0.0.1, MAP *growingio.com 127.0.0.1, MAP *baidu.com 127.0.0.1, MAP *track* 127.0.0.1",
+    
+    # 👇👇👇 核心提速黑科技：强制共享渲染进程，关闭站点隔离，彻底消除 4 核 CPU 的调度噩梦！
+    "--disable-features=IsolateOrigins,site-per-process,AudioServiceOutOfProcess",
+    "--renderer-process-limit=4"
 ]
 
 def format_time(seconds):
@@ -100,25 +107,25 @@ async def abort_unnecessary(route):
     except:
         pass
 
+# 🚀 降维级监听引擎：彻底废弃 setInterval 轮询，改用 MutationObserver 事件驱动，0变化=0消耗！
 js_extract_promise = r"""() => {
     return new Promise((resolve) => {
-        let elapsed = 0;
-        let interval = setInterval(() => {
+        
+        function checkDOM() {
             let title = document.title || "";
             let lower_title = title.toLowerCase();
 
             if (lower_title.includes("just a moment") || lower_title.includes("access denied") || lower_title.includes("403") || lower_title.includes("拦截")) {
-                clearInterval(interval); resolve({status: "waf"}); return;
+                return {status: "waf"};
             }
             
             let err_nodes = document.querySelectorAll(".context, .courseResultContent, .error-msg, .tip_end");
             for (let i = 0; i < err_nodes.length; i++) {
                 let el = err_nodes[i];
                 if (el.style.display === 'none') continue; 
-                
                 let err_txt = el.textContent || "";
                 if (err_txt.includes("解散") || err_txt.includes("不能加入") || err_txt.includes("上限") || err_txt.includes("已被删除") || err_txt.includes("设置了权限") || err_txt.includes("不存在") || err_txt.includes("页面错误")) {
-                    clearInterval(interval); resolve({status: "not_found"}); return;
+                    return {status: "not_found"};
                 }
             }
 
@@ -154,16 +161,33 @@ js_extract_promise = r"""() => {
                     if (match && match[1]) { teacher = match[1].trim(); }
                 }
 
-                clearInterval(interval);
-                resolve({status: "success", class_name, school, teacher}); return;
+                return {status: "success", class_name, school, teacher};
             }
+            return null; // 继续等待
+        }
 
-            elapsed += 200;
-            if (elapsed >= 2400) {
-                clearInterval(interval);
-                resolve({status: "timeout"});
+        // 1. 网页刚加载时先快速看一眼
+        let initial_check = checkDOM();
+        if (initial_check) return resolve(initial_check);
+
+        // 2. 如果数据没出来，启动 DOM 变化监听器（彻底取代消耗 CPU 的 setInterval）
+        let observer = new MutationObserver((mutations) => {
+            let res = checkDOM();
+            if (res) {
+                observer.disconnect(); // 拿到了就立刻销毁监听，释放内存
+                clearTimeout(timeoutId);
+                resolve(res);
             }
-        }, 200); 
+        });
+        
+        // 监听整个文档的变化
+        observer.observe(document, { childList: true, subtree: true, characterData: true });
+
+        // 3. 安全熔断机制：最多等 2.4 秒，超时直接断开并返回
+        let timeoutId = setTimeout(() => {
+            observer.disconnect();
+            resolve({status: "timeout"});
+        }, 2400);
     });
 }"""
 
@@ -319,7 +343,7 @@ def main():
     chunk_size = (total_tasks + process_count - 1) // process_count
     chunks = [cid_list[i:i + chunk_size] for i in range(0, total_tasks, chunk_size)]
 
-    print(f"🚀 [防死锁看门狗守护引擎] 启动！彻底杜绝收尾假死！", flush=True)
+    print(f"🚀 [进程折叠 + DOM事件驱动] 最终极速引擎启动！", flush=True)
     print(f"⚙️ 分配: {process_count}个物理核心 ✕ 每核 {coros_per_process} 个协程并发 = {process_count * coros_per_process} 总并发", flush=True)
 
     shared_counter = mp.Value('i', 0)
@@ -335,8 +359,6 @@ def main():
         p.start()
 
     last_print = start_time
-    
-    # 🚀 新增：看门狗状态记录
     last_c = 0
     last_c_time = start_time
 
@@ -345,14 +367,13 @@ def main():
             now = time.time()
             c = shared_counter.value
             
-            # 🚀 看门狗核心逻辑：检测进度是否停滞
             if c > last_c:
                 last_c = c
                 last_c_time = now
-            elif now - last_c_time > 180: # 180秒（3分钟）进度不变
+            elif now - last_c_time > 180: 
                 print(f"\n🚨 [看门狗触发] 进度已停滞 3 分钟！判定为底层协程僵死。", flush=True)
                 print(f"🔪 正在强行中断进程，启动安全收尾与数据持久化机制...", flush=True)
-                break # 直接跳出循环，进入下方的资源释放与保存流程
+                break 
             
             if now - last_print >= 5: 
                 elapsed = now - start_time
