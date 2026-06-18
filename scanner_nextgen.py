@@ -12,7 +12,6 @@ import multiprocessing as mp
 import psutil
 from playwright.async_api import async_playwright
 
-# ========== 配置加载 ==========
 if not os.path.exists("config.json"):
     print("错误: config.json 不存在", flush=True)
     sys.exit(1)
@@ -28,13 +27,12 @@ START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
 
-# 🚀 宿主机裸跑 Lightpanda，网络极度通畅，并发可放心推至 100-150
-MAX_CONCURRENT = config.get("max_concurrent_pages", 120) 
-TIMEOUT_HOURS = config.get("timeout_hours", 5.0)
-TIMEOUT_SECONDS = TIMEOUT_HOURS * 3600
+# 🚀 宿主机直连，无网络损耗，并发拉满
+MAX_CONCURRENT = config.get("max_concurrent_pages", 80) 
+TIMEOUT_SECONDS = config.get("timeout_hours", 5.0) * 3600
 
-# 🌟 本地宿主机 9222 端口，不再经过 Docker 网桥！
-CDP_URL = os.environ.get("CDP_URL", "http://127.0.0.1:9222")
+# 🌟 核心：接收 Launcher 传来的动态 CDP 直连地址
+CDP_URL = os.environ.get("CDP_URL")
 
 os.makedirs("data", exist_ok=True)
 
@@ -55,7 +53,6 @@ def format_time(seconds):
     h, m = divmod(m, 60)
     return f"{h}h {m}m"
 
-# 🚀 最强微任务防抖提取逻辑
 js_extract_promise = r"""() => {
     return new Promise((resolve) => {
         function checkDOM() {
@@ -133,7 +130,6 @@ js_extract_promise = r"""() => {
         
         observer.observe(document, { childList: true, subtree: true, characterData: true });
 
-        // 3.5秒超时保护
         let timeoutId = setTimeout(() => {
             observer.disconnect();
             resolve({status: "timeout"});
@@ -235,23 +231,22 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
 
     browser = None
     async with async_playwright() as p:
-        # 🌟 强健的握手重试：即使 Native 进程启动较慢，也能稳定连上
         for attempt in range(10):
             try:
+                if not CDP_URL:
+                    raise Exception("CDP_URL 环境变量未设置！")
                 browser = await p.chromium.connect_over_cdp(CDP_URL)
                 break
             except Exception as e:
-                print(f"⌛ [等待 Lightpanda 进程] Native CDP 握手中... ({e})", flush=True)
+                print(f"⌛ [等待内核心跳] 正在挂载 Native CDP... ({e})", flush=True)
                 await asyncio.sleep(1)
         
         if not browser:
-            print(f"\n❌ [致命错误] 彻底无法连接到宿主机内核 ({CDP_URL})。", flush=True)
+            print(f"\n❌ [致命错误] 彻底无法挂载极速内核 ({CDP_URL})。", flush=True)
             return
 
         context = await browser.new_context(ignore_https_errors=True)
-        
         tasks = [asyncio.create_task(fetcher(i, context)) for i in range(concurrency)]
-        
         wait_task = asyncio.create_task(local_queue.join())
         try:
             timeout_wait = deadline - time.time()
@@ -303,8 +298,8 @@ def main():
     chunk_size = (total_tasks + process_count - 1) // process_count
     chunks = [cid_list[i:i + chunk_size] for i in range(0, total_tasks, chunk_size)]
 
-    print(f"🚀 [原生脱壳引擎] 宿主机 Native 直连模式启动！完全抛弃 Docker！", flush=True)
-    print(f"⚙️ 连接目标: {CDP_URL} | 满血并发: {process_count * coros_per_process}", flush=True)
+    print(f"🚀 [原生二进制直连引擎] 启动！纯宿主机执行，零网络损耗！", flush=True)
+    print(f"⚙️ 挂载目标: {CDP_URL} | 满血并发: {process_count * coros_per_process}", flush=True)
 
     shared_counter = mp.Value('i', 0)
     deadline = time.time() + TIMEOUT_SECONDS - 60
@@ -346,13 +341,13 @@ def main():
                 mem_used_gb = mem_info.used / (1024 ** 3)
                 mem_total_gb = mem_info.total / (1024 ** 3)
                 
-                print(f"\n🔥 [满血监控] 完成: {c}/{total_tasks} ({pct:.2f}%) | ⚡ 超越时速: {speed:.1f} 个/秒 | ⏳ 剩余: {eta}")
-                print(f"🖥️  [零损耗直连] CPU: {cpu_usage}% | 💾 内存: {mem_used_gb:.1f}GB / {mem_total_gb:.1f}GB\n", flush=True)
+                print(f"\n🔥 [满血监控] 完成: {c}/{total_tasks} ({pct:.2f}%) | ⚡ 狂飙时速: {speed:.1f} 个/秒 | ⏳ 剩余: {eta}")
+                print(f"🖥️  [零阻力直连] CPU: {cpu_usage}% | 💾 内存: {mem_used_gb:.1f}GB / {mem_total_gb:.1f}GB\n", flush=True)
                 
                 last_print = now
                 
             if now > deadline + 60:
-                print("硬超时触发，强制掐断主进程...", flush=True)
+                print("硬超时触发...", flush=True)
                 break
             time.sleep(1)
             
