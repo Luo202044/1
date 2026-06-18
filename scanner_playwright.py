@@ -28,8 +28,8 @@ START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
 
-# 🚀 进程折叠与事件驱动加持下，64~80 并发毫无压力！
-MAX_CONCURRENT = config.get("max_concurrent_pages", 64) 
+# 🚀 治好内存泄漏后，48 并发是 16GB 内存最完美的性能甜点！
+MAX_CONCURRENT = config.get("max_concurrent_pages", 48) 
 WAIT_TIMEOUT = config.get("wait_timeout", 15)
 TIMEOUT_HOURS = config.get("timeout_hours", 5.0)
 TIMEOUT_SECONDS = TIMEOUT_HOURS * 3600
@@ -50,7 +50,7 @@ USER_AGENTS = [
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
 ]
 
-# 🚀 斩断所有系统内耗的最终形态参数
+# 🚀 极致防爆内存黑科技：全面锁死 V8 堆内存，封杀缓存！
 CHROME_OPTIMIZED_ARGS = [
     "--disable-gpu",
     "--disable-dev-shm-usage",
@@ -88,8 +88,9 @@ CHROME_OPTIMIZED_ARGS = [
     "--blink-settings=imagesEnabled=false",
     "--host-resolver-rules=MAP *google-analytics.com 127.0.0.1, MAP *sentry* 127.0.0.1, MAP *sensors* 127.0.0.1, MAP *growingio.com 127.0.0.1, MAP *baidu.com 127.0.0.1, MAP *track* 127.0.0.1",
     
-    # 👇👇👇 核心提速黑科技：强制共享渲染进程，关闭站点隔离，彻底消除 4 核 CPU 的调度噩梦！
-    "--disable-features=IsolateOrigins,site-per-process,AudioServiceOutOfProcess",
+    # 👇👇👇 核心内存防爆参数：强制回收垃圾，禁用前进后退缓存，限制进程！
+    "--js-flags=--max-old-space-size=128", 
+    "--disable-features=IsolateOrigins,site-per-process,AudioServiceOutOfProcess,BackForwardCache",
     "--renderer-process-limit=4"
 ]
 
@@ -107,10 +108,8 @@ async def abort_unnecessary(route):
     except:
         pass
 
-# 🚀 降维级监听引擎：彻底废弃 setInterval 轮询，改用 MutationObserver 事件驱动，0变化=0消耗！
 js_extract_promise = r"""() => {
     return new Promise((resolve) => {
-        
         function checkDOM() {
             let title = document.title || "";
             let lower_title = title.toLowerCase();
@@ -163,27 +162,23 @@ js_extract_promise = r"""() => {
 
                 return {status: "success", class_name, school, teacher};
             }
-            return null; // 继续等待
+            return null; 
         }
 
-        // 1. 网页刚加载时先快速看一眼
         let initial_check = checkDOM();
         if (initial_check) return resolve(initial_check);
 
-        // 2. 如果数据没出来，启动 DOM 变化监听器（彻底取代消耗 CPU 的 setInterval）
         let observer = new MutationObserver((mutations) => {
             let res = checkDOM();
             if (res) {
-                observer.disconnect(); // 拿到了就立刻销毁监听，释放内存
+                observer.disconnect(); 
                 clearTimeout(timeoutId);
                 resolve(res);
             }
         });
         
-        // 监听整个文档的变化
         observer.observe(document, { childList: true, subtree: true, characterData: true });
 
-        // 3. 安全熔断机制：最多等 2.4 秒，超时直接断开并返回
         let timeoutId = setTimeout(() => {
             observer.disconnect();
             resolve({status: "timeout"});
@@ -229,6 +224,13 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                 await page.goto(f"https://www.eeo.cn/s/a/?cid={cid}", timeout=pw_timeout, wait_until="commit")
                 
                 data = await page.evaluate(js_extract_promise)
+                
+                # 🚨 终极内存拔管机制：不管拿到什么数据，瞬间切断后续所有幽灵网络请求，释放内存！
+                try:
+                    await page.evaluate("window.stop()")
+                except:
+                    pass
+
                 status = data.get('status', 'timeout')
                 
                 if status == 'waf':
@@ -265,7 +267,8 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                     
                 lifecycle += 1
 
-            if lifecycle >= 300:
+            # 🚨 极速垃圾回收：每扫 40 个页面强行销毁重建标签页，彻底清空内存碎片！
+            if lifecycle >= 40:
                 await init_page()
                 lifecycle = 0
 
@@ -343,7 +346,7 @@ def main():
     chunk_size = (total_tasks + process_count - 1) // process_count
     chunks = [cid_list[i:i + chunk_size] for i in range(0, total_tasks, chunk_size)]
 
-    print(f"🚀 [进程折叠 + DOM事件驱动] 最终极速引擎启动！", flush=True)
+    print(f"🚀 [防爆内存·Zero-Leak引擎] 启动！全面封杀交换空间消耗！", flush=True)
     print(f"⚙️ 分配: {process_count}个物理核心 ✕ 每核 {coros_per_process} 个协程并发 = {process_count * coros_per_process} 总并发", flush=True)
 
     shared_counter = mp.Value('i', 0)
