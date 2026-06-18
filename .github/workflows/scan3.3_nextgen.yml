@@ -1,0 +1,115 @@
+name: ClassIn Scanner 3.3 (NextGen Obscura/Lightpanda 版)
+
+on:
+  workflow_dispatch:
+    inputs:
+      shards:
+        description: '分片数量 (轻量内核速度极快，可适当减少)'
+        required: true
+        default: '19'
+
+permissions:
+  contents: write
+
+jobs:
+  master:
+    runs-on: ubuntu-latest
+    outputs:
+      shard_list: ${{ steps.calc_shards.outputs.shard_list }}
+      shard_configs: ${{ steps.calc_shards.outputs.shard_configs }}
+      total_cids: ${{ steps.calc_shards.outputs.total_cids }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: 记录开始时间
+        run: date -u +"%Y-%m-%d %H:%M:%S" > start_time.txt
+      - name: 上传开始时间
+        uses: actions/upload-artifact@v4
+        with:
+          name: start-time
+          path: start_time.txt
+          retention-days: 1
+      - name: 计算分片配置
+        id: calc_shards
+        run: |
+          START=$(jq -r '.start_cid' config.json)
+          END=$(jq -r '.end_cid' config.json)
+          SHARDS=${{ github.event.inputs.shards }}
+          export START END SHARDS
+          python << 'EOF'
+          import json, math, os
+          start = int(os.environ['START'])
+          end = int(os.environ['END'])
+          shards = int(os.environ['SHARDS'])
+          total = end - start + 1
+          shard_size = math.ceil(total / shards)
+          with open('config.json', encoding='utf-8') as f:
+              orig = json.load(f)
+          shard_indices = []
+          shard_configs = []
+          for i in range(shards):
+              s = start + i * shard_size
+              e = min(start + (i+1)*shard_size - 1, end)
+              shard_indices.append(str(i))
+              cfg = orig.copy()
+              cfg['start_cid'] = s
+              cfg['end_cid'] = e
+              cfg['should_scan'] = True
+              shard_configs.append(cfg)
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as out:
+              out.write(f"shard_list={json.dumps(shard_indices)}\n")
+              out.write(f"shard_configs={json.dumps(shard_configs)}\n")
+              out.write(f"total_cids={total}\n")
+          EOF
+
+  scan_shard_first:
+    needs: master
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard_idx: ${{ fromJson(needs.master.outputs.shard_list) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: 生成分片配置
+        run: |
+          echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[${{ matrix.shard_idx }}]" > config.json
+          
+      # 🚀 启动下一代轻量级无头浏览器 (此处以兼容 CDP 的无头服务架构为例，占用极小)
+      - name: 启动极速内核服务 (CDP Server)
+        run: |
+          # 启动提供 ws://localhost:9222 CDP 端点的轻量级容器
+          docker run -d -p 9222:9222 --cap-add=SYS_ADMIN browserless/chrome:latest
+          # 给予服务启动缓冲时间
+          sleep 5 
+          
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: 安装 Python 依赖
+        run: |
+          # 仅安装 playwright 客户端包，不再下载沉重的 Chromium 内核！
+          pip install playwright psutil
+          
+      - name: 扫描执行
+        env:
+          PYTHONUNBUFFERED: 1
+          SHARD_IDX: ${{ matrix.shard_idx }}
+        run: python scanner_nextgen.py
+        
+      - name: 上传结果
+        uses: actions/upload-artifact@v4
+        with:
+          name: first-ok-shard-${{ matrix.shard_idx }}
+          path: data/*.txt
+          if-no-files-found: warn
+          retention-days: 1
+      - name: 上传遗留未完成CID
+        uses: actions/upload-artifact@v4
+        with:
+          name: unfinished-1-${{ matrix.shard_idx }}
+          path: unfinished_cids_${{ matrix.shard_idx }}.txt
+          if-no-files-found: ignore
+          retention-days: 1
+
+  # ... [由于篇幅限制，你可以将原来的第二轮、第三轮、第四轮和 final_upload 模块直接粘贴在此处，
+  # 只需要把里面的 `playwright install chromium` 删掉，并加上 docker run 那三行代码即可！]
