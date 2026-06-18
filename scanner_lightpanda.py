@@ -28,13 +28,13 @@ START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
 
-# 🚀 Lightpanda 加持，并发可无压力推向 80-120
-MAX_CONCURRENT = config.get("max_concurrent_pages", 80) 
+# 🚀 宿主机裸跑 Lightpanda，网络极度通畅，并发可放心推至 100-150
+MAX_CONCURRENT = config.get("max_concurrent_pages", 120) 
 TIMEOUT_HOURS = config.get("timeout_hours", 5.0)
 TIMEOUT_SECONDS = TIMEOUT_HOURS * 3600
 
-# 🌟 Lightpanda 默认监听在 9222 端口
-CDP_URL = os.environ.get("CDP_URL", config.get("cdp_url", "http://127.0.0.1:9222"))
+# 🌟 本地宿主机 9222 端口，不再经过 Docker 网桥！
+CDP_URL = os.environ.get("CDP_URL", "http://127.0.0.1:9222")
 
 os.makedirs("data", exist_ok=True)
 
@@ -55,7 +55,7 @@ def format_time(seconds):
     h, m = divmod(m, 60)
     return f"{h}h {m}m"
 
-# 🚀 微任务防抖引擎 (保留最优的 JS 提取逻辑)
+# 🚀 最强微任务防抖提取逻辑
 js_extract_promise = r"""() => {
     return new Promise((resolve) => {
         function checkDOM() {
@@ -133,6 +133,7 @@ js_extract_promise = r"""() => {
         
         observer.observe(document, { childList: true, subtree: true, characterData: true });
 
+        // 3.5秒超时保护
         let timeoutId = setTimeout(() => {
             observer.disconnect();
             resolve({status: "timeout"});
@@ -234,18 +235,17 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
 
     browser = None
     async with async_playwright() as p:
-        # 重试握手机制
+        # 🌟 强健的握手重试：即使 Native 进程启动较慢，也能稳定连上
         for attempt in range(10):
             try:
-                # 🌟 直连 Lightpanda 暴露出来的 CDP 端口
                 browser = await p.chromium.connect_over_cdp(CDP_URL)
                 break
             except Exception as e:
-                print(f"⌛ [等待 Lightpanda 内核] CDP 握手中... ({e})", flush=True)
-                await asyncio.sleep(2)
+                print(f"⌛ [等待 Lightpanda 进程] Native CDP 握手中... ({e})", flush=True)
+                await asyncio.sleep(1)
         
         if not browser:
-            print(f"\n❌ [致命错误] 彻底无法连接到 Lightpanda 内核 ({CDP_URL})。", flush=True)
+            print(f"\n❌ [致命错误] 彻底无法连接到宿主机内核 ({CDP_URL})。", flush=True)
             return
 
         context = await browser.new_context(ignore_https_errors=True)
@@ -303,8 +303,8 @@ def main():
     chunk_size = (total_tasks + process_count - 1) // process_count
     chunks = [cid_list[i:i + chunk_size] for i in range(0, total_tasks, chunk_size)]
 
-    print(f"🚀 [Zig原生轻内核 - Lightpanda 引擎] 启动！", flush=True)
-    print(f"⚙️ 连接目标: {CDP_URL} | 总并发: {process_count * coros_per_process}", flush=True)
+    print(f"🚀 [原生脱壳引擎] 宿主机 Native 直连模式启动！完全抛弃 Docker！", flush=True)
+    print(f"⚙️ 连接目标: {CDP_URL} | 满血并发: {process_count * coros_per_process}", flush=True)
 
     shared_counter = mp.Value('i', 0)
     deadline = time.time() + TIMEOUT_SECONDS - 60
@@ -347,7 +347,7 @@ def main():
                 mem_total_gb = mem_info.total / (1024 ** 3)
                 
                 print(f"\n🔥 [满血监控] 完成: {c}/{total_tasks} ({pct:.2f}%) | ⚡ 超越时速: {speed:.1f} 个/秒 | ⏳ 剩余: {eta}")
-                print(f"🖥️  [降维减负] CPU: {cpu_usage}% (彻底释放) | 💾 内存: {mem_used_gb:.1f}GB / {mem_total_gb:.1f}GB\n", flush=True)
+                print(f"🖥️  [零损耗直连] CPU: {cpu_usage}% | 💾 内存: {mem_used_gb:.1f}GB / {mem_total_gb:.1f}GB\n", flush=True)
                 
                 last_print = now
                 
