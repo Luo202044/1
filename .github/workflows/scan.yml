@@ -21,7 +21,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: 记录开始时间
-        run: date -u +"%Y-%m-%d %H:%M:%S" > start_time.txt
+        run: |
+          date -u +"%Y-%m-%d %H:%M:%S" > start_time.txt
       - name: 上传开始时间
         uses: actions/upload-artifact@v4
         with:
@@ -79,6 +80,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
+      - name: 恢复 WebKit 缓存
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-webkit
       - name: 安装原生依赖与 WebKit 内核
         run: |
           pip install playwright psutil
@@ -88,7 +94,8 @@ jobs:
         env:
           PYTHONUNBUFFERED: 1
           SHARD_IDX: ${{ matrix.shard_idx }}
-        run: python scanner_webkit.py
+        run: |
+          python scanner_webkit.py
       - name: 上传有效数据
         uses: actions/upload-artifact@v4
         with:
@@ -179,6 +186,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
+      - name: 恢复 WebKit 缓存
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-webkit
       - name: 安装依赖与 WebKit 内核
         run: |
           pip install playwright psutil
@@ -188,7 +200,8 @@ jobs:
         env:
           PYTHONUNBUFFERED: 1
           SHARD_IDX: retry_${{ matrix.retry_idx }}
-        run: python scanner_webkit.py
+        run: |
+          python scanner_webkit.py
       - name: 上传有效数据
         uses: actions/upload-artifact@v4
         with:
@@ -279,6 +292,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
+      - name: 恢复 WebKit 缓存
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-webkit
       - name: 安装依赖与 WebKit 内核
         run: |
           pip install playwright psutil
@@ -288,7 +306,8 @@ jobs:
         env:
           PYTHONUNBUFFERED: 1
           SHARD_IDX: retry2_${{ matrix.retry2_idx }}
-        run: python scanner_webkit.py
+        run: |
+          python scanner_webkit.py
       - name: 上传有效数据
         uses: actions/upload-artifact@v4
         with:
@@ -379,6 +398,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
+      - name: 恢复 WebKit 缓存
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-webkit
       - name: 安装依赖与 WebKit 内核
         run: |
           pip install playwright psutil
@@ -388,7 +412,8 @@ jobs:
         env:
           PYTHONUNBUFFERED: 1
           SHARD_IDX: retry3_${{ matrix.retry3_idx }}
-        run: python scanner_webkit.py
+        run: |
+          python scanner_webkit.py
       - name: 上传有效数据
         uses: actions/upload-artifact@v4
         with:
