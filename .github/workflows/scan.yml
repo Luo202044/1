@@ -1,4 +1,4 @@
-name: ClassIn Scanner (原生稳定版)
+name: ClassIn Scanner (WebKit + 4层绝地防漏版)
 
 on:
   workflow_dispatch:
@@ -61,6 +61,9 @@ jobs:
               out.write(f"total_cids={total}\n")
           EOF
 
+  # ==========================================
+  # 【第 1 层】：全量并发大扫荡
+  # ==========================================
   scan_shard_first:
     needs: master
     runs-on: ubuntu-latest
@@ -73,34 +76,27 @@ jobs:
       - name: 生成分片配置
         run: |
           echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[${{ matrix.shard_idx }}]" > config.json
-          
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: 恢复 Playwright 缓存
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-chromium
-      - name: 安装原生依赖与内核
+      - name: 安装原生依赖与 WebKit 内核
         run: |
           pip install playwright psutil
-          playwright install chromium
-          
-      - name: 扫描执行 (原生 Playwright 引擎)
+          playwright install webkit
+          playwright install-deps webkit
+      - name: 第 1 层扫描执行
         env:
           PYTHONUNBUFFERED: 1
           SHARD_IDX: ${{ matrix.shard_idx }}
-        run: python scanner_native.py
-        
-      - name: 上传结果
+        run: python scanner_webkit.py
+      - name: 上传有效数据
         uses: actions/upload-artifact@v4
         with:
           name: first-ok-shard-${{ matrix.shard_idx }}
           path: data/*.txt
           if-no-files-found: warn
           retention-days: 1
-      - name: 上传遗留未完成CID
+      - name: 上传未完成信标
         uses: actions/upload-artifact@v4
         with:
           name: unfinished-1-${{ matrix.shard_idx }}
@@ -108,20 +104,23 @@ jobs:
           if-no-files-found: ignore
           retention-days: 1
 
-  collect_unfinished:
+  # ==========================================
+  # 【第 2 层】：第 1 次精准补扫
+  # ==========================================
+  collect_unfinished_1:
     needs: scan_shard_first
     if: success() || failure()
     runs-on: ubuntu-latest
     outputs:
       retry_matrix: ${{ steps.reshard.outputs.retry_matrix }}
     steps:
-      - name: 下载未完成名单
+      - name: 下载未完成名单 (第1层)
         uses: actions/download-artifact@v4
         with:
           pattern: unfinished-1-*
           path: unfinished_raw
           merge-multiple: true
-      - name: 切分补扫名单
+      - name: 动态切分 (第2层)
         id: reshard
         run: |
           python << 'EOF'
@@ -151,7 +150,7 @@ jobs:
           with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as env_file:
               env_file.write(f"retry_matrix={json.dumps(retry_matrix)}\n")
           EOF
-      - name: 上传补扫分片
+      - name: 上传第2层补扫切片
         if: steps.reshard.outputs.retry_matrix != '[]'
         uses: actions/upload-artifact@v4
         with:
@@ -160,16 +159,16 @@ jobs:
           retention-days: 1
 
   scan_shard_second:
-    needs: [master, collect_unfinished]
-    if: needs.collect_unfinished.outputs.retry_matrix != '[]' && needs.collect_unfinished.outputs.retry_matrix != ''
+    needs: [master, collect_unfinished_1]
+    if: needs.collect_unfinished_1.outputs.retry_matrix != '[]' && needs.collect_unfinished_1.outputs.retry_matrix != ''
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        retry_idx: ${{ fromJson(needs.collect_unfinished.outputs.retry_matrix) }}
+        retry_idx: ${{ fromJson(needs.collect_unfinished_1.outputs.retry_matrix) }}
     steps:
       - uses: actions/checkout@v4
-      - name: 下载补扫名单
+      - name: 下载补扫名单 (第2层)
         uses: actions/download-artifact@v4
         with:
           name: retry-chunks
@@ -177,32 +176,27 @@ jobs:
       - name: 生成配置
         run: |
           echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[0]" | jq '. + {should_scan: true, cid_list_file: "retry_chunks/retry_${{ matrix.retry_idx }}.txt"}' > config.json
-          
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: 恢复 Playwright 缓存
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-chromium
-      - name: 安装依赖
+      - name: 安装依赖与 WebKit 内核
         run: |
           pip install playwright psutil
-          playwright install chromium
-      - name: 补扫执行
+          playwright install webkit
+          playwright install-deps webkit
+      - name: 第 2 层扫描执行
         env:
           PYTHONUNBUFFERED: 1
           SHARD_IDX: retry_${{ matrix.retry_idx }}
-        run: python scanner_native.py
-      - name: 上传结果
+        run: python scanner_webkit.py
+      - name: 上传有效数据
         uses: actions/upload-artifact@v4
         with:
           name: second-ok-shard-${{ matrix.retry_idx }}
           path: data/*.txt
           if-no-files-found: warn
           retention-days: 1
-      - name: 上传遗留未完成CID
+      - name: 上传未完成信标
         uses: actions/upload-artifact@v4
         with:
           name: unfinished-2-${{ matrix.retry_idx }}
@@ -210,31 +204,248 @@ jobs:
           if-no-files-found: ignore
           retention-days: 1
 
+  # ==========================================
+  # 【第 3 层】：第 2 次精准补扫
+  # ==========================================
+  collect_unfinished_2:
+    needs: scan_shard_second
+    if: always() && (needs.scan_shard_second.result == 'success' || needs.scan_shard_second.result == 'failure')
+    runs-on: ubuntu-latest
+    outputs:
+      retry2_matrix: ${{ steps.reshard2.outputs.retry2_matrix }}
+    steps:
+      - name: 下载未完成名单 (第2层)
+        uses: actions/download-artifact@v4
+        with:
+          pattern: unfinished-2-*
+          path: unfinished_raw_2
+          merge-multiple: true
+      - name: 动态切分 (第3层)
+        id: reshard2
+        run: |
+          python << 'EOF'
+          import os, json, math, glob
+          all_cids = set()
+          if os.path.exists("unfinished_raw_2"):
+              for f in glob.glob("unfinished_raw_2/*.txt"):
+                  with open(f, 'r', encoding='utf-8') as file:
+                      for line in file:
+                          line = line.strip()
+                          if line.isdigit(): all_cids.add(int(line))
+          cid_list = sorted(list(all_cids))
+          total = len(cid_list)
+          retry_matrix = []
+          if total > 0:
+              shards = min(math.ceil(total / 10000), 20)
+              actual_chunk_size = math.ceil(total / shards)
+              os.makedirs("retry2_chunks", exist_ok=True)
+              for i in range(shards):
+                  start = i * actual_chunk_size
+                  end = min(start + actual_chunk_size, total)
+                  if start >= total: break 
+                  chunk = cid_list[start:end]
+                  with open(f"retry2_chunks/retry2_{i}.txt", "w", encoding="utf-8") as out:
+                      for cid in chunk: out.write(f"{cid}\n")
+                  retry_matrix.append(str(i))
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as env_file:
+              env_file.write(f"retry2_matrix={json.dumps(retry_matrix)}\n")
+          EOF
+      - name: 上传第3层补扫切片
+        if: steps.reshard2.outputs.retry2_matrix != '[]'
+        uses: actions/upload-artifact@v4
+        with:
+          name: retry2-chunks
+          path: retry2_chunks/
+          retention-days: 1
+
+  scan_shard_third:
+    needs: [master, collect_unfinished_2]
+    if: needs.collect_unfinished_2.outputs.retry2_matrix != '[]' && needs.collect_unfinished_2.outputs.retry2_matrix != ''
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        retry2_idx: ${{ fromJson(needs.collect_unfinished_2.outputs.retry2_matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: 下载补扫名单 (第3层)
+        uses: actions/download-artifact@v4
+        with:
+          name: retry2-chunks
+          path: retry2_chunks
+      - name: 生成配置
+        run: |
+          echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[0]" | jq '. + {should_scan: true, cid_list_file: "retry2_chunks/retry2_${{ matrix.retry2_idx }}.txt"}' > config.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: 安装依赖与 WebKit 内核
+        run: |
+          pip install playwright psutil
+          playwright install webkit
+          playwright install-deps webkit
+      - name: 第 3 层扫描执行
+        env:
+          PYTHONUNBUFFERED: 1
+          SHARD_IDX: retry2_${{ matrix.retry2_idx }}
+        run: python scanner_webkit.py
+      - name: 上传有效数据
+        uses: actions/upload-artifact@v4
+        with:
+          name: third-ok-shard-${{ matrix.retry2_idx }}
+          path: data/*.txt
+          if-no-files-found: warn
+          retention-days: 1
+      - name: 上传未完成信标
+        uses: actions/upload-artifact@v4
+        with:
+          name: unfinished-3-${{ matrix.retry2_idx }}
+          path: unfinished_cids_retry2_${{ matrix.retry2_idx }}.txt
+          if-no-files-found: ignore
+          retention-days: 1
+
+  # ==========================================
+  # 【第 4 层】：终极清洗补扫
+  # ==========================================
+  collect_unfinished_3:
+    needs: scan_shard_third
+    if: always() && (needs.scan_shard_third.result == 'success' || needs.scan_shard_third.result == 'failure')
+    runs-on: ubuntu-latest
+    outputs:
+      retry3_matrix: ${{ steps.reshard3.outputs.retry3_matrix }}
+    steps:
+      - name: 下载未完成名单 (第3层)
+        uses: actions/download-artifact@v4
+        with:
+          pattern: unfinished-3-*
+          path: unfinished_raw_3
+          merge-multiple: true
+      - name: 动态切分 (第4层)
+        id: reshard3
+        run: |
+          python << 'EOF'
+          import os, json, math, glob
+          all_cids = set()
+          if os.path.exists("unfinished_raw_3"):
+              for f in glob.glob("unfinished_raw_3/*.txt"):
+                  with open(f, 'r', encoding='utf-8') as file:
+                      for line in file:
+                          line = line.strip()
+                          if line.isdigit(): all_cids.add(int(line))
+          cid_list = sorted(list(all_cids))
+          total = len(cid_list)
+          retry_matrix = []
+          if total > 0:
+              shards = min(math.ceil(total / 10000), 20)
+              actual_chunk_size = math.ceil(total / shards)
+              os.makedirs("retry3_chunks", exist_ok=True)
+              for i in range(shards):
+                  start = i * actual_chunk_size
+                  end = min(start + actual_chunk_size, total)
+                  if start >= total: break 
+                  chunk = cid_list[start:end]
+                  with open(f"retry3_chunks/retry3_{i}.txt", "w", encoding="utf-8") as out:
+                      for cid in chunk: out.write(f"{cid}\n")
+                  retry_matrix.append(str(i))
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as env_file:
+              env_file.write(f"retry3_matrix={json.dumps(retry_matrix)}\n")
+          EOF
+      - name: 上传第4层补扫切片
+        if: steps.reshard3.outputs.retry3_matrix != '[]'
+        uses: actions/upload-artifact@v4
+        with:
+          name: retry3-chunks
+          path: retry3_chunks/
+          retention-days: 1
+
+  scan_shard_fourth:
+    needs: [master, collect_unfinished_3]
+    if: needs.collect_unfinished_3.outputs.retry3_matrix != '[]' && needs.collect_unfinished_3.outputs.retry3_matrix != ''
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        retry3_idx: ${{ fromJson(needs.collect_unfinished_3.outputs.retry3_matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: 下载补扫名单 (第4层)
+        uses: actions/download-artifact@v4
+        with:
+          name: retry3-chunks
+          path: retry3_chunks
+      - name: 生成配置
+        run: |
+          echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[0]" | jq '. + {should_scan: true, cid_list_file: "retry3_chunks/retry3_${{ matrix.retry3_idx }}.txt"}' > config.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: 安装依赖与 WebKit 内核
+        run: |
+          pip install playwright psutil
+          playwright install webkit
+          playwright install-deps webkit
+      - name: 第 4 层扫描执行
+        env:
+          PYTHONUNBUFFERED: 1
+          SHARD_IDX: retry3_${{ matrix.retry3_idx }}
+        run: python scanner_webkit.py
+      - name: 上传有效数据
+        uses: actions/upload-artifact@v4
+        with:
+          name: fourth-ok-shard-${{ matrix.retry3_idx }}
+          path: data/*.txt
+          if-no-files-found: warn
+          retention-days: 1
+      - name: 上传未完成信标
+        uses: actions/upload-artifact@v4
+        with:
+          name: unfinished-4-${{ matrix.retry3_idx }}
+          path: unfinished_cids_retry3_${{ matrix.retry3_idx }}.txt
+          if-no-files-found: ignore
+          retention-days: 1
+
+  # ==========================================
+  # 最终汇总汇报 (兼容 4 层数据)
+  # ==========================================
   final_upload:
-    needs: [master, scan_shard_first, scan_shard_second]
+    needs: [master, scan_shard_first, scan_shard_second, scan_shard_third, scan_shard_fourth]
     if: always() && !cancelled()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: 下载有效结果
+      - name: 下载所有有效结果 (4层合并)
         uses: actions/download-artifact@v4
         with:
           pattern: '*-ok-*'
           path: all_results
           merge-multiple: true
         continue-on-error: true
-      - name: 下载未完成名单(一轮)
+      - name: 下载未完成名单(第1层)
         uses: actions/download-artifact@v4
         with:
           pattern: 'unfinished-1-*'
           path: unfinished_1
           merge-multiple: true
         continue-on-error: true
-      - name: 下载未完成名单(二轮)
+      - name: 下载未完成名单(第2层)
         uses: actions/download-artifact@v4
         with:
           pattern: 'unfinished-2-*'
           path: unfinished_2
+          merge-multiple: true
+        continue-on-error: true
+      - name: 下载未完成名单(第3层)
+        uses: actions/download-artifact@v4
+        with:
+          pattern: 'unfinished-3-*'
+          path: unfinished_3
+          merge-multiple: true
+        continue-on-error: true
+      - name: 下载未完成名单(第4层)
+        uses: actions/download-artifact@v4
+        with:
+          pattern: 'unfinished-4-*'
+          path: unfinished_4
           merge-multiple: true
         continue-on-error: true
       - name: 下载开始时间
@@ -257,24 +468,34 @@ jobs:
               rm all_merged.txt
             fi
           fi
+          
           TOTAL="${{ needs.master.outputs.total_cids }}"
           UNFINISHED_COUNT=0
-          if ls unfinished_2/*.txt 1> /dev/null 2>&1; then
+          
+          # 依次检查最新一层的遗留情况
+          if ls unfinished_4/*.txt 1> /dev/null 2>&1; then
+            cat unfinished_4/*.txt | sort -u > tmp_unfinished
+          elif ls unfinished_3/*.txt 1> /dev/null 2>&1; then
+            cat unfinished_3/*.txt | sort -u > tmp_unfinished
+          elif ls unfinished_2/*.txt 1> /dev/null 2>&1; then
             cat unfinished_2/*.txt | sort -u > tmp_unfinished
           elif ls unfinished_1/*.txt 1> /dev/null 2>&1; then
             cat unfinished_1/*.txt | sort -u > tmp_unfinished
           else
             touch tmp_unfinished
           fi
+          
           if [ -s tmp_unfinished ]; then
             UNFINISHED_COUNT=$(wc -l < tmp_unfinished)
           fi
           rm -f tmp_unfinished
+          
           SCANNED=$((TOTAL - UNFINISHED_COUNT))
           PERCENT=0
           if [ $TOTAL -gt 0 ]; then
             PERCENT=$(echo "scale=2; $SCANNED * 100 / $TOTAL" | bc)
           fi
+          
           END_TIME=$(date -u +"%Y-%m-%d %H:%M:%S")
           DURATION="未知"
           if [ -f start_time/start_time.txt ]; then
@@ -285,6 +506,7 @@ jobs:
             minutes=$(((diff % 3600) / 60))
             DURATION="${hours}小时${minutes}分钟"
           fi
+          
           cat > final_data/nto.txt << EOF
           总班级数: $TOTAL
           有效班级: $VALID_COUNT
@@ -294,12 +516,13 @@ jobs:
           工作时间: $DURATION
           EOF
           cat final_data/nto.txt
+          
       - name: 提交到仓库
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add final_data/
-          if git commit -m "最终扫描结果（原生稳定版） [skip ci]"; then
+          if git commit -m "最终扫描结果（WebKit + 4层防漏终极版） [skip ci]"; then
             git push
           else
             echo "无变更需要提交"
