@@ -6,7 +6,7 @@ on:
       shards:
         description: '分片数量'
         required: true
-        default: '19'
+        default: '18'
 
 permissions:
   contents: write
@@ -144,7 +144,7 @@ jobs:
           total = len(cid_list)
           retry_matrix = []
           if total > 0:
-              shards = min(math.ceil(total / 10000), 19)
+              shards = min(math.ceil(total / 10000), 18)
               actual_chunk_size = math.ceil(total / shards)
               os.makedirs("retry_chunks", exist_ok=True)
               for i in range(shards):
@@ -250,7 +250,7 @@ jobs:
           total = len(cid_list)
           retry_matrix = []
           if total > 0:
-              shards = min(math.ceil(total / 10000), 19)
+              shards = min(math.ceil(total / 10000), 18)
               actual_chunk_size = math.ceil(total / shards)
               os.makedirs("retry2_chunks", exist_ok=True)
               for i in range(shards):
@@ -356,7 +356,7 @@ jobs:
           total = len(cid_list)
           retry_matrix = []
           if total > 0:
-              shards = min(math.ceil(total / 10000), 19)
+              shards = min(math.ceil(total / 10000), 18)
               actual_chunk_size = math.ceil(total / shards)
               os.makedirs("retry3_chunks", exist_ok=True)
               for i in range(shards):
