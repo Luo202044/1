@@ -1,3 +1,7 @@
+307689521	https://www.eeo.cn/s/a/?cid=307689521	小寨校区在线课堂	Teacher: 冯雪	王子轩化学1v1
+307689523	https://www.eeo.cn/s/a/?cid=307689523	Virtual Class	Teacher: LBCA	G2 - Cajucom, Fritz
+307689531	https://www.eeo.cn/s/a/?cid=307689531	蒋毓的在线课堂	Teacher: 157****1669	307580371
+307689539	https://www.eeo.cn/s/a/?cid=307689539	Emmy Talk	Teacher: 帕卡老师	Kevin
 307689551	https://www.eeo.cn/s/a/?cid=307689551	19561056752的在线课堂	Teacher: 195****6752	高二一班英语
 307689553	https://www.eeo.cn/s/a/?cid=307689553	郭文静的在线课堂	Teacher: 189****4254	马欣然刘怀天小升初奥数
 307689559	https://www.eeo.cn/s/a/?cid=307689559	EEO-TEST-袁敬博	Teacher: 卢老师	初一数学第2讲
@@ -71,7 +75,7 @@
 307690511	https://www.eeo.cn/s/a/?cid=307690511	Nguyễn Lê Trúc Quỳnh online classroom	Teacher: 973****70	123
 307690525	https://www.eeo.cn/s/a/?cid=307690525	EEO	Teacher: 孙铭	圆周率宝贝城7.7
 307690535	https://www.eeo.cn/s/a/?cid=307690535	Top Class	Teacher: Andre-时间之主	Hank
-307690539	https://www.eeo.cn/s/a/?cid=307690539	觅柚英语 MEET U English	Teacher: 186****3337	Jul 8th 19：00&20:00 xiaofeng6803
+307690539	https://www.eeo.cn/s/a/?cid=307690539	觅柚英语 MEET U English	Teacher: 186****3337	Jul 9th 19：00 xiaofeng6803
 307690543	https://www.eeo.cn/s/a/?cid=307690543	Virtual Class	Teacher: LBCA	G2 - Labiano, Alonzo Abram
 307690545	https://www.eeo.cn/s/a/?cid=307690545	李老师的在线课堂	Teacher: 134****6815	1
 307690559	https://www.eeo.cn/s/a/?cid=307690559	139****6076的在线课堂	Teacher: 139****6076	我是拉拉。
@@ -146,7 +150,7 @@
 307691279	https://www.eeo.cn/s/a/?cid=307691279	语言培训专家	Teacher: 欧阳海燕	20260706韩语T1小班课
 307691301	https://www.eeo.cn/s/a/?cid=307691301	EEO-TEST-王亚雄	Teacher: 156****8628	深高级四楼研修室项目
 307691311	https://www.eeo.cn/s/a/?cid=307691311	Virtual Class	Teacher: LBCA	G3 - Condicion, Zion Johndrei
-307691315	https://www.eeo.cn/s/a/?cid=307691315	唐子沂的在线课堂	Teacher: 173****0928	初三一班
+307691315	https://www.eeo.cn/s/a/?cid=307691315	唐子沂的在线课堂	Teacher: 173****0928	唐子沂-初中英语
 307691337	https://www.eeo.cn/s/a/?cid=307691337	Teacher Cherry Ann online classroom	Teacher: 930****331	Alan's 3rd renew
 307691343	https://www.eeo.cn/s/a/?cid=307691343	Reshape Great Thinkers	Teacher: Jasmine Tsai	朱亦辰-IGCSE
 307691345	https://www.eeo.cn/s/a/?cid=307691345	Jojo的在线课堂	Teacher: 178****3519	初三
@@ -155,8 +159,14 @@
 307691357	https://www.eeo.cn/s/a/?cid=307691357	东莞新东方国际教育	Teacher: 吴佩霞	TH061B
 307691361	https://www.eeo.cn/s/a/?cid=307691361	霍文慧的在线课堂	Teacher: 159****7110	录课
 307691381	https://www.eeo.cn/s/a/?cid=307691381	Virtual Class	Teacher: LBCA	G3 - Simon, Allard Lucas
+307691393	https://www.eeo.cn/s/a/?cid=307691393	在线课堂Online classroom	Teacher: Nestor(独)	Victor
+307691395	https://www.eeo.cn/s/a/?cid=307691395	陈皓研的在线课堂	Teacher: 186****8808	我的班级
+307691399	https://www.eeo.cn/s/a/?cid=307691399	0063-9702233977 online classroom	Teacher: 970****977	MAYUXUAN CLASS
+307691403	https://www.eeo.cn/s/a/?cid=307691403	gky的在线课堂	Teacher: 173****9161	初二英语
+307691405	https://www.eeo.cn/s/a/?cid=307691405	13118532637的在线课堂	Teacher: 131****2637	数学一对一陪跑
 307691421	https://www.eeo.cn/s/a/?cid=307691421	上海市民防工程行业协会	Teacher: 156****0676	【补考】2026年度人防工程监理专业技术人员业务培训
 307691425	https://www.eeo.cn/s/a/?cid=307691425	上海唯寻教育科技有限公司	Teacher: 曹彧	赵一苇老师培训
+307691433	https://www.eeo.cn/s/a/?cid=307691433	七弦李老师的在线课堂	Teacher: 137****1180	tony架子鼓
 307691439	https://www.eeo.cn/s/a/?cid=307691439	manceneroschristine***** online classroom	Teacher: ma*****il.com	july 7
 307691449	https://www.eeo.cn/s/a/?cid=307691449	在线课堂Online classroom	Teacher: Nestor(独)	Lisa and Henry
 307691453	https://www.eeo.cn/s/a/?cid=307691453	19937890673的在线课堂	Teacher: 199****0673	初中语文
@@ -187,6 +197,7 @@
 307691663	https://www.eeo.cn/s/a/?cid=307691663	皮堃雅的在线课堂	Teacher: 187****6036	不咋好几家
 307691671	https://www.eeo.cn/s/a/?cid=307691671	翼鸥集团	Teacher: 李文燕	FY26季度管理会
 307691675	https://www.eeo.cn/s/a/?cid=307691675	玺课	Teacher: 苗苗老师	6070651 博士毕论辅导
+307691699	https://www.eeo.cn/s/a/?cid=307691699	赵永志	Teacher: 闫仪荣	26-初二数学暑1期 计算习惯培养课
 307691711	https://www.eeo.cn/s/a/?cid=307691711	Kristine - Prince online classroom	Teacher: 917****860	GRADE 1 - CHERISH
 307691713	https://www.eeo.cn/s/a/?cid=307691713	Virtual Class	Teacher: LBCA	G3 - Enriquez, John Ansel
 307691715	https://www.eeo.cn/s/a/?cid=307691715	chitchit online classroom	Teacher: 962****273	Moo1400
@@ -318,7 +329,7 @@
 307693065	https://www.eeo.cn/s/a/?cid=307693065	郑程宇的在线课堂	Teacher: 133****2618	12
 307693083	https://www.eeo.cn/s/a/?cid=307693083	Virtual Class	Teacher: Louisse 4513	Eleven’s class
 307693095	https://www.eeo.cn/s/a/?cid=307693095	程子蘅的在线课堂	Teacher: 138****3666	数学
-307693107	https://www.eeo.cn/s/a/?cid=307693107	Sino-bus	Teacher: Sino-bus顾问Lyra(赵茉含）	英文試聽課-HK-P3-張淽崳, 張淽晴
+307693107	https://www.eeo.cn/s/a/?cid=307693107	Sino-bus	Teacher: Sino-bus辅导Summer	英文正式課-HK-P3-張淽崳, 張淽晴
 307693111	https://www.eeo.cn/s/a/?cid=307693111	Virtual Class	Teacher: Louisse 4513	Lucas’ class
 307693115	https://www.eeo.cn/s/a/?cid=307693115	中山搏浪教育	Teacher: 布谷	7.9 18:00 王荣轩新初三英语试课群
 307693127	https://www.eeo.cn/s/a/?cid=307693127	煤气罐罐🧯的在线课堂	Teacher: 158****0362	大五班
@@ -337,7 +348,7 @@
 307693235	https://www.eeo.cn/s/a/?cid=307693235	无忧伴学	Teacher: 赵安平	靖超扩课试听5684班
 307693249	https://www.eeo.cn/s/a/?cid=307693249	BONJ online classroom	Teacher: bonjiemasig20*****ail.co	TEACHER BONJ LESSON
 307693253	https://www.eeo.cn/s/a/?cid=307693253	EEO-TEST-罗洪波	Teacher: 191****6686	数学
-307693257	https://www.eeo.cn/s/a/?cid=307693257	潇洒姐儿口才艺术	Teacher: 琴琴COCO	【胡琴】26暑假一期七年级南山11：00
+307693257	https://www.eeo.cn/s/a/?cid=307693257	潇洒姐儿口才艺术	Teacher: 琴琴COCO	【胡琴】26暑假一期11：00南山-7年级
 307693277	https://www.eeo.cn/s/a/?cid=307693277	YOYO的在线课堂	Teacher: 135****0199	宁哥牛逼
 307693287	https://www.eeo.cn/s/a/?cid=307693287	中山搏浪教育	Teacher: 布谷	7.8 9:00 锦浩八升九英语试课群
 307693293	https://www.eeo.cn/s/a/?cid=307693293	Sensus Academy	Teacher: sensus jiajia	Bowen-Colin
@@ -433,7 +444,7 @@
 307694197	https://www.eeo.cn/s/a/?cid=307694197	Teacher Alice 16 online classroom	Teacher: ba*****il.com	Anna's Class
 307694199	https://www.eeo.cn/s/a/?cid=307694199	中山搏浪教育	Teacher: 教务彭老师	7.7-16:00闫朗初二数学试课群
 307694201	https://www.eeo.cn/s/a/?cid=307694201	佛山乐之有道	Teacher: 张美玲	2026暑假启动会
-307694209	https://www.eeo.cn/s/a/?cid=307694209	1 对 1	Teacher: 课程顾问陈冲	【试听】杨洺硕语文课
+307694209	https://www.eeo.cn/s/a/?cid=307694209	1 对 1	Teacher: 课程顾问陈冲	杨洺硕语文课
 307694215	https://www.eeo.cn/s/a/?cid=307694215	Virtual Class	Teacher: LBCA	G4 - Mendoza, Brann Isaac
 307694231	https://www.eeo.cn/s/a/?cid=307694231	18Teacher Melven online classroom	Teacher: 18abamelv*****ail.com	Eason
 307694249	https://www.eeo.cn/s/a/?cid=307694249	刘老师的在线课堂	Teacher: 刘传管	26年暑假初三化学直播课
@@ -442,6 +453,7 @@
 307694271	https://www.eeo.cn/s/a/?cid=307694271	Sensus Academy	Teacher: sensus jiajia	Bowen-Lauren
 307694285	https://www.eeo.cn/s/a/?cid=307694285	Edward的在线课堂	Teacher: 136****7375	梓瀚
 307694289	https://www.eeo.cn/s/a/?cid=307694289	Happy planet	Teacher: necille-559-1-M15-可以加饭吗	Coco's Room
+307694325	https://www.eeo.cn/s/a/?cid=307694325	eLearningMinds	Teacher: Chakri	Compliance July
 307694337	https://www.eeo.cn/s/a/?cid=307694337	Virtual Class	Teacher: Joe	Warren+80Jue26193-193
 307694341	https://www.eeo.cn/s/a/?cid=307694341	晓禾教育	Teacher: 测试	测试班级 请勿报名
 307694353	https://www.eeo.cn/s/a/?cid=307694353	Happy speaking English	Teacher: UU	Yvette and Xixi's Classroom
@@ -449,7 +461,7 @@
 307694357	https://www.eeo.cn/s/a/?cid=307694357	云尚教育	Teacher: 一对一刘老师	李潇雅-新初三英语-王老师试听课
 307694537	https://www.eeo.cn/s/a/?cid=307694537	Sensus Academy	Teacher: sensus jiajia	Bowen-Olivia
 307694539	https://www.eeo.cn/s/a/?cid=307694539	吕浩然的在线课堂	Teacher: 137****8233	全球最牛
-307694547	https://www.eeo.cn/s/a/?cid=307694547	东莞新东方国际教育	Teacher: 林小曼	YSZ270101
+307694547	https://www.eeo.cn/s/a/?cid=307694547	东莞新东方国际教育	Teacher: 林小曼	YSZ270101要修改
 307694557	https://www.eeo.cn/s/a/?cid=307694557	王洛晨的在线课堂	Teacher: 186****7196	热热热的
 307694563	https://www.eeo.cn/s/a/?cid=307694563	Happy planet	Teacher: Fritz-123-M15-星星妈	Agatha7SZ
 307694565	https://www.eeo.cn/s/a/?cid=307694565	沃恩智慧	Teacher: 袁紫微	项同学硕士大论文指导沟通课-10338
@@ -617,7 +629,7 @@
 307696007	https://www.eeo.cn/s/a/?cid=307696007	嘉兴高中数学名师 骆老师	Teacher: 152****4358	26年初升高衔接班
 307696015	https://www.eeo.cn/s/a/?cid=307696015	春苗	Teacher: A宋老师7.17充值300	2026年5年级试听课
 307696021	https://www.eeo.cn/s/a/?cid=307696021	郑州绘读的在线课堂	Teacher: 158****2029	REF
-307696023	https://www.eeo.cn/s/a/?cid=307696023	中山搏浪教育	Teacher: 布谷	7.7 20:00 阳阳八升九语文试课群
+307696023	https://www.eeo.cn/s/a/?cid=307696023	中山搏浪教育	Teacher: 班主任-荔枝老师	张老师-阳阳-八升九语文-授课群
 307696055	https://www.eeo.cn/s/a/?cid=307696055	青松欣欣	Teacher: Hans	qs2286UWA-GENG2004-课程辅导
 307696057	https://www.eeo.cn/s/a/?cid=307696057	17503822465的在线课堂	Teacher: 175****2465	11
 307696059	https://www.eeo.cn/s/a/?cid=307696059	武老师	Teacher: 132****0691	梓烨的课堂
@@ -739,6 +751,8 @@
 307697203	https://www.eeo.cn/s/a/?cid=307697203	初一的在线课堂	Teacher: 187****7657	初二
 307697205	https://www.eeo.cn/s/a/?cid=307697205	Lucas的在线课堂	Teacher: 188****9553	Angela自然拼读
 307697211	https://www.eeo.cn/s/a/?cid=307697211	古语的在线课堂	Teacher: 陶鑫	2026暑假三升四英语班陶
+307697249	https://www.eeo.cn/s/a/?cid=307697249	无忧伴学	Teacher: 赵安平	陈昕昕丨试听课程29816班
+307697251	https://www.eeo.cn/s/a/?cid=307697251	Lê Thị Hồng Nhung online classroom	Teacher: 974****16	Lớp học Demo
 307697301	https://www.eeo.cn/s/a/?cid=307697301	不良资产的在线课堂	Teacher: 173****7901	30746929
 307697305	https://www.eeo.cn/s/a/?cid=307697305	我的世界的在线课堂	Teacher: 137****0796	游戏班
 307697413	https://www.eeo.cn/s/a/?cid=307697413	yu的在线课堂	Teacher: 131****0603	测试版
@@ -818,15 +832,15 @@
 307698427	https://www.eeo.cn/s/a/?cid=307698427	Virtual Class	Teacher: LBCA	G6 - Subala, Aiden Calix
 307698431	https://www.eeo.cn/s/a/?cid=307698431	HDJY	Teacher: 何丽萍	26新高一1班
 307698437	https://www.eeo.cn/s/a/?cid=307698437	WONG,ZACHARY AARON CLARK online classroom	Teacher: ma*****il.com	307692147
-307698439	https://www.eeo.cn/s/a/?cid=307698439	向上空间	Teacher: 方老师	一期初升高英语特尖班
+307698439	https://www.eeo.cn/s/a/?cid=307698439	向上空间	Teacher: 方老师	26暑一期初升高英语特尖班
 307698441	https://www.eeo.cn/s/a/?cid=307698441	mirajoeieloise*****ail.c online classroom	Teacher: mirajoeieloise*****ail.c	Yillin
 307698461	https://www.eeo.cn/s/a/?cid=307698461	国青教育	Teacher: Penny	中学英文 C3
 307698475	https://www.eeo.cn/s/a/?cid=307698475	黄家桢的在线课堂	Teacher: 137****9349	英语小组
-307698493	https://www.eeo.cn/s/a/?cid=307698493	向上空间	Teacher: 方老师	一期初升高英语尖子班
+307698493	https://www.eeo.cn/s/a/?cid=307698493	向上空间	Teacher: 方老师	26暑一期初升高英语尖子班
 307698505	https://www.eeo.cn/s/a/?cid=307698505	Virtual Class	Teacher: LBCA	G6 - Pajarillo, Castiel
 307698507	https://www.eeo.cn/s/a/?cid=307698507	艾闫的在线课堂	Teacher: 138****1780	六升七第一课时（7月7日）——
 307698513	https://www.eeo.cn/s/a/?cid=307698513	cola的在线课堂	Teacher: 186****0488	307619279
-307698515	https://www.eeo.cn/s/a/?cid=307698515	向上空间	Teacher: 方老师	一期高二特尖班
+307698515	https://www.eeo.cn/s/a/?cid=307698515	向上空间	Teacher: 方老师	26暑一期高一升高二英语特尖班
 307698539	https://www.eeo.cn/s/a/?cid=307698539	陈思安的在线课堂	Teacher: 136****9222	高产公司
 307698565	https://www.eeo.cn/s/a/?cid=307698565	Happy planet	Teacher: bibing-钢琴太后	finn
 307698573	https://www.eeo.cn/s/a/?cid=307698573	俊杰的在线课堂	Teacher: 158****6131	1
@@ -869,6 +883,7 @@
 307698821	https://www.eeo.cn/s/a/?cid=307698821	Virtual Class	Teacher: LBCA	G6 - Ruiz, Haniel
 307698829	https://www.eeo.cn/s/a/?cid=307698829	18773316760的在线课堂	Teacher: 187****6760	高二三班英语
 307698831	https://www.eeo.cn/s/a/?cid=307698831	Janney青少英语	Teacher: 157****8151	2026暑 新概念S5阶
+307698843	https://www.eeo.cn/s/a/?cid=307698843	江云月的在线课堂	Teacher: 189****5858	初一
 307698851	https://www.eeo.cn/s/a/?cid=307698851	Virtual Class	Teacher: LBCA	G6 - Carandang, Alfonso
 307698865	https://www.eeo.cn/s/a/?cid=307698865	J365__zona的在线课堂	Teacher: 137****3422	307504849
 307698877	https://www.eeo.cn/s/a/?cid=307698877	0063-9635602013 online classroom	Teacher: 963****013	Trial
@@ -912,7 +927,7 @@
 307699203	https://www.eeo.cn/s/a/?cid=307699203	国青教育	Teacher: Penny	小学中文 C9
 307699205	https://www.eeo.cn/s/a/?cid=307699205	勤福科技	Teacher: CC9088	XX——CC9088
 307699213	https://www.eeo.cn/s/a/?cid=307699213	Native English	Teacher: 437****950	C 1- Birthday Party
-307699219	https://www.eeo.cn/s/a/?cid=307699219	勤福科技	Teacher: CC9088	XX——CC9088
+307699219	https://www.eeo.cn/s/a/?cid=307699219	勤福科技	Teacher: CC9088	拓达
 307699225	https://www.eeo.cn/s/a/?cid=307699225	Virtual Class	Teacher: LBCA	G6 - Benito, Nicole Dhare
 307699241	https://www.eeo.cn/s/a/?cid=307699241	地理刘老师的在线课堂	Teacher: 135****4205	农业体验实践活动
 307699243	https://www.eeo.cn/s/a/?cid=307699243	frederickdimapi*****tloo online classroom	Teacher: fr*****look.com	Eric 8
@@ -998,7 +1013,10 @@
 307700145	https://www.eeo.cn/s/a/?cid=307700145	Virtual Class	Teacher: LBCA	G7 - Decendario, Ylleana Mae
 307700181	https://www.eeo.cn/s/a/?cid=307700181	罗湖区教育科学研究院	Teacher: 孩子做主，一起发光	安馨幼儿园
 307700185	https://www.eeo.cn/s/a/?cid=307700185	ĐỒNG LÊ BẢO NAM_2018 online classroom	Teacher: 938****82	R.DU.4P.3B.069752
+307700193	https://www.eeo.cn/s/a/?cid=307700193	馨的在线课堂	Teacher: 186****3157	二年级7班
 307700195	https://www.eeo.cn/s/a/?cid=307700195	在线课堂Online classroom	Teacher: Janice(yen)	Cola10
+307700205	https://www.eeo.cn/s/a/?cid=307700205	Virtual Class	Teacher: LBCA	G7 - Addatu, Princess Thea
+307700207	https://www.eeo.cn/s/a/?cid=307700207	别具一格	Teacher: 158****7309	星湾王奕陶（六年级）
 307700219	https://www.eeo.cn/s/a/?cid=307700219	Colin的在线课堂	Teacher: 155****2950	Katya
 307700227	https://www.eeo.cn/s/a/?cid=307700227	Amy的在线课堂	Teacher: 133****0269	Hello
 307700229	https://www.eeo.cn/s/a/?cid=307700229	国青教育	Teacher: 刘妍君	小学中文 B3
@@ -1169,6 +1187,7 @@
 307701765	https://www.eeo.cn/s/a/?cid=307701765	中山搏浪教育	Teacher: 搏浪教育-教务王老师	7.7-18:30 谢同学准高二数学试课群
 307701767	https://www.eeo.cn/s/a/?cid=307701767	中山搏浪教育	Teacher: 搏浪教育-教务王老师	7.7-19:00 贾硕宇新四年级语文试课群
 307701769	https://www.eeo.cn/s/a/?cid=307701769	中山搏浪教育	Teacher: 搏浪教育-教务王老师	7.7-20:00 林苏娅三升四年级语文试课群
+307701775	https://www.eeo.cn/s/a/?cid=307701775	Wan	Teacher: 186****3375	初一下午
 307701777	https://www.eeo.cn/s/a/?cid=307701777	shriya.siin*****ail.com online classroom	Teacher: sh*****il.com	Training Session 2
 307701781	https://www.eeo.cn/s/a/?cid=307701781	365 English	Teacher: 137****5192	07-08 试课
 307701801	https://www.eeo.cn/s/a/?cid=307701801	无忧伴学	Teacher: 赵安平	力力丨试听课程29828班
@@ -1179,22 +1198,3 @@
 307701871	https://www.eeo.cn/s/a/?cid=307701871	alexandreamariemendoza0* online classroom	Teacher: al*****il.com	PRACTICE DEMO
 307701891	https://www.eeo.cn/s/a/?cid=307701891	Teacher Jonah	Teacher: 977****240	Daisy
 307701901	https://www.eeo.cn/s/a/?cid=307701901	Virtual Class	Teacher: LBCA	G9 - Ibrahim, Jibril
-307701909	https://www.eeo.cn/s/a/?cid=307701909	MY TEACHER AUBREY	Teacher: 927****664	🏅ANSON&KARSON🏅
-307701917	https://www.eeo.cn/s/a/?cid=307701917	Mandy的在线课堂	Teacher: 184****8819	Mandy线上课
-307701919	https://www.eeo.cn/s/a/?cid=307701919	口语训练营	Teacher: Pauline Aquino Me	Lina & Lynn
-307701929	https://www.eeo.cn/s/a/?cid=307701929	黄烨彬的在线课堂	Teacher: 180****0586	djh
-307701977	https://www.eeo.cn/s/a/?cid=307701977	Teacher Jay online classroom	Teacher: 841****74	Shengzhi
-307701981	https://www.eeo.cn/s/a/?cid=307701981	18636042293的在线课堂	Teacher: 186****2293	二
-307701983	https://www.eeo.cn/s/a/?cid=307701983	一对一在线课堂	Teacher: 海海	瑶瑶2029上海王老师数学课堂
-307701987	https://www.eeo.cn/s/a/?cid=307701987	Y²=qx &的在线课堂	Teacher: 136****1505	高三英语
-307701991	https://www.eeo.cn/s/a/?cid=307701991	19860919601的在线课堂	Teacher: 198****9601	试听课
-307701993	https://www.eeo.cn/s/a/?cid=307701993	1 对 1	Teacher: 班主任（三）张老师	【试听】 许嘉和英语课
-307702011	https://www.eeo.cn/s/a/?cid=307702011	小林老师的在线课堂	Teacher: 178****9632	方法逻辑教学班
-307702015	https://www.eeo.cn/s/a/?cid=307702015	sopeaprince28*****ail.co online classroom	Teacher: so*****il.com	ruvy
-307702021	https://www.eeo.cn/s/a/?cid=307702021	Virtual Class	Teacher: LBCA	G9 - Peligrino, Sanjeillah
-307702023	https://www.eeo.cn/s/a/?cid=307702023	云趣教育	Teacher: 树尚教育 王田田	高逸铭-初一物理-吕庚航老师试听
-307702031	https://www.eeo.cn/s/a/?cid=307702031	无忧伴学	Teacher: 赵安平	李思源试听课程29829班
-307702033	https://www.eeo.cn/s/a/?cid=307702033	Happy planet	Teacher: Alex-601-7-M11-家有轩宝	Taylor＋北京
-307702043	https://www.eeo.cn/s/a/?cid=307702043	L的在线课堂	Teacher: 183****6909	逸诚～8
-307702051	https://www.eeo.cn/s/a/?cid=307702051	中山搏浪教育	Teacher: 文雅	7.7 15:30高旌贺初二道法试课群
-307702053	https://www.eeo.cn/s/a/?cid=307702053	勤福科技	Teacher: CC7939	王一菲老师 贾辰凤 初三语文——CC7939

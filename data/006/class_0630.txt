@@ -821,7 +821,7 @@
 307685525	https://www.eeo.cn/s/a/?cid=307685525	四季厅	Teacher: 152191597*****9.com	1
 307685543	https://www.eeo.cn/s/a/?cid=307685543	Virtual Class	Teacher: LBCA	G1 - Perez, Annali Vienne
 307685597	https://www.eeo.cn/s/a/?cid=307685597	15091284011的在线课堂	Teacher: 150****4011	五年级英语
-307685599	https://www.eeo.cn/s/a/?cid=307685599	VS-能量补给站	Teacher: G- Lycah5333	Lycah-Nomi
+307685599	https://www.eeo.cn/s/a/?cid=307685599	VS-能量补给站	Teacher: GP- Lycah5333	Lycah-Nomi
 307685601	https://www.eeo.cn/s/a/?cid=307685601	瑞达赋能咨询	Teacher: 647****966	Eason 的课堂
 307685623	https://www.eeo.cn/s/a/?cid=307685623	13811804373的在线课堂	Teacher: 138****4373	123
 307685625	https://www.eeo.cn/s/a/?cid=307685625	Teacher Mj online classroom	Teacher: ba*****il.com	PRACTICE TEACHING (2K)
@@ -859,7 +859,7 @@
 307685945	https://www.eeo.cn/s/a/?cid=307685945	【家辉私塾】高中双导师制小组课	Teacher: 韩缘皞	环贸26暑期高一数学
 307685951	https://www.eeo.cn/s/a/?cid=307685951	牛剑云课堂	Teacher: Alex	剑二15 标准版
 307685953	https://www.eeo.cn/s/a/?cid=307685953	nguyenphucuongtoant***** online classroom	Teacher: ng*****il.com	lớp 7
-307686019	https://www.eeo.cn/s/a/?cid=307686019	Teacher Jenelyn Gwen online classroom	Teacher: 965****854	Trial Class
+307686019	https://www.eeo.cn/s/a/?cid=307686019	Teacher Jenelyn Gwen online classroom	Teacher: 965****854	Mia's Class
 307686023	https://www.eeo.cn/s/a/?cid=307686023	无忧伴学	Teacher: 赵安平	邓宇琦试听课程29793班
 307686025	https://www.eeo.cn/s/a/?cid=307686025	Virtual Class	Teacher: LBCA	G1 - Desquitado, Lorraine
 307686037	https://www.eeo.cn/s/a/?cid=307686037	Teacher Louis online classroom	Teacher: de*****il.com	TrialClass 07092026 Ms. Chen
@@ -925,7 +925,7 @@
 307686475	https://www.eeo.cn/s/a/?cid=307686475	13537829601的在线课堂	Teacher: 135****9601	小四3班
 307686477	https://www.eeo.cn/s/a/?cid=307686477	百英达文化	Teacher: 刘文璐	26暑高二数学培优班14:00-16:20
 307686479	https://www.eeo.cn/s/a/?cid=307686479	Eric的在线课堂	Teacher: 153****0209	中级语法
-307686535	https://www.eeo.cn/s/a/?cid=307686535	Sino-bus	Teacher: sinobus顾问Ethan-郭富城	试听课SGM-P3-Annie
+307686535	https://www.eeo.cn/s/a/?cid=307686535	Sino-bus	Teacher: 辅导老师朵朵	新SGM-P3-Annie-Sinobus正式课
 307686553	https://www.eeo.cn/s/a/?cid=307686553	动悉健康科技	Teacher: Mila	Nick9QD/Ulysses Jul.7
 307686555	https://www.eeo.cn/s/a/?cid=307686555	Happy planet	Teacher: 474号McQueen（商丽桦）	Karen's Class
 307686569	https://www.eeo.cn/s/a/?cid=307686569	东莞新东方国际教育	Teacher: 李鹏成	GB2P270101A
@@ -938,7 +938,7 @@
 307686625	https://www.eeo.cn/s/a/?cid=307686625	王奕程Ethan的在线课堂	Teacher: 138****7767	世界杯
 307686641	https://www.eeo.cn/s/a/?cid=307686641	逆枫而行的在线课堂	Teacher: 157****1996	暑假新高一物理一三五七7:30-9:00
 307686649	https://www.eeo.cn/s/a/?cid=307686649	Phil-Chi Class International Corp.	Teacher: Admin	D2D Alisa and Ann MON-FRI 9:00-11:30AM, 1-4PM
-307686673	https://www.eeo.cn/s/a/?cid=307686673	逆枫而行的在线课堂	Teacher: 157****1996	暑假新高一物理一三五七14:00-15:30
+307686673	https://www.eeo.cn/s/a/?cid=307686673	逆枫而行的在线课堂	Teacher: 157****1996	暑假新高一物理一三五七14:30-16:00
 307686689	https://www.eeo.cn/s/a/?cid=307686689	Teacher K. online classroom	Teacher: kh*****il.com	mock class
 307686707	https://www.eeo.cn/s/a/?cid=307686707	정율사관 온라인	Teacher: 정율-1	과학고면접 미팅
 307686709	https://www.eeo.cn/s/a/?cid=307686709	nancy11l*****ail.com online classroom	Teacher: na*****il.com	YoungLearner
@@ -985,6 +985,7 @@
 307687279	https://www.eeo.cn/s/a/?cid=307687279	中山搏浪教育	Teacher: 教务彭老师	7.8-13:00陈籽萱新高一物理试课群
 307687287	https://www.eeo.cn/s/a/?cid=307687287	张欣的在线课堂	Teacher: 135****9091	钢琴课
 307687327	https://www.eeo.cn/s/a/?cid=307687327	动悉健康科技	Teacher: Mila	Tony9ZJ/Ulysses Jul.7
+307687341	https://www.eeo.cn/s/a/?cid=307687341	乐易在线课堂	Teacher: 173****0106	体育场8:00-10:00
 307687351	https://www.eeo.cn/s/a/?cid=307687351	123	Teacher: 温温2.21充值99	三年级云南
 307687371	https://www.eeo.cn/s/a/?cid=307687371	鸿鸿的在线课堂	Teacher: 182****1128	yvupojjuykuyctcuytygi
 307687381	https://www.eeo.cn/s/a/?cid=307687381	Happy speaking English	Teacher: Bernz奔驰	vacantt
@@ -1068,7 +1069,10 @@
 307688441	https://www.eeo.cn/s/a/?cid=307688441	Miss Tan的在线课堂	Teacher: Miss Tan	Timi试听TK-Mia
 307688445	https://www.eeo.cn/s/a/?cid=307688445	Virtual Class	Teacher: LBCA	G1 - Lopez, Timothy Luiz
 307688447	https://www.eeo.cn/s/a/?cid=307688447	苏州思跃	Teacher: 姜文雪	26暑一期乐桥 新初一物理S+
+307688457	https://www.eeo.cn/s/a/?cid=307688457	Ace的在线课堂	Teacher: 138****0947	k238
+307688465	https://www.eeo.cn/s/a/?cid=307688465	沈阳口语秀教育信息咨询有限公司	Teacher: 总部-付馨莹	课程顾问标准化咨询培训
 307688475	https://www.eeo.cn/s/a/?cid=307688475	Happy speaking English	Teacher: 白雪姐姐	Devin7&Daphne9 - Teacher Jonah
+307688477	https://www.eeo.cn/s/a/?cid=307688477	勤福科技	Teacher: EE2546	XX——EE2546
 307688491	https://www.eeo.cn/s/a/?cid=307688491	剑桥朗思考官团队	Teacher: Michelangelo	【九七英语丨专业测评】2026-061
 307688493	https://www.eeo.cn/s/a/?cid=307688493	Sino-bus	Teacher: 李艺	英文試聽課HK-K3-邱語宥
 307688495	https://www.eeo.cn/s/a/?cid=307688495	Happy speaking English	Teacher: kristine	Michael11
@@ -1194,7 +1198,3 @@
 307689505	https://www.eeo.cn/s/a/?cid=307689505	Sino-bus	Teacher: Sino-bus顧問沈苗	英文試聽課HK-L6-sally
 307689511	https://www.eeo.cn/s/a/?cid=307689511	TEACHER JENIE online classroom	Teacher: 968****391	12:00
 307689515	https://www.eeo.cn/s/a/?cid=307689515	Emmy Talk	Teacher: 帕卡老师	Ken
-307689521	https://www.eeo.cn/s/a/?cid=307689521	小寨校区在线课堂	Teacher: 冯雪	王子轩化学1v1
-307689523	https://www.eeo.cn/s/a/?cid=307689523	Virtual Class	Teacher: LBCA	G2 - Cajucom, Fritz
-307689531	https://www.eeo.cn/s/a/?cid=307689531	蒋毓的在线课堂	Teacher: 157****1669	307580371
-307689539	https://www.eeo.cn/s/a/?cid=307689539	Emmy Talk	Teacher: 帕卡老师	Kevin
