@@ -1,11 +1,3 @@
-254902963	https://www.eeo.cn/s/a/?cid=254902963	Dave online classroom	Teacher: 658****43	ssdsds
-254902991	https://www.eeo.cn/s/a/?cid=254902991	Teacher Roselyn online classroom	Teacher: 946****089	KELLY English class
-254903027	https://www.eeo.cn/s/a/?cid=254903027	TEACHER ROSE	Teacher: 968****480	IRENE ROOM 10
-254903037	https://www.eeo.cn/s/a/?cid=254903037	Teacher Fete online classroom	Teacher: 661****88	Tangyuan's Class
-254903061	https://www.eeo.cn/s/a/?cid=254903061	曹老师化学	Teacher: 153****0751	寒假化学下午4-6点
-254903133	https://www.eeo.cn/s/a/?cid=254903133	rosemarietayaban1*****ai online classroom	Teacher: rosemarietayaban1*****ai	apps
-254903269	https://www.eeo.cn/s/a/?cid=254903269	曹老师化学	Teacher: 153****0751	寒假化学晚上7.20班
-254903295	https://www.eeo.cn/s/a/?cid=254903295	TEACHER SIEW LIAN L. online classroom	Teacher: tandogleomarrey*****ail.	Yuan
 254903303	https://www.eeo.cn/s/a/?cid=254903303	Bùi Đức Gia Bảo online classroom	Teacher: 973****64	h
 254903343	https://www.eeo.cn/s/a/?cid=254903343	gemmavicentino*****ail.c online classroom	Teacher: gemmavicentino*****ail.c	Nica
 254903449	https://www.eeo.cn/s/a/?cid=254903449	Bùi Đức Gia Bảo online classroom	Teacher: 973****64	con
@@ -1198,3 +1190,11 @@
 254967763	https://www.eeo.cn/s/a/?cid=254967763	TeacherJessica online classroom	Teacher: 217****353	Jackie (Jan 2024)
 254967833	https://www.eeo.cn/s/a/?cid=254967833	Nguyễn Phương Giang online classroom	Teacher: 968****55	lớp học hạnh phúc
 254967851	https://www.eeo.cn/s/a/?cid=254967851	远飞	Teacher: 陈sir	10MPDC001高一数学【超优】小组课-寒假
+254967877	https://www.eeo.cn/s/a/?cid=254967877	Teacher Judy online classroom	Teacher: 906****718	Joyce
+254967897	https://www.eeo.cn/s/a/?cid=254967897	Pem online classroom	Teacher: 991****852	JANUARY 28, 2024_SATURDAY
+254967921	https://www.eeo.cn/s/a/?cid=254967921	Kekeli online classroom	Teacher: reginaaddo1*****ail.com	presonal room
+254967951	https://www.eeo.cn/s/a/?cid=254967951	Learn English	Teacher: Teacher Pat	rwtrtr
+254968003	https://www.eeo.cn/s/a/?cid=254968003	John online classroom	Teacher: 985****002	Toby
+254968049	https://www.eeo.cn/s/a/?cid=254968049	本溪市高级中学	Teacher: 王蕴乔	19班王蕴乔组
+254968077	https://www.eeo.cn/s/a/?cid=254968077	立德信息服务	Teacher: 外教老师伊西	Theo New class
+254968079	https://www.eeo.cn/s/a/?cid=254968079	MORE TALK	Teacher: Cathy	Michael's english class

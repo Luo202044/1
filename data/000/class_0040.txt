@@ -1,11 +1,3 @@
-254840757	https://www.eeo.cn/s/a/?cid=254840757	Aldrianne online classroom	Teacher: 917****043	SUSAN@NONA #31
-254840889	https://www.eeo.cn/s/a/?cid=254840889	点石教育	Teacher: 刘雅君	馨馨初二
-254840903	https://www.eeo.cn/s/a/?cid=254840903	点石教育	Teacher: 刘娟娟	张仕柠语文课
-254840999	https://www.eeo.cn/s/a/?cid=254840999	Sea world speaking	Teacher: 青鸾Elah	Nathan
-254841057	https://www.eeo.cn/s/a/?cid=254841057	Teacher Michelle online classroom	Teacher: 911****6555	- YUFAN & MICHELLE -
-254841071	https://www.eeo.cn/s/a/?cid=254841071	Teacher Michelle online classroom	Teacher: 911****6555	- KIM & MICHELLE -
-254841089	https://www.eeo.cn/s/a/?cid=254841089	Hello,IamJossen online classroom	Teacher: iamjnotor*****ail.com	InterDemo 2
-254841209	https://www.eeo.cn/s/a/?cid=254841209	David Hill online classroom	Teacher: 643****16	Oli
 254841227	https://www.eeo.cn/s/a/?cid=254841227	T Janice online classroom	Teacher: 935****058	Barry Lesson 2-13
 254841243	https://www.eeo.cn/s/a/?cid=254841243	khanhngan1903 online classroom	Teacher: 931****55	a3
 254841365	https://www.eeo.cn/s/a/?cid=254841365	Teacher Jerralyn 2nd acc online classroom	Teacher: 999****448	Class with Reanna🥰
@@ -1198,3 +1190,11 @@
 254902945	https://www.eeo.cn/s/a/?cid=254902945	Marcus Chiang Mai	Teacher: 620****29	Alisa January 27th
 254902955	https://www.eeo.cn/s/a/?cid=254902955	秦老师	Teacher: 188****7050	茹茹6提前10分钟进教室，周日18-19
 254902959	https://www.eeo.cn/s/a/?cid=254902959	麦田工作室	Teacher: 李金宝	【寒】七年级2+4集训下午13：00
+254902963	https://www.eeo.cn/s/a/?cid=254902963	Dave online classroom	Teacher: 658****43	ssdsds
+254902991	https://www.eeo.cn/s/a/?cid=254902991	Teacher Roselyn online classroom	Teacher: 946****089	KELLY English class
+254903027	https://www.eeo.cn/s/a/?cid=254903027	TEACHER ROSE	Teacher: 968****480	IRENE ROOM 10
+254903037	https://www.eeo.cn/s/a/?cid=254903037	Teacher Fete online classroom	Teacher: 661****88	Tangyuan's Class
+254903061	https://www.eeo.cn/s/a/?cid=254903061	曹老师化学	Teacher: 153****0751	寒假化学下午4-6点
+254903133	https://www.eeo.cn/s/a/?cid=254903133	rosemarietayaban1*****ai online classroom	Teacher: rosemarietayaban1*****ai	apps
+254903269	https://www.eeo.cn/s/a/?cid=254903269	曹老师化学	Teacher: 153****0751	寒假化学晚上7.20班
+254903295	https://www.eeo.cn/s/a/?cid=254903295	TEACHER SIEW LIAN L. online classroom	Teacher: tandogleomarrey*****ail.	Yuan

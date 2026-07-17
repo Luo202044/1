@@ -1,5 +1,3 @@
-253267987	https://www.eeo.cn/s/a/?cid=253267987	股份苟富贵	Teacher: 151****9875	Hi
-253268331	https://www.eeo.cn/s/a/?cid=253268331	Teacher JessaMine online classroom	Teacher: 906****553	DIANA-JANUARY 2024
 253268645	https://www.eeo.cn/s/a/?cid=253268645	拾伍素养	Teacher: 耿茉	【1B-3】课程模版
 253268719	https://www.eeo.cn/s/a/?cid=253268719	ABCD	Teacher: Teacher Lu	Asia-8&Muhang4（26-5）
 253268865	https://www.eeo.cn/s/a/?cid=253268865	Teacher Jessamine2 online classroom	Teacher: 976****972	ALEX-JANUARY 2024
@@ -1198,3 +1196,5 @@
 253332449	https://www.eeo.cn/s/a/?cid=253332449	STELLA online classroom	Teacher: 988****26	Chill
 253332453	https://www.eeo.cn/s/a/?cid=253332453	383119698ngoc online classroom	Teacher: 383****98	thế nào cũng đc
 253332499	https://www.eeo.cn/s/a/?cid=253332499	STELLA online classroom	Teacher: 988****26	Space
+253332611	https://www.eeo.cn/s/a/?cid=253332611	Teacher John online classroom	Teacher: 912****190	Allen
+253332645	https://www.eeo.cn/s/a/?cid=253332645	ngô Đức tài online classroom	Teacher: 908****96	magameming

@@ -1,10 +1,3 @@
-254722751	https://www.eeo.cn/s/a/?cid=254722751	Teacher Carol 7 online classroom	Teacher: 930****800	yolo-1
-254722891	https://www.eeo.cn/s/a/?cid=254722891	争朝夕，向未来	Teacher: 黄老师	上官一对一
-254722951	https://www.eeo.cn/s/a/?cid=254722951	在线教育	Teacher: 180石杰	180丫丫教室
-254723035	https://www.eeo.cn/s/a/?cid=254723035	EEO-企培培训组	Teacher: 136****6824	测试
-254723079	https://www.eeo.cn/s/a/?cid=254723079	晓禾素养教育	Teacher: 董桂炯	【思跃济外集训课】-董哥
-254723109	https://www.eeo.cn/s/a/?cid=254723109	Jill online classroom	Teacher: 405****305	hanxi
-254723117	https://www.eeo.cn/s/a/?cid=254723117	儿语工坊·在线语训中心	Teacher: 倾音小助手	唐煜墨宝贝在线课堂
 254723195	https://www.eeo.cn/s/a/?cid=254723195	Bloom Cultural Creativity	Teacher: 139****8354	Reading with Emy
 254723291	https://www.eeo.cn/s/a/?cid=254723291	儿语工坊·在线语训中心	Teacher: 倾音小助手	一辉宝贝在线课堂
 254723607	https://www.eeo.cn/s/a/?cid=254723607	欧氏海 - Âu Thị Hải online classroom	Teacher: auhai19*****ail.com	hh
@@ -847,7 +840,6 @@
 254767733	https://www.eeo.cn/s/a/?cid=254767733	Lê Hoàng Tùng online classroom	Teacher: 976****32	VŨ HẢI KIÊN
 254767747	https://www.eeo.cn/s/a/?cid=254767747	Teacher Anna (Temp) online classroom	Teacher: josefanormacru*****ail.c	3/1/5 p16
 254767761	https://www.eeo.cn/s/a/?cid=254767761	Cris2 online classroom	Teacher: 967****331	Nice
-254767807	https://www.eeo.cn/s/a/?cid=254767807	Cris2 online classroom	Teacher: 967****331	Queena
 254767817	https://www.eeo.cn/s/a/?cid=254767817	Lê Hoàng Tùng online classroom	Teacher: 976****32	225
 254767859	https://www.eeo.cn/s/a/?cid=254767859	Cris2 online classroom	Teacher: 967****331	minnie
 254767863	https://www.eeo.cn/s/a/?cid=254767863	Lê Hoàng Tùng online classroom	Teacher: 976****32	56
@@ -1198,3 +1190,11 @@
 254786429	https://www.eeo.cn/s/a/?cid=254786429	jenniferali1*****tlook.c online classroom	Teacher: jenniferali1*****tlook.c	Max
 254786477	https://www.eeo.cn/s/a/?cid=254786477	武汉时代巨人教育科技有限责任公司	Teacher: 刘威	GD-2024HJ805-ZXSX-J8E
 254786483	https://www.eeo.cn/s/a/?cid=254786483	Teacher Ron online classroom	Teacher: 945****286	VIP Ruirui
+254786629	https://www.eeo.cn/s/a/?cid=254786629	Teacher Iryl	Teacher: 928****178	Eason7J.Classroom
+254786633	https://www.eeo.cn/s/a/?cid=254786633	Lovie Jade online classroom	Teacher: dimplelauronal19*****ail	Jade's Class
+254786645	https://www.eeo.cn/s/a/?cid=254786645	在线学堂 Online Tutorial	Teacher: Leo	Eva-leo
+254786693	https://www.eeo.cn/s/a/?cid=254786693	Mari online classroom	Teacher: 650***24	Jessie 英语课
+254786717	https://www.eeo.cn/s/a/?cid=254786717	Jason online classroom	Teacher: zhouchaoling19*****ail.c	NNNNNHHJHGYFTTTFYFTYFUYTFTFTFTYFUTF
+254786723	https://www.eeo.cn/s/a/?cid=254786723	Lalaine Kate Albani online classroom	Teacher: lainealban*****ail.com	kate
+254786745	https://www.eeo.cn/s/a/?cid=254786745	华东政法大学附属松江实验学校	Teacher: 彭頔	七1七2英语合班直播
+254786811	https://www.eeo.cn/s/a/?cid=254786811	走着走着走着走	Teacher: 156****9143	风风

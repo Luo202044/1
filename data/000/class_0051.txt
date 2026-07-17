@@ -1,12 +1,3 @@
-255482395	https://www.eeo.cn/s/a/?cid=255482395	少年志教育	Teacher: 黄生飞	八年级二期少年A补课班
-255482437	https://www.eeo.cn/s/a/?cid=255482437	hoainam online classroom	Teacher: 944****34	vui chơi
-255482619	https://www.eeo.cn/s/a/?cid=255482619	少年志教育	Teacher: 向璘丰	【少年】二年级秋补在线补课班
-255482639	https://www.eeo.cn/s/a/?cid=255482639	君华国际学校	Teacher: brandy	黄诗媛论文指导课
-255482679	https://www.eeo.cn/s/a/?cid=255482679	北京翼鸥教育市场运营(会议活动)	Teacher: 李老师	刘伊芯 数学 L
-255482789	https://www.eeo.cn/s/a/?cid=255482789	Teacher Shane online classroom	Teacher: 935****754	Angel
-255482919	https://www.eeo.cn/s/a/?cid=255482919	勿理物理	Teacher: 156****6637	莅未
-255482927	https://www.eeo.cn/s/a/?cid=255482927	Teacher Juna Pormelos online classroom	Teacher: 912****146	Rocky
-255482989	https://www.eeo.cn/s/a/?cid=255482989	Erielyn Reyes online classroom	Teacher: 910****600	Trial
 255483011	https://www.eeo.cn/s/a/?cid=255483011	直播课堂	Teacher: 曹老师	周宇慈初二数学
 255483095	https://www.eeo.cn/s/a/?cid=255483095	Dvyphonic	Teacher: 949****00	Robin Lesson 33
 255483197	https://www.eeo.cn/s/a/?cid=255483197	Dvyphonic	Teacher: 949****00	MandyS Lesson 41
@@ -1198,3 +1189,12 @@
 255547109	https://www.eeo.cn/s/a/?cid=255547109	TEACHER BRIGHT	Teacher: 969****395	Steven7C
 255547329	https://www.eeo.cn/s/a/?cid=255547329	galanidojamek*****ail.co online classroom	Teacher: galanidojamek*****ail.co	fruits
 255547333	https://www.eeo.cn/s/a/?cid=255547333	EasyPASS demo sample online classroom	Teacher: 960****449	EasyPass JOAN DEMO
+255547471	https://www.eeo.cn/s/a/?cid=255547471	荟育人凹凸教育	Teacher: 程鑫	程鑫-王家湾沈星汝一对一课堂
+255547495	https://www.eeo.cn/s/a/?cid=255547495	Horn	Teacher: Andi	🐲寒2期C1🚀13.30-16.30
+255547531	https://www.eeo.cn/s/a/?cid=255547531	春苗	Teacher: 秦老师1.7充值100	伊珊
+255547699	https://www.eeo.cn/s/a/?cid=255547699	Melea online classroom	Teacher: 998****573	MOCK CLASSROOM
+255547917	https://www.eeo.cn/s/a/?cid=255547917	刘老师线上课	Teacher: 182****9145	2024宁波初三寒假班
+255547993	https://www.eeo.cn/s/a/?cid=255547993	Teach Reshel online classroom	Teacher: 935****995	r
+255547999	https://www.eeo.cn/s/a/?cid=255547999	Teacher Mac online classroom	Teacher: magic202311*****3.com	Elsa 9yo
+255548073	https://www.eeo.cn/s/a/?cid=255548073	Horn	Teacher: Andi	管仲毅
+255548105	https://www.eeo.cn/s/a/?cid=255548105	Teach Reshel online classroom	Teacher: 935****995	w

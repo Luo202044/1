@@ -1,11 +1,3 @@
-254967877	https://www.eeo.cn/s/a/?cid=254967877	Teacher Judy online classroom	Teacher: 906****718	Joyce
-254967897	https://www.eeo.cn/s/a/?cid=254967897	Pem online classroom	Teacher: 991****852	JANUARY 28, 2024_SATURDAY
-254967921	https://www.eeo.cn/s/a/?cid=254967921	Kekeli online classroom	Teacher: reginaaddo1*****ail.com	presonal room
-254967951	https://www.eeo.cn/s/a/?cid=254967951	Learn English	Teacher: Teacher Pat	rwtrtr
-254968003	https://www.eeo.cn/s/a/?cid=254968003	John online classroom	Teacher: 985****002	Toby
-254968049	https://www.eeo.cn/s/a/?cid=254968049	本溪市高级中学	Teacher: 王蕴乔	19班王蕴乔组
-254968077	https://www.eeo.cn/s/a/?cid=254968077	立德信息服务	Teacher: 外教老师伊西	Theo New class
-254968079	https://www.eeo.cn/s/a/?cid=254968079	MORE TALK	Teacher: Cathy	Michael's english class
 254968085	https://www.eeo.cn/s/a/?cid=254968085	Mike	Teacher: 664***02	28.1. Kiki
 254968091	https://www.eeo.cn/s/a/?cid=254968091	潇洒姐儿口才艺术	Teacher: 琴琴COCO	111
 254968213	https://www.eeo.cn/s/a/?cid=254968213	Jack house	Teacher: Teacher Clarice	naa ko gawas
@@ -1198,3 +1190,11 @@
 255030159	https://www.eeo.cn/s/a/?cid=255030159	Teacher Aireen	Teacher: julietmike*****ail.com	Tong-Tong
 255030175	https://www.eeo.cn/s/a/?cid=255030175	Rana online classroom	Teacher: 970****373	May Ethan
 255030195	https://www.eeo.cn/s/a/?cid=255030195	klar21 online classroom	Teacher: 935****785	leo2
+255030253	https://www.eeo.cn/s/a/?cid=255030253	Charlie课堂	Teacher: Charlie	1111
+255030273	https://www.eeo.cn/s/a/?cid=255030273	Online English Teacher School	Teacher: 欧202croker	jack
+255030293	https://www.eeo.cn/s/a/?cid=255030293	SUMMER and BRYANT online classroom	Teacher: 985****643	SUMMER
+255030299	https://www.eeo.cn/s/a/?cid=255030299	元培少年学者科研项目	Teacher: Eric 侯勇企	乐行之一对一咨询群
+255030379	https://www.eeo.cn/s/a/?cid=255030379	My online classroom	Teacher: msmytruong*****ail.com	Hào , Tường
+255030419	https://www.eeo.cn/s/a/?cid=255030419	Teacher Angel online classroom	Teacher: 976****020	KELLY
+255030489	https://www.eeo.cn/s/a/?cid=255030489	Teacher Sev13 online classroom	Teacher: sevimarund*****ail.com	Cherry
+255030495	https://www.eeo.cn/s/a/?cid=255030495	queeniecedeno*****ail.co online classroom	Teacher: queeniecedeno*****ail.co	Elaine

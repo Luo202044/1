@@ -1,10 +1,3 @@
-254606533	https://www.eeo.cn/s/a/?cid=254606533	René online classroom	Teacher: rgrundlin*****ail.com	Demo class 2 Cowboy
-254606561	https://www.eeo.cn/s/a/?cid=254606561	黄河岸教育	Teacher: 178****4054	私人
-254606565	https://www.eeo.cn/s/a/?cid=254606565	René online classroom	Teacher: rgrundlin*****ail.com	Demo Class 3 Bella
-254606569	https://www.eeo.cn/s/a/?cid=254606569	Kath online classroom	Teacher: 907****916	Lukas 2
-254606571	https://www.eeo.cn/s/a/?cid=254606571	Active Learning	Teacher: burkewashington*****ail.	Kingson's English Class
-254606589	https://www.eeo.cn/s/a/?cid=254606589	René online classroom	Teacher: rgrundlin*****ail.com	Demo Class 4 Daisy
-254606625	https://www.eeo.cn/s/a/?cid=254606625	René online classroom	Teacher: rgrundlin*****ail.com	Demo Calss 5 Eva
 254606657	https://www.eeo.cn/s/a/?cid=254606657	René online classroom	Teacher: rgrundlin*****ail.com	Demo Class 6 Frankie
 254606733	https://www.eeo.cn/s/a/?cid=254606733	Teacher Joyce online classroom	Teacher: 975****980	sunny classroom
 254606937	https://www.eeo.cn/s/a/?cid=254606937	优之星	Teacher: 张	优之星 2024 寒假A6
@@ -1198,3 +1191,10 @@
 254673437	https://www.eeo.cn/s/a/?cid=254673437	Teachel Maricel	Teacher: 949****565	CODY8L
 254673463	https://www.eeo.cn/s/a/?cid=254673463	Teacher Grace	Teacher: 927****350	trial
 254673471	https://www.eeo.cn/s/a/?cid=254673471	耀华国际教育学校广州校区	Teacher: chao.liu	23-24 S2 G6C HOM 班会 Lily&Tulio
+254673503	https://www.eeo.cn/s/a/?cid=254673503	WeIP Education	Teacher: 江老师	SPM THE DAY SEJ COMBO 2 Tham
+254673505	https://www.eeo.cn/s/a/?cid=254673505	张舒	Teacher: 张舒	张紫昕--Password英语
+254673527	https://www.eeo.cn/s/a/?cid=254673527	精品拓展	Teacher: Nahla	Sara
+254673557	https://www.eeo.cn/s/a/?cid=254673557	陵城区第三中学	Teacher: 马晓玲	12
+254673603	https://www.eeo.cn/s/a/?cid=254673603	无老师	Teacher: 孙小茗	1.24 托福写作课
+254673609	https://www.eeo.cn/s/a/?cid=254673609	陵城区第三中学	Teacher: 魏 静	14、15、16班政治
+254673643	https://www.eeo.cn/s/a/?cid=254673643	shey.ortiz21419*****ail. online classroom	Teacher: shey.ortiz21419*****ail.	Shiela. Demo Teaching

@@ -1,12 +1,3 @@
-255300495	https://www.eeo.cn/s/a/?cid=255300495	Jelord online classroom	Teacher: 906****891	Course Audit
-255300533	https://www.eeo.cn/s/a/?cid=255300533	Irene Princess online classroom	Teacher: amimitaireneprince*****a	MWSP Regular Sunday Class
-255300597	https://www.eeo.cn/s/a/?cid=255300597	七七美育	Teacher: 七七老师	周二18:50萱萱
-255300659	https://www.eeo.cn/s/a/?cid=255300659	Horn	Teacher: Andi	🐲寒2期B2📚8.30-11.30（Alvin）
-255300675	https://www.eeo.cn/s/a/?cid=255300675	EriC online classroom	Teacher: 985****892	ERiC
-255300701	https://www.eeo.cn/s/a/?cid=255300701	Law(Sat4) online classroom	Teacher: 909****286	Peng(1)
-255300751	https://www.eeo.cn/s/a/?cid=255300751	Horn	Teacher: Andi	🐲寒2期K4🚀13.30-15.30（Echo）
-255300817	https://www.eeo.cn/s/a/?cid=255300817	Horn	Teacher: Andi	🐲寒2期Phonics8.30-11.30(Echo)
-255300891	https://www.eeo.cn/s/a/?cid=255300891	Takhmina online classroom	Teacher: navruzkulov*****ail.com	Unit 12 B
 255300903	https://www.eeo.cn/s/a/?cid=255300903	Horn	Teacher: Andi	🐲寒2期K3🚀10.00-12.00 Venus
 255301015	https://www.eeo.cn/s/a/?cid=255301015	Teacher wandas	Teacher: 691****86	Diana
 255301085	https://www.eeo.cn/s/a/?cid=255301085	Horn	Teacher: Andi	🐲寒2期A2🚀8.30-11.30(Chris)
@@ -1198,3 +1189,12 @@
 255352147	https://www.eeo.cn/s/a/?cid=255352147	北京市广渠门中学	Teacher: 郑瑞	9班、选3答疑群
 255352155	https://www.eeo.cn/s/a/?cid=255352155	567	Teacher: CBH	子航加油
 255352163	https://www.eeo.cn/s/a/?cid=255352163	567	Teacher: CBH	程旭加油！
+255352313	https://www.eeo.cn/s/a/?cid=255352313	Teacher Vanessa online classroom	Teacher: allisoncade3*****ail.com	Snow
+255352535	https://www.eeo.cn/s/a/?cid=255352535	WeIP Education	Teacher: Mr Hong	2024 F3 SN(BM) FRI 2.45pm Mr.Hong 优
+255352657	https://www.eeo.cn/s/a/?cid=255352657	谦学教育集团有限公司	Teacher: 137****9858	02.03GXx曼彻斯特学术不端
+255352659	https://www.eeo.cn/s/a/?cid=255352659	如有特殊情况请联系学管老师	Teacher: 婉婉老师	W-USACO-傅一翔
+255352677	https://www.eeo.cn/s/a/?cid=255352677	Teacher Danny online classroom	Teacher: 905****427	1pm
+255352703	https://www.eeo.cn/s/a/?cid=255352703	WeIP Education	Teacher: Mr Ivan	2024 F3 BMP FRI 4.00pm Mr.Ivan 精
+255352887	https://www.eeo.cn/s/a/?cid=255352887	慎思教育	Teacher: Jack	，
+255352967	https://www.eeo.cn/s/a/?cid=255352967	星火教育红岭校区（深圳关内）	Teacher: 刘宝金	2024A初三逻辑素养燎原小组课2B(8班)
+255352981	https://www.eeo.cn/s/a/?cid=255352981	本溪市高级中学	Teacher: 李文静	55

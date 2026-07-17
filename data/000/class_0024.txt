@@ -1,8 +1,3 @@
-253914931	https://www.eeo.cn/s/a/?cid=253914931	PandaLang ABC	Teacher: 663****90	Harold
-253915071	https://www.eeo.cn/s/a/?cid=253915071	Teacher Natalie	Teacher: 820****35	Test
-253915093	https://www.eeo.cn/s/a/?cid=253915093	Sam online classroom	Teacher: 658****75	Demo Lesson
-253915097	https://www.eeo.cn/s/a/?cid=253915097	Teacher Ben online classroom	Teacher: wb856*****ail.com	Class 1
-253915119	https://www.eeo.cn/s/a/?cid=253915119	罗素学院 Russell Academy	Teacher: Patrick Downes	Harley Science
 253915155	https://www.eeo.cn/s/a/?cid=253915155	Law(3) online classroom	Teacher: 965****383	Shirley(1)
 253915259	https://www.eeo.cn/s/a/?cid=253915259	Rebecc online classroom	Teacher: 752****661	Ben
 253915261	https://www.eeo.cn/s/a/?cid=253915261	Pem online classroom	Teacher: pem27*****ail.com	JANAURY 13, 2024_SATURDAY
@@ -1198,3 +1193,8 @@
 253990033	https://www.eeo.cn/s/a/?cid=253990033	English School and Tutorial Services	Teacher: Teacher DANN	archie
 253990111	https://www.eeo.cn/s/a/?cid=253990111	vjadelde*****ail.com online classroom	Teacher: vjadelde*****ail.com	Elina 2
 253990319	https://www.eeo.cn/s/a/?cid=253990319	沈阳理然文化传媒有限公司	Teacher: 刘洋	周日少年童谣15：20
+253990327	https://www.eeo.cn/s/a/?cid=253990327	Teacher Ronelyn online classroom	Teacher: 928****067	emily
+253990353	https://www.eeo.cn/s/a/?cid=253990353	Sandy工作室	Teacher: Sandy	Unlock 4 Unit 7 Sandy
+253990421	https://www.eeo.cn/s/a/?cid=253990421	Trà My online classroom	Teacher: 332****63	5a
+253990447	https://www.eeo.cn/s/a/?cid=253990447	miguelaempenadorey*****a online classroom	Teacher: miguelaempenadorey*****a	mig class
+253990523	https://www.eeo.cn/s/a/?cid=253990523	乐梦营	Teacher: Lily老师	1.14 10:00 Lily-Demo

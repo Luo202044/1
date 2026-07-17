@@ -1,5 +1,3 @@
-253491179	https://www.eeo.cn/s/a/?cid=253491179	Teacher Nik online classroom	Teacher: 776****653	Jack Yu Bao
-253491223	https://www.eeo.cn/s/a/?cid=253491223	Teacher Nik online classroom	Teacher: 776****653	Octavia/Wang chang
 253491229	https://www.eeo.cn/s/a/?cid=253491229	Teacher Nik online classroom	Teacher: 776****653	LEON
 253491255	https://www.eeo.cn/s/a/?cid=253491255	期末复习	Teacher: 132****5176	1.6期末代数复习（一）
 253491277	https://www.eeo.cn/s/a/?cid=253491277	Teacher Chiva online classroom	Teacher: 951****550	Demo Class
@@ -1198,3 +1196,5 @@
 253550647	https://www.eeo.cn/s/a/?cid=253550647	老师 Christine online classroom	Teacher: 938****539	Hu Ruichen 🌹
 253550775	https://www.eeo.cn/s/a/?cid=253550775	Teacher Cap online classroom	Teacher: 926****877	Elsa's Class
 253550837	https://www.eeo.cn/s/a/?cid=253550837	museum	Teacher: 北极星Crisel	Andy7BJ
+253550859	https://www.eeo.cn/s/a/?cid=253550859	Ngoc Phuong online classroom	Teacher: 968****25	André ClassIn Demo
+253550863	https://www.eeo.cn/s/a/?cid=253550863	Monica online classroom	Teacher: monica18864*****ail.com	Marvin's official class

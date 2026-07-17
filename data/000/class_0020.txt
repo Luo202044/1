@@ -1,6 +1,3 @@
-253682363	https://www.eeo.cn/s/a/?cid=253682363	YenNguyen online classroom	Teacher: 898****09	Test
-253682365	https://www.eeo.cn/s/a/?cid=253682365	binhhuma online classroom	Teacher: 974****60	NỀN TẢNG PHÁT ÂM
-253682415	https://www.eeo.cn/s/a/?cid=253682415	Theresa's English	Teacher: 704****355	Andy--Winter/ Spring
 253682465	https://www.eeo.cn/s/a/?cid=253682465	Nura Teacher online classroom	Teacher: 631****88	Bruce
 253682537	https://www.eeo.cn/s/a/?cid=253682537	tranvantuan0106*****loud online classroom	Teacher: tranvantuan0106*****loud	lớp
 253682541	https://www.eeo.cn/s/a/?cid=253682541	Cher Rose online classroom	Teacher: 995****118	Katie
@@ -1198,3 +1195,6 @@
 253737659	https://www.eeo.cn/s/a/?cid=253737659	EVA在线英语社区	Teacher: 139****9523	Eva 1V1
 253737703	https://www.eeo.cn/s/a/?cid=253737703	Teacher Karen online classroom	Teacher: 998****067	BSED ENGLISH 3B
 253737705	https://www.eeo.cn/s/a/?cid=253737705	E-Creative Education	Teacher: MS YAP	2024年 K2 BI
+253737717	https://www.eeo.cn/s/a/?cid=253737717	Linda online classroom	Teacher: 935****525	LindaKeen
+253737741	https://www.eeo.cn/s/a/?cid=253737741	AdvancedPhD顶博教育	Teacher: 130****2131	20241011 券商报告
+253737789	https://www.eeo.cn/s/a/?cid=253737789	Kelly online classroom	Teacher: klyalfaro0*****ail.com	english class

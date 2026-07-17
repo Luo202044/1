@@ -1,13 +1,3 @@
-256228535	https://www.eeo.cn/s/a/?cid=256228535	teacher yna online classroom	Teacher: 956****208	annab30
-256228591	https://www.eeo.cn/s/a/?cid=256228591	THANHHTP.FB online classroom	Teacher: 915****48	pthanh
-256228641	https://www.eeo.cn/s/a/?cid=256228641	Anita2 online classroom	Teacher: 559***09	Jeremy 20:10
-256228691	https://www.eeo.cn/s/a/?cid=256228691	Aruna English Academy	Teacher: Aruna English Academy	Angie English Lesson
-256228695	https://www.eeo.cn/s/a/?cid=256228695	Teacher Joy online classroom	Teacher: 994****432	Eric's Class
-256228741	https://www.eeo.cn/s/a/?cid=256228741	Natasa Golubovic	Teacher: 676***27	Hannah 8 20:00
-256228757	https://www.eeo.cn/s/a/?cid=256228757	Teacher Sofia.Bea online classroom	Teacher: 928****234	Trial Class (February 21, 2024)
-256228809	https://www.eeo.cn/s/a/?cid=256228809	0063-9683556846 online classroom	Teacher: 968****846	mary
-256229025	https://www.eeo.cn/s/a/?cid=256229025	Gigi online classroom	Teacher: 965****083	Aimee's Class -1
-256229049	https://www.eeo.cn/s/a/?cid=256229049	在线外教课	Teacher: 教务-王卓妮	0222 Trial Starter L1-1 体验课
 256229159	https://www.eeo.cn/s/a/?cid=256229159	Private investor	Teacher: 201****493	AMY
 256229209	https://www.eeo.cn/s/a/?cid=256229209	谦学教育集团有限公司	Teacher: 137****9858	02.21GX悉尼大学非常规撤课4门
 256229223	https://www.eeo.cn/s/a/?cid=256229223	Виолетта online classroom	Teacher: 917****741	21 февраля
@@ -1198,3 +1188,13 @@
 256291293	https://www.eeo.cn/s/a/?cid=256291293	海外同步课程辅导平台	Teacher: Betty 教务	高文博——CM2 Mathematical Modelling+ee-王老师
 256291303	https://www.eeo.cn/s/a/?cid=256291303	如有特殊情况请联系学管老师	Teacher: NONO老师	月月-BBO&BIO冲刺班-锦添、梓萌、珮仪、艺华、婧坤、浩阳、悦妍
 256291313	https://www.eeo.cn/s/a/?cid=256291313	Teacher Amir online classroom	Teacher: 957****66	Jason, Rui
+256291321	https://www.eeo.cn/s/a/?cid=256291321	溢海教育one	Teacher: 皇姑-惠欣茹	皇姑初一王思梦物理课
+256291331	https://www.eeo.cn/s/a/?cid=256291331	Fresh Start Learning	Teacher: 606****22	Joey 💖 course 2 💖
+256291347	https://www.eeo.cn/s/a/?cid=256291347	Jen online classroom	Teacher: jenezar*****ail.com	English Class for Iris
+256291377	https://www.eeo.cn/s/a/?cid=256291377	albami*****oton.me online classroom	Teacher: albami*****oton.me	Phong
+256291397	https://www.eeo.cn/s/a/?cid=256291397	TEACHER_JEAN online classroom	Teacher: 907****039	Power Talk
+256291453	https://www.eeo.cn/s/a/?cid=256291453	春苗	Teacher: Eva2.25充值50	Lucas 51talk Emlyn
+256291465	https://www.eeo.cn/s/a/?cid=256291465	0063-9283783862 online classroom	Teacher: 928****862	Teacher Mary's Class
+256291611	https://www.eeo.cn/s/a/?cid=256291611	Marchy's English Class	Teacher: 995****853	Eason
+256291655	https://www.eeo.cn/s/a/?cid=256291655	raihanatalawid*****ail.c online classroom	Teacher: raihanatalawid*****ail.c	class1
+256291707	https://www.eeo.cn/s/a/?cid=256291707	北大在线研讨（非课表时间）	Teacher: 体育教研部-1506179315	2024春-9

@@ -1,8 +1,3 @@
-253990327	https://www.eeo.cn/s/a/?cid=253990327	Teacher Ronelyn online classroom	Teacher: 928****067	emily
-253990353	https://www.eeo.cn/s/a/?cid=253990353	Sandy工作室	Teacher: Sandy	Unlock 4 Unit 7 Sandy
-253990421	https://www.eeo.cn/s/a/?cid=253990421	Trà My online classroom	Teacher: 332****63	5a
-253990447	https://www.eeo.cn/s/a/?cid=253990447	miguelaempenadorey*****a online classroom	Teacher: miguelaempenadorey*****a	mig class
-253990523	https://www.eeo.cn/s/a/?cid=253990523	乐梦营	Teacher: Lily老师	1.14 10:00 Lily-Demo
 253990733	https://www.eeo.cn/s/a/?cid=253990733	SethNica CS online classroom	Teacher: 919****552	jan 14
 253990789	https://www.eeo.cn/s/a/?cid=253990789	Teacher Slava online classroom	Teacher: 995****088	English Class - Daniel
 253990819	https://www.eeo.cn/s/a/?cid=253990819	Yza online classroom	Teacher: 960****408	nancy
@@ -1198,3 +1193,8 @@
 254063553	https://www.eeo.cn/s/a/?cid=254063553	princessgarviecamingaw** online classroom	Teacher: princessgarviecamingaw**	Felix
 254063581	https://www.eeo.cn/s/a/?cid=254063581	北京市通州区贡院小学	Teacher: 北京市通州区贡院小学	单元整体教学实践演练工作坊
 254063733	https://www.eeo.cn/s/a/?cid=254063733	企培-新媒体营销	Teacher: 鲜超凡	防盗录测试
+254063813	https://www.eeo.cn/s/a/?cid=254063813	上海市浦东新区育童小学	Teacher: 蔡老师	2028届数学1班
+254063855	https://www.eeo.cn/s/a/?cid=254063855	陆伟佳	Teacher: lwj	欧阳老师 & ClassIn
+254063871	https://www.eeo.cn/s/a/?cid=254063871	上海市浦东新区育童小学	Teacher: 蒋龚华	三（1）
+254063961	https://www.eeo.cn/s/a/?cid=254063961	快乐在线课程	Teacher: 张霞	新概念一寒假班
+254063999	https://www.eeo.cn/s/a/?cid=254063999	Summer online classroom	Teacher: mnicaolar*****ail.com	Class 2p.m

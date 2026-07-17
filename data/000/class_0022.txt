@@ -1,7 +1,3 @@
-253798237	https://www.eeo.cn/s/a/?cid=253798237	广东省习悦教育培训中心	Teacher: Shuang Hou	G2-测评-Rachel
-253798479	https://www.eeo.cn/s/a/?cid=253798479	Tommy S	Teacher: 605****700	Power up
-253798509	https://www.eeo.cn/s/a/?cid=253798509	北京语言大学网络教育学院	Teacher: 北语网院eBLCU	中国文化与跨文化交际（往期）
-253798547	https://www.eeo.cn/s/a/?cid=253798547	Teacher Samantha	Teacher: 304****727	2.1 Blizzard Bilinguals 10:00 AM
 253798583	https://www.eeo.cn/s/a/?cid=253798583	VIPteacher	Teacher: 133****5016	面试辅导Hazel老师–胡嘉莲
 253798633	https://www.eeo.cn/s/a/?cid=253798633	在线教育	Teacher: 安延章	010-田皓宇
 253798723	https://www.eeo.cn/s/a/?cid=253798723	cony.kenijia*****ail.com online classroom	Teacher: cony.kenijia*****ail.com	101
@@ -960,7 +956,6 @@
 253846673	https://www.eeo.cn/s/a/?cid=253846673	jayjayson120220*****ail. online classroom	Teacher: jayjayson120220*****ail.	classe cm
 253846725	https://www.eeo.cn/s/a/?cid=253846725	黑马工坊	Teacher: 199****0034	2315541
 253846993	https://www.eeo.cn/s/a/?cid=253846993	Thỏ5t online classroom	Teacher: 369****88	lịch sử
-253847069	https://www.eeo.cn/s/a/?cid=253847069	Little English Owl	Teacher: teacher Andrew	Leo
 253847133	https://www.eeo.cn/s/a/?cid=253847133	TeacherTriciaUSA online classroom	Teacher: 248****256	Christina and William's class
 253847139	https://www.eeo.cn/s/a/?cid=253847139	Lê Thị Quỳnh Hương online classroom	Teacher: 348****98	huong
 253847239	https://www.eeo.cn/s/a/?cid=253847239	Zee online classroom	Teacher: zeldene.sim*****ail.com	Zee's Demo Class
@@ -1198,3 +1193,8 @@
 253859233	https://www.eeo.cn/s/a/?cid=253859233	在线自习答疑	Teacher: 汤婷炜	补课回放
 253859329	https://www.eeo.cn/s/a/?cid=253859329	Sophia :D online classroom	Teacher: 162****37	SCOUTING NOTES
 253859357	https://www.eeo.cn/s/a/?cid=253859357	君华国际学校	Teacher: Alice	张诣 赵梓言 尹煜姝EPQ1v3考官课
+253859361	https://www.eeo.cn/s/a/?cid=253859361	Teacher Shine (2) online classroom	Teacher: 929****376	Max’s Class
+253859401	https://www.eeo.cn/s/a/?cid=253859401	在线自习答疑	Teacher: 陈敏	24寒L6语法B2线上答疑
+253859465	https://www.eeo.cn/s/a/?cid=253859465	WeTalk International Education Ltd	Teacher: Teacher Fiona	Ron-HSK1
+253859505	https://www.eeo.cn/s/a/?cid=253859505	在线自习答疑	Teacher: 王俊宁	24寒L6语法C2线上答疑
+253859553	https://www.eeo.cn/s/a/?cid=253859553	在线自习答疑	Teacher: 陈蓉	24寒L6语法C3线上答疑

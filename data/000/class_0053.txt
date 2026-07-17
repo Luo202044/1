@@ -1,12 +1,3 @@
-255613697	https://www.eeo.cn/s/a/?cid=255613697	f7sagal*****ail.com online classroom	Teacher: f7sagal*****ail.com	Demo Class 2
-255613741	https://www.eeo.cn/s/a/?cid=255613741	ANNA_1- MARCH-APRIL 2023 online classroom	Teacher: 919****461	ANNA - NEW BATCH - FEBRUARY 7TH, 2024
-255613877	https://www.eeo.cn/s/a/?cid=255613877	Teacher Jesica online classroom	Teacher: 918****112	YOYO13
-255613947	https://www.eeo.cn/s/a/?cid=255613947	上海市三新学校	Teacher: 干芳芳	我和朱梓汐
-255613969	https://www.eeo.cn/s/a/?cid=255613969	Anne online classroom	Teacher: 918****400	April's 676 session
-255614043	https://www.eeo.cn/s/a/?cid=255614043	在线课程	Teacher: 姜老师	热 光 原 物理学习
-255614087	https://www.eeo.cn/s/a/?cid=255614087	北京尚学明德教育科技有限公司	Teacher: 班主任 娄馨予 老师	梁彦琦数学王老师
-255614251	https://www.eeo.cn/s/a/?cid=255614251	张先生	Teacher: 188****7301	张紫彤的班级
-255614261	https://www.eeo.cn/s/a/?cid=255614261	HW online classroom	Teacher: 621****32	20240207A
 255614389	https://www.eeo.cn/s/a/?cid=255614389	0082-1064180714 online classroom	Teacher: 106****714	정규수업(유하-2/7)
 255614445	https://www.eeo.cn/s/a/?cid=255614445	barulingo online classroom	Teacher: bb.hanuso*****ail.com	Archie
 255614473	https://www.eeo.cn/s/a/?cid=255614473	Teacher ken online classroom	Teacher: 919****199	phiiiilloiiiip
@@ -1198,3 +1189,12 @@
 255677551	https://www.eeo.cn/s/a/?cid=255677551	Santos, Angelo C. online classroom	Teacher: 945****330	sdfasdfad
 255677587	https://www.eeo.cn/s/a/?cid=255677587	Pem online classroom	Teacher: 991****852	FEBRUARY 09, 2024_FRIDAY
 255677589	https://www.eeo.cn/s/a/?cid=255677589	Dr Smith online classroom	Teacher: pennypsmi*****hoo.com	LH
+255677605	https://www.eeo.cn/s/a/?cid=255677605	Pem online classroom	Teacher: 956****699	FEBRUARY 09, 2029_FRIDAY
+255677617	https://www.eeo.cn/s/a/?cid=255677617	MInd Creation Education	Teacher: 小学	TUESDAY Y4SCN 7:45-9PM
+255677641	https://www.eeo.cn/s/a/?cid=255677641	mebalaoing5*****ail.com online classroom	Teacher: mebalaoing5*****ail.com	Teacher Marilou
+255677729	https://www.eeo.cn/s/a/?cid=255677729	vinci online classroom	Teacher: 977****716	123
+255677789	https://www.eeo.cn/s/a/?cid=255677789	Hannah’s Tutorial	Teacher: 928****166	Ivan6x's Class
+255677839	https://www.eeo.cn/s/a/?cid=255677839	MInd Creation Education	Teacher: Ms Lee	WEDNESDAY Y4BMK 7:45-9PM
+255677909	https://www.eeo.cn/s/a/?cid=255677909	Michael online classroom	Teacher: 643****75	Matthew - Friday, February 9, 2024
+255677959	https://www.eeo.cn/s/a/?cid=255677959	Jacqueline online classroom	Teacher: villardelmundo.jacqueli*	spanish class
+255677963	https://www.eeo.cn/s/a/?cid=255677963	Helena online classroom	Teacher: 172***52	b

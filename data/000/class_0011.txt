@@ -1,5 +1,3 @@
-253115635	https://www.eeo.cn/s/a/?cid=253115635	Clarice Tracey	Teacher: 999****649	Rain 10
-253115645	https://www.eeo.cn/s/a/?cid=253115645	Teacher Nene Tutorial Services	Teacher: 918****452	Kevin's Class - 10
 253115665	https://www.eeo.cn/s/a/?cid=253115665	竞赛帮	Teacher: 悦悦老师	【小学】竞赛帮-寒假2期5S+语文班13:30章鱼老师
 253115905	https://www.eeo.cn/s/a/?cid=253115905	乐学汇	Teacher: 王老师	四年级寒假思维
 253116021	https://www.eeo.cn/s/a/?cid=253116021	Let's Go English	Teacher: 909****152	Venus' class
@@ -1198,3 +1196,5 @@
 253177369	https://www.eeo.cn/s/a/?cid=253177369	Clarice Tracey	Teacher: 999****649	Karl 10
 253177427	https://www.eeo.cn/s/a/?cid=253177427	macoypipo.*****ail.com online classroom	Teacher: macoypipo.*****ail.com	test
 253177547	https://www.eeo.cn/s/a/?cid=253177547	课堂在线	Teacher: 自己	妮妮英语学习小分队
+253177555	https://www.eeo.cn/s/a/?cid=253177555	Minh Hương online classroom	Teacher: nguyenleminhhuong300120*	lớp học tạm thời
+253177569	https://www.eeo.cn/s/a/?cid=253177569	Gillian online classroom	Teacher: 775****576	Vicky's class - Tues, Jan 2 at 7pm

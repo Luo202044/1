@@ -1,8 +1,3 @@
-254112879	https://www.eeo.cn/s/a/?cid=254112879	上海外国语大学松江外国语学校	Teacher: 万红	六7.9.10-英语
-254112881	https://www.eeo.cn/s/a/?cid=254112881	华东政法大学附属松江实验学校	Teacher: 汪怡雯	三5三6班
-254112913	https://www.eeo.cn/s/a/?cid=254112913	深圳点猫科技有限公司	Teacher: shenxiao*****demao.cn	测试
-254112923	https://www.eeo.cn/s/a/?cid=254112923	上海外国语大学松江外国语学校	Teacher: 韦昀	六8-英语
-254112951	https://www.eeo.cn/s/a/?cid=254112951	Teacher Chicky online classroom	Teacher: 926****717	DUDU ENGLISH CLASS
 254113013	https://www.eeo.cn/s/a/?cid=254113013	Evan online classroom	Teacher: 927****334	Yumi9上海
 254113093	https://www.eeo.cn/s/a/?cid=254113093	Teacher Jhona online classroom	Teacher: 963****835	Raymond ( Teacher Ann )
 254113167	https://www.eeo.cn/s/a/?cid=254113167	东方启音	Teacher: 152****4700	1223
@@ -852,7 +847,6 @@
 254154037	https://www.eeo.cn/s/a/?cid=254154037	Teacher Shaeena 4 online classroom	Teacher: 991****150	ChengCheng
 254154087	https://www.eeo.cn/s/a/?cid=254154087	Uche 3rd Account online classroom	Teacher: 977****530	Millie Lesson 44
 254154093	https://www.eeo.cn/s/a/?cid=254154093	学达线上教育	Teacher: MS XIAN -SGL	25 THU 5-6.15PM F5 SCI 优3(国) XIAN
-254154109	https://www.eeo.cn/s/a/?cid=254154109	Teacher Olivia online classroom	Teacher: ojboothe*****ail.com	test
 254154131	https://www.eeo.cn/s/a/?cid=254154131	Uche 3rd Account online classroom	Teacher: 977****530	Emma Lesson 16
 254154199	https://www.eeo.cn/s/a/?cid=254154199	星火教育红岭校区（深圳关内）	Teacher: 刘宝金	2024A五年级逻辑素养集训小组课2C(2班)
 254154247	https://www.eeo.cn/s/a/?cid=254154247	Tường Vân online classroom	Teacher: 397****88	hi
@@ -1198,3 +1192,9 @@
 254170195	https://www.eeo.cn/s/a/?cid=254170195	Teacher Alana online classroom	Teacher: 778****621	CHENNELLE REGULAR CLASS
 254170265	https://www.eeo.cn/s/a/?cid=254170265	Ljiljana online classroom	Teacher: 993****83	lili
 254170459	https://www.eeo.cn/s/a/?cid=254170459	Centrum Edukacji Fox	Teacher: biu*****xcentrum.pl	Angielski - Zuzia
+254170481	https://www.eeo.cn/s/a/?cid=254170481	ROSELLE ONLINE TUTORIAL SERVICES	Teacher: 947****703	Shone 37th
+254170495	https://www.eeo.cn/s/a/?cid=254170495	ROSELLE ONLINE TUTORIAL SERVICES	Teacher: 947****703	George 25th
+254170607	https://www.eeo.cn/s/a/?cid=254170607	Ljiljana online classroom	Teacher: 993****83	liliidunja
+254170737	https://www.eeo.cn/s/a/?cid=254170737	Ljiljana online classroom	Teacher: 993****83	lilidunja2
+254170799	https://www.eeo.cn/s/a/?cid=254170799	تميم المرواني online classroom	Teacher: tmem.almrw*****ail.com	تميم
+254170839	https://www.eeo.cn/s/a/?cid=254170839	上海学加网络科技有限公司	Teacher: Ming	4257郝吴梓芸 纽卡斯尔 大二 understanding company a

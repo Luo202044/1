@@ -1,11 +1,3 @@
-255080749	https://www.eeo.cn/s/a/?cid=255080749	学优未来培训	Teacher: 135****6249	m1方
-255080789	https://www.eeo.cn/s/a/?cid=255080789	MILLADO MIKO G. online classroom	Teacher: 945****039	Class ID: 254046729
-255080811	https://www.eeo.cn/s/a/?cid=255080811	爱学习	Teacher: 霍玉海	数学8-10
-255080823	https://www.eeo.cn/s/a/?cid=255080823	WeIP Education	Teacher: 琳老师 Ms Gwen	2025 F1 MM WED 8.15am MS GWEN (SK)
-255080829	https://www.eeo.cn/s/a/?cid=255080829	Bev online classroom	Teacher: 969****744	class 1
-255080893	https://www.eeo.cn/s/a/?cid=255080893	卓学在线教育	Teacher: 刘伊	2024寒新华大牛16：00高一数学
-255080997	https://www.eeo.cn/s/a/?cid=255080997	Muriel online classroom	Teacher: 919****022	dump
-255081091	https://www.eeo.cn/s/a/?cid=255081091	敲可爱 online classroom	Teacher: 757****73	。
 255081119	https://www.eeo.cn/s/a/?cid=255081119	Teacher Lory II online classroom	Teacher: 905****676	ELENA 51
 255081147	https://www.eeo.cn/s/a/?cid=255081147	Judy Ariola online classroom	Teacher: 920****240	123
 255081161	https://www.eeo.cn/s/a/?cid=255081161	Ofelia Portaliza online classroom	Teacher: 965****562	Art’s Class
@@ -1198,3 +1190,11 @@
 255134717	https://www.eeo.cn/s/a/?cid=255134717	Teacher Ivan online classroom	Teacher: 936****859	IF VIP
 255134781	https://www.eeo.cn/s/a/?cid=255134781	智优教育	Teacher: 高老师	高一物理李
 255134795	https://www.eeo.cn/s/a/?cid=255134795	快乐在线课程	Teacher: 15529551929	五年级寒假
+255134851	https://www.eeo.cn/s/a/?cid=255134851	Noor online classroom	Teacher: nooraksana.safa*****ail.	Demo class
+255134911	https://www.eeo.cn/s/a/?cid=255134911	Teacher Jonah	Teacher: 977****240	Toledo 11/2
+255134951	https://www.eeo.cn/s/a/?cid=255134951	星火教育红岭校区（深圳关内）	Teacher: 刘宝金	2024A六年级逻辑素养燎原小组课2A 杨春辰
+255135017	https://www.eeo.cn/s/a/?cid=255135017	HTeacher Kat online classroom	Teacher: krispuser*****ail.com	Nathen
+255135041	https://www.eeo.cn/s/a/?cid=255135041	Teacher Zy online classroom	Teacher: jp.ziya10*****ail.com	Mike 20/50
+255135073	https://www.eeo.cn/s/a/?cid=255135073	星火教育红岭校区（深圳关内）	Teacher: 刘宝金	2024A二年级逻辑素养实验小组课2A
+255135081	https://www.eeo.cn/s/a/?cid=255135081	대치코칭센터	Teacher: 박주경	고1 영어모의고사
+255135105	https://www.eeo.cn/s/a/?cid=255135105	jooh online classroom	Teacher: jmaputi*****ail.com	Kevin's 32nd class (1-31-24)

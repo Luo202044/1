@@ -1,11 +1,3 @@
-255030253	https://www.eeo.cn/s/a/?cid=255030253	Charlie课堂	Teacher: Charlie	1111
-255030273	https://www.eeo.cn/s/a/?cid=255030273	Online English Teacher School	Teacher: 欧202croker	jack
-255030293	https://www.eeo.cn/s/a/?cid=255030293	SUMMER and BRYANT online classroom	Teacher: 985****643	SUMMER
-255030299	https://www.eeo.cn/s/a/?cid=255030299	元培少年学者科研项目	Teacher: Eric 侯勇企	乐行之一对一咨询群
-255030379	https://www.eeo.cn/s/a/?cid=255030379	My online classroom	Teacher: msmytruong*****ail.com	Hào , Tường
-255030419	https://www.eeo.cn/s/a/?cid=255030419	Teacher Angel online classroom	Teacher: 976****020	KELLY
-255030489	https://www.eeo.cn/s/a/?cid=255030489	Teacher Sev13 online classroom	Teacher: sevimarund*****ail.com	Cherry
-255030495	https://www.eeo.cn/s/a/?cid=255030495	queeniecedeno*****ail.co online classroom	Teacher: queeniecedeno*****ail.co	Elaine
 255030509	https://www.eeo.cn/s/a/?cid=255030509	快乐学习	Teacher: 勾股定理	徐云淼补课
 255030513	https://www.eeo.cn/s/a/?cid=255030513	Teacher Noah online classroom	Teacher: amirbelovodjani*****ail.	sdsa
 255030525	https://www.eeo.cn/s/a/?cid=255030525	Online English Teacher School	Teacher: 菲106marj	Yy8
@@ -1198,3 +1190,11 @@
 255080691	https://www.eeo.cn/s/a/?cid=255080691	Bosco Wang online classroom	Teacher: 627***36	254932861
 255080703	https://www.eeo.cn/s/a/?cid=255080703	Private	Teacher: 844****73	Nono
 255080715	https://www.eeo.cn/s/a/?cid=255080715	海口教育	Teacher: 李琳（龙昆南校区）	王浩燃英语
+255080749	https://www.eeo.cn/s/a/?cid=255080749	学优未来培训	Teacher: 135****6249	m1方
+255080789	https://www.eeo.cn/s/a/?cid=255080789	MILLADO MIKO G. online classroom	Teacher: 945****039	Class ID: 254046729
+255080811	https://www.eeo.cn/s/a/?cid=255080811	爱学习	Teacher: 霍玉海	数学8-10
+255080823	https://www.eeo.cn/s/a/?cid=255080823	WeIP Education	Teacher: 琳老师 Ms Gwen	2025 F1 MM WED 8.15am MS GWEN (SK)
+255080829	https://www.eeo.cn/s/a/?cid=255080829	Bev online classroom	Teacher: 969****744	class 1
+255080893	https://www.eeo.cn/s/a/?cid=255080893	卓学在线教育	Teacher: 刘伊	2024寒新华大牛16：00高一数学
+255080997	https://www.eeo.cn/s/a/?cid=255080997	Muriel online classroom	Teacher: 919****022	dump
+255081091	https://www.eeo.cn/s/a/?cid=255081091	敲可爱 online classroom	Teacher: 757****73	。

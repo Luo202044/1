@@ -1,11 +1,3 @@
-255134851	https://www.eeo.cn/s/a/?cid=255134851	Noor online classroom	Teacher: nooraksana.safa*****ail.	Demo class
-255134911	https://www.eeo.cn/s/a/?cid=255134911	Teacher Jonah	Teacher: 977****240	Toledo 11/2
-255134951	https://www.eeo.cn/s/a/?cid=255134951	星火教育红岭校区（深圳关内）	Teacher: 刘宝金	2024A六年级逻辑素养燎原小组课2A 杨春辰
-255135017	https://www.eeo.cn/s/a/?cid=255135017	HTeacher Kat online classroom	Teacher: krispuser*****ail.com	Nathen
-255135041	https://www.eeo.cn/s/a/?cid=255135041	Teacher Zy online classroom	Teacher: jp.ziya10*****ail.com	Mike 20/50
-255135073	https://www.eeo.cn/s/a/?cid=255135073	星火教育红岭校区（深圳关内）	Teacher: 刘宝金	2024A二年级逻辑素养实验小组课2A
-255135081	https://www.eeo.cn/s/a/?cid=255135081	대치코칭센터	Teacher: 박주경	고1 영어모의고사
-255135105	https://www.eeo.cn/s/a/?cid=255135105	jooh online classroom	Teacher: jmaputi*****ail.com	Kevin's 32nd class (1-31-24)
 255135139	https://www.eeo.cn/s/a/?cid=255135139	澜大教育	Teacher: 管诗凡	澜大浦东-1.30SAT机考冲刺班DSATQ4CCPD24015
 255135183	https://www.eeo.cn/s/a/?cid=255135183	大知闲闲	Teacher: 188****0935	段博涵的课堂
 255135245	https://www.eeo.cn/s/a/?cid=255135245	CLEVERLY	Teacher: 周霞	24寒八思维
@@ -168,7 +160,6 @@
 255144851	https://www.eeo.cn/s/a/?cid=255144851	前海大新校区	Teacher: 黄锦绣	初三语文黄锦绣1.31
 255144959	https://www.eeo.cn/s/a/?cid=255144959	耀华国际教育学校广州校区	Teacher: Thembisa Luwis Cima	23-24 S2 G2B HOM Thembisa&Mandy
 255145025	https://www.eeo.cn/s/a/?cid=255145025	TEACHER MAE online classroom	Teacher: 926****899	ella
-255145241	https://www.eeo.cn/s/a/?cid=255145241	英语外教口语学习课堂	Teacher: tony	Candy Class
 255145259	https://www.eeo.cn/s/a/?cid=255145259	Teacher Nica online classroom	Teacher: 926****966	Andy4
 255145683	https://www.eeo.cn/s/a/?cid=255145683	耀华国际教育学校广州校区	Teacher: lisa.zhai	23-24 S2 G1B MAT 数学 Lisa
 255145695	https://www.eeo.cn/s/a/?cid=255145695	小马识途	Teacher: 经济钱老师	小马&夏赫远经济一对一
@@ -1198,3 +1189,12 @@
 255189559	https://www.eeo.cn/s/a/?cid=255189559	Yna online classroom	Teacher: 906****487	Evelyn’s Class 21:00-21:25
 255189581	https://www.eeo.cn/s/a/?cid=255189581	Joseph online classroom	Teacher: 966****668	Class
 255189607	https://www.eeo.cn/s/a/?cid=255189607	CF online classroom	Teacher: boonkiat*****ail.com	Testing
+255189693	https://www.eeo.cn/s/a/?cid=255189693	Teacher Anna online classroom	Teacher: wakisannaro*****ail.com	Amy's Class
+255189711	https://www.eeo.cn/s/a/?cid=255189711	Hải Phong online classroom	Teacher: 354****66	uuuuuuuu
+255189781	https://www.eeo.cn/s/a/?cid=255189781	Rich online classroom	Teacher: richellematudio.11*****a	Teacher Sab and Teacher Rich Training
+255189783	https://www.eeo.cn/s/a/?cid=255189783	KJJ Online English Class	Teacher: 956****572	Jayden 50
+255189863	https://www.eeo.cn/s/a/?cid=255189863	LKD在线	Teacher: 丁玉洁	【2024九春】自招周六晚
+255189977	https://www.eeo.cn/s/a/?cid=255189977	Simoné Nelson online classroom	Teacher: 641****29	Cambly Kids
+255190045	https://www.eeo.cn/s/a/?cid=255190045	Uche 5th account online classroom	Teacher: 921****774	Ava Lesson 60 3-8-5
+255190115	https://www.eeo.cn/s/a/?cid=255190115	Uche 5th account online classroom	Teacher: 921****774	Xigua Lesson 50
+255190161	https://www.eeo.cn/s/a/?cid=255190161	Uche 5th account online classroom	Teacher: 921****774	James Lesson 47 2-6-7

@@ -1,9 +1,3 @@
-254269119	https://www.eeo.cn/s/a/?cid=254269119	工作室	Teacher: 上官老师	24寒上官读书3阶10：30（1期1.20-27）
-254269125	https://www.eeo.cn/s/a/?cid=254269125	北京新东方前途出国咨询有限公司	Teacher: 刘圣铭	AST一对一20小时-2小时-刘圣铭
-254269173	https://www.eeo.cn/s/a/?cid=254269173	上海市宝山区教育学院附属中学	Teacher: 钱雯静	钱老师的答疑教室
-254269177	https://www.eeo.cn/s/a/?cid=254269177	Teacher #6 Jewel online classroom	Teacher: 183****8926	Emily's class
-254269207	https://www.eeo.cn/s/a/?cid=254269207	Ellie online classroom	Teacher: 793****714	Allen: In My Town
-254269211	https://www.eeo.cn/s/a/?cid=254269211	Anne online classroom	Teacher: gurlanne19*****ail.com	Dain
 254269217	https://www.eeo.cn/s/a/?cid=254269217	张舒	Teacher: 张舒	宋佳馨--CAT4非文字逻辑
 254269255	https://www.eeo.cn/s/a/?cid=254269255	Teacher Nica online classroom	Teacher: 976****849	Aaron's English Class January 18
 254269309	https://www.eeo.cn/s/a/?cid=254269309	mheldinehatague*****ail. online classroom	Teacher: mheldinehatague*****ail.	Peter's class Jan. 18
@@ -441,7 +435,6 @@
 254286811	https://www.eeo.cn/s/a/?cid=254286811	无忧	Teacher: 183****2196	【一A】初二8:00-10:00
 254286823	https://www.eeo.cn/s/a/?cid=254286823	shairamaeoros*****ail.co online classroom	Teacher: shairamaeoros*****ail.co	English
 254286831	https://www.eeo.cn/s/a/?cid=254286831	Teacher Gie	Teacher: 930****134	KURTIS
-254286855	https://www.eeo.cn/s/a/?cid=254286855	无忧	Teacher: 183****2196	【一C】中考13:30-15:30
 254286879	https://www.eeo.cn/s/a/?cid=254286879	云课堂1对1	Teacher: 张老师	云课堂1对1刘修爽 朱老师
 254286903	https://www.eeo.cn/s/a/?cid=254286903	无忧	Teacher: 183****2196	【一E】初一19:00-21:00
 254286953	https://www.eeo.cn/s/a/?cid=254286953	Novie Vitualla online classroom	Teacher: 910****518	Max
@@ -1198,3 +1191,10 @@
 254321995	https://www.eeo.cn/s/a/?cid=254321995	远飞	Teacher: 陈sir	10MJPC002高一数学【超优】小组课-寒假
 254322057	https://www.eeo.cn/s/a/?cid=254322057	Essential English Club	Teacher: 186****6753	Lucy寒假课
 254322081	https://www.eeo.cn/s/a/?cid=254322081	Mai Chi online classroom	Teacher: 972****52	Team9
+254322095	https://www.eeo.cn/s/a/?cid=254322095	南七	Teacher: 陈磊	23寒-数学七创B一期下午班-陈磊
+254322169	https://www.eeo.cn/s/a/?cid=254322169	WeIP Education	Teacher: Ms.Poon	MS POON SPM 潜能班 攻A-计划
+254322219	https://www.eeo.cn/s/a/?cid=254322219	远飞	Teacher: 陈sir	8EJPC0004初二英语【超优】小组课-寒假
+254322245	https://www.eeo.cn/s/a/?cid=254322245	庆云县北海学校	Teacher: 杨航	1
+254322317	https://www.eeo.cn/s/a/?cid=254322317	Yiera B. Secreto online classroom	Teacher: 923****538	zill's fanbase gc
+254322321	https://www.eeo.cn/s/a/?cid=254322321	Teacher Ailene online classroom	Teacher: 991****699	Solar/ Diamond January
+254322337	https://www.eeo.cn/s/a/?cid=254322337	远飞	Teacher: 陈sir	10HCYC001高一化学【超优】小组课-寒假

@@ -1,13 +1,3 @@
-256167109	https://www.eeo.cn/s/a/?cid=256167109	励知教育	Teacher: 马小锡	青松初二尖子班7:40
-256167129	https://www.eeo.cn/s/a/?cid=256167129	Teacher Cris online classroom	Teacher: cdramos.*****ail.com	ESL Class with Jennifer
-256167131	https://www.eeo.cn/s/a/?cid=256167131	Teacher Vien online classroom	Teacher: 929****406	zENYe
-256167201	https://www.eeo.cn/s/a/?cid=256167201	Teacher Vanessa online classroom	Teacher: 289****712	Demo
-256167245	https://www.eeo.cn/s/a/?cid=256167245	Justin online classroom	Teacher: justinpadio*****ail.com	English class 2 with Eric
-256167289	https://www.eeo.cn/s/a/?cid=256167289	Teacher Steph.M❤️ online classroom	Teacher: 955****674	Jack
-256167355	https://www.eeo.cn/s/a/?cid=256167355	Teacher Bless online classroom	Teacher: 985****939	RHETT
-256167357	https://www.eeo.cn/s/a/?cid=256167357	cris19 online classroom	Teacher: 975****927	qiqi
-256167359	https://www.eeo.cn/s/a/?cid=256167359	Pear English	Teacher: Teacher Pear	Leo's Class (New)(D)
-256167367	https://www.eeo.cn/s/a/?cid=256167367	牡丹江市王牌教育文化培训学校	Teacher: 任老师	青松-----初二下B
 256167453	https://www.eeo.cn/s/a/?cid=256167453	vanhezsembra*****ail.com online classroom	Teacher: vanhezsembra*****ail.com	FEB 21_HANNAH_CLASS 1
 256167501	https://www.eeo.cn/s/a/?cid=256167501	joy online classroom	Teacher: 915****772	rm
 256167579	https://www.eeo.cn/s/a/?cid=256167579	py online classroom	Teacher: yee9308*****ail.com	ll
@@ -1198,3 +1188,13 @@
 256228495	https://www.eeo.cn/s/a/?cid=256228495	康桥教育	Teacher: 康桥小语种	(体验课)零基基础如何葡萄牙语？
 256228503	https://www.eeo.cn/s/a/?cid=256228503	Joanie online classroom	Teacher: 662****77	Athena Phonics Lesson 11 p.24
 256228509	https://www.eeo.cn/s/a/?cid=256228509	明见少年	Teacher: 班主任王老师	俊泽—英语—明见少年
+256228535	https://www.eeo.cn/s/a/?cid=256228535	teacher yna online classroom	Teacher: 956****208	annab30
+256228591	https://www.eeo.cn/s/a/?cid=256228591	THANHHTP.FB online classroom	Teacher: 915****48	pthanh
+256228641	https://www.eeo.cn/s/a/?cid=256228641	Anita2 online classroom	Teacher: 559***09	Jeremy 20:10
+256228691	https://www.eeo.cn/s/a/?cid=256228691	Aruna English Academy	Teacher: Aruna English Academy	Angie English Lesson
+256228695	https://www.eeo.cn/s/a/?cid=256228695	Teacher Joy online classroom	Teacher: 994****432	Eric's Class
+256228741	https://www.eeo.cn/s/a/?cid=256228741	Natasa Golubovic	Teacher: 676***27	Hannah 8 20:00
+256228757	https://www.eeo.cn/s/a/?cid=256228757	Teacher Sofia.Bea online classroom	Teacher: 928****234	Trial Class (February 21, 2024)
+256228809	https://www.eeo.cn/s/a/?cid=256228809	0063-9683556846 online classroom	Teacher: 968****846	mary
+256229025	https://www.eeo.cn/s/a/?cid=256229025	Gigi online classroom	Teacher: 965****083	Aimee's Class -1
+256229049	https://www.eeo.cn/s/a/?cid=256229049	在线外教课	Teacher: 教务-王卓妮	0222 Trial Starter L1-1 体验课

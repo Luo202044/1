@@ -1,11 +1,3 @@
-254786629	https://www.eeo.cn/s/a/?cid=254786629	Teacher Iryl	Teacher: 928****178	Eason7J.Classroom
-254786633	https://www.eeo.cn/s/a/?cid=254786633	Lovie Jade online classroom	Teacher: dimplelauronal19*****ail	Jade's Class
-254786645	https://www.eeo.cn/s/a/?cid=254786645	在线学堂 Online Tutorial	Teacher: Leo	Eva-leo
-254786693	https://www.eeo.cn/s/a/?cid=254786693	Mari online classroom	Teacher: 650***24	Jessie 英语课
-254786717	https://www.eeo.cn/s/a/?cid=254786717	Jason online classroom	Teacher: zhouchaoling19*****ail.c	NNNNNHHJHGYFTTTFYFTYFUYTFTFTFTYFUTF
-254786723	https://www.eeo.cn/s/a/?cid=254786723	Lalaine Kate Albani online classroom	Teacher: lainealban*****ail.com	kate
-254786745	https://www.eeo.cn/s/a/?cid=254786745	华东政法大学附属松江实验学校	Teacher: 彭頔	七1七2英语合班直播
-254786811	https://www.eeo.cn/s/a/?cid=254786811	走着走着走着走	Teacher: 156****9143	风风
 254786933	https://www.eeo.cn/s/a/?cid=254786933	0063-9912289485 online classroom	Teacher: 991****485	1st class Sloth are slow
 254786993	https://www.eeo.cn/s/a/?cid=254786993	行知青藤英领院	Teacher: 186****6657	高二寒假营物理2班
 254787233	https://www.eeo.cn/s/a/?cid=254787233	airon.toptierdigit*****a online classroom	Teacher: airon.toptierdigit*****a	Adi's Demo
@@ -1198,3 +1190,11 @@
 254840615	https://www.eeo.cn/s/a/?cid=254840615	精品拓展	Teacher: Angelica	Tiger11
 254840715	https://www.eeo.cn/s/a/?cid=254840715	Teacher Joy online classroom	Teacher: t1saygan*****ail.com	LOVE
 254840717	https://www.eeo.cn/s/a/?cid=254840717	Teacher Nik online classroom	Teacher: pepide95*****ackden.com	OCTAVIA
+254840757	https://www.eeo.cn/s/a/?cid=254840757	Aldrianne online classroom	Teacher: 917****043	SUSAN@NONA #31
+254840889	https://www.eeo.cn/s/a/?cid=254840889	点石教育	Teacher: 刘雅君	馨馨初二
+254840903	https://www.eeo.cn/s/a/?cid=254840903	点石教育	Teacher: 刘娟娟	张仕柠语文课
+254840999	https://www.eeo.cn/s/a/?cid=254840999	Sea world speaking	Teacher: 青鸾Elah	Nathan
+254841057	https://www.eeo.cn/s/a/?cid=254841057	Teacher Michelle online classroom	Teacher: 911****6555	- YUFAN & MICHELLE -
+254841071	https://www.eeo.cn/s/a/?cid=254841071	Teacher Michelle online classroom	Teacher: 911****6555	- KIM & MICHELLE -
+254841089	https://www.eeo.cn/s/a/?cid=254841089	Hello,IamJossen online classroom	Teacher: iamjnotor*****ail.com	InterDemo 2
+254841209	https://www.eeo.cn/s/a/?cid=254841209	David Hill online classroom	Teacher: 643****16	Oli

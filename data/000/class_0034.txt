@@ -1,10 +1,3 @@
-254493403	https://www.eeo.cn/s/a/?cid=254493403	KidNest online classroom	Teacher: vickywy6606*****ail.com	Aimee
-254493407	https://www.eeo.cn/s/a/?cid=254493407	cris25 online classroom	Teacher: pilapilcl*****ail.com	Luoluo
-254493433	https://www.eeo.cn/s/a/?cid=254493433	HappyTeaching	Teacher: Rag	Tangtang5-2342
-254493471	https://www.eeo.cn/s/a/?cid=254493471	Teacher Cassy online classroom	Teacher: 966****944	Amber
-254493517	https://www.eeo.cn/s/a/?cid=254493517	Bùi Thanh Xuân online classroom	Teacher: 978****06	ClassIn Assistant
-254493573	https://www.eeo.cn/s/a/?cid=254493573	HappyTeaching	Teacher: Rag	Isabella8JN
-254493663	https://www.eeo.cn/s/a/?cid=254493663	cris26 online classroom	Teacher: clarp*****hoo.com	Lele
 254493673	https://www.eeo.cn/s/a/?cid=254493673	HappyTeaching	Teacher: Rag	Strawberry
 254493727	https://www.eeo.cn/s/a/?cid=254493727	HappyTeaching	Teacher: Rag	Matthew9
 254493737	https://www.eeo.cn/s/a/?cid=254493737	深圳市福田区外国语小学	Teacher: 郑子杰	2024郑老师满口埙班级
@@ -1198,3 +1191,10 @@
 254552671	https://www.eeo.cn/s/a/?cid=254552671	donnafeacutan*****ail.co online classroom	Teacher: donnafeacutan*****ail.co	Class with Eric
 254552673	https://www.eeo.cn/s/a/?cid=254552673	aldrinchristie04*****ail online classroom	Teacher: aldrinchristie04*****ail	mia
 254552689	https://www.eeo.cn/s/a/?cid=254552689	Jooh online classroom	Teacher: maputijo*****ail.com	Mandy's 42nd class (1-22-24)
+254552699	https://www.eeo.cn/s/a/?cid=254552699	Teacher Hanny online classroom	Teacher: yhannrose19.*****ail.com	class 2
+254552707	https://www.eeo.cn/s/a/?cid=254552707	Kashee online classroom	Teacher: 810****02	YYY
+254552733	https://www.eeo.cn/s/a/?cid=254552733	SilkMandarin	Teacher: 顾问Amy	Vanessa's Chinese Class
+254552797	https://www.eeo.cn/s/a/?cid=254552797	华东师范大学第一附属中学	Teacher: 赵讷	25届地理01班&02班&04班&05班(等级)
+254552835	https://www.eeo.cn/s/a/?cid=254552835	Samerah online classroom	Teacher: 906****341	ENGLISH CLASS January-February
+254552845	https://www.eeo.cn/s/a/?cid=254552845	徐老师工作室	Teacher: 我自己	西城胡昊岩初三物理
+254552923	https://www.eeo.cn/s/a/?cid=254552923	BTalk	Teacher: Tutor ANN	B770 Nguyễn Hoàng Nguyên 7yo

@@ -1,10 +1,3 @@
-254552699	https://www.eeo.cn/s/a/?cid=254552699	Teacher Hanny online classroom	Teacher: yhannrose19.*****ail.com	class 2
-254552707	https://www.eeo.cn/s/a/?cid=254552707	Kashee online classroom	Teacher: 810****02	YYY
-254552733	https://www.eeo.cn/s/a/?cid=254552733	SilkMandarin	Teacher: 顾问Amy	Vanessa's Chinese Class
-254552797	https://www.eeo.cn/s/a/?cid=254552797	华东师范大学第一附属中学	Teacher: 赵讷	25届地理01班&02班&04班&05班(等级)
-254552835	https://www.eeo.cn/s/a/?cid=254552835	Samerah online classroom	Teacher: 906****341	ENGLISH CLASS January-February
-254552845	https://www.eeo.cn/s/a/?cid=254552845	徐老师工作室	Teacher: 我自己	西城胡昊岩初三物理
-254552923	https://www.eeo.cn/s/a/?cid=254552923	BTalk	Teacher: Tutor ANN	B770 Nguyễn Hoàng Nguyên 7yo
 254552935	https://www.eeo.cn/s/a/?cid=254552935	Bosen Class online classroom	Teacher: 977****049	Jerry
 254553003	https://www.eeo.cn/s/a/?cid=254553003	John online classroom	Teacher: 985****002	Hardy
 254553037	https://www.eeo.cn/s/a/?cid=254553037	teacher kyzzel online classroom	Teacher: 951****173	Kevin Classroom
@@ -1198,3 +1191,10 @@
 254606411	https://www.eeo.cn/s/a/?cid=254606411	【正常】杭州青少年活动中心	Teacher: 朱晨希	W1A032-2-彩铅
 254606455	https://www.eeo.cn/s/a/?cid=254606455	Teacher Maggie Smith online classroom	Teacher: 681****268	Training
 254606471	https://www.eeo.cn/s/a/?cid=254606471	Gee.EC online classroom	Teacher: 926****488	Alina
+254606533	https://www.eeo.cn/s/a/?cid=254606533	René online classroom	Teacher: rgrundlin*****ail.com	Demo class 2 Cowboy
+254606561	https://www.eeo.cn/s/a/?cid=254606561	黄河岸教育	Teacher: 178****4054	私人
+254606565	https://www.eeo.cn/s/a/?cid=254606565	René online classroom	Teacher: rgrundlin*****ail.com	Demo Class 3 Bella
+254606569	https://www.eeo.cn/s/a/?cid=254606569	Kath online classroom	Teacher: 907****916	Lukas 2
+254606571	https://www.eeo.cn/s/a/?cid=254606571	Active Learning	Teacher: burkewashington*****ail.	Kingson's English Class
+254606589	https://www.eeo.cn/s/a/?cid=254606589	René online classroom	Teacher: rgrundlin*****ail.com	Demo Class 4 Daisy
+254606625	https://www.eeo.cn/s/a/?cid=254606625	René online classroom	Teacher: rgrundlin*****ail.com	Demo Calss 5 Eva

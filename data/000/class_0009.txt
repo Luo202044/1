@@ -1,4 +1,3 @@
-252980801	https://www.eeo.cn/s/a/?cid=252980801	Teacher Janeth online classroom	Teacher: 966****375	Krista
 252980835	https://www.eeo.cn/s/a/?cid=252980835	Teacher Kathy's English Class	Teacher: 999****283	Alice's Seventh Course
 252980883	https://www.eeo.cn/s/a/?cid=252980883	谦学教育集团有限公司	Teacher: 137****9858	12.26谢菲尔德休学申请第三次
 252980897	https://www.eeo.cn/s/a/?cid=252980897	Sumaya online classroom	Teacher: sumayaasmal*****ail.com	Learning Fun
@@ -840,7 +839,6 @@
 253021807	https://www.eeo.cn/s/a/?cid=253021807	Julie Teacher online classroom	Teacher: hee19*****ail.com	vv
 253021841	https://www.eeo.cn/s/a/?cid=253021841	Lưu Quốc Bảo online classroom	Teacher: 974****89	vui vẻ
 253021871	https://www.eeo.cn/s/a/?cid=253021871	Huy online classroom	Teacher: 368****84	ddddd
-253021879	https://www.eeo.cn/s/a/?cid=253021879	Teacher Jean online classroom	Teacher: 936****346	demo class
 253022053	https://www.eeo.cn/s/a/?cid=253022053	LearnmatesPH	Teacher: Teacher Jing	Pars 5
 253022209	https://www.eeo.cn/s/a/?cid=253022209	儿语工坊·在线语训中心	Teacher: 倾音小助手	陈皓宝贝在线课堂
 253022285	https://www.eeo.cn/s/a/?cid=253022285	Teacher Anna online classroom	Teacher: maryredill*****ail.com	BIG ENGLISH 3 20/25
@@ -1198,3 +1196,5 @@
 253038549	https://www.eeo.cn/s/a/?cid=253038549	高校教辅联盟	Teacher: 老王	哦哦～查老师对接群
 253038695	https://www.eeo.cn/s/a/?cid=253038695	Jane Marie-2 online classroom	Teacher: jane.widete*****ail.com	Esther 12.28
 253038697	https://www.eeo.cn/s/a/?cid=253038697	0063-9633287833 online classroom	Teacher: 963****833	Teacher Ghie
+253038727	https://www.eeo.cn/s/a/?cid=253038727	Teacher Mitch online classroom	Teacher: 938****875	Teacher Mitch
+253038841	https://www.eeo.cn/s/a/?cid=253038841	Jane Marie-8 online classroom	Teacher: 939****237	Jeremy 12.28

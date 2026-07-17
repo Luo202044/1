@@ -230,7 +230,6 @@
 252761477	https://www.eeo.cn/s/a/?cid=252761477	楊耀銘 online classroom	Teacher: yanghungkw*****ail.com	五年級 楊耀銘
 252761511	https://www.eeo.cn/s/a/?cid=252761511	星火龙华校区	Teacher: 超级管理员	高一数学周六8点
 252761535	https://www.eeo.cn/s/a/?cid=252761535	phamthimailoan16*****ail online classroom	Teacher: phamthimailoan16*****ail	mum
-252761543	https://www.eeo.cn/s/a/?cid=252761543	LAM HUYEN ANH online classroom	Teacher: 915****42	tina
 252761587	https://www.eeo.cn/s/a/?cid=252761587	上海学加网络科技有限公司	Teacher: Apple	4317 Service marketing-3h
 252761605	https://www.eeo.cn/s/a/?cid=252761605	976643736khoa online classroom	Teacher: 976****36	hhhh
 252761631	https://www.eeo.cn/s/a/?cid=252761631	圆学梦	Teacher: 林老师	高一物理综合班
@@ -1198,3 +1197,4 @@
 252811965	https://www.eeo.cn/s/a/?cid=252811965	联霸教育	Teacher: 130****9691	2024届山西高考赵玉晨
 252812009	https://www.eeo.cn/s/a/?cid=252812009	Teacher Sev16 online classroom	Teacher: severmarund*****ail.com	Eric Cindy
 252812337	https://www.eeo.cn/s/a/?cid=252812337	质心教育	Teacher: 李志刚	江苏震川高一数学
+252812345	https://www.eeo.cn/s/a/?cid=252812345	0063-9435785178 online classroom	Teacher: 943****178	Marrey Sample

@@ -1,4 +1,3 @@
-252812345	https://www.eeo.cn/s/a/?cid=252812345	0063-9435785178 online classroom	Teacher: 943****178	Marrey Sample
 252812475	https://www.eeo.cn/s/a/?cid=252812475	乐梦营	Teacher: Molly	Andy
 252812483	https://www.eeo.cn/s/a/?cid=252812483	audrielynulloa*****ail.c online classroom	Teacher: audrielynulloa*****ail.c	Demo
 252812507	https://www.eeo.cn/s/a/?cid=252812507	正领睿学教育	Teacher: 赵唯彤	张嘉文 IG课程 一对一 课表
@@ -1198,3 +1197,4 @@
 252905517	https://www.eeo.cn/s/a/?cid=252905517	akka	Teacher: 955****754	hans
 252905627	https://www.eeo.cn/s/a/?cid=252905627	Teacher Bong online classroom	Teacher: bongbalican*****ail.com	Karl's class 11
 252905671	https://www.eeo.cn/s/a/?cid=252905671	Teacher Bong online classroom	Teacher: bongbalican*****ail.com	Luna's class 2
+252905757	https://www.eeo.cn/s/a/?cid=252905757	Vickie老师	Teacher: Vickie	测试

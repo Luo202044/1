@@ -1,13 +1,3 @@
-255891429	https://www.eeo.cn/s/a/?cid=255891429	YY	Teacher: Jessie	Trial class Beth-XiaoXi
-255891441	https://www.eeo.cn/s/a/?cid=255891441	Phoenix-liu	Teacher: bussie	My class with Philis
-255891507	https://www.eeo.cn/s/a/?cid=255891507	Teacher Paul	Teacher: 928****198	Umee 7L Student Classroom
-255891515	https://www.eeo.cn/s/a/?cid=255891515	Teacher Jhona online classroom	Teacher: 963****835	Jemmy ( Teacher Em )
-255891523	https://www.eeo.cn/s/a/?cid=255891523	Lineace online classroom	Teacher: lineacehail*****ail.com	Slindile
-255891723	https://www.eeo.cn/s/a/?cid=255891723	昂立青少儿成长中心	Teacher: 赵梦彤	上南23344
-255891737	https://www.eeo.cn/s/a/?cid=255891737	Teacher Chand online classroom	Teacher: bamuyachandi*****hoo.com	DEMO
-255891803	https://www.eeo.cn/s/a/?cid=255891803	学达线上教育	Teacher: MS JOEY SGP	24 SP TUES 7.15PM F5 SC MS.JOEY
-255891827	https://www.eeo.cn/s/a/?cid=255891827	Jenny.Vi online classroom	Teacher: 938****985	MIKE 1314
-255891917	https://www.eeo.cn/s/a/?cid=255891917	陕西省西咸新区秦汉中学	Teacher: 毛宇鸿	G2208
 255891951	https://www.eeo.cn/s/a/?cid=255891951	Hiram online classroom	Teacher: 917****330	Premium Training Batch 2
 255891953	https://www.eeo.cn/s/a/?cid=255891953	蜜豆培优教育机构	Teacher: 蜜豆培优教育机构	我爱画画（女生进男生禁）
 255892089	https://www.eeo.cn/s/a/?cid=255892089	翼鸥上海	Teacher: 刘欣媛	学校事业部【学习班】
@@ -1198,3 +1188,13 @@
 255949729	https://www.eeo.cn/s/a/?cid=255949729	Teacher Red's class	Teacher: Teacher Red	G-Sophia's English class
 255949839	https://www.eeo.cn/s/a/?cid=255949839	Arby online classroom	Teacher: 915****533	Arby and Sammi
 255949899	https://www.eeo.cn/s/a/?cid=255949899	SpeakEZ English	Teacher: 814****60	Mock
+255949961	https://www.eeo.cn/s/a/?cid=255949961	Teacher Julia Language Tutorial Services	Teacher: 936****010	Fei Fei's
+255949971	https://www.eeo.cn/s/a/?cid=255949971	Raymond课堂	Teacher: 138****1597	FCE班级
+255950009	https://www.eeo.cn/s/a/?cid=255950009	学思行在线教育	Teacher: 任朵朵	测试
+255950053	https://www.eeo.cn/s/a/?cid=255950053	Galaxy	Teacher: 米勒娃	Jason
+255950085	https://www.eeo.cn/s/a/?cid=255950085	MindX	Teacher: HCM-TDM.Teacher001	TDM-C4K-SA05
+255950129	https://www.eeo.cn/s/a/?cid=255950129	大物理	Teacher: 物理丁老师	26物三周六晚上
+255950239	https://www.eeo.cn/s/a/?cid=255950239	Michael online classroom	Teacher: 643****75	Nordin - Saturday, February 17, 2024
+255950291	https://www.eeo.cn/s/a/?cid=255950291	Teacher Matthew online classroom	Teacher: joncicmati*****ail.com	Theodore
+255950319	https://www.eeo.cn/s/a/?cid=255950319	PandaLang ABC	Teacher: 663****90	Sherry
+255950391	https://www.eeo.cn/s/a/?cid=255950391	LiveDream	Teacher: 杨盼成	24寒来追梦2月17日晚上18点盼

@@ -1,6 +1,3 @@
-253737717	https://www.eeo.cn/s/a/?cid=253737717	Linda online classroom	Teacher: 935****525	LindaKeen
-253737741	https://www.eeo.cn/s/a/?cid=253737741	AdvancedPhD顶博教育	Teacher: 130****2131	20241011 券商报告
-253737789	https://www.eeo.cn/s/a/?cid=253737789	Kelly online classroom	Teacher: klyalfaro0*****ail.com	english class
 253737883	https://www.eeo.cn/s/a/?cid=253737883	T.Ae online classroom	Teacher: 997****833	Class with Leo
 253737909	https://www.eeo.cn/s/a/?cid=253737909	CNPH国际语言学校 online classroom	Teacher: 916****777	Teacher AE and Suvi
 253737961	https://www.eeo.cn/s/a/?cid=253737961	Teacher Mikey ❤️ online classroom	Teacher: christle.may5*****ail.co	Daniel's English Class
@@ -981,7 +978,6 @@
 253782417	https://www.eeo.cn/s/a/?cid=253782417	Jason Wong online classroom	Teacher: 668***18	ea
 253782455	https://www.eeo.cn/s/a/?cid=253782455	维维老师	Teacher: 185****9282	溪溪
 253782563	https://www.eeo.cn/s/a/?cid=253782563	diosen online classroom	Teacher: diosencort*****hoo.com	Chuck - Teacher Diosen
-253782587	https://www.eeo.cn/s/a/?cid=253782587	Teacher Nikita 4 online classroom	Teacher: 832****86	Class with Kimi
 253782615	https://www.eeo.cn/s/a/?cid=253782615	WeTalk International Education Ltd	Teacher: Teacher Gao 高老师	Adult Mandarin Trial Class (Andrew)
 253782667	https://www.eeo.cn/s/a/?cid=253782667	第十师一八八团第二中学	Teacher: 林敏	一2班
 253782671	https://www.eeo.cn/s/a/?cid=253782671	九章学校	Teacher: 139****6525	聪睿课堂
@@ -1198,3 +1194,7 @@
 253798043	https://www.eeo.cn/s/a/?cid=253798043	Super J	Teacher: 奇奇老师	Kris-Karl
 253798127	https://www.eeo.cn/s/a/?cid=253798127	Teacher Rico 4 online classroom	Teacher: 932****397	Joshua
 253798205	https://www.eeo.cn/s/a/?cid=253798205	广东省习悦教育培训中心	Teacher: Shuang Hou	G2-测评-可可
+253798237	https://www.eeo.cn/s/a/?cid=253798237	广东省习悦教育培训中心	Teacher: Shuang Hou	G2-测评-Rachel
+253798479	https://www.eeo.cn/s/a/?cid=253798479	Tommy S	Teacher: 605****700	Power up
+253798509	https://www.eeo.cn/s/a/?cid=253798509	北京语言大学网络教育学院	Teacher: 北语网院eBLCU	中国文化与跨文化交际（往期）
+253798547	https://www.eeo.cn/s/a/?cid=253798547	Teacher Samantha	Teacher: 304****727	2.1 Blizzard Bilinguals 10:00 AM

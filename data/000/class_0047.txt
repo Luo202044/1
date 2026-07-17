@@ -1,12 +1,3 @@
-255241889	https://www.eeo.cn/s/a/?cid=255241889	涛涛	Teacher: 183****8021	高二数学寒假班
-255241919	https://www.eeo.cn/s/a/?cid=255241919	Alyssa online classroom	Teacher: 919****101	ENA_ FEB
-255241939	https://www.eeo.cn/s/a/?cid=255241939	Teacher Siew online classroom	Teacher: 912****890	Shin🇯🇵
-255241997	https://www.eeo.cn/s/a/?cid=255241997	Alyssa online classroom	Teacher: 919****101	Chelsea- FEB
-255242017	https://www.eeo.cn/s/a/?cid=255242017	Teacher Marla English	Teacher: markayth*****ail.com	Hussar (class #1)
-255242053	https://www.eeo.cn/s/a/?cid=255242053	Alyssa online classroom	Teacher: 919****101	Shirley- FEB
-255242069	https://www.eeo.cn/s/a/?cid=255242069	Learning with Paul	Teacher: 642****86	Nicol - classes in February
-255242079	https://www.eeo.cn/s/a/?cid=255242079	0063-9693731972 online classroom	Teacher: 969****972	WENLIAN
-255242091	https://www.eeo.cn/s/a/?cid=255242091	Teach Mae online classroom	Teacher: maemoreno5*****ail.com	HR John
 255242139	https://www.eeo.cn/s/a/?cid=255242139	Alyssa online classroom	Teacher: 919****101	ERIC9- FEB
 255242281	https://www.eeo.cn/s/a/?cid=255242281	南京善学空间科技咨询有限公司	Teacher: Barry	⚡️Barry⚡️ 寒假二期09：00-11：30创新
 255242341	https://www.eeo.cn/s/a/?cid=255242341	Rita	Teacher: 185****8928	徐熙钰222
@@ -1198,3 +1189,12 @@
 255300405	https://www.eeo.cn/s/a/?cid=255300405	福田未来	Teacher: 闫绍峰	高一物理
 255300465	https://www.eeo.cn/s/a/?cid=255300465	福州仓山区优学会培训学校	Teacher: 优学会语文王雨婕老师	24春季初三英语培优班
 255300473	https://www.eeo.cn/s/a/?cid=255300473	Takhmina online classroom	Teacher: navruzkulov*****ail.com	Lesson 4: Anna and Timmy
+255300495	https://www.eeo.cn/s/a/?cid=255300495	Jelord online classroom	Teacher: 906****891	Course Audit
+255300533	https://www.eeo.cn/s/a/?cid=255300533	Irene Princess online classroom	Teacher: amimitaireneprince*****a	MWSP Regular Sunday Class
+255300597	https://www.eeo.cn/s/a/?cid=255300597	七七美育	Teacher: 七七老师	周二18:50萱萱
+255300659	https://www.eeo.cn/s/a/?cid=255300659	Horn	Teacher: Andi	🐲寒2期B2📚8.30-11.30（Alvin）
+255300675	https://www.eeo.cn/s/a/?cid=255300675	EriC online classroom	Teacher: 985****892	ERiC
+255300701	https://www.eeo.cn/s/a/?cid=255300701	Law(Sat4) online classroom	Teacher: 909****286	Peng(1)
+255300751	https://www.eeo.cn/s/a/?cid=255300751	Horn	Teacher: Andi	🐲寒2期K4🚀13.30-15.30（Echo）
+255300817	https://www.eeo.cn/s/a/?cid=255300817	Horn	Teacher: Andi	🐲寒2期Phonics8.30-11.30(Echo)
+255300891	https://www.eeo.cn/s/a/?cid=255300891	Takhmina online classroom	Teacher: navruzkulov*****ail.com	Unit 12 B

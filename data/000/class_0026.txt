@@ -1,8 +1,3 @@
-254063813	https://www.eeo.cn/s/a/?cid=254063813	上海市浦东新区育童小学	Teacher: 蔡老师	2028届数学1班
-254063855	https://www.eeo.cn/s/a/?cid=254063855	陆伟佳	Teacher: lwj	欧阳老师 & ClassIn
-254063871	https://www.eeo.cn/s/a/?cid=254063871	上海市浦东新区育童小学	Teacher: 蒋龚华	三（1）
-254063961	https://www.eeo.cn/s/a/?cid=254063961	快乐在线课程	Teacher: 张霞	新概念一寒假班
-254063999	https://www.eeo.cn/s/a/?cid=254063999	Summer online classroom	Teacher: mnicaolar*****ail.com	Class 2p.m
 254064139	https://www.eeo.cn/s/a/?cid=254064139	上海外国语大学松江外国语学校	Teacher: 张雅凤	八9八10-物理-张雅凤
 254064147	https://www.eeo.cn/s/a/?cid=254064147	Teacher Lory online classroom	Teacher: 909****047	YIYI 19
 254064191	https://www.eeo.cn/s/a/?cid=254064191	Le To Uyen online classroom	Teacher: 837****96	Global success
@@ -1198,3 +1193,8 @@
 254112801	https://www.eeo.cn/s/a/?cid=254112801	上海外国语大学松江外国语学校	Teacher: 张丽	六1六2-英语
 254112831	https://www.eeo.cn/s/a/?cid=254112831	上海外国语大学松江外国语学校	Teacher: 蒋佳唯	2023级七年级3&4班-英语
 254112845	https://www.eeo.cn/s/a/?cid=254112845	上海外国语大学松江外国语学校	Teacher: 许梦玲	2023级七年级5&6班-英语
+254112879	https://www.eeo.cn/s/a/?cid=254112879	上海外国语大学松江外国语学校	Teacher: 万红	六7.9.10-英语
+254112881	https://www.eeo.cn/s/a/?cid=254112881	华东政法大学附属松江实验学校	Teacher: 汪怡雯	三5三6班
+254112913	https://www.eeo.cn/s/a/?cid=254112913	深圳点猫科技有限公司	Teacher: shenxiao*****demao.cn	测试
+254112923	https://www.eeo.cn/s/a/?cid=254112923	上海外国语大学松江外国语学校	Teacher: 韦昀	六8-英语
+254112951	https://www.eeo.cn/s/a/?cid=254112951	Teacher Chicky online classroom	Teacher: 926****717	DUDU ENGLISH CLASS
