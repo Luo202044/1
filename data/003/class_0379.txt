@@ -715,7 +715,6 @@
 273126131	https://www.eeo.cn/s/a/?cid=273126131	西安缤纷鸟文化传播有限公司	Teacher: 张海娟	袁老师书法寒假集训班10号
 273126143	https://www.eeo.cn/s/a/?cid=273126143	nonitamontero*****ail.co online classroom	Teacher: nonitamontero*****ail.co	Bruce's Classroom
 273126169	https://www.eeo.cn/s/a/?cid=273126169	西安缤纷鸟文化传播有限公司	Teacher: 张海娟	袁老师书法寒假集训班11号
-273126185	https://www.eeo.cn/s/a/?cid=273126185	云趣教育	Teacher: 云趣教育-刘老师	黄豆子-高一数学-樊欣宇老师
 273126235	https://www.eeo.cn/s/a/?cid=273126235	翼思塾	Teacher: 李明君老师	【25寒】三年级火箭1班10:15
 273126239	https://www.eeo.cn/s/a/?cid=273126239	上海外国语大学附属外国语学校	Teacher: 舒紫微	物理 初三3、4班
 273126259	https://www.eeo.cn/s/a/?cid=273126259	Teacher Melanie online classroom	Teacher: 977****218	EMMA
@@ -725,7 +724,6 @@
 273126361	https://www.eeo.cn/s/a/?cid=273126361	欣欣补习	Teacher: 129****72	【Jan 2026】高二公教 （1）430-6pm
 273126381	https://www.eeo.cn/s/a/?cid=273126381	北京科技大学附属中学	Teacher: 薛晨桥	2024级高一5班
 273126419	https://www.eeo.cn/s/a/?cid=273126419	Jasper online classroom	Teacher: 945****271	Johnathan & Hayson & Yanni
-273126433	https://www.eeo.cn/s/a/?cid=273126433	云趣教育	Teacher: 云趣教育-高老师	王晨菲初三物理王永胜老师
 273126441	https://www.eeo.cn/s/a/?cid=273126441	Teacher Maicah online classroom	Teacher: maicahmo*****ail.com	Lisa’s Classroom
 273126455	https://www.eeo.cn/s/a/?cid=273126455	Sevenylle Online Tutorial Services	Teacher: 960****354	Cherry and Chloe
 273126541	https://www.eeo.cn/s/a/?cid=273126541	Teacher Maicah online classroom	Teacher: maicahmo*****ail.com	Rhona
@@ -895,7 +893,6 @@
 273131233	https://www.eeo.cn/s/a/?cid=273131233	K online classroom	Teacher: 955****031	Voca1
 273131235	https://www.eeo.cn/s/a/?cid=273131235	Dr. G. Academy	Teacher: Dr.G 公務筆電3	DIS2028 Ian Song G10 Algebra 2
 273131291	https://www.eeo.cn/s/a/?cid=273131291	Teacher Jo online classroom	Teacher: zaidencalyx*****ail.com	Ocean
-273131313	https://www.eeo.cn/s/a/?cid=273131313	云趣教育	Teacher: 云趣教育-唐老师	田润泽-高二北京数学-王骏骋老师
 273131439	https://www.eeo.cn/s/a/?cid=273131439	Dream's official	Teacher: 1Chera	Che44 Mon2000+Thu2100
 273131473	https://www.eeo.cn/s/a/?cid=273131473	K online classroom	Teacher: 955****031	voca11
 273131667	https://www.eeo.cn/s/a/?cid=273131667	牛顿补习中心	Teacher: Ms.Hui	2025 F2 GEO B+D [Ms.Hui]
@@ -1188,7 +1185,6 @@
 273141341	https://www.eeo.cn/s/a/?cid=273141341	刁一一的编程机构	Teacher: 133****7700	test
 273141351	https://www.eeo.cn/s/a/?cid=273141351	线上凤凰家教	Teacher: 李老师	谷籽试听课
 273141359	https://www.eeo.cn/s/a/?cid=273141359	Sỹ Phong online classroom	Teacher: 379****49	nothing here
-273141365	https://www.eeo.cn/s/a/?cid=273141365	云趣教育	Teacher: 云趣教育-唐老师	段俊蕾-高三安徽数学-张旭老师
 273141375	https://www.eeo.cn/s/a/?cid=273141375	Ngọc l/y online classroom	Teacher: 392****24	nhóm đội tuyển đá bóng Việt Nam năm 2024
 273141423	https://www.eeo.cn/s/a/?cid=273141423	Teacher Jhessa online classroom	Teacher: 930****264	Owen's Class 2
 273141497	https://www.eeo.cn/s/a/?cid=273141497	Teacher Yen online classroom	Teacher: conjuradorutche*****ail.	Eikaiwa
@@ -1198,3 +1194,7 @@
 273141613	https://www.eeo.cn/s/a/?cid=273141613	vimesil19*****ail.com online classroom	Teacher: vimesil19*****ail.com	teacher vimes
 273141617	https://www.eeo.cn/s/a/?cid=273141617	Teacher Chenee年糕 online classroom	Teacher: timesedu0*****ail.com	Cindy
 273141707	https://www.eeo.cn/s/a/?cid=273141707	nguyen tri hieu online classroom	Teacher: 987****83	s
+273141741	https://www.eeo.cn/s/a/?cid=273141741	海霞的思维课堂	Teacher: 曹	【25暑】三优
+273141857	https://www.eeo.cn/s/a/?cid=273141857	北京市第八十中学	Teacher: 宗世颖	学习使我快乐
+273141883	https://www.eeo.cn/s/a/?cid=273141883	michelleasupar*****ail.c online classroom	Teacher: michelleasupar*****ail.c	Free Talking class
+273141971	https://www.eeo.cn/s/a/?cid=273141971	OSAGYEFO SIR ANTWI online classroom	Teacher: sirantwi20*****ail.com	HOME SCIENCE & VISUAL

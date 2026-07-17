@@ -1,7 +1,3 @@
-273141741	https://www.eeo.cn/s/a/?cid=273141741	海霞的思维课堂	Teacher: 曹	【25暑】三优
-273141857	https://www.eeo.cn/s/a/?cid=273141857	北京市第八十中学	Teacher: 宗世颖	学习使我快乐
-273141883	https://www.eeo.cn/s/a/?cid=273141883	michelleasupar*****ail.c online classroom	Teacher: michelleasupar*****ail.c	Free Talking class
-273141971	https://www.eeo.cn/s/a/?cid=273141971	OSAGYEFO SIR ANTWI online classroom	Teacher: sirantwi20*****ail.com	HOME SCIENCE & VISUAL
 273141989	https://www.eeo.cn/s/a/?cid=273141989	动悉健康科技	Teacher: 豆小豆	Amanda9SZ/Riri Jan.25
 273142047	https://www.eeo.cn/s/a/?cid=273142047	Elsa (Phước) online classroom	Teacher: 937****69	Denny class
 273142065	https://www.eeo.cn/s/a/?cid=273142065	ESL Teacher Shelly	Teacher: 713****903	Ryan's Classroom January 2025
@@ -1198,3 +1194,7 @@
 273180913	https://www.eeo.cn/s/a/?cid=273180913	Teacher Eunice (5) online classroom	Teacher: yunisramir*****ail.com	sophia
 273181017	https://www.eeo.cn/s/a/?cid=273181017	rapunzel gonzaga online classroom	Teacher: 920****577	Luca 01-03-24
 273181045	https://www.eeo.cn/s/a/?cid=273181045	S.M. online classroom	Teacher: 597****60	Isaac(Class with Maya)
+273181049	https://www.eeo.cn/s/a/?cid=273181049	Laoshi Scyllah online classroom	Teacher: 993****077	Cylvia ( January )
+273181057	https://www.eeo.cn/s/a/?cid=273181057	Csilla online classroom	Teacher: tivaldcsil*****ail.com	Charlie01.03
+273181071	https://www.eeo.cn/s/a/?cid=273181071	#3Teacher Melven online classroom	Teacher: 968****517	Jona
+273181091	https://www.eeo.cn/s/a/?cid=273181091	Seth online classroom	Teacher: 994****623	january 1

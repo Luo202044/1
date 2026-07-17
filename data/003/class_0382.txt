@@ -1,7 +1,3 @@
-273219859	https://www.eeo.cn/s/a/?cid=273219859	Teacher Rosie online classroom	Teacher: annaojyo*****ail.com	ANNIE & GEORGE
-273219865	https://www.eeo.cn/s/a/?cid=273219865	arielteacheri*****ail.co online classroom	Teacher: arielteacheri*****ail.co	Ariel's classroom (January)
-273219911	https://www.eeo.cn/s/a/?cid=273219911	水龙吟教育	Teacher: 长航校区教务	长航 24秋9年级实验周日 8：10 敖虎
-273220053	https://www.eeo.cn/s/a/?cid=273220053	Sydney Lisondra online classroom	Teacher: lisondrasydney*****ail.c	Science class
 273220069	https://www.eeo.cn/s/a/?cid=273220069	Joy Shanna online classroom	Teacher: yapjoylyn*****ail.com	ORIENTATION
 273220131	https://www.eeo.cn/s/a/?cid=273220131	水龙吟教育	Teacher: 长航校区教务	长航 24秋5年级人文周日 8：10 李子 萱
 273220149	https://www.eeo.cn/s/a/?cid=273220149	Jaysan Marjorie Bagando online classroom	Teacher: 976****127	ESL Teacher Jaysan
@@ -435,7 +431,6 @@
 273235163	https://www.eeo.cn/s/a/?cid=273235163	新梦想	Teacher: 乐与学方老师	2025春季ZK家庭教育【线上直播】超优思维训练营周日1
 273235169	https://www.eeo.cn/s/a/?cid=273235169	jooh online classroom	Teacher: jmaputi*****ail.com	Jackey 54 (1-4-25)
 273235183	https://www.eeo.cn/s/a/?cid=273235183	Mufor Amah online classroom	Teacher: 675****91	Louis
-273235327	https://www.eeo.cn/s/a/?cid=273235327	云趣教育	Teacher: 云趣教育-唐老师	子墨-初一浙江数学-刘晓老师
 273235349	https://www.eeo.cn/s/a/?cid=273235349	Chi online classroom	Teacher: dean.chickeeperal*****ho	SN#63001-C
 273235387	https://www.eeo.cn/s/a/?cid=273235387	jenyvib*****ail.com online classroom	Teacher: jenyvib*****ail.com	Tia
 273235531	https://www.eeo.cn/s/a/?cid=273235531	Nelly	Teacher: 550***12	Ivy5
@@ -964,7 +959,6 @@
 273255499	https://www.eeo.cn/s/a/?cid=273255499	馨蒂教育	Teacher: 马羚Elina	B15 周二
 273255509	https://www.eeo.cn/s/a/?cid=273255509	Jane Marie 6 online classroom	Teacher: classco.teacherjanemar**	Bella 1.6
 273255513	https://www.eeo.cn/s/a/?cid=273255513	子木文化培训学校	Teacher: 李增妮	期末基础班初二
-273255561	https://www.eeo.cn/s/a/?cid=273255561	云趣教育	Teacher: 云趣教育-媛媛老师	何彦澄-三年级英-魏汝羽老师
 273255579	https://www.eeo.cn/s/a/?cid=273255579	北京思跃教育	Teacher: 周婉迪	小学部五年级答疑---周婉迪
 273255601	https://www.eeo.cn/s/a/?cid=273255601	jayden online classroom	Teacher: 849***18	但是很多
 273255641	https://www.eeo.cn/s/a/?cid=273255641	jayden online classroom	Teacher: 849***18	但是很多東西玩下玩唔到
@@ -1014,10 +1008,8 @@
 273257575	https://www.eeo.cn/s/a/?cid=273257575	INTO英途教育	Teacher: 王佳（班主任）	AS数学1v1答疑课
 273257627	https://www.eeo.cn/s/a/?cid=273257627	Mandy online classroom	Teacher: 962***45	數學試聽課HK-鍾卓穎-P6
 273257789	https://www.eeo.cn/s/a/?cid=273257789	Hu Jinhong online classroom	Teacher: 811***72	jh
-273257793	https://www.eeo.cn/s/a/?cid=273257793	云趣教育	Teacher: 云趣教育-高老师	黄君昊--初一数学--郭万华老师
 273257801	https://www.eeo.cn/s/a/?cid=273257801	Rona Mondares online classroom	Teacher: 948****140	Jan. 5 18th class Sophia
 273257815	https://www.eeo.cn/s/a/?cid=273257815	Teacher Vhon5 online classroom	Teacher: einnovy*****ail.com	Lila - January & February
-273257847	https://www.eeo.cn/s/a/?cid=273257847	云趣教育	Teacher: 云趣教育-高老师	无
 273257885	https://www.eeo.cn/s/a/?cid=273257885	Miss Kenward online classroom	Teacher: 309****775	trial#1
 273257971	https://www.eeo.cn/s/a/?cid=273257971	Trần Quốc Tuấn 2012@ online classroom	Teacher: 348****11	edupia 133
 273258027	https://www.eeo.cn/s/a/?cid=273258027	merecrisbatocael07*****a online classroom	Teacher: 976****13	technical learning
@@ -1198,3 +1190,11 @@
 273265207	https://www.eeo.cn/s/a/?cid=273265207	天津市状元壹佰培训学校	Teacher: 姬倩倩	高二物理诺诺
 273265263	https://www.eeo.cn/s/a/?cid=273265263	通宝培优	Teacher: 152****4396	寒假七下预科一班（8点40）
 273265285	https://www.eeo.cn/s/a/?cid=273265285	Rokaya online classroom	Teacher: rokiabenz*****ail.com	3a.1 GC
+273265353	https://www.eeo.cn/s/a/?cid=273265353	授课教室	Teacher: Tendo	S202411282056物流与供应链管理硕士dissertation
+273265525	https://www.eeo.cn/s/a/?cid=273265525	Rainbow English	Teacher: Rainbow	Beck8109(Ned)
+273265593	https://www.eeo.cn/s/a/?cid=273265593	Lily老师	Teacher: Jimmy	备课
+273265623	https://www.eeo.cn/s/a/?cid=273265623	美瑞教育	Teacher: Echo	echo
+273265625	https://www.eeo.cn/s/a/?cid=273265625	北大附中教育集团总校	Teacher: 吴海娜	1111
+273265657	https://www.eeo.cn/s/a/?cid=273265657	Samuel online classroom	Teacher: 848***81	vionrfin
+273265779	https://www.eeo.cn/s/a/?cid=273265779	Lilyteoh online classroom	Teacher: lilyllte*****ail.com	carl
+273265843	https://www.eeo.cn/s/a/?cid=273265843	Aaron online classroom	Teacher: 939****835	MiaoHan 01/05 -1

@@ -1,7 +1,3 @@
-273181049	https://www.eeo.cn/s/a/?cid=273181049	Laoshi Scyllah online classroom	Teacher: 993****077	Cylvia ( January )
-273181057	https://www.eeo.cn/s/a/?cid=273181057	Csilla online classroom	Teacher: tivaldcsil*****ail.com	Charlie01.03
-273181071	https://www.eeo.cn/s/a/?cid=273181071	#3Teacher Melven online classroom	Teacher: 968****517	Jona
-273181091	https://www.eeo.cn/s/a/?cid=273181091	Seth online classroom	Teacher: 994****623	january 1
 273181099	https://www.eeo.cn/s/a/?cid=273181099	torillasju*****ail.com online classroom	Teacher: torillasju*****ail.com	Mario
 273181115	https://www.eeo.cn/s/a/?cid=273181115	Teacher Lanie 3 online classroom	Teacher: 955****374	Raymond
 273181117	https://www.eeo.cn/s/a/?cid=273181117	Rena4 online classroom	Teacher: 955****390	🌸Teacher Rena-Amy8
@@ -1198,3 +1194,7 @@
 273219791	https://www.eeo.cn/s/a/?cid=273219791	ququ	Teacher: 158****3235	曲老师-鲁迪
 273219797	https://www.eeo.cn/s/a/?cid=273219797	叶茂教育	Teacher: 课代表小刘同学	水凝同学地理一对一
 273219805	https://www.eeo.cn/s/a/?cid=273219805	水龙吟教育	Teacher: 长航校区教务	长航 24秋3年级表演周日 8：10 温玉玲
+273219859	https://www.eeo.cn/s/a/?cid=273219859	Teacher Rosie online classroom	Teacher: annaojyo*****ail.com	ANNIE & GEORGE
+273219865	https://www.eeo.cn/s/a/?cid=273219865	arielteacheri*****ail.co online classroom	Teacher: arielteacheri*****ail.co	Ariel's classroom (January)
+273219911	https://www.eeo.cn/s/a/?cid=273219911	水龙吟教育	Teacher: 长航校区教务	长航 24秋9年级实验周日 8：10 敖虎
+273220053	https://www.eeo.cn/s/a/?cid=273220053	Sydney Lisondra online classroom	Teacher: lisondrasydney*****ail.c	Science class
