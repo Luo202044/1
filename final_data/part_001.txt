@@ -1,3 +1,4 @@
+308448213	https://www.eeo.cn/s/a/?cid=308448213	1 对 1	Teacher: 课程顾问赵鑫刚	【试听】宥言数学课
 308448229	https://www.eeo.cn/s/a/?cid=308448229	Pem online classroom	Teacher: april27*****hoo.com	JULY 17, 2026_FRIDAY
 308448235	https://www.eeo.cn/s/a/?cid=308448235	EVA在线英语社区	Teacher: 139****9523	Cranebridge夏令营线上 A班
 308448239	https://www.eeo.cn/s/a/?cid=308448239	kingsl*****hoo.com online classroom	Teacher: ki*****oo.com	Mia
@@ -8,7 +9,6 @@
 308448301	https://www.eeo.cn/s/a/?cid=308448301	周紫宸的在线课堂	Teacher: 189****0814	111
 308448307	https://www.eeo.cn/s/a/?cid=308448307	18522280943的在线课堂	Teacher: 185****0943	测试设备
 308448313	https://www.eeo.cn/s/a/?cid=308448313	EVA在线英语社区	Teacher: 139****9523	Cranebridge夏令营线上 C班
-308448321	https://www.eeo.cn/s/a/?cid=308448321	天津市少科院	Teacher: 吴迪	P0英语第13讲
 308448353	https://www.eeo.cn/s/a/?cid=308448353	世枝-跳跳老师的在线课堂	Teacher: 183****0705	西游记精读1V2
 308448357	https://www.eeo.cn/s/a/?cid=308448357	上海市黄浦区教育学院	Teacher: 王瑞安	一堂好心
 308448363	https://www.eeo.cn/s/a/?cid=308448363	蔡堉晴的在线课堂	Teacher: 138****8275	26暑3年级数学A+03
@@ -65,6 +65,9 @@
 308448991	https://www.eeo.cn/s/a/?cid=308448991	嘟嘟的在线课堂	Teacher: 136****7817	Mike
 308448997	https://www.eeo.cn/s/a/?cid=308448997	开睿教育	Teacher: 刘老师	新6年级
 308449001	https://www.eeo.cn/s/a/?cid=308449001	Denson online classroom	Teacher: 988***50	Sally S2 DSE English 2026.07.17 16:30-17:30
+308449025	https://www.eeo.cn/s/a/?cid=308449025	在线课堂	Teacher: 173****7279	田老师数学
+308449027	https://www.eeo.cn/s/a/?cid=308449027	陈雯怡的在线课堂	Teacher: 182****7820	9
+308449029	https://www.eeo.cn/s/a/?cid=308449029	reysmartalbero8*****ail. online classroom	Teacher: re*****il.com	Unnamed Class
 308449051	https://www.eeo.cn/s/a/?cid=308449051	Teacher Queenie VII online classroom	Teacher: garlyn042319*****ail.com	Mark's Classroom
 308449055	https://www.eeo.cn/s/a/?cid=308449055	无忧伴学	Teacher: 杨欣红	阮俊伟试听课程32308班
 308449063	https://www.eeo.cn/s/a/?cid=308449063	萌知原版英语	Teacher: Maggie-女王	Summer&Kelly&Henry-自拼暑假班-1v6
@@ -76,11 +79,6 @@
 308449093	https://www.eeo.cn/s/a/?cid=308449093	padacristine7*****ail.co online classroom	Teacher: pa*****il.com	laura
 308449103	https://www.eeo.cn/s/a/?cid=308449103	三学教育	Teacher: 胡胡	暑假
 308449107	https://www.eeo.cn/s/a/?cid=308449107	18563389023的在线课堂	Teacher: 185****9023	陈默高三
-308449117	https://www.eeo.cn/s/a/?cid=308449117	文学的课堂	Teacher: 乐乐老师	李泽承的英语小学堂，LL26-07-16-09（30分钟）
-308449131	https://www.eeo.cn/s/a/?cid=308449131	一对一在线课堂	Teacher: 海海	楠楠2032浙江衢州候老师英语课堂
-308449139	https://www.eeo.cn/s/a/?cid=308449139	Star Destiny Education	Teacher: 小育老师	Zhu Chenghao - Accounting Studies
-308449151	https://www.eeo.cn/s/a/?cid=308449151	在线教室	Teacher: Сянюй	小晶
-308449155	https://www.eeo.cn/s/a/?cid=308449155	朵朵的在线课堂	Teacher: 135****3830	二年级一班
 308449177	https://www.eeo.cn/s/a/?cid=308449177	shelly7大连的在线课堂	Teacher: 187****8377	Janina 11B，angel
 308449183	https://www.eeo.cn/s/a/?cid=308449183	长颈鹿美语沈阳浑南SR校	Teacher: Vanessa	新师Claire培训教室
 308449201	https://www.eeo.cn/s/a/?cid=308449201	Zoe的在线课堂	Teacher: 178****0300	L班-PU2
@@ -149,7 +147,6 @@
 308450017	https://www.eeo.cn/s/a/?cid=308450017	C老师课堂	Teacher: 蔡老师	26暑新高二物理一期7.19-31
 308450023	https://www.eeo.cn/s/a/?cid=308450023	Test	Teacher: 0065-20000528831	Anna6570
 308450027	https://www.eeo.cn/s/a/?cid=308450027	Sino-bus	Teacher: 彭丽	粵語試聽課-HK-依依-P4
-308450039	https://www.eeo.cn/s/a/?cid=308450039	00244175*****udent.dthu online classroom	Teacher: 00*****dent.dthu.edu.vn	Lớp Tiếng Trung hè
 308450069	https://www.eeo.cn/s/a/?cid=308450069	Ayette online classroom	Teacher: 997****102	Rai & Yen
 308450071	https://www.eeo.cn/s/a/?cid=308450071	秦梓轩jimmy的在线课堂	Teacher: 182****6811	语文
 308450073	https://www.eeo.cn/s/a/?cid=308450073	Aiwaji®️爱娃计英语	Teacher: 186****6323	7.20-7.31Joe自拼Aiwaji®️level1
@@ -212,7 +209,6 @@
 308450901	https://www.eeo.cn/s/a/?cid=308450901	M1ch3:的在线课堂	Teacher: 181****1763	物理
 308450907	https://www.eeo.cn/s/a/?cid=308450907	Amy的在线课堂	Teacher: 182****6618	Amily的小课堂
 308450913	https://www.eeo.cn/s/a/?cid=308450913	叶晓辰的在线课堂	Teacher: 166****6556	hhhhhh
-308450953	https://www.eeo.cn/s/a/?cid=308450953	Teacher Malinda Online	Teacher: 825****71	Lynn 34/50
 308450981	https://www.eeo.cn/s/a/?cid=308450981	Sino-bus	Teacher: Sino-bus顾问Iris(刘利)	數學試聽課HK-K3-浩翔
 308450995	https://www.eeo.cn/s/a/?cid=308450995	Y online classroom	Teacher: 172****97	BI（S3）
 308450997	https://www.eeo.cn/s/a/?cid=308450997	15588208879的在线课堂	Teacher: 155****8879	八１班
@@ -328,6 +324,8 @@
 308452289	https://www.eeo.cn/s/a/?cid=308452289	希德教育	Teacher: 任茜茜	ket集训课
 308452303	https://www.eeo.cn/s/a/?cid=308452303	云尚教育	Teacher: 一对一王老师	罗煜诚-七升八数学-试听课
 308452311	https://www.eeo.cn/s/a/?cid=308452311	EEO-TEST-苏秋禹	Teacher: 193****6779	`
+308452333	https://www.eeo.cn/s/a/?cid=308452333	319陈韵伊的在线课堂	Teacher: 138****1755	自习小课堂
+308452347	https://www.eeo.cn/s/a/?cid=308452347	托福AI学练平台	Teacher: 文能武-Wayne	韩欣远 AI课1V1-试听
 308452355	https://www.eeo.cn/s/a/?cid=308452355	小太阳在线课堂	Teacher: 186****6311	培训
 308452357	https://www.eeo.cn/s/a/?cid=308452357	洋葱课堂	Teacher: 如雪老师	六下第一期中14点
 308452377	https://www.eeo.cn/s/a/?cid=308452377	Sino-bus	Teacher: 高莉	中文試聽課HK-K2(K3)-Lucas
@@ -367,10 +365,6 @@
 308452717	https://www.eeo.cn/s/a/?cid=308452717	Class In	Teacher: 学管Jennie	H20260717007
 308452733	https://www.eeo.cn/s/a/?cid=308452733	无忧伴学	Teacher: 王新飞	张誉腾丨试听课程32329班
 308452775	https://www.eeo.cn/s/a/?cid=308452775	无忧伴学	Teacher: 杨向涛	杜俊逸丨试听课程32329班
-308452789	https://www.eeo.cn/s/a/?cid=308452789	Genie online classroom	Teacher: 977****156	PTE- Trial class- Genie- Yadeng
-308452799	https://www.eeo.cn/s/a/?cid=308452799	sousamichelly3*****ail.c的在线课堂	Teacher: so*****il.com	第二课
-308452805	https://www.eeo.cn/s/a/?cid=308452805	玺课	Teacher: 班主任	玺课6071663普刊全程辅导
-308452807	https://www.eeo.cn/s/a/?cid=308452807	中山教育	Teacher: 墨老师	7.17 20：00董吉航新高三物理试课群
 308452825	https://www.eeo.cn/s/a/?cid=308452825	芯笔答-Ai教育	Teacher: 张子源	Demo0
 308452833	https://www.eeo.cn/s/a/?cid=308452833	Happy planet	Teacher: Hazel-433-M15-Yoyo9621	ROAN
 308452843	https://www.eeo.cn/s/a/?cid=308452843	Aden Paul online classroom	Teacher: 907****209	ADV.DEMO.CLASS
@@ -401,8 +395,10 @@
 308453111	https://www.eeo.cn/s/a/?cid=308453111	欣.的在线课堂	Teacher: 177****5095	。
 308453115	https://www.eeo.cn/s/a/?cid=308453115	中山教育	Teacher: 搏浪教育-教务王老师	7.17-21:00张书驰初二语文试课群
 308453127	https://www.eeo.cn/s/a/?cid=308453127	王子皓```的在线课堂	Teacher: 136****9942	八年级语文
+308453147	https://www.eeo.cn/s/a/?cid=308453147	中山教育	Teacher: 搏浪教育-教务王老师	7.17-16:00曹志燚初二英语试课群
 308453161	https://www.eeo.cn/s/a/?cid=308453161	数学苏老师的在线课堂	Teacher: 130****2158	公益刷题二期初三数学
 308453165	https://www.eeo.cn/s/a/?cid=308453165	Free Talk World	Teacher: 大大2	Ray2013厦门/兰斯
+308453169	https://www.eeo.cn/s/a/?cid=308453169	19239961191的在线课堂	Teacher: 192****1191	三年级六班
 308453179	https://www.eeo.cn/s/a/?cid=308453179	中山教育	Teacher: 木木老师	7.17 19：30刘紫源成人韩语试课
 308453185	https://www.eeo.cn/s/a/?cid=308453185	工作室	Teacher: 陈	26-27暑昆仑九思
 308453191	https://www.eeo.cn/s/a/?cid=308453191	夏夏的在线课堂	Teacher: 198****4223	可欣·初三寒假
@@ -458,8 +454,6 @@
 308453687	https://www.eeo.cn/s/a/?cid=308453687	快编程	Teacher: 高老师	图形化-补课
 308453691	https://www.eeo.cn/s/a/?cid=308453691	cherryjanepenas03*****ai online classroom	Teacher: ch*****il.com	Unnamed Class
 308453695	https://www.eeo.cn/s/a/?cid=308453695	石火伴学	Teacher: 班主任-甄德钱	吴子轩-数学试听7.18 周六 下午5点
-308453697	https://www.eeo.cn/s/a/?cid=308453697	快乐生活2的在线课堂	Teacher: 学管	26樂咿乐言01班[00|一对六|金榜]1h测评1混龄级小古文周一19:00( 语文闫祥雨)07-20
-308453701	https://www.eeo.cn/s/a/?cid=308453701	尹艺霏的在线课堂	Teacher: 152****5853	2
 308453711	https://www.eeo.cn/s/a/?cid=308453711	工作室	Teacher: 陈	26-27暑科学技术
 308453763	https://www.eeo.cn/s/a/?cid=308453763	中山教育	Teacher: 墨老师	7.17 20：00吴昱衡新五年级语文试课群
 308453769	https://www.eeo.cn/s/a/?cid=308453769	行水的在线课堂	Teacher: 135****1014	家庭小班
@@ -476,7 +470,7 @@
 308453851	https://www.eeo.cn/s/a/?cid=308453851	Sino-bus	Teacher: 何言	英文試聼課-HK-L5-Hayden Lo
 308453865	https://www.eeo.cn/s/a/?cid=308453865	领祥科技	Teacher: B3966班主任	L—qiqi
 308453867	https://www.eeo.cn/s/a/?cid=308453867	儿语工坊·在线语训中心	Teacher: 倾音小助手	沐承宝贝在线课堂
-308453875	https://www.eeo.cn/s/a/?cid=308453875	领祥科技	Teacher: B3966班主任	XX——B3966
+308453875	https://www.eeo.cn/s/a/?cid=308453875	领祥科技	Teacher: B3966班主任	L—Zl
 308453881	https://www.eeo.cn/s/a/?cid=308453881	领祥科技	Teacher: B3966班主任	XX——B3966
 308453883	https://www.eeo.cn/s/a/?cid=308453883	嘟嘟爹的在线课堂	Teacher: 187****9408	九一班
 308453885	https://www.eeo.cn/s/a/?cid=308453885	19232328487的在线课堂	Teacher: 192****8487	一
@@ -495,7 +489,10 @@
 308453961	https://www.eeo.cn/s/a/?cid=308453961	15721892072的在线课堂	Teacher: 157****2072	高二
 308453965	https://www.eeo.cn/s/a/?cid=308453965	陈芊彤的在线课堂	Teacher: 136****2229	3021
 308453969	https://www.eeo.cn/s/a/?cid=308453969	13209614372的在线课堂	Teacher: 132****4372	初中英语词汇 （1）班
+308453973	https://www.eeo.cn/s/a/?cid=308453973	无忧伴学	Teacher: 李雅妮	阮楚涵高三语文李昀
+308453979	https://www.eeo.cn/s/a/?cid=308453979	领祥科技	Teacher: B3966班主任	L-Ayden
 308453989	https://www.eeo.cn/s/a/?cid=308453989	玺课	Teacher: 玺课-夏夏老师	6071611SCI沟通课
+308453995	https://www.eeo.cn/s/a/?cid=308453995	领祥科技	Teacher: B3966班主任	L—Brook
 308454001	https://www.eeo.cn/s/a/?cid=308454001	Happy planet	Teacher: Liz-601-8-M15-家有轩宝	Kevin8 Sarah12's New Classroom
 308454003	https://www.eeo.cn/s/a/?cid=308454003	无忧伴学	Teacher: 郭守勇	郭怡然丨试听课程32339班
 308454005	https://www.eeo.cn/s/a/?cid=308454005	jonariejae*****ail.com online classroom	Teacher: jo*****il.com	Unnamed Class
@@ -577,6 +574,7 @@
 308454515	https://www.eeo.cn/s/a/?cid=308454515	13718615812的在线课堂	Teacher: 137****5812	ccls
 308454519	https://www.eeo.cn/s/a/?cid=308454519	泥鳅的在线课堂	Teacher: 158****3773	1
 308454525	https://www.eeo.cn/s/a/?cid=308454525	尹艺的在线课堂	Teacher: 199****2507	英语
+308454531	https://www.eeo.cn/s/a/?cid=308454531	湖南元动健康	Teacher: 小玉老师	朱学冉1老师 (张湋涵)初三金牌数学
 308454533	https://www.eeo.cn/s/a/?cid=308454533	13718615812的在线课堂	Teacher: 137****5812	swcls
 308454545	https://www.eeo.cn/s/a/?cid=308454545	Michael's english lessons	Teacher: 531****543	Shatel July 17th
 308454547	https://www.eeo.cn/s/a/?cid=308454547	Teacher Eulene online classroom	Teacher: eulenetiong*****hoo.com	Kusey 2 (July 17)
@@ -585,9 +583,6 @@
 308454587	https://www.eeo.cn/s/a/?cid=308454587	君优教育	Teacher: 张璐瑶	26高一暑期物理2期303
 308454591	https://www.eeo.cn/s/a/?cid=308454591	无忧伴学	Teacher: 杨欣红	苏禹蒙扩课试听6405班
 308454599	https://www.eeo.cn/s/a/?cid=308454599	17796455342的在线课堂	Teacher: 177****5342	高一数学
-308454617	https://www.eeo.cn/s/a/?cid=308454617	伴你飞翔	Teacher: 195****9702	数学高一的一对二学习区
-308454625	https://www.eeo.cn/s/a/?cid=308454625	Sino-bus	Teacher: Sino-bus 顧問Yuki	英文試聽課-HK-升K2-Kathleen
-308454627	https://www.eeo.cn/s/a/?cid=308454627	颖超的在线课堂	Teacher: 188****9056	1218周可均
 308454677	https://www.eeo.cn/s/a/?cid=308454677	1 对 1	Teacher: 课程顾问罗苏	【试听】任姝妤 英语课
 308454679	https://www.eeo.cn/s/a/?cid=308454679	Rio's English Tutorial	Teacher: regalariomarloj*****ail.	Gunes's Class
 308454691	https://www.eeo.cn/s/a/?cid=308454691	Amy的在线课堂	Teacher: 188****8272	周二7:00-8:30外研五上
@@ -598,3 +593,8 @@
 308454733	https://www.eeo.cn/s/a/?cid=308454733	iramayjurad*****ail.com online classroom	Teacher: ir*****il.com	buraot
 308454741	https://www.eeo.cn/s/a/?cid=308454741	云趣教育	Teacher: 云趣教育兰兰老师	王俪洁高三数学-周六上午10点半-宋蕊老师-试听
 308454769	https://www.eeo.cn/s/a/?cid=308454769	董佳怡Judy的在线课堂	Teacher: 186****2027	。
+308454787	https://www.eeo.cn/s/a/?cid=308454787	钱珅的在线课堂	Teacher: 135****0400	114514
+308454817	https://www.eeo.cn/s/a/?cid=308454817	Teacher__sheena online classroom	Teacher: ca*****il.com	trial demo class
+308454841	https://www.eeo.cn/s/a/?cid=308454841	Amy的在线课堂	Teacher: 138****6953	三角洲改枪教学
+308454843	https://www.eeo.cn/s/a/?cid=308454843	陶诗言的在线课堂	Teacher: 134****3611	秘密天地
+308454855	https://www.eeo.cn/s/a/?cid=308454855	中山教育	Teacher: 教务-安安老师	7.17-21 : 00吕柯瑶高三历史试课群
