@@ -8,6 +8,7 @@ import sys
 import random
 import asyncio
 import traceback
+import multiprocessing as mp
 import psutil
 from playwright.async_api import async_playwright
 
@@ -30,8 +31,8 @@ START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
 
-# 并发数默认 20，可根据实际情况调整（建议 20~30）
-MAX_CONCURRENT = min(config.get("max_concurrent_pages", 20), 40)
+# 🔥 单进程并发数建议 25~30，可根据实际情况调整（通过 config.json 的 max_concurrent_pages）
+MAX_CONCURRENT = min(config.get("max_concurrent_pages", 25), 40)
 TIMEOUT_SECONDS = config.get("timeout_hours", 3.0) * 3600
 
 os.makedirs("data", exist_ok=True)
@@ -58,8 +59,8 @@ USER_AGENTS = [
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
 ]
 
-# Chromium 优化参数（减少资源加载，提升速度）
-CHROME_ARGS = [
+# Chromium 优化参数（增加内存限制）
+CHROME_OPTIMIZED_ARGS = [
     "--disable-gpu",
     "--disable-dev-shm-usage",
     "--no-sandbox",
@@ -76,6 +77,7 @@ CHROME_ARGS = [
     "--disable-notifications",
     "--disable-popup-blocking",
     "--disable-print-preview",
+    "--disable-prompt-on-repost",
     "--disable-renderer-backgrounding",
     "--disable-setuid-sandbox",
     "--disable-speech-api",
@@ -93,12 +95,12 @@ CHROME_ARGS = [
     "--use-mock-keychain",
     "--blink-settings=imagesEnabled=false",
     "--host-resolver-rules=MAP *google-analytics.com 127.0.0.1, MAP *sentry* 127.0.0.1, MAP *sensors* 127.0.0.1, MAP *growingio.com 127.0.0.1, MAP *baidu.com 127.0.0.1, MAP *track* 127.0.0.1",
-    "--js-flags=--max-old-space-size=512",
+    "--js-flags=--max-old-space-size=512",   # 从 128 提升到 512
     "--disable-features=IsolateOrigins,site-per-process,AudioServiceOutOfProcess,BackForwardCache",
     "--renderer-process-limit=4"
 ]
 
-# ========== 提取 JS（与之前一致） ==========
+# 提取 JS（与之前相同）
 js_extract_promise = r"""() => {
     return new Promise((resolve) => {
         function checkDOM() {
@@ -179,11 +181,11 @@ js_extract_promise = r"""() => {
         let timeoutId = setTimeout(() => {
             observer.disconnect();
             resolve({status: "timeout"});
-        }, 6000); 
+        }, 6000);   // 从 3200 提升到 6000
     });
 }"""
 
-# ========== 异步工作器 ==========
+# ========== 单进程异步工作器 ==========
 async def async_worker(cid_chunk, concurrency, deadline, shared_counter, total_tasks, start_time):
     in_flight_cids = set()
     results = []
@@ -207,10 +209,6 @@ async def async_worker(cid_chunk, concurrency, deadline, shared_counter, total_t
         consecutive_errors = 0
         lifecycle = 0
 
-        # 性能统计
-        request_times = []
-        avg_print_counter = 0
-
         while True:
             if time.time() > deadline:
                 break
@@ -220,7 +218,6 @@ async def async_worker(cid_chunk, concurrency, deadline, shared_counter, total_t
                 break
 
             in_flight_cids.add(cid)
-            request_start = time.time()
             try:
                 pw_timeout = min(15000, (deadline - time.time()) * 1000)
                 await page.goto(f"https://www.eeo.cn/s/a/?cid={cid}", timeout=pw_timeout, wait_until="commit")
@@ -233,7 +230,7 @@ async def async_worker(cid_chunk, concurrency, deadline, shared_counter, total_t
                 status = data.get('status', 'timeout')
                 if status == 'waf':
                     if random.random() < 0.1:
-                        print(f"⚠️ [风控侦测] C{coro_id:02d} 遭遇拦截，正在休眠避让...", flush=True)
+                        print(f"⚠️ [风控侦测] C{coro_id:02d} 遭遇拦截", flush=True)
                     raise Exception("WAF_BLOCKED")
                 elif status == 'success':
                     class_name = data.get('class_name', '无')
@@ -243,7 +240,7 @@ async def async_worker(cid_chunk, concurrency, deadline, shared_counter, total_t
                     if not (class_name in invalid_marks and school in invalid_marks):
                         line = f"{cid}\thttps://www.eeo.cn/s/a/?cid={cid}\t{school}\t{teacher}\t{class_name}\n"
                         results.append(line)
-                        print(f"✅ [满血解析] C{coro_id:02d} | {cid} | 🏫 {school} | 🧑‍🏫 {teacher} | 🎓 {class_name}", flush=True)
+                        print(f"✅ [满血解析] C{coro_id:02d} | {cid} | 🏫 {school} | 🧑‍🏫 {teacher}", flush=True)
                 consecutive_errors = 0
             except Exception as e:
                 consecutive_errors += 1
@@ -260,15 +257,6 @@ async def async_worker(cid_chunk, concurrency, deadline, shared_counter, total_t
                     shared_counter.value += 1
                 lifecycle += 1
 
-                # 记录耗时
-                elapsed = time.time() - request_start
-                request_times.append(elapsed)
-                avg_print_counter += 1
-                if avg_print_counter >= 10:
-                    avg = sum(request_times[-10:]) / 10
-                    print(f"⏱️ [性能] C{coro_id:02d} 最近10个请求平均耗时: {avg:.2f}s", flush=True)
-                    avg_print_counter = 0
-
             if lifecycle >= 100:
                 await init_page()
                 lifecycle = 0
@@ -282,21 +270,17 @@ async def async_worker(cid_chunk, concurrency, deadline, shared_counter, total_t
             except: pass
 
     async with async_playwright() as p:
-        browser = await p.chromium.launch(
-            headless=True,
-            args=CHROME_ARGS
-        )
+        browser = await p.chromium.launch(headless=True, args=CHROME_OPTIMIZED_ARGS)
         context = await browser.new_context(
             user_agent=random.choice(USER_AGENTS),
             ignore_https_errors=True
         )
-        # 设置更短的超时
         context.set_default_timeout(15000)
 
         tasks = [asyncio.create_task(fetcher(i, context)) for i in range(concurrency)]
         wait_task = asyncio.create_task(local_queue.join())
 
-        # 进度监控
+        # 进度监控（每2秒打印）
         try:
             while not local_queue.empty() or any(not t.done() for t in tasks):
                 now = time.time()
@@ -314,7 +298,7 @@ async def async_worker(cid_chunk, concurrency, deadline, shared_counter, total_t
 
                     if done == last_count:
                         if now - watchdog_time > 60:
-                            print(f"⚠️ [看门狗] 完成数 {done} 已超过 60 秒未变化，可能卡住", flush=True)
+                            print(f"⚠️ [看门狗] 完成数 {done} 已超过 60 秒未变化", flush=True)
                             watchdog_time = now
                     else:
                         last_count = done
@@ -347,7 +331,6 @@ async def async_worker(cid_chunk, concurrency, deadline, shared_counter, total_t
             for cid in in_flight_cids:
                 f.write(f"{cid}\n")
 
-# ========== 主函数 ==========
 def main():
     global START_CID, END_CID, CID_LIST_FILE, OUTPUT_FILE
 
@@ -370,7 +353,7 @@ def main():
     concurrency = min(MAX_CONCURRENT, total_tasks)
 
     print("=" * 60, flush=True)
-    print("🚀 [Playwright 无头 Chromium] 启动！", flush=True)
+    print("🚀 [Playwright 单进程异步] 启动！", flush=True)
     if START_CID is not None and END_CID is not None:
         print(f"📋 扫描范围: {START_CID} ~ {END_CID} (共 {total_tasks} 个 CID)", flush=True)
     else:
@@ -427,7 +410,6 @@ def main():
     os._exit(0)
 
 if __name__ == "__main__":
-    import multiprocessing as mp
     try:
         mp.set_start_method('spawn')
     except:
