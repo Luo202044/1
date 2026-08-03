@@ -92,23 +92,24 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: 下载 Obscura（动态获取最新版）
+      - name: 下载 Obscura（从最新 release 获取 stealth 版）
         run: |
-          # 通过 GitHub API 获取最新 release 的下载地址
-          DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/obscura/obscura/releases/latest | grep -o 'https://.*/obscura-linux-amd64' | head -1)
-          if [ -z "$DOWNLOAD_URL" ]; then
-            # 尝试备用名称
-            DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/obscura/obscura/releases/latest | grep -o 'https://.*/obscura-linux-x86_64' | head -1)
-          fi
+          # 从 API 获取带 'stealth' 和 '.tar.gz' 的资产 URL
+          DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/h4ckf0r0day/obscura/releases/latest | \
+            grep -o 'https://[^"]*stealth[^"]*\.tar\.gz' | head -1)
           if [ -z "$DOWNLOAD_URL" ]; then
             echo "❌ 无法获取 Obscura 下载链接"
             exit 1
           fi
           echo "⬇️ 下载 $DOWNLOAD_URL"
-          curl -L -o obscura "$DOWNLOAD_URL"
+          curl -L -o obscura.tar.gz "$DOWNLOAD_URL"
+          tar -xzf obscura.tar.gz
+          # 解压后可能是一个目录，将里面的二进制文件移动到当前目录
+          if [ -d "obscura" ]; then
+            mv obscura/obscura . 2>/dev/null || find obscura -type f -executable -name obscura -exec mv {} . \;
+          fi
           chmod +x obscura
-          # 验证是否为可执行文件
-          file obscura | grep -q "ELF" || { echo "❌ 下载文件无效"; exit 1; }
+          file obscura | grep -q "ELF" || { echo "❌ 解压后未找到有效的可执行文件"; exit 1; }
       - name: 启动 Obscura CDP 服务
         run: |
           ./obscura serve --port 9222 --stealth &
@@ -214,19 +215,21 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: 下载 Obscura（动态获取）
+      - name: 下载 Obscura（从最新 release 获取 stealth 版）
         run: |
-          DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/obscura/obscura/releases/latest | grep -o 'https://.*/obscura-linux-amd64' | head -1)
-          if [ -z "$DOWNLOAD_URL" ]; then
-            DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/obscura/obscura/releases/latest | grep -o 'https://.*/obscura-linux-x86_64' | head -1)
-          fi
+          DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/h4ckf0r0day/obscura/releases/latest | \
+            grep -o 'https://[^"]*stealth[^"]*\.tar\.gz' | head -1)
           if [ -z "$DOWNLOAD_URL" ]; then
             echo "❌ 无法获取 Obscura 下载链接"
             exit 1
           fi
-          curl -L -o obscura "$DOWNLOAD_URL"
+          curl -L -o obscura.tar.gz "$DOWNLOAD_URL"
+          tar -xzf obscura.tar.gz
+          if [ -d "obscura" ]; then
+            mv obscura/obscura . 2>/dev/null || find obscura -type f -executable -name obscura -exec mv {} . \;
+          fi
           chmod +x obscura
-          file obscura | grep -q "ELF" || { echo "❌ 下载文件无效"; exit 1; }
+          file obscura | grep -q "ELF" || { echo "❌ 解压后未找到有效的可执行文件"; exit 1; }
       - name: 启动 Obscura CDP 服务
         run: |
           ./obscura serve --port 9222 --stealth &
@@ -331,19 +334,21 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: 下载 Obscura（动态获取）
+      - name: 下载 Obscura（从最新 release 获取 stealth 版）
         run: |
-          DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/obscura/obscura/releases/latest | grep -o 'https://.*/obscura-linux-amd64' | head -1)
-          if [ -z "$DOWNLOAD_URL" ]; then
-            DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/obscura/obscura/releases/latest | grep -o 'https://.*/obscura-linux-x86_64' | head -1)
-          fi
+          DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/h4ckf0r0day/obscura/releases/latest | \
+            grep -o 'https://[^"]*stealth[^"]*\.tar\.gz' | head -1)
           if [ -z "$DOWNLOAD_URL" ]; then
             echo "❌ 无法获取 Obscura 下载链接"
             exit 1
           fi
-          curl -L -o obscura "$DOWNLOAD_URL"
+          curl -L -o obscura.tar.gz "$DOWNLOAD_URL"
+          tar -xzf obscura.tar.gz
+          if [ -d "obscura" ]; then
+            mv obscura/obscura . 2>/dev/null || find obscura -type f -executable -name obscura -exec mv {} . \;
+          fi
           chmod +x obscura
-          file obscura | grep -q "ELF" || { echo "❌ 下载文件无效"; exit 1; }
+          file obscura | grep -q "ELF" || { echo "❌ 解压后未找到有效的可执行文件"; exit 1; }
       - name: 启动 Obscura CDP 服务
         run: |
           ./obscura serve --port 9222 --stealth &
@@ -448,19 +453,21 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: 下载 Obscura（动态获取）
+      - name: 下载 Obscura（从最新 release 获取 stealth 版）
         run: |
-          DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/obscura/obscura/releases/latest | grep -o 'https://.*/obscura-linux-amd64' | head -1)
-          if [ -z "$DOWNLOAD_URL" ]; then
-            DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/obscura/obscura/releases/latest | grep -o 'https://.*/obscura-linux-x86_64' | head -1)
-          fi
+          DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/h4ckf0r0day/obscura/releases/latest | \
+            grep -o 'https://[^"]*stealth[^"]*\.tar\.gz' | head -1)
           if [ -z "$DOWNLOAD_URL" ]; then
             echo "❌ 无法获取 Obscura 下载链接"
             exit 1
           fi
-          curl -L -o obscura "$DOWNLOAD_URL"
+          curl -L -o obscura.tar.gz "$DOWNLOAD_URL"
+          tar -xzf obscura.tar.gz
+          if [ -d "obscura" ]; then
+            mv obscura/obscura . 2>/dev/null || find obscura -type f -executable -name obscura -exec mv {} . \;
+          fi
           chmod +x obscura
-          file obscura | grep -q "ELF" || { echo "❌ 下载文件无效"; exit 1; }
+          file obscura | grep -q "ELF" || { echo "❌ 解压后未找到有效的可执行文件"; exit 1; }
       - name: 启动 Obscura CDP 服务
         run: |
           ./obscura serve --port 9222 --stealth &
