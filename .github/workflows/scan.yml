@@ -1,12 +1,12 @@
-name: ClassIn Scanner (Playwright 无头 Chromium + 4层防漏)
+name: ClassIn Scanner (原生稳定版)
 
 on:
   workflow_dispatch:
     inputs:
       shards:
-        description: '分片数量（自动计算，留空则自动）'
-        required: false
-        default: ''
+        description: '分片数量'
+        required: true
+        default: '19'
 
 permissions:
   contents: write
@@ -21,32 +21,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: 记录开始时间
-        run: |
-          date -u +"%Y-%m-%d %H:%M:%S" > start_time.txt
+        run: date -u +"%Y-%m-%d %H:%M:%S" > start_time.txt
       - name: 上传开始时间
         uses: actions/upload-artifact@v4
         with:
           name: start-time
           path: start_time.txt
           retention-days: 1
-      - name: 计算分片配置（动态分片）
+      - name: 计算分片配置
         id: calc_shards
         run: |
           START=$(jq -r '.start_cid' config.json)
           END=$(jq -r '.end_cid' config.json)
-          TOTAL=$((END - START + 1))
-          
-          if [ $TOTAL -lt 10000 ]; then
-            SHARDS=1
-          else
-            SHARDS=$(( (TOTAL + 49999) / 50000 ))
-          fi
-          if [ $SHARDS -gt 18 ]; then SHARDS=18; fi
-          
-          if [ -n "${{ github.event.inputs.shards }}" ]; then
-            SHARDS=${{ github.event.inputs.shards }}
-          fi
-          
+          SHARDS=${{ github.event.inputs.shards }}
           export START END SHARDS
           python << 'EOF'
           import json, math, os
@@ -74,9 +61,6 @@ jobs:
               out.write(f"total_cids={total}\n")
           EOF
 
-  # ==========================================
-  # 【第 1 层】：全量并发大扫荡（使用 Playwright Chromium）
-  # ==========================================
   scan_shard_first:
     needs: master
     runs-on: ubuntu-latest
@@ -89,6 +73,7 @@ jobs:
       - name: 生成分片配置
         run: |
           echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[${{ matrix.shard_idx }}]" > config.json
+          
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
@@ -96,26 +81,26 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-chromium-v1
-      - name: 安装 Playwright 和 Chromium
+          key: ${{ runner.os }}-playwright-chromium
+      - name: 安装原生依赖与内核
         run: |
           pip install playwright psutil
           playwright install chromium
-          playwright install-deps chromium
-      - name: 第 1 层扫描执行
+          
+      - name: 扫描执行 (原生 Playwright 引擎)
         env:
           PYTHONUNBUFFERED: 1
           SHARD_IDX: ${{ matrix.shard_idx }}
-        run: |
-          python scanner_native.py
-      - name: 上传有效数据
+        run: python scanner_native.py
+        
+      - name: 上传结果
         uses: actions/upload-artifact@v4
         with:
           name: first-ok-shard-${{ matrix.shard_idx }}
           path: data/*.txt
           if-no-files-found: warn
           retention-days: 1
-      - name: 上传未完成信标
+      - name: 上传遗留未完成CID
         uses: actions/upload-artifact@v4
         with:
           name: unfinished-1-${{ matrix.shard_idx }}
@@ -123,8 +108,199 @@ jobs:
           if-no-files-found: ignore
           retention-days: 1
 
-  # ==========================================
-  # 【第 2 层】：精准补扫（结构相同，略）
-  # ==========================================
-  # ... 与之前相同，只需替换每个扫描步骤中的 Obscura 相关步骤为 Playwright 安装与缓存 ...
-  # 注意：补扫步骤也需要恢复为 Playwright 安装。
+  collect_unfinished:
+    needs: scan_shard_first
+    if: success() || failure()
+    runs-on: ubuntu-latest
+    outputs:
+      retry_matrix: ${{ steps.reshard.outputs.retry_matrix }}
+    steps:
+      - name: 下载未完成名单
+        uses: actions/download-artifact@v4
+        with:
+          pattern: unfinished-1-*
+          path: unfinished_raw
+          merge-multiple: true
+      - name: 切分补扫名单
+        id: reshard
+        run: |
+          python << 'EOF'
+          import os, json, math, glob
+          all_cids = set()
+          if os.path.exists("unfinished_raw"):
+              for f in glob.glob("unfinished_raw/*.txt"):
+                  with open(f, 'r', encoding='utf-8') as file:
+                      for line in file:
+                          line = line.strip()
+                          if line.isdigit(): all_cids.add(int(line))
+          cid_list = sorted(list(all_cids))
+          total = len(cid_list)
+          retry_matrix = []
+          if total > 0:
+              shards = min(math.ceil(total / 10000), 20)
+              actual_chunk_size = math.ceil(total / shards)
+              os.makedirs("retry_chunks", exist_ok=True)
+              for i in range(shards):
+                  start = i * actual_chunk_size
+                  end = min(start + actual_chunk_size, total)
+                  if start >= total: break 
+                  chunk = cid_list[start:end]
+                  with open(f"retry_chunks/retry_{i}.txt", "w", encoding="utf-8") as out:
+                      for cid in chunk: out.write(f"{cid}\n")
+                  retry_matrix.append(str(i))
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as env_file:
+              env_file.write(f"retry_matrix={json.dumps(retry_matrix)}\n")
+          EOF
+      - name: 上传补扫分片
+        if: steps.reshard.outputs.retry_matrix != '[]'
+        uses: actions/upload-artifact@v4
+        with:
+          name: retry-chunks
+          path: retry_chunks/
+          retention-days: 1
+
+  scan_shard_second:
+    needs: [master, collect_unfinished]
+    if: needs.collect_unfinished.outputs.retry_matrix != '[]' && needs.collect_unfinished.outputs.retry_matrix != ''
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        retry_idx: ${{ fromJson(needs.collect_unfinished.outputs.retry_matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: 下载补扫名单
+        uses: actions/download-artifact@v4
+        with:
+          name: retry-chunks
+          path: retry_chunks
+      - name: 生成配置
+        run: |
+          echo '${{ needs.master.outputs.shard_configs }}' | jq -c ".[0]" | jq '. + {should_scan: true, cid_list_file: "retry_chunks/retry_${{ matrix.retry_idx }}.txt"}' > config.json
+          
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: 恢复 Playwright 缓存
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-chromium
+      - name: 安装依赖
+        run: |
+          pip install playwright psutil
+          playwright install chromium
+      - name: 补扫执行
+        env:
+          PYTHONUNBUFFERED: 1
+          SHARD_IDX: retry_${{ matrix.retry_idx }}
+        run: python scanner_native.py
+      - name: 上传结果
+        uses: actions/upload-artifact@v4
+        with:
+          name: second-ok-shard-${{ matrix.retry_idx }}
+          path: data/*.txt
+          if-no-files-found: warn
+          retention-days: 1
+      - name: 上传遗留未完成CID
+        uses: actions/upload-artifact@v4
+        with:
+          name: unfinished-2-${{ matrix.retry_idx }}
+          path: unfinished_cids_retry_${{ matrix.retry_idx }}.txt
+          if-no-files-found: ignore
+          retention-days: 1
+
+  final_upload:
+    needs: [master, scan_shard_first, scan_shard_second]
+    if: always() && !cancelled()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 下载有效结果
+        uses: actions/download-artifact@v4
+        with:
+          pattern: '*-ok-*'
+          path: all_results
+          merge-multiple: true
+        continue-on-error: true
+      - name: 下载未完成名单(一轮)
+        uses: actions/download-artifact@v4
+        with:
+          pattern: 'unfinished-1-*'
+          path: unfinished_1
+          merge-multiple: true
+        continue-on-error: true
+      - name: 下载未完成名单(二轮)
+        uses: actions/download-artifact@v4
+        with:
+          pattern: 'unfinished-2-*'
+          path: unfinished_2
+          merge-multiple: true
+        continue-on-error: true
+      - name: 下载开始时间
+        uses: actions/download-artifact@v4
+        with:
+          name: start-time
+          path: start_time
+        continue-on-error: true
+      - name: 统计并生成报告
+        run: |
+          set -e
+          mkdir -p final_data
+          VALID_COUNT=0
+          if find all_results -name "*.txt" -print0 2>/dev/null | xargs -0 cat > all_merged.txt 2>/dev/null; then
+            if [ -s all_merged.txt ]; then
+              sort -n -k1 all_merged.txt -o all_merged_sorted.txt
+              mv all_merged_sorted.txt all_merged.txt
+              VALID_COUNT=$(awk '{print $1}' all_merged.txt | sort -u | wc -l)
+              awk 'NR%600==1 {file=sprintf("final_data/part_%03d.txt", ++c)} {print > file}' all_merged.txt
+              rm all_merged.txt
+            fi
+          fi
+          TOTAL="${{ needs.master.outputs.total_cids }}"
+          UNFINISHED_COUNT=0
+          if ls unfinished_2/*.txt 1> /dev/null 2>&1; then
+            cat unfinished_2/*.txt | sort -u > tmp_unfinished
+          elif ls unfinished_1/*.txt 1> /dev/null 2>&1; then
+            cat unfinished_1/*.txt | sort -u > tmp_unfinished
+          else
+            touch tmp_unfinished
+          fi
+          if [ -s tmp_unfinished ]; then
+            UNFINISHED_COUNT=$(wc -l < tmp_unfinished)
+          fi
+          rm -f tmp_unfinished
+          SCANNED=$((TOTAL - UNFINISHED_COUNT))
+          PERCENT=0
+          if [ $TOTAL -gt 0 ]; then
+            PERCENT=$(echo "scale=2; $SCANNED * 100 / $TOTAL" | bc)
+          fi
+          END_TIME=$(date -u +"%Y-%m-%d %H:%M:%S")
+          DURATION="未知"
+          if [ -f start_time/start_time.txt ]; then
+            start_epoch=$(date -u -d "$(cat start_time/start_time.txt)" +%s)
+            end_epoch=$(date -u +%s)
+            diff=$((end_epoch - start_epoch))
+            hours=$((diff / 3600))
+            minutes=$(((diff % 3600) / 60))
+            DURATION="${hours}小时${minutes}分钟"
+          fi
+          cat > final_data/nto.txt << EOF
+          总班级数: $TOTAL
+          有效班级: $VALID_COUNT
+          完成进度: $PERCENT%
+          未扫班级: $UNFINISHED_COUNT
+          结束时间: $END_TIME
+          工作时间: $DURATION
+          EOF
+          cat final_data/nto.txt
+      - name: 提交到仓库
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add final_data/
+          if git commit -m "最终扫描结果（原生稳定版） [skip ci]"; then
+            git push
+          else
+            echo "无变更需要提交"
+          fi
