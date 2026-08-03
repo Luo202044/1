@@ -30,7 +30,8 @@ START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
 
-MAX_CONCURRENT = min(config.get("max_concurrent_pages", 36), 40)
+# 并发数默认 20，可根据实际情况调整（建议 20~30）
+MAX_CONCURRENT = min(config.get("max_concurrent_pages", 20), 40)
 TIMEOUT_SECONDS = config.get("timeout_hours", 3.0) * 3600
 
 os.makedirs("data", exist_ok=True)
@@ -57,8 +58,47 @@ USER_AGENTS = [
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
 ]
 
-OBSCURA_CDP_URL = "http://localhost:9222"
+# Chromium 优化参数（减少资源加载，提升速度）
+CHROME_ARGS = [
+    "--disable-gpu",
+    "--disable-dev-shm-usage",
+    "--no-sandbox",
+    "--disable-background-networking",
+    "--disable-background-timer-throttling",
+    "--disable-backgrounding-occluded-windows",
+    "--disable-breakpad",
+    "--disable-component-update",
+    "--disable-default-apps",
+    "--disable-domain-reliability",
+    "--disable-extensions",
+    "--disable-hang-monitor",
+    "--disable-ipc-flooding-protection",
+    "--disable-notifications",
+    "--disable-popup-blocking",
+    "--disable-print-preview",
+    "--disable-renderer-backgrounding",
+    "--disable-setuid-sandbox",
+    "--disable-speech-api",
+    "--disable-sync",
+    "--hide-scrollbars",
+    "--ignore-gpu-blacklist",
+    "--metrics-recording-only",
+    "--mute-audio",
+    "--no-default-browser-check",
+    "--no-first-run",
+    "--no-pings",
+    "--no-zygote",
+    "--password-store=basic",
+    "--use-gl=swiftshader",
+    "--use-mock-keychain",
+    "--blink-settings=imagesEnabled=false",
+    "--host-resolver-rules=MAP *google-analytics.com 127.0.0.1, MAP *sentry* 127.0.0.1, MAP *sensors* 127.0.0.1, MAP *growingio.com 127.0.0.1, MAP *baidu.com 127.0.0.1, MAP *track* 127.0.0.1",
+    "--js-flags=--max-old-space-size=512",
+    "--disable-features=IsolateOrigins,site-per-process,AudioServiceOutOfProcess,BackForwardCache",
+    "--renderer-process-limit=4"
+]
 
+# ========== 提取 JS（与之前一致） ==========
 js_extract_promise = r"""() => {
     return new Promise((resolve) => {
         function checkDOM() {
@@ -139,14 +179,12 @@ js_extract_promise = r"""() => {
         let timeoutId = setTimeout(() => {
             observer.disconnect();
             resolve({status: "timeout"});
-        }, 8000); 
+        }, 6000); 
     });
 }"""
 
+# ========== 异步工作器 ==========
 async def async_worker(cid_chunk, concurrency, deadline, shared_counter, total_tasks, start_time):
-    """
-    新增参数 start_time，用于计算运行时长。
-    """
     in_flight_cids = set()
     results = []
     local_queue = asyncio.Queue()
@@ -155,8 +193,9 @@ async def async_worker(cid_chunk, concurrency, deadline, shared_counter, total_t
 
     last_print = time.time()
     last_count = 0
+    watchdog_time = time.time()
 
-    async def fetcher(coro_id, context, browser):
+    async def fetcher(coro_id, context):
         page = None
         async def init_page():
             nonlocal page
@@ -168,6 +207,10 @@ async def async_worker(cid_chunk, concurrency, deadline, shared_counter, total_t
         consecutive_errors = 0
         lifecycle = 0
 
+        # 性能统计
+        request_times = []
+        avg_print_counter = 0
+
         while True:
             if time.time() > deadline:
                 break
@@ -177,8 +220,9 @@ async def async_worker(cid_chunk, concurrency, deadline, shared_counter, total_t
                 break
 
             in_flight_cids.add(cid)
+            request_start = time.time()
             try:
-                pw_timeout = min(18000, (deadline - time.time()) * 1000)
+                pw_timeout = min(15000, (deadline - time.time()) * 1000)
                 await page.goto(f"https://www.eeo.cn/s/a/?cid={cid}", timeout=pw_timeout, wait_until="commit")
                 data = await page.evaluate(js_extract_promise)
                 try:
@@ -216,6 +260,15 @@ async def async_worker(cid_chunk, concurrency, deadline, shared_counter, total_t
                     shared_counter.value += 1
                 lifecycle += 1
 
+                # 记录耗时
+                elapsed = time.time() - request_start
+                request_times.append(elapsed)
+                avg_print_counter += 1
+                if avg_print_counter >= 10:
+                    avg = sum(request_times[-10:]) / 10
+                    print(f"⏱️ [性能] C{coro_id:02d} 最近10个请求平均耗时: {avg:.2f}s", flush=True)
+                    avg_print_counter = 0
+
             if lifecycle >= 100:
                 await init_page()
                 lifecycle = 0
@@ -229,40 +282,44 @@ async def async_worker(cid_chunk, concurrency, deadline, shared_counter, total_t
             except: pass
 
     async with async_playwright() as p:
-        try:
-            browser = await p.chromium.connect_over_cdp(OBSCURA_CDP_URL)
-        except Exception as e:
-            print(f"❌ 无法连接到 Obscura CDP 服务 ({OBSCURA_CDP_URL}): {e}", flush=True)
-            raise RuntimeError("Obscura 服务不可用")
+        browser = await p.chromium.launch(
+            headless=True,
+            args=CHROME_ARGS
+        )
+        context = await browser.new_context(
+            user_agent=random.choice(USER_AGENTS),
+            ignore_https_errors=True
+        )
+        # 设置更短的超时
+        context.set_default_timeout(15000)
 
-        if browser.contexts:
-            context = browser.contexts[0]
-        else:
-            context = await browser.new_context()
-        await context.set_extra_http_headers({
-            "User-Agent": random.choice(USER_AGENTS)
-        })
-
-        tasks = [asyncio.create_task(fetcher(i, context, browser)) for i in range(concurrency)]
+        tasks = [asyncio.create_task(fetcher(i, context)) for i in range(concurrency)]
         wait_task = asyncio.create_task(local_queue.join())
 
-        # 进度监控循环
+        # 进度监控
         try:
             while not local_queue.empty() or any(not t.done() for t in tasks):
                 now = time.time()
                 if now - last_print >= 2:
                     done = shared_counter.value
-                    if done > last_count:
+                    elapsed = now - start_time
+                    speed = done / elapsed if elapsed > 0 else 0
+                    rem = total_tasks - done
+                    eta = format_time(rem / speed if speed > 0 else 0)
+                    pct = (done / total_tasks) * 100 if total_tasks > 0 else 0
+                    cpu = psutil.cpu_percent(interval=None)
+                    mem = psutil.virtual_memory()
+                    print(f"\n🔥 [进度] 完成: {done}/{total_tasks} ({pct:.2f}%) | ⚡ {speed:.1f} 个/秒 | ⏳ 剩余 {eta} | CPU {cpu}% | 内存 {mem.used/(1024**3):.1f}GB/{mem.total/(1024**3):.1f}GB", flush=True)
+                    last_print = now
+
+                    if done == last_count:
+                        if now - watchdog_time > 60:
+                            print(f"⚠️ [看门狗] 完成数 {done} 已超过 60 秒未变化，可能卡住", flush=True)
+                            watchdog_time = now
+                    else:
                         last_count = done
-                        elapsed = now - start_time
-                        speed = done / elapsed if elapsed > 0 else 0
-                        rem = total_tasks - done
-                        eta = format_time(rem / speed if speed > 0 else 0)
-                        pct = (done / total_tasks) * 100 if total_tasks > 0 else 0
-                        cpu = psutil.cpu_percent(interval=None)
-                        mem = psutil.virtual_memory()
-                        print(f"\n🔥 [进度] 完成: {done}/{total_tasks} ({pct:.2f}%) | ⚡ {speed:.1f} 个/秒 | ⏳ 剩余 {eta} | CPU {cpu}% | 内存 {mem.used/(1024**3):.1f}GB/{mem.total/(1024**3):.1f}GB", flush=True)
-                        last_print = now
+                        watchdog_time = now
+
                 await asyncio.sleep(0.5)
         except asyncio.CancelledError:
             pass
@@ -290,6 +347,7 @@ async def async_worker(cid_chunk, concurrency, deadline, shared_counter, total_t
             for cid in in_flight_cids:
                 f.write(f"{cid}\n")
 
+# ========== 主函数 ==========
 def main():
     global START_CID, END_CID, CID_LIST_FILE, OUTPUT_FILE
 
@@ -312,7 +370,7 @@ def main():
     concurrency = min(MAX_CONCURRENT, total_tasks)
 
     print("=" * 60, flush=True)
-    print("🚀 [Obscura 轻量引擎] 启动！全面支持 Vue.js 渲染", flush=True)
+    print("🚀 [Playwright 无头 Chromium] 启动！", flush=True)
     if START_CID is not None and END_CID is not None:
         print(f"📋 扫描范围: {START_CID} ~ {END_CID} (共 {total_tasks} 个 CID)", flush=True)
     else:
@@ -327,10 +385,10 @@ def main():
     start_time = time.time()
 
     try:
-        # 🚀 修复：传入 start_time
         asyncio.run(async_worker(cid_list, concurrency, deadline, shared_counter, total_tasks, start_time))
-    except RuntimeError as e:
-        print(f"❌ 致命错误: {e}", flush=True)
+    except Exception as e:
+        print(f"❌ 错误: {e}", flush=True)
+        traceback.print_exc()
         sys.exit(1)
 
     # 合并临时文件
