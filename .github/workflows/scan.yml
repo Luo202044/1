@@ -75,7 +75,7 @@ jobs:
           EOF
 
   # ==========================================
-  # 【第 1 层】：全量并发大扫荡（使用 Obscura）
+  # 【第 1 层】：全量并发大扫荡
   # ==========================================
   scan_shard_first:
     needs: master
@@ -92,39 +92,46 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: 下载 Obscura（从最新 release 获取 stealth 版）
+      
+      - name: 下载并解压 Obscura（固定版本）
         run: |
-          # 从 API 获取带 'stealth' 和 '.tar.gz' 的资产 URL
-          DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/h4ckf0r0day/obscura/releases/latest | \
-            grep -o 'https://[^"]*stealth[^"]*\.tar\.gz' | head -1)
-          if [ -z "$DOWNLOAD_URL" ]; then
-            echo "❌ 无法获取 Obscura 下载链接"
-            exit 1
-          fi
-          echo "⬇️ 下载 $DOWNLOAD_URL"
-          curl -L -o obscura.tar.gz "$DOWNLOAD_URL"
+          curl -L --retry 3 -o obscura.tar.gz "https://github.com/h4ckf0r0day/obscura/releases/download/v0.1.11/obscura-x86_64-linux-stealth.tar.gz"
+          file obscura.tar.gz | grep -q "gzip compressed data" || { echo "❌ 下载的文件不是有效的 gzip 压缩包"; exit 1; }
           tar -xzf obscura.tar.gz
-          # 解压后可能是一个目录，将里面的二进制文件移动到当前目录
-          if [ -d "obscura" ]; then
-            mv obscura/obscura . 2>/dev/null || find obscura -type f -executable -name obscura -exec mv {} . \;
+          ls -la
+          # 检查当前目录是否有 obscura 可执行文件
+          if [ -f "./obscura" ]; then
+            chmod +x ./obscura
+            file ./obscura | grep -q "ELF" || { echo "❌ ./obscura 不是有效的 ELF 文件"; exit 1; }
+          else
+            # 查找其他位置的 obscura
+            ELF_FILE=$(find . -type f -name "obscura" -exec file {} \; 2>/dev/null | grep ELF | cut -d: -f1 | head -1)
+            if [ -z "$ELF_FILE" ]; then
+              echo "❌ 未找到名为 obscura 的 ELF 文件"
+              exit 1
+            fi
+            echo "找到可执行文件: $ELF_FILE"
+            mv "$ELF_FILE" ./obscura
+            chmod +x ./obscura
           fi
-          chmod +x obscura
-          file obscura | grep -q "ELF" || { echo "❌ 解压后未找到有效的可执行文件"; exit 1; }
+      
       - name: 启动 Obscura CDP 服务
         run: |
-          ./obscura serve --port 9222 --stealth &
+          ./obscura serve --port 9222 &
           sleep 3
-          # 检查服务是否启动成功
           curl -s http://localhost:9222 || { echo "❌ Obscura 服务启动失败"; exit 1; }
+      
       - name: 安装 Python 依赖（Playwright 用于连接 CDP）
         run: |
           pip install playwright psutil
+      
       - name: 第 1 层扫描执行
         env:
           PYTHONUNBUFFERED: 1
           SHARD_IDX: ${{ matrix.shard_idx }}
         run: |
           python scanner_native.py
+      
       - name: 上传有效数据
         uses: actions/upload-artifact@v4
         with:
@@ -132,6 +139,7 @@ jobs:
           path: data/*.txt
           if-no-files-found: warn
           retention-days: 1
+      
       - name: 上传未完成信标
         uses: actions/upload-artifact@v4
         with:
@@ -215,35 +223,43 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: 下载 Obscura（从最新 release 获取 stealth 版）
+      
+      - name: 下载并解压 Obscura（固定版本）
         run: |
-          DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/h4ckf0r0day/obscura/releases/latest | \
-            grep -o 'https://[^"]*stealth[^"]*\.tar\.gz' | head -1)
-          if [ -z "$DOWNLOAD_URL" ]; then
-            echo "❌ 无法获取 Obscura 下载链接"
-            exit 1
-          fi
-          curl -L -o obscura.tar.gz "$DOWNLOAD_URL"
+          curl -L --retry 3 -o obscura.tar.gz "https://github.com/h4ckf0r0day/obscura/releases/download/v0.1.11/obscura-x86_64-linux-stealth.tar.gz"
+          file obscura.tar.gz | grep -q "gzip compressed data" || { echo "❌ 下载的文件不是有效的 gzip 压缩包"; exit 1; }
           tar -xzf obscura.tar.gz
-          if [ -d "obscura" ]; then
-            mv obscura/obscura . 2>/dev/null || find obscura -type f -executable -name obscura -exec mv {} . \;
+          ls -la
+          if [ -f "./obscura" ]; then
+            chmod +x ./obscura
+            file ./obscura | grep -q "ELF" || { echo "❌ ./obscura 不是有效的 ELF 文件"; exit 1; }
+          else
+            ELF_FILE=$(find . -type f -name "obscura" -exec file {} \; 2>/dev/null | grep ELF | cut -d: -f1 | head -1)
+            if [ -z "$ELF_FILE" ]; then
+              echo "❌ 未找到名为 obscura 的 ELF 文件"
+              exit 1
+            fi
+            mv "$ELF_FILE" ./obscura
+            chmod +x ./obscura
           fi
-          chmod +x obscura
-          file obscura | grep -q "ELF" || { echo "❌ 解压后未找到有效的可执行文件"; exit 1; }
+      
       - name: 启动 Obscura CDP 服务
         run: |
-          ./obscura serve --port 9222 --stealth &
+          ./obscura serve --port 9222 &
           sleep 3
           curl -s http://localhost:9222 || { echo "❌ Obscura 服务启动失败"; exit 1; }
+      
       - name: 安装 Python 依赖
         run: |
           pip install playwright psutil
+      
       - name: 第 2 层扫描执行
         env:
           PYTHONUNBUFFERED: 1
           SHARD_IDX: retry_${{ matrix.retry_idx }}
         run: |
           python scanner_native.py
+      
       - name: 上传有效数据
         uses: actions/upload-artifact@v4
         with:
@@ -251,6 +267,7 @@ jobs:
           path: data/*.txt
           if-no-files-found: warn
           retention-days: 1
+      
       - name: 上传未完成信标
         uses: actions/upload-artifact@v4
         with:
@@ -334,35 +351,43 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: 下载 Obscura（从最新 release 获取 stealth 版）
+      
+      - name: 下载并解压 Obscura（固定版本）
         run: |
-          DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/h4ckf0r0day/obscura/releases/latest | \
-            grep -o 'https://[^"]*stealth[^"]*\.tar\.gz' | head -1)
-          if [ -z "$DOWNLOAD_URL" ]; then
-            echo "❌ 无法获取 Obscura 下载链接"
-            exit 1
-          fi
-          curl -L -o obscura.tar.gz "$DOWNLOAD_URL"
+          curl -L --retry 3 -o obscura.tar.gz "https://github.com/h4ckf0r0day/obscura/releases/download/v0.1.11/obscura-x86_64-linux-stealth.tar.gz"
+          file obscura.tar.gz | grep -q "gzip compressed data" || { echo "❌ 下载的文件不是有效的 gzip 压缩包"; exit 1; }
           tar -xzf obscura.tar.gz
-          if [ -d "obscura" ]; then
-            mv obscura/obscura . 2>/dev/null || find obscura -type f -executable -name obscura -exec mv {} . \;
+          ls -la
+          if [ -f "./obscura" ]; then
+            chmod +x ./obscura
+            file ./obscura | grep -q "ELF" || { echo "❌ ./obscura 不是有效的 ELF 文件"; exit 1; }
+          else
+            ELF_FILE=$(find . -type f -name "obscura" -exec file {} \; 2>/dev/null | grep ELF | cut -d: -f1 | head -1)
+            if [ -z "$ELF_FILE" ]; then
+              echo "❌ 未找到名为 obscura 的 ELF 文件"
+              exit 1
+            fi
+            mv "$ELF_FILE" ./obscura
+            chmod +x ./obscura
           fi
-          chmod +x obscura
-          file obscura | grep -q "ELF" || { echo "❌ 解压后未找到有效的可执行文件"; exit 1; }
+      
       - name: 启动 Obscura CDP 服务
         run: |
-          ./obscura serve --port 9222 --stealth &
+          ./obscura serve --port 9222 &
           sleep 3
           curl -s http://localhost:9222 || { echo "❌ Obscura 服务启动失败"; exit 1; }
+      
       - name: 安装 Python 依赖
         run: |
           pip install playwright psutil
+      
       - name: 第 3 层扫描执行
         env:
           PYTHONUNBUFFERED: 1
           SHARD_IDX: retry2_${{ matrix.retry2_idx }}
         run: |
           python scanner_native.py
+      
       - name: 上传有效数据
         uses: actions/upload-artifact@v4
         with:
@@ -370,6 +395,7 @@ jobs:
           path: data/*.txt
           if-no-files-found: warn
           retention-days: 1
+      
       - name: 上传未完成信标
         uses: actions/upload-artifact@v4
         with:
@@ -453,35 +479,43 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: 下载 Obscura（从最新 release 获取 stealth 版）
+      
+      - name: 下载并解压 Obscura（固定版本）
         run: |
-          DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/h4ckf0r0day/obscura/releases/latest | \
-            grep -o 'https://[^"]*stealth[^"]*\.tar\.gz' | head -1)
-          if [ -z "$DOWNLOAD_URL" ]; then
-            echo "❌ 无法获取 Obscura 下载链接"
-            exit 1
-          fi
-          curl -L -o obscura.tar.gz "$DOWNLOAD_URL"
+          curl -L --retry 3 -o obscura.tar.gz "https://github.com/h4ckf0r0day/obscura/releases/download/v0.1.11/obscura-x86_64-linux-stealth.tar.gz"
+          file obscura.tar.gz | grep -q "gzip compressed data" || { echo "❌ 下载的文件不是有效的 gzip 压缩包"; exit 1; }
           tar -xzf obscura.tar.gz
-          if [ -d "obscura" ]; then
-            mv obscura/obscura . 2>/dev/null || find obscura -type f -executable -name obscura -exec mv {} . \;
+          ls -la
+          if [ -f "./obscura" ]; then
+            chmod +x ./obscura
+            file ./obscura | grep -q "ELF" || { echo "❌ ./obscura 不是有效的 ELF 文件"; exit 1; }
+          else
+            ELF_FILE=$(find . -type f -name "obscura" -exec file {} \; 2>/dev/null | grep ELF | cut -d: -f1 | head -1)
+            if [ -z "$ELF_FILE" ]; then
+              echo "❌ 未找到名为 obscura 的 ELF 文件"
+              exit 1
+            fi
+            mv "$ELF_FILE" ./obscura
+            chmod +x ./obscura
           fi
-          chmod +x obscura
-          file obscura | grep -q "ELF" || { echo "❌ 解压后未找到有效的可执行文件"; exit 1; }
+      
       - name: 启动 Obscura CDP 服务
         run: |
-          ./obscura serve --port 9222 --stealth &
+          ./obscura serve --port 9222 &
           sleep 3
           curl -s http://localhost:9222 || { echo "❌ Obscura 服务启动失败"; exit 1; }
+      
       - name: 安装 Python 依赖
         run: |
           pip install playwright psutil
+      
       - name: 第 4 层扫描执行
         env:
           PYTHONUNBUFFERED: 1
           SHARD_IDX: retry3_${{ matrix.retry3_idx }}
         run: |
           python scanner_native.py
+      
       - name: 上传有效数据
         uses: actions/upload-artifact@v4
         with:
@@ -489,6 +523,7 @@ jobs:
           path: data/*.txt
           if-no-files-found: warn
           retention-days: 1
+      
       - name: 上传未完成信标
         uses: actions/upload-artifact@v4
         with:
