@@ -3,7 +3,6 @@ name: ClassIn Scanner (Obscura 轻量引擎 + 4层防漏)
 on:
   workflow_dispatch:
     inputs:
-      # 🚀 自动计算分片，不再需要手动输入，但保留输入以便调试
       shards:
         description: '分片数量（自动计算，留空则自动）'
         required: false
@@ -37,7 +36,6 @@ jobs:
           END=$(jq -r '.end_cid' config.json)
           TOTAL=$((END - START + 1))
           
-          # 自动计算分片数：每个分片最多 50000 个 CID，最少 1 个分片，最多 18 个
           if [ $TOTAL -lt 10000 ]; then
             SHARDS=1
           else
@@ -45,7 +43,6 @@ jobs:
           fi
           if [ $SHARDS -gt 18 ]; then SHARDS=18; fi
           
-          # 如果用户输入了 shards 则覆盖
           if [ -n "${{ github.event.inputs.shards }}" ]; then
             SHARDS=${{ github.event.inputs.shards }}
           fi
@@ -95,18 +92,32 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: 下载 Obscura
+      - name: 下载 Obscura（动态获取最新版）
         run: |
-          curl -L https://github.com/obscura/obscura/releases/latest/download/obscura-linux-x86_64 -o obscura
+          # 通过 GitHub API 获取最新 release 的下载地址
+          DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/obscura/obscura/releases/latest | grep -o 'https://.*/obscura-linux-amd64' | head -1)
+          if [ -z "$DOWNLOAD_URL" ]; then
+            # 尝试备用名称
+            DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/obscura/obscura/releases/latest | grep -o 'https://.*/obscura-linux-x86_64' | head -1)
+          fi
+          if [ -z "$DOWNLOAD_URL" ]; then
+            echo "❌ 无法获取 Obscura 下载链接"
+            exit 1
+          fi
+          echo "⬇️ 下载 $DOWNLOAD_URL"
+          curl -L -o obscura "$DOWNLOAD_URL"
           chmod +x obscura
+          # 验证是否为可执行文件
+          file obscura | grep -q "ELF" || { echo "❌ 下载文件无效"; exit 1; }
       - name: 启动 Obscura CDP 服务
         run: |
           ./obscura serve --port 9222 --stealth &
-          sleep 3  # 等待服务就绪
+          sleep 3
+          # 检查服务是否启动成功
+          curl -s http://localhost:9222 || { echo "❌ Obscura 服务启动失败"; exit 1; }
       - name: 安装 Python 依赖（Playwright 用于连接 CDP）
         run: |
           pip install playwright psutil
-          # 不需要安装 Chromium 浏览器
       - name: 第 1 层扫描执行
         env:
           PYTHONUNBUFFERED: 1
@@ -203,14 +214,24 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: 下载 Obscura
+      - name: 下载 Obscura（动态获取）
         run: |
-          curl -L https://github.com/obscura/obscura/releases/latest/download/obscura-linux-x86_64 -o obscura
+          DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/obscura/obscura/releases/latest | grep -o 'https://.*/obscura-linux-amd64' | head -1)
+          if [ -z "$DOWNLOAD_URL" ]; then
+            DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/obscura/obscura/releases/latest | grep -o 'https://.*/obscura-linux-x86_64' | head -1)
+          fi
+          if [ -z "$DOWNLOAD_URL" ]; then
+            echo "❌ 无法获取 Obscura 下载链接"
+            exit 1
+          fi
+          curl -L -o obscura "$DOWNLOAD_URL"
           chmod +x obscura
+          file obscura | grep -q "ELF" || { echo "❌ 下载文件无效"; exit 1; }
       - name: 启动 Obscura CDP 服务
         run: |
           ./obscura serve --port 9222 --stealth &
           sleep 3
+          curl -s http://localhost:9222 || { echo "❌ Obscura 服务启动失败"; exit 1; }
       - name: 安装 Python 依赖
         run: |
           pip install playwright psutil
@@ -236,7 +257,7 @@ jobs:
           retention-days: 1
 
   # ==========================================
-  # 【第 3 层】：继续补扫（与第2层结构相同）
+  # 【第 3 层】：继续补扫
   # ==========================================
   collect_unfinished_2:
     needs: scan_shard_second
@@ -310,14 +331,24 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: 下载 Obscura
+      - name: 下载 Obscura（动态获取）
         run: |
-          curl -L https://github.com/obscura/obscura/releases/latest/download/obscura-linux-x86_64 -o obscura
+          DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/obscura/obscura/releases/latest | grep -o 'https://.*/obscura-linux-amd64' | head -1)
+          if [ -z "$DOWNLOAD_URL" ]; then
+            DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/obscura/obscura/releases/latest | grep -o 'https://.*/obscura-linux-x86_64' | head -1)
+          fi
+          if [ -z "$DOWNLOAD_URL" ]; then
+            echo "❌ 无法获取 Obscura 下载链接"
+            exit 1
+          fi
+          curl -L -o obscura "$DOWNLOAD_URL"
           chmod +x obscura
+          file obscura | grep -q "ELF" || { echo "❌ 下载文件无效"; exit 1; }
       - name: 启动 Obscura CDP 服务
         run: |
           ./obscura serve --port 9222 --stealth &
           sleep 3
+          curl -s http://localhost:9222 || { echo "❌ Obscura 服务启动失败"; exit 1; }
       - name: 安装 Python 依赖
         run: |
           pip install playwright psutil
@@ -417,14 +448,24 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: 下载 Obscura
+      - name: 下载 Obscura（动态获取）
         run: |
-          curl -L https://github.com/obscura/obscura/releases/latest/download/obscura-linux-x86_64 -o obscura
+          DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/obscura/obscura/releases/latest | grep -o 'https://.*/obscura-linux-amd64' | head -1)
+          if [ -z "$DOWNLOAD_URL" ]; then
+            DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/obscura/obscura/releases/latest | grep -o 'https://.*/obscura-linux-x86_64' | head -1)
+          fi
+          if [ -z "$DOWNLOAD_URL" ]; then
+            echo "❌ 无法获取 Obscura 下载链接"
+            exit 1
+          fi
+          curl -L -o obscura "$DOWNLOAD_URL"
           chmod +x obscura
+          file obscura | grep -q "ELF" || { echo "❌ 下载文件无效"; exit 1; }
       - name: 启动 Obscura CDP 服务
         run: |
           ./obscura serve --port 9222 --stealth &
           sleep 3
+          curl -s http://localhost:9222 || { echo "❌ Obscura 服务启动失败"; exit 1; }
       - name: 安装 Python 依赖
         run: |
           pip install playwright psutil
