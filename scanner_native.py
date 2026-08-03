@@ -239,7 +239,6 @@ async def async_worker(cid_chunk, concurrency, deadline, shared_counter):
         except Exception as e:
             print(f"❌ 无法连接到 Obscura CDP 服务 ({OBSCURA_CDP_URL}): {e}", flush=True)
             print("请确保 Obscura 服务已启动并监听 9222 端口", flush=True)
-            # 🚨 关键修复：连接失败时抛出异常，让上层捕获并退出
             raise RuntimeError("Obscura 服务不可用")
 
         if browser.contexts:
@@ -307,14 +306,12 @@ def main():
     deadline = time.time() + TIMEOUT_SECONDS - 60
     start_time = time.time()
     
-    # 运行异步工作器，捕获异常并退出
     try:
         asyncio.run(async_worker(cid_list, concurrency, deadline, shared_counter))
     except RuntimeError as e:
         print(f"❌ 致命错误: {e}", flush=True)
         sys.exit(1)
 
-    # 合并临时文件
     tmp_file = "data/proc_temp.txt"
     seen = set()
     valid_lines = []
@@ -330,7 +327,6 @@ def main():
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         f.writelines(valid_lines)
 
-    # 处理未完成的 CID
     unfinished_cids = set()
     ufile = "unfinished_proc.txt"
     if os.path.exists(ufile):
