@@ -8,7 +8,6 @@ import sys
 import random
 import asyncio
 import traceback
-import multiprocessing as mp
 import psutil
 from playwright.async_api import async_playwright
 
@@ -28,9 +27,12 @@ START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
 
-# 🚀 黄金并发点：4 核机器的最优解是 40！过高会导致 CPU 踩踏效应变慢！
-MAX_CONCURRENT = config.get("max_concurrent_pages", 40) 
-TIMEOUT_SECONDS = config.get("timeout_hours", 5.0) * 3600
+# ========== 硬件适配参数 ==========
+# 🔥 硬核限制：4 核机器最优总并发为 36～40，超出会 CPU 抖动
+MAX_CONCURRENT = min(config.get("max_concurrent_pages", 36), 40)
+
+# 超时时间（单位：秒），可从配置读取，默认 3 小时
+TIMEOUT_SECONDS = config.get("timeout_hours", 3.0) * 3600
 
 os.makedirs("data", exist_ok=True)
 
@@ -57,48 +59,10 @@ USER_AGENTS = [
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
 ]
 
-# 🚀 Chromium 官方内核极速阉割参数
-CHROME_OPTIMIZED_ARGS = [
-    "--disable-gpu",
-    "--disable-dev-shm-usage",
-    "--no-sandbox",
-    "--disable-background-networking",
-    "--disable-background-timer-throttling",
-    "--disable-backgrounding-occluded-windows",
-    "--disable-breakpad",
-    "--disable-component-update",
-    "--disable-default-apps",
-    "--disable-domain-reliability",
-    "--disable-extensions",
-    "--disable-hang-monitor",
-    "--disable-ipc-flooding-protection",
-    "--disable-notifications",
-    "--disable-popup-blocking",
-    "--disable-print-preview",
-    "--disable-prompt-on-repost",
-    "--disable-renderer-backgrounding",
-    "--disable-setuid-sandbox",
-    "--disable-speech-api",
-    "--disable-sync",
-    "--hide-scrollbars",
-    "--ignore-gpu-blacklist",
-    "--metrics-recording-only",
-    "--mute-audio",
-    "--no-default-browser-check",
-    "--no-first-run",
-    "--no-pings",
-    "--no-zygote",
-    "--password-store=basic",
-    "--use-gl=swiftshader",
-    "--use-mock-keychain",
-    "--blink-settings=imagesEnabled=false",
-    "--host-resolver-rules=MAP *google-analytics.com 127.0.0.1, MAP *sentry* 127.0.0.1, MAP *sensors* 127.0.0.1, MAP *growingio.com 127.0.0.1, MAP *baidu.com 127.0.0.1, MAP *track* 127.0.0.1",
-    "--js-flags=--max-old-space-size=128", 
-    "--disable-features=IsolateOrigins,site-per-process,AudioServiceOutOfProcess,BackForwardCache",
-    "--renderer-process-limit=4"
-]
+# ========== 使用 Obscura 时的 CDP 连接地址 ==========
+OBSCURA_CDP_URL = "http://localhost:9222"
 
-# 🚀 微任务防抖：针对完整 Vue.js 渲染设计的秒退算法
+# ========== 微任务防抖：针对完整 Vue.js 渲染设计的秒退算法 ==========
 js_extract_promise = r"""() => {
     return new Promise((resolve) => {
         function checkDOM() {
@@ -176,14 +140,19 @@ js_extract_promise = r"""() => {
         
         observer.observe(document, { childList: true, subtree: true, characterData: true });
 
+        // 🔥 超时从 3200ms 提升到 8000ms，防止 CPU 拥堵时过早丢弃
         let timeoutId = setTimeout(() => {
             observer.disconnect();
             resolve({status: "timeout"});
-        }, 3200); 
+        }, 8000); 
     });
 }"""
 
-async def async_process_worker(process_id, cid_chunk, concurrency, deadline, shared_counter):
+# ========== 异步工作器（单进程高并发） ==========
+async def async_worker(cid_chunk, concurrency, deadline, shared_counter):
+    """
+    单进程异步工作器，连接到 Obscura CDP 服务。
+    """
     in_flight_cids = set()
     results = []
     local_queue = asyncio.Queue()
@@ -191,7 +160,7 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
     for cid in cid_chunk:
         local_queue.put_nowait(cid)
         
-    async def fetcher(coro_id, context):
+    async def fetcher(coro_id, context, browser):
         page = None
         
         async def init_page():
@@ -200,6 +169,7 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                 try: await page.close()
                 except: pass
             page = await context.new_page()
+            # 可选：设置 User-Agent（可通过 context 统一设置，也可在页面设置）
         
         await init_page()
         consecutive_errors = 0
@@ -217,20 +187,23 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
             in_flight_cids.add(cid)
             
             try:
-                pw_timeout = min(4000, (deadline - time.time()) * 1000)
+                # 超时时间延长至 18 秒，防止 CPU 抖动下过早超时
+                pw_timeout = min(18000, (deadline - time.time()) * 1000)
                 await page.goto(f"https://www.eeo.cn/s/a/?cid={cid}", timeout=pw_timeout, wait_until="commit")
                 
                 data = await page.evaluate(js_extract_promise)
                 
+                # 尝试提前停止加载（非必需，若 Obscura 不支持则忽略）
                 try:
                     await page.evaluate("window.stop()")
-                except: pass
+                except:
+                    pass
 
                 status = data.get('status', 'timeout')
                 
                 if status == 'waf':
                     if random.random() < 0.1: 
-                        print(f"⚠️ [风控侦测] P{process_id}-C{coro_id} 遭遇拦截，正在休眠避让...", flush=True)
+                        print(f"⚠️ [风控侦测] C{coro_id:02d} 遭遇拦截，正在休眠避让...", flush=True)
                     raise Exception("WAF_BLOCKED")
                     
                 elif status == 'success':
@@ -241,7 +214,7 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                     if not (class_name in invalid_marks and school in invalid_marks):
                         line = f"{cid}\thttps://www.eeo.cn/s/a/?cid={cid}\t{school}\t{teacher}\t{class_name}\n"
                         results.append(line)
-                        print(f"✅ [满血解析] P{process_id}-C{coro_id:02d} | {cid} | 🏫 {school} | 🧑‍🏫 {teacher} | 🎓 {class_name}", flush=True)
+                        print(f"✅ [满血解析] C{coro_id:02d} | {cid} | 🏫 {school} | 🧑‍🏫 {teacher} | 🎓 {class_name}", flush=True)
 
                 consecutive_errors = 0
 
@@ -262,12 +235,14 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                     
                 lifecycle += 1
 
+            # 每 100 个请求刷新一次页面（防止内存泄漏）
             if lifecycle >= 100:
                 await init_page()
                 lifecycle = 0
 
+            # 批量写入结果
             if len(results) >= 100:
-                with open(f"data/proc_{process_id}_temp.txt", "a", encoding="utf-8") as f:
+                with open(f"data/proc_temp.txt", "a", encoding="utf-8") as f:
                     f.writelines(results)
                 results.clear()
 
@@ -275,41 +250,60 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
             try: await page.close()
             except: pass
 
+    # 连接到 Obscura CDP
     async with async_playwright() as p:
-        # 🚀 纯净原生环境，直接裸跑原生 Chromium
-        browser = await p.chromium.launch(headless=True, args=CHROME_OPTIMIZED_ARGS)
-        context = await browser.new_context(user_agent=random.choice(USER_AGENTS), ignore_https_errors=True)
+        try:
+            browser = await p.chromium.connect_over_cdp(OBSCURA_CDP_URL)
+        except Exception as e:
+            print(f"❌ 无法连接到 Obscura CDP 服务 ({OBSCURA_CDP_URL}): {e}", flush=True)
+            print("请确保 Obscura 服务已启动并监听 9222 端口", flush=True)
+            return
+
+        # 获取已有上下文，或创建新上下文
+        if browser.contexts:
+            context = browser.contexts[0]
+        else:
+            context = await browser.new_context()
+
+        # 统一设置 User-Agent
+        await context.set_extra_http_headers({
+            "User-Agent": random.choice(USER_AGENTS)
+        })
+
+        tasks = [asyncio.create_task(fetcher(i, context, browser)) for i in range(concurrency)]
         
-        tasks = [asyncio.create_task(fetcher(i, context)) for i in range(concurrency)]
-        
+        # 等待队列清空或超时
         wait_task = asyncio.create_task(local_queue.join())
         try:
             timeout_wait = deadline - time.time()
-            if timeout_wait > 0: await asyncio.wait_for(wait_task, timeout=timeout_wait)
+            if timeout_wait > 0:
+                await asyncio.wait_for(wait_task, timeout=timeout_wait)
         except asyncio.TimeoutError:
-            pass
-            
-        for t in tasks: t.cancel()
+            print("⏱️ 总超时到达，停止接收新任务", flush=True)
+
+        # 取消所有 fetcher 任务
+        for t in tasks:
+            t.cancel()
+        
+        # 关闭连接（不影响 Obscura 服务本身）
         await context.close()
         await browser.close()
 
+    # 写入剩余结果
     if results:
-        with open(f"data/proc_{process_id}_temp.txt", "a", encoding="utf-8") as f:
+        with open(f"data/proc_temp.txt", "a", encoding="utf-8") as f:
             f.writelines(results)
-            
+
+    # 收集未完成的 CID（留在队列中的）
     while not local_queue.empty():
         in_flight_cids.add(local_queue.get_nowait())
         
     if in_flight_cids:
-        with open(f"unfinished_proc_{process_id}.txt", "w", encoding="utf-8") as f:
-            for cid in in_flight_cids: f.write(f"{cid}\n")
+        with open(f"unfinished_proc.txt", "w", encoding="utf-8") as f:
+            for cid in in_flight_cids:
+                f.write(f"{cid}\n")
 
-def process_runner(process_id, cid_chunk, concurrency, deadline, shared_counter):
-    try:
-        asyncio.run(async_process_worker(process_id, cid_chunk, concurrency, deadline, shared_counter))
-    except Exception as e:
-        print(f"\n❌ [进程 {process_id}] 发生内部崩溃: {e}\n{traceback.format_exc()}\n", flush=True)
-
+# ========== 主函数 ==========
 def main():
     global START_CID, END_CID, CID_LIST_FILE, OUTPUT_FILE
 
@@ -317,112 +311,61 @@ def main():
         with open(CID_LIST_FILE, "r", encoding="utf-8") as f:
             cid_list = [int(line.strip()) for line in f if line.strip()]
     else:
-        if START_CID > END_CID: START_CID, END_CID = END_CID, START_CID
+        if START_CID > END_CID:
+            START_CID, END_CID = END_CID, START_CID
         cid_list = list(range(START_CID, END_CID + 1))
 
     if not cid_list:
         print("错误: 任务列表为空", flush=True)
         sys.exit(1)
 
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f: f.write("")
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+        f.write("")
 
     total_tasks = len(cid_list)
-    process_count = min(4, total_tasks) 
-    coros_per_process = max(1, MAX_CONCURRENT // process_count)
-
-    chunk_size = (total_tasks + process_count - 1) // process_count
-    chunks = [cid_list[i:i + chunk_size] for i in range(0, total_tasks, chunk_size)]
-
-    print(f"🚀 [原生 Playwright 黄金调优版] 启动！全面支持现代前端！", flush=True)
-    print(f"⚙️ 分配: {process_count}核 ✕ 每核 {coros_per_process} 并发 = {process_count * coros_per_process} 最优并发", flush=True)
+    # 🔥 单进程异步，总并发 = MAX_CONCURRENT
+    concurrency = min(MAX_CONCURRENT, total_tasks)
+    
+    print(f"🚀 [Obscura 轻量引擎] 启动！全面支持 Vue.js 渲染", flush=True)
+    print(f"⚙️  配置: 总并发 {concurrency} | 超时 {TIMEOUT_SECONDS/3600:.1f}h", flush=True)
 
     shared_counter = mp.Value('i', 0)
-    deadline = time.time() + TIMEOUT_SECONDS - 60
+    deadline = time.time() + TIMEOUT_SECONDS - 60  # 预留 60 秒清理时间
     start_time = time.time()
     
-    psutil.cpu_percent(interval=None)
+    # 运行异步工作器（直接运行，无多进程）
+    asyncio.run(async_worker(cid_list, concurrency, deadline, shared_counter))
 
-    processes = []
-    for i in range(len(chunks)):
-        p = mp.Process(target=process_runner, args=(i, chunks[i], coros_per_process, deadline, shared_counter))
-        processes.append(p)
-        p.start()
-
-    last_print = start_time
-    last_c = 0
-    last_c_time = start_time
-
-    try:
-        while any(p.is_alive() for p in processes):
-            now = time.time()
-            c = shared_counter.value
-            
-            if c > last_c:
-                last_c = c
-                last_c_time = now
-            elif now - last_c_time > 180: 
-                print(f"\n🚨 [看门狗] 停滞 3 分钟，启动安全收尾...", flush=True)
-                break 
-            
-            if now - last_print >= 5: 
-                elapsed = now - start_time
-                speed = c / elapsed if elapsed > 0 else 0
-                rem = total_tasks - c
-                eta = format_time(rem / speed if speed > 0 else 0)
-                pct = (c / total_tasks) * 100 if total_tasks > 0 else 0
-                
-                cpu_usage = psutil.cpu_percent(interval=None)
-                mem_info = psutil.virtual_memory()
-                mem_used_gb = mem_info.used / (1024 ** 3)
-                mem_total_gb = mem_info.total / (1024 ** 3)
-                
-                print(f"\n🔥 [满血监控] 完成: {c}/{total_tasks} ({pct:.2f}%) | ⚡ 极致时速: {speed:.1f} 个/秒 | ⏳ 剩余: {eta}")
-                print(f"🖥️  [物理状态] CPU: {cpu_usage}% | 💾 内存: {mem_used_gb:.1f}GB / {mem_total_gb:.1f}GB\n", flush=True)
-                
-                last_print = now
-                
-            if now > deadline + 60:
-                print("硬超时触发...", flush=True)
-                break
-            time.sleep(1)
-            
-    except KeyboardInterrupt:
-        print("\n⚠️ 收到强制中断信号！")
-    
-    for p in processes:
-        p.terminate()
-        p.join()
-
-    print("💾 数据持久化中...")
-    
+    # 合并临时文件
+    tmp_file = "data/proc_temp.txt"
     seen = set()
     valid_lines = []
-    for i in range(process_count):
-        tmp_file = f"data/proc_{i}_temp.txt"
-        if os.path.exists(tmp_file):
-            with open(tmp_file, "r", encoding="utf-8") as f:
-                for line in f:
-                    parts = line.strip().split()
-                    if parts and parts[0] not in seen:
-                        seen.add(parts[0])
-                        valid_lines.append(line)
-            os.remove(tmp_file)
+    if os.path.exists(tmp_file):
+        with open(tmp_file, "r", encoding="utf-8") as f:
+            for line in f:
+                parts = line.strip().split()
+                if parts and parts[0] not in seen:
+                    seen.add(parts[0])
+                    valid_lines.append(line)
+        os.remove(tmp_file)
             
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         f.writelines(valid_lines)
 
+    # 处理未完成的 CID
     unfinished_cids = set()
-    for i in range(process_count):
-        ufile = f"unfinished_proc_{i}.txt"
-        if os.path.exists(ufile):
-            with open(ufile, "r", encoding="utf-8") as f:
-                for line in f:
-                    if line.strip().isdigit(): unfinished_cids.add(int(line.strip()))
-            os.remove(ufile)
+    ufile = "unfinished_proc.txt"
+    if os.path.exists(ufile):
+        with open(ufile, "r", encoding="utf-8") as f:
+            for line in f:
+                if line.strip().isdigit():
+                    unfinished_cids.add(int(line.strip()))
+        os.remove(ufile)
 
     if unfinished_cids:
         with open(f"unfinished_cids_{SHARD_IDX}.txt", "w", encoding="utf-8") as f:
-            for cid in sorted(unfinished_cids): f.write(f"{cid}\n")
+            for cid in sorted(unfinished_cids):
+                f.write(f"{cid}\n")
         open(UNFINISHED_FLAG, "w").close() 
     else:
         print("✅ 所有 CID 已完美处理完毕！")
@@ -430,5 +373,10 @@ def main():
     os._exit(0)
 
 if __name__ == "__main__":
-    mp.set_start_method('spawn')
+    # 由于不再使用多进程，不需要 set_start_method，但为了兼容保留
+    import multiprocessing as mp
+    try:
+        mp.set_start_method('spawn')
+    except:
+        pass
     main()
