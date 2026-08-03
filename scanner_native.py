@@ -12,9 +12,6 @@ import multiprocessing as mp
 import psutil
 from playwright.async_api import async_playwright
 
-# ========== 强制行缓冲 ==========
-sys.stdout.reconfigure(line_buffering=True)
-
 # ========== 配置加载 ==========
 if not os.path.exists("config.json"):
     print("错误: config.json 不存在", flush=True)
@@ -31,9 +28,9 @@ START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
 
-# 🔥 单进程并发数建议 25~30，可根据实际情况调整（通过 config.json 的 max_concurrent_pages）
-MAX_CONCURRENT = min(config.get("max_concurrent_pages", 25), 40)
-TIMEOUT_SECONDS = config.get("timeout_hours", 3.0) * 3600
+# 🚀 黄金并发点：4 核机器的最优解是 40！过高会导致 CPU 踩踏效应变慢！
+MAX_CONCURRENT = config.get("max_concurrent_pages", 40) 
+TIMEOUT_SECONDS = config.get("timeout_hours", 5.0) * 3600
 
 os.makedirs("data", exist_ok=True)
 
@@ -54,12 +51,13 @@ def format_time(seconds):
     h, m = divmod(m, 60)
     return f"{h}h {m}m"
 
+# 🚨 修复: 补回了遗漏的 USER_AGENTS 列表
 USER_AGENTS = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
 ]
 
-# Chromium 优化参数（增加内存限制）
+# 🚀 Chromium 官方内核极速阉割参数
 CHROME_OPTIMIZED_ARGS = [
     "--disable-gpu",
     "--disable-dev-shm-usage",
@@ -95,12 +93,12 @@ CHROME_OPTIMIZED_ARGS = [
     "--use-mock-keychain",
     "--blink-settings=imagesEnabled=false",
     "--host-resolver-rules=MAP *google-analytics.com 127.0.0.1, MAP *sentry* 127.0.0.1, MAP *sensors* 127.0.0.1, MAP *growingio.com 127.0.0.1, MAP *baidu.com 127.0.0.1, MAP *track* 127.0.0.1",
-    "--js-flags=--max-old-space-size=512",   # 从 128 提升到 512
+    "--js-flags=--max-old-space-size=128", 
     "--disable-features=IsolateOrigins,site-per-process,AudioServiceOutOfProcess,BackForwardCache",
     "--renderer-process-limit=4"
 ]
 
-# 提取 JS（与之前相同）
+# 🚀 微任务防抖：针对完整 Vue.js 渲染设计的秒退算法
 js_extract_promise = r"""() => {
     return new Promise((resolve) => {
         function checkDOM() {
@@ -181,30 +179,28 @@ js_extract_promise = r"""() => {
         let timeoutId = setTimeout(() => {
             observer.disconnect();
             resolve({status: "timeout"});
-        }, 6000);   // 从 3200 提升到 6000
+        }, 3200); 
     });
 }"""
 
-# ========== 单进程异步工作器 ==========
-async def async_worker(cid_chunk, concurrency, deadline, shared_counter, total_tasks, start_time):
+async def async_process_worker(process_id, cid_chunk, concurrency, deadline, shared_counter):
     in_flight_cids = set()
     results = []
     local_queue = asyncio.Queue()
+    
     for cid in cid_chunk:
         local_queue.put_nowait(cid)
-
-    last_print = time.time()
-    last_count = 0
-    watchdog_time = time.time()
-
+        
     async def fetcher(coro_id, context):
         page = None
+        
         async def init_page():
             nonlocal page
             if page:
                 try: await page.close()
                 except: pass
             page = await context.new_page()
+        
         await init_page()
         consecutive_errors = 0
         lifecycle = 0
@@ -212,26 +208,31 @@ async def async_worker(cid_chunk, concurrency, deadline, shared_counter, total_t
         while True:
             if time.time() > deadline:
                 break
+                
             try:
                 cid = local_queue.get_nowait()
             except asyncio.QueueEmpty:
                 break
 
             in_flight_cids.add(cid)
+            
             try:
-                pw_timeout = min(15000, (deadline - time.time()) * 1000)
+                pw_timeout = min(4000, (deadline - time.time()) * 1000)
                 await page.goto(f"https://www.eeo.cn/s/a/?cid={cid}", timeout=pw_timeout, wait_until="commit")
+                
                 data = await page.evaluate(js_extract_promise)
+                
                 try:
                     await page.evaluate("window.stop()")
-                except:
-                    pass
+                except: pass
 
                 status = data.get('status', 'timeout')
+                
                 if status == 'waf':
-                    if random.random() < 0.1:
-                        print(f"⚠️ [风控侦测] C{coro_id:02d} 遭遇拦截", flush=True)
+                    if random.random() < 0.1: 
+                        print(f"⚠️ [风控侦测] P{process_id}-C{coro_id} 遭遇拦截，正在休眠避让...", flush=True)
                     raise Exception("WAF_BLOCKED")
+                    
                 elif status == 'success':
                     class_name = data.get('class_name', '无')
                     school = data.get('school', '无')
@@ -240,28 +241,33 @@ async def async_worker(cid_chunk, concurrency, deadline, shared_counter, total_t
                     if not (class_name in invalid_marks and school in invalid_marks):
                         line = f"{cid}\thttps://www.eeo.cn/s/a/?cid={cid}\t{school}\t{teacher}\t{class_name}\n"
                         results.append(line)
-                        print(f"✅ [满血解析] C{coro_id:02d} | {cid} | 🏫 {school} | 🧑‍🏫 {teacher}", flush=True)
+                        print(f"✅ [满血解析] P{process_id}-C{coro_id:02d} | {cid} | 🏫 {school} | 🧑‍🏫 {teacher} | 🎓 {class_name}", flush=True)
+
                 consecutive_errors = 0
+
             except Exception as e:
                 consecutive_errors += 1
                 if consecutive_errors >= 2 or "WAF" in str(e):
-                    if consecutive_errors >= 3:
-                        await asyncio.sleep(1.5)
+                    if consecutive_errors >= 3: await asyncio.sleep(1.5)
                     await init_page()
                     consecutive_errors = 0
+            
             finally:
                 if cid in in_flight_cids:
                     in_flight_cids.remove(cid)
                 local_queue.task_done()
+                
                 with shared_counter.get_lock():
                     shared_counter.value += 1
+                    
                 lifecycle += 1
 
             if lifecycle >= 100:
                 await init_page()
                 lifecycle = 0
+
             if len(results) >= 100:
-                with open(f"data/proc_temp.txt", "a", encoding="utf-8") as f:
+                with open(f"data/proc_{process_id}_temp.txt", "a", encoding="utf-8") as f:
                     f.writelines(results)
                 results.clear()
 
@@ -270,66 +276,39 @@ async def async_worker(cid_chunk, concurrency, deadline, shared_counter, total_t
             except: pass
 
     async with async_playwright() as p:
+        # 🚀 纯净原生环境，直接裸跑原生 Chromium
         browser = await p.chromium.launch(headless=True, args=CHROME_OPTIMIZED_ARGS)
-        context = await browser.new_context(
-            user_agent=random.choice(USER_AGENTS),
-            ignore_https_errors=True
-        )
-        context.set_default_timeout(15000)
-
+        context = await browser.new_context(user_agent=random.choice(USER_AGENTS), ignore_https_errors=True)
+        
         tasks = [asyncio.create_task(fetcher(i, context)) for i in range(concurrency)]
+        
         wait_task = asyncio.create_task(local_queue.join())
-
-        # 进度监控（每2秒打印）
-        try:
-            while not local_queue.empty() or any(not t.done() for t in tasks):
-                now = time.time()
-                if now - last_print >= 2:
-                    done = shared_counter.value
-                    elapsed = now - start_time
-                    speed = done / elapsed if elapsed > 0 else 0
-                    rem = total_tasks - done
-                    eta = format_time(rem / speed if speed > 0 else 0)
-                    pct = (done / total_tasks) * 100 if total_tasks > 0 else 0
-                    cpu = psutil.cpu_percent(interval=None)
-                    mem = psutil.virtual_memory()
-                    print(f"\n🔥 [进度] 完成: {done}/{total_tasks} ({pct:.2f}%) | ⚡ {speed:.1f} 个/秒 | ⏳ 剩余 {eta} | CPU {cpu}% | 内存 {mem.used/(1024**3):.1f}GB/{mem.total/(1024**3):.1f}GB", flush=True)
-                    last_print = now
-
-                    if done == last_count:
-                        if now - watchdog_time > 60:
-                            print(f"⚠️ [看门狗] 完成数 {done} 已超过 60 秒未变化", flush=True)
-                            watchdog_time = now
-                    else:
-                        last_count = done
-                        watchdog_time = now
-
-                await asyncio.sleep(0.5)
-        except asyncio.CancelledError:
-            pass
-
         try:
             timeout_wait = deadline - time.time()
-            if timeout_wait > 0:
-                await asyncio.wait_for(wait_task, timeout=timeout_wait)
+            if timeout_wait > 0: await asyncio.wait_for(wait_task, timeout=timeout_wait)
         except asyncio.TimeoutError:
-            print("⏱️ 总超时到达，停止接收新任务", flush=True)
-
-        for t in tasks:
-            t.cancel()
+            pass
+            
+        for t in tasks: t.cancel()
         await context.close()
         await browser.close()
 
     if results:
-        with open(f"data/proc_temp.txt", "a", encoding="utf-8") as f:
+        with open(f"data/proc_{process_id}_temp.txt", "a", encoding="utf-8") as f:
             f.writelines(results)
-
+            
     while not local_queue.empty():
         in_flight_cids.add(local_queue.get_nowait())
+        
     if in_flight_cids:
-        with open(f"unfinished_proc.txt", "w", encoding="utf-8") as f:
-            for cid in in_flight_cids:
-                f.write(f"{cid}\n")
+        with open(f"unfinished_proc_{process_id}.txt", "w", encoding="utf-8") as f:
+            for cid in in_flight_cids: f.write(f"{cid}\n")
+
+def process_runner(process_id, cid_chunk, concurrency, deadline, shared_counter):
+    try:
+        asyncio.run(async_process_worker(process_id, cid_chunk, concurrency, deadline, shared_counter))
+    except Exception as e:
+        print(f"\n❌ [进程 {process_id}] 发生内部崩溃: {e}\n{traceback.format_exc()}\n", flush=True)
 
 def main():
     global START_CID, END_CID, CID_LIST_FILE, OUTPUT_FILE
@@ -338,80 +317,118 @@ def main():
         with open(CID_LIST_FILE, "r", encoding="utf-8") as f:
             cid_list = [int(line.strip()) for line in f if line.strip()]
     else:
-        if START_CID > END_CID:
-            START_CID, END_CID = END_CID, START_CID
+        if START_CID > END_CID: START_CID, END_CID = END_CID, START_CID
         cid_list = list(range(START_CID, END_CID + 1))
 
     if not cid_list:
         print("错误: 任务列表为空", flush=True)
         sys.exit(1)
 
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-        f.write("")
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as f: f.write("")
 
     total_tasks = len(cid_list)
-    concurrency = min(MAX_CONCURRENT, total_tasks)
+    process_count = min(4, total_tasks) 
+    coros_per_process = max(1, MAX_CONCURRENT // process_count)
 
-    print("=" * 60, flush=True)
-    print("🚀 [Playwright 单进程异步] 启动！", flush=True)
-    if START_CID is not None and END_CID is not None:
-        print(f"📋 扫描范围: {START_CID} ~ {END_CID} (共 {total_tasks} 个 CID)", flush=True)
-    else:
-        print(f"📋 扫描列表: {CID_LIST_FILE} (共 {total_tasks} 个 CID)", flush=True)
-    print(f"⚙️  总并发: {concurrency} (可通过 config.json 调整 max_concurrent_pages)", flush=True)
-    print(f"⏱️  超时: {TIMEOUT_SECONDS/3600:.1f} 小时", flush=True)
-    print(f"💾 输出文件: {OUTPUT_FILE}", flush=True)
-    print("=" * 60, flush=True)
+    chunk_size = (total_tasks + process_count - 1) // process_count
+    chunks = [cid_list[i:i + chunk_size] for i in range(0, total_tasks, chunk_size)]
+
+    print(f"🚀 [原生 Playwright 黄金调优版] 启动！全面支持现代前端！", flush=True)
+    print(f"⚙️ 分配: {process_count}核 ✕ 每核 {coros_per_process} 并发 = {process_count * coros_per_process} 最优并发", flush=True)
 
     shared_counter = mp.Value('i', 0)
     deadline = time.time() + TIMEOUT_SECONDS - 60
     start_time = time.time()
+    
+    psutil.cpu_percent(interval=None)
+
+    processes = []
+    for i in range(len(chunks)):
+        p = mp.Process(target=process_runner, args=(i, chunks[i], coros_per_process, deadline, shared_counter))
+        processes.append(p)
+        p.start()
+
+    last_print = start_time
+    last_c = 0
+    last_c_time = start_time
 
     try:
-        asyncio.run(async_worker(cid_list, concurrency, deadline, shared_counter, total_tasks, start_time))
-    except Exception as e:
-        print(f"❌ 错误: {e}", flush=True)
-        traceback.print_exc()
-        sys.exit(1)
+        while any(p.is_alive() for p in processes):
+            now = time.time()
+            c = shared_counter.value
+            
+            if c > last_c:
+                last_c = c
+                last_c_time = now
+            elif now - last_c_time > 180: 
+                print(f"\n🚨 [看门狗] 停滞 3 分钟，启动安全收尾...", flush=True)
+                break 
+            
+            if now - last_print >= 5: 
+                elapsed = now - start_time
+                speed = c / elapsed if elapsed > 0 else 0
+                rem = total_tasks - c
+                eta = format_time(rem / speed if speed > 0 else 0)
+                pct = (c / total_tasks) * 100 if total_tasks > 0 else 0
+                
+                cpu_usage = psutil.cpu_percent(interval=None)
+                mem_info = psutil.virtual_memory()
+                mem_used_gb = mem_info.used / (1024 ** 3)
+                mem_total_gb = mem_info.total / (1024 ** 3)
+                
+                print(f"\n🔥 [满血监控] 完成: {c}/{total_tasks} ({pct:.2f}%) | ⚡ 极致时速: {speed:.1f} 个/秒 | ⏳ 剩余: {eta}")
+                print(f"🖥️  [物理状态] CPU: {cpu_usage}% | 💾 内存: {mem_used_gb:.1f}GB / {mem_total_gb:.1f}GB\n", flush=True)
+                
+                last_print = now
+                
+            if now > deadline + 60:
+                print("硬超时触发...", flush=True)
+                break
+            time.sleep(1)
+            
+    except KeyboardInterrupt:
+        print("\n⚠️ 收到强制中断信号！")
+    
+    for p in processes:
+        p.terminate()
+        p.join()
 
-    # 合并临时文件
-    tmp_file = "data/proc_temp.txt"
+    print("💾 数据持久化中...")
+    
     seen = set()
     valid_lines = []
-    if os.path.exists(tmp_file):
-        with open(tmp_file, "r", encoding="utf-8") as f:
-            for line in f:
-                parts = line.strip().split()
-                if parts and parts[0] not in seen:
-                    seen.add(parts[0])
-                    valid_lines.append(line)
-        os.remove(tmp_file)
+    for i in range(process_count):
+        tmp_file = f"data/proc_{i}_temp.txt"
+        if os.path.exists(tmp_file):
+            with open(tmp_file, "r", encoding="utf-8") as f:
+                for line in f:
+                    parts = line.strip().split()
+                    if parts and parts[0] not in seen:
+                        seen.add(parts[0])
+                        valid_lines.append(line)
+            os.remove(tmp_file)
+            
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         f.writelines(valid_lines)
 
     unfinished_cids = set()
-    ufile = "unfinished_proc.txt"
-    if os.path.exists(ufile):
-        with open(ufile, "r", encoding="utf-8") as f:
-            for line in f:
-                if line.strip().isdigit():
-                    unfinished_cids.add(int(line.strip()))
-        os.remove(ufile)
+    for i in range(process_count):
+        ufile = f"unfinished_proc_{i}.txt"
+        if os.path.exists(ufile):
+            with open(ufile, "r", encoding="utf-8") as f:
+                for line in f:
+                    if line.strip().isdigit(): unfinished_cids.add(int(line.strip()))
+            os.remove(ufile)
 
     if unfinished_cids:
         with open(f"unfinished_cids_{SHARD_IDX}.txt", "w", encoding="utf-8") as f:
-            for cid in sorted(unfinished_cids):
-                f.write(f"{cid}\n")
-        open(UNFINISHED_FLAG, "w").close()
-        print(f"⚠️ 未完成 {len(unfinished_cids)} 个 CID，已写入 {UNFINISHED_FLAG}", flush=True)
+            for cid in sorted(unfinished_cids): f.write(f"{cid}\n")
+        open(UNFINISHED_FLAG, "w").close() 
     else:
-        print("✅ 所有 CID 已完美处理完毕！", flush=True)
+        print("✅ 所有 CID 已完美处理完毕！")
 
     os._exit(0)
 
 if __name__ == "__main__":
-    try:
-        mp.set_start_method('spawn')
-    except:
-        pass
+    mp.set_start_method('spawn')
     main()
