@@ -30,7 +30,6 @@ START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
 
-# 从 config.json 读取并发数，默认 36，但用户可自定义
 MAX_CONCURRENT = min(config.get("max_concurrent_pages", 36), 40)
 TIMEOUT_SECONDS = config.get("timeout_hours", 3.0) * 3600
 
@@ -144,14 +143,16 @@ js_extract_promise = r"""() => {
     });
 }"""
 
-async def async_worker(cid_chunk, concurrency, deadline, shared_counter, total_tasks):
+async def async_worker(cid_chunk, concurrency, deadline, shared_counter, total_tasks, start_time):
+    """
+    新增参数 start_time，用于计算运行时长。
+    """
     in_flight_cids = set()
     results = []
     local_queue = asyncio.Queue()
     for cid in cid_chunk:
         local_queue.put_nowait(cid)
-    
-    # 进度打印控制
+
     last_print = time.time()
     last_count = 0
 
@@ -245,11 +246,11 @@ async def async_worker(cid_chunk, concurrency, deadline, shared_counter, total_t
         tasks = [asyncio.create_task(fetcher(i, context, browser)) for i in range(concurrency)]
         wait_task = asyncio.create_task(local_queue.join())
 
-        # 进度监控循环（非阻塞）
+        # 进度监控循环
         try:
             while not local_queue.empty() or any(not t.done() for t in tasks):
                 now = time.time()
-                if now - last_print >= 2:  # 每2秒打印一次进度
+                if now - last_print >= 2:
                     done = shared_counter.value
                     if done > last_count:
                         last_count = done
@@ -266,7 +267,6 @@ async def async_worker(cid_chunk, concurrency, deadline, shared_counter, total_t
         except asyncio.CancelledError:
             pass
 
-        # 等待队列清空或超时
         try:
             timeout_wait = deadline - time.time()
             if timeout_wait > 0:
@@ -311,7 +311,6 @@ def main():
     total_tasks = len(cid_list)
     concurrency = min(MAX_CONCURRENT, total_tasks)
 
-    # ========== 打印详细配置信息 ==========
     print("=" * 60, flush=True)
     print("🚀 [Obscura 轻量引擎] 启动！全面支持 Vue.js 渲染", flush=True)
     if START_CID is not None and END_CID is not None:
@@ -328,7 +327,8 @@ def main():
     start_time = time.time()
 
     try:
-        asyncio.run(async_worker(cid_list, concurrency, deadline, shared_counter, total_tasks))
+        # 🚀 修复：传入 start_time
+        asyncio.run(async_worker(cid_list, concurrency, deadline, shared_counter, total_tasks, start_time))
     except RuntimeError as e:
         print(f"❌ 致命错误: {e}", flush=True)
         sys.exit(1)
