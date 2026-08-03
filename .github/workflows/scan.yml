@@ -99,27 +99,34 @@ jobs:
           file obscura.tar.gz | grep -q "gzip compressed data" || { echo "❌ 下载的文件不是有效的 gzip 压缩包"; exit 1; }
           tar -xzf obscura.tar.gz
           ls -la
-          # 检查当前目录是否有 obscura 可执行文件
           if [ -f "./obscura" ]; then
             chmod +x ./obscura
             file ./obscura | grep -q "ELF" || { echo "❌ ./obscura 不是有效的 ELF 文件"; exit 1; }
           else
-            # 查找其他位置的 obscura
             ELF_FILE=$(find . -type f -name "obscura" -exec file {} \; 2>/dev/null | grep ELF | cut -d: -f1 | head -1)
             if [ -z "$ELF_FILE" ]; then
               echo "❌ 未找到名为 obscura 的 ELF 文件"
               exit 1
             fi
-            echo "找到可执行文件: $ELF_FILE"
             mv "$ELF_FILE" ./obscura
             chmod +x ./obscura
           fi
       
-      - name: 启动 Obscura CDP 服务
+      - name: 启动 Obscura CDP 服务（端口检测）
         run: |
           ./obscura serve --port 9222 &
-          sleep 3
-          curl -s http://localhost:9222 || { echo "❌ Obscura 服务启动失败"; exit 1; }
+          # 等待端口开放，最多等待10秒
+          for i in {1..20}; do
+            if ss -lnt | grep -q ":9222"; then
+              echo "✅ Obscura 服务已启动并监听 9222 端口"
+              break
+            fi
+            sleep 0.5
+          done
+          if ! ss -lnt | grep -q ":9222"; then
+            echo "❌ Obscura 服务未能启动监听"
+            exit 1
+          fi
       
       - name: 安装 Python 依赖（Playwright 用于连接 CDP）
         run: |
@@ -243,11 +250,20 @@ jobs:
             chmod +x ./obscura
           fi
       
-      - name: 启动 Obscura CDP 服务
+      - name: 启动 Obscura CDP 服务（端口检测）
         run: |
           ./obscura serve --port 9222 &
-          sleep 3
-          curl -s http://localhost:9222 || { echo "❌ Obscura 服务启动失败"; exit 1; }
+          for i in {1..20}; do
+            if ss -lnt | grep -q ":9222"; then
+              echo "✅ Obscura 服务已启动并监听 9222 端口"
+              break
+            fi
+            sleep 0.5
+          done
+          if ! ss -lnt | grep -q ":9222"; then
+            echo "❌ Obscura 服务未能启动监听"
+            exit 1
+          fi
       
       - name: 安装 Python 依赖
         run: |
@@ -371,11 +387,20 @@ jobs:
             chmod +x ./obscura
           fi
       
-      - name: 启动 Obscura CDP 服务
+      - name: 启动 Obscura CDP 服务（端口检测）
         run: |
           ./obscura serve --port 9222 &
-          sleep 3
-          curl -s http://localhost:9222 || { echo "❌ Obscura 服务启动失败"; exit 1; }
+          for i in {1..20}; do
+            if ss -lnt | grep -q ":9222"; then
+              echo "✅ Obscura 服务已启动并监听 9222 端口"
+              break
+            fi
+            sleep 0.5
+          done
+          if ! ss -lnt | grep -q ":9222"; then
+            echo "❌ Obscura 服务未能启动监听"
+            exit 1
+          fi
       
       - name: 安装 Python 依赖
         run: |
@@ -499,11 +524,20 @@ jobs:
             chmod +x ./obscura
           fi
       
-      - name: 启动 Obscura CDP 服务
+      - name: 启动 Obscura CDP 服务（端口检测）
         run: |
           ./obscura serve --port 9222 &
-          sleep 3
-          curl -s http://localhost:9222 || { echo "❌ Obscura 服务启动失败"; exit 1; }
+          for i in {1..20}; do
+            if ss -lnt | grep -q ":9222"; then
+              echo "✅ Obscura 服务已启动并监听 9222 端口"
+              break
+            fi
+            sleep 0.5
+          done
+          if ! ss -lnt | grep -q ":9222"; then
+            echo "❌ Obscura 服务未能启动监听"
+            exit 1
+          fi
       
       - name: 安装 Python 依赖
         run: |
