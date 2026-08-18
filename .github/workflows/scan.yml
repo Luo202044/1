@@ -6,7 +6,7 @@ on:
       shards:
         description: '分片数量'
         required: true
-        default: '19'
+        default: '14'
 
 permissions:
   contents: write
