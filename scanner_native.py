@@ -28,8 +28,7 @@ START_CID = config.get("start_cid")
 END_CID = config.get("end_cid")
 CID_LIST_FILE = config.get("cid_list_file")
 
-# 🚀 黄金并发点：4 核机器的最优解是 40！过高会导致 CPU 踩踏效应变慢！
-MAX_CONCURRENT = config.get("max_concurrent_pages", 40) 
+MAX_CONCURRENT = config.get("max_concurrent_pages", 50) 
 TIMEOUT_SECONDS = config.get("timeout_hours", 5.0) * 3600
 
 os.makedirs("data", exist_ok=True)
@@ -51,13 +50,11 @@ def format_time(seconds):
     h, m = divmod(m, 60)
     return f"{h}h {m}m"
 
-# 🚨 修复: 补回了遗漏的 USER_AGENTS 列表
 USER_AGENTS = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
 ]
 
-# 🚀 Chromium 官方内核极速阉割参数
 CHROME_OPTIMIZED_ARGS = [
     "--disable-gpu",
     "--disable-dev-shm-usage",
@@ -93,12 +90,16 @@ CHROME_OPTIMIZED_ARGS = [
     "--use-mock-keychain",
     "--blink-settings=imagesEnabled=false",
     "--host-resolver-rules=MAP *google-analytics.com 127.0.0.1, MAP *sentry* 127.0.0.1, MAP *sensors* 127.0.0.1, MAP *growingio.com 127.0.0.1, MAP *baidu.com 127.0.0.1, MAP *track* 127.0.0.1",
-    "--js-flags=--max-old-space-size=128", 
+    "--js-flags=--max-old-space-size=256",
     "--disable-features=IsolateOrigins,site-per-process,AudioServiceOutOfProcess,BackForwardCache",
-    "--renderer-process-limit=4"
+    "--renderer-process-limit=6",
+    "--max-connections-per-host=6",
+    "--disable-font-subpixel-positioning",
+    "--disable-css-animations",
+    "--disable-smooth-scrolling",
 ]
 
-# 🚀 微任务防抖：针对完整 Vue.js 渲染设计的秒退算法
+# JS内部超时 1200ms，MutationObserver 保障 Vue 动态内容
 js_extract_promise = r"""() => {
     return new Promise((resolve) => {
         function checkDOM() {
@@ -179,7 +180,7 @@ js_extract_promise = r"""() => {
         let timeoutId = setTimeout(() => {
             observer.disconnect();
             resolve({status: "timeout"});
-        }, 3200); 
+        }, 1200); 
     });
 }"""
 
@@ -200,10 +201,15 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                 try: await page.close()
                 except: pass
             page = await context.new_page()
+            # 只拦截非关键资源，JS 正常加载
+            await page.route("**/*", lambda route: route.abort() 
+                             if route.request.resource_type in ["stylesheet", "font", "media", "websocket"] 
+                             else route.continue_())
         
         await init_page()
         consecutive_errors = 0
         lifecycle = 0
+        failed_cids = []
 
         while True:
             if time.time() > deadline:
@@ -217,8 +223,8 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
             in_flight_cids.add(cid)
             
             try:
-                pw_timeout = min(4000, (deadline - time.time()) * 1000)
-                await page.goto(f"https://www.eeo.cn/s/a/?cid={cid}", timeout=pw_timeout, wait_until="commit")
+                pw_timeout = min(2500, (deadline - time.time()) * 1000)
+                await page.goto(f"https://www.eeo.cn/s/a/?cid={cid}", timeout=pw_timeout, wait_until="domcontentloaded")
                 
                 data = await page.evaluate(js_extract_promise)
                 
@@ -230,7 +236,7 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                 
                 if status == 'waf':
                     if random.random() < 0.1: 
-                        print(f"⚠️ [风控侦测] P{process_id}-C{coro_id} 遭遇拦截，正在休眠避让...", flush=True)
+                        print(f"⚠️ [风控侦测] P{process_id}-C{coro_id} 遭遇拦截", flush=True)
                     raise Exception("WAF_BLOCKED")
                     
                 elif status == 'success':
@@ -241,11 +247,12 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                     if not (class_name in invalid_marks and school in invalid_marks):
                         line = f"{cid}\thttps://www.eeo.cn/s/a/?cid={cid}\t{school}\t{teacher}\t{class_name}\n"
                         results.append(line)
-                        print(f"✅ [满血解析] P{process_id}-C{coro_id:02d} | {cid} | 🏫 {school} | 🧑‍🏫 {teacher} | 🎓 {class_name}", flush=True)
+                        print(f"✅ [满血解析] P{process_id}-C{coro_id:02d} | {cid}", flush=True)
 
                 consecutive_errors = 0
 
             except Exception as e:
+                failed_cids.append(cid)
                 consecutive_errors += 1
                 if consecutive_errors >= 2 or "WAF" in str(e):
                     if consecutive_errors >= 3: await asyncio.sleep(1.5)
@@ -262,11 +269,11 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
                     
                 lifecycle += 1
 
-            if lifecycle >= 100:
+            if lifecycle >= 150:
                 await init_page()
                 lifecycle = 0
 
-            if len(results) >= 100:
+            if len(results) >= 200:
                 with open(f"data/proc_{process_id}_temp.txt", "a", encoding="utf-8") as f:
                     f.writelines(results)
                 results.clear()
@@ -275,8 +282,13 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
             try: await page.close()
             except: pass
 
+        all_unfinished = set(in_flight_cids).union(set(failed_cids))
+        if all_unfinished:
+            with open(f"unfinished_proc_{process_id}.txt", "a", encoding="utf-8") as f:
+                for cid in all_unfinished:
+                    f.write(f"{cid}\n")
+
     async with async_playwright() as p:
-        # 🚀 纯净原生环境，直接裸跑原生 Chromium
         browser = await p.chromium.launch(headless=True, args=CHROME_OPTIMIZED_ARGS)
         context = await browser.new_context(user_agent=random.choice(USER_AGENTS), ignore_https_errors=True)
         
@@ -293,16 +305,13 @@ async def async_process_worker(process_id, cid_chunk, concurrency, deadline, sha
         await context.close()
         await browser.close()
 
-    if results:
-        with open(f"data/proc_{process_id}_temp.txt", "a", encoding="utf-8") as f:
-            f.writelines(results)
-            
+    remaining = []
     while not local_queue.empty():
-        in_flight_cids.add(local_queue.get_nowait())
-        
-    if in_flight_cids:
-        with open(f"unfinished_proc_{process_id}.txt", "w", encoding="utf-8") as f:
-            for cid in in_flight_cids: f.write(f"{cid}\n")
+        remaining.append(local_queue.get_nowait())
+    if remaining:
+        with open(f"unfinished_proc_{process_id}.txt", "a", encoding="utf-8") as f:
+            for cid in remaining:
+                f.write(f"{cid}\n")
 
 def process_runner(process_id, cid_chunk, concurrency, deadline, shared_counter):
     try:
@@ -333,8 +342,8 @@ def main():
     chunk_size = (total_tasks + process_count - 1) // process_count
     chunks = [cid_list[i:i + chunk_size] for i in range(0, total_tasks, chunk_size)]
 
-    print(f"🚀 [原生 Playwright 黄金调优版] 启动！全面支持现代前端！", flush=True)
-    print(f"⚙️ 分配: {process_count}核 ✕ 每核 {coros_per_process} 并发 = {process_count * coros_per_process} 最优并发", flush=True)
+    print(f"🚀 [原生 Playwright 极限优化版] 启动！", flush=True)
+    print(f"⚙️ 分配: {process_count}核 ✕ 每核 {coros_per_process} 并发 = {process_count * coros_per_process} 总并发", flush=True)
 
     shared_counter = mp.Value('i', 0)
     deadline = time.time() + TIMEOUT_SECONDS - 60
