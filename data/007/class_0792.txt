@@ -507,6 +507,7 @@
 310300361	https://www.eeo.cn/s/a/?cid=310300361	邦德华纳教育	Teacher: 黎林燕	物黎1
 310300363	https://www.eeo.cn/s/a/?cid=310300363	Virtual Class	Teacher: Kim	Leo's Classroom
 310300369	https://www.eeo.cn/s/a/?cid=310300369	Teacher Nica online classroom	Teacher: 995****855	Xie Wenqi
+310300393	https://www.eeo.cn/s/a/?cid=310300393	Virtual Class	Teacher: Kim	Charlie's Classroom
 310300411	https://www.eeo.cn/s/a/?cid=310300411	邦德华纳教育	Teacher: 郑标智	8月15日七物晚上7点
 310300415	https://www.eeo.cn/s/a/?cid=310300415	帅气的人的在线课堂	Teacher: 187****6252	李莹班
 310300423	https://www.eeo.cn/s/a/?cid=310300423	Virtual Class	Teacher: Kim	Charlie's Classroom
@@ -774,6 +775,13 @@
 310303073	https://www.eeo.cn/s/a/?cid=310303073	Pangasinan State University (CE Logic)	Teacher: GERONIMO ROSARIO	FISH 206 Sec B
 310303075	https://www.eeo.cn/s/a/?cid=310303075	sgaboelets*****ail.com online classroom	Teacher: sg*****il.com	Saturday classes (Guoguo, Yiyi, Ryan Frank )
 310303081	https://www.eeo.cn/s/a/?cid=310303081	Maya online classroom	Teacher: sa*****il.com	16
+310303091	https://www.eeo.cn/s/a/?cid=310303091	World Citi Colleges	Teacher: John Paul C. Morales	MARKETING RESEARCH- MM2A
+310303093	https://www.eeo.cn/s/a/?cid=310303093	World Citi Colleges	Teacher: Marisol Baldo	ENG1 (PCOMM)
+310303103	https://www.eeo.cn/s/a/?cid=310303103	15397796639的在线课堂	Teacher: 153****6639	。
+310303109	https://www.eeo.cn/s/a/?cid=310303109	Teacher Rieza的在线课堂	Teacher: 159****2498	Miya15’s Class
+310303111	https://www.eeo.cn/s/a/?cid=310303111	World Citi Colleges	Teacher: John Paul C. Morales	MARKETING RESEARCH- MM4A
+310303115	https://www.eeo.cn/s/a/?cid=310303115	xtinemehidpabri*****ail. online classroom	Teacher: 909****280	Tracy
+310303117	https://www.eeo.cn/s/a/?cid=310303117	Teacher Daisy L. Argenio online classroom	Teacher: da*****il.com	ENGLISH READING JAKOB
 310303119	https://www.eeo.cn/s/a/?cid=310303119	choros的在线课堂	Teacher: 183****6953	新高一化学
 310303121	https://www.eeo.cn/s/a/?cid=310303121	Test	Teacher: Dave-葛	Harry6ISH Classroom
 310303131	https://www.eeo.cn/s/a/?cid=310303131	Test	Teacher: Dave-葛	Sunny6TJ Classroom
@@ -957,7 +965,7 @@
 310304719	https://www.eeo.cn/s/a/?cid=310304719	Teacher Izzy online classroom	Teacher: si*****il.com	IKER
 310304731	https://www.eeo.cn/s/a/?cid=310304731	社恐的忧郁小女孩ovo的在线课堂	Teacher: 132****6008	语文
 310304737	https://www.eeo.cn/s/a/?cid=310304737	Happy planet	Teacher: Grea-123-M2-记忆的永恒	Kunkun10's Classroom
-310304765	https://www.eeo.cn/s/a/?cid=310304765	temblorfloramie.cte.c*** online classroom	Teacher: te*****il.com	english
+310304765	https://www.eeo.cn/s/a/?cid=310304765	temblorfloramie.cte.c*** online classroom	Teacher: te*****il.com	CAMILLA'S CLASSROOM :-)
 310304781	https://www.eeo.cn/s/a/?cid=310304781	Happy planet	Teacher: bibing-钢琴太后	yulia
 310304799	https://www.eeo.cn/s/a/?cid=310304799	wen的在线课堂	Teacher: 166****6710	y
 310304809	https://www.eeo.cn/s/a/?cid=310304809	Happy planet	Teacher: bibing-钢琴太后	yulia
@@ -1023,6 +1031,7 @@
 310308481	https://www.eeo.cn/s/a/?cid=310308481	鸿鸿Henry的在线课堂	Teacher: 136****2878	那′′M1′
 310308499	https://www.eeo.cn/s/a/?cid=310308499	World Citi Colleges	Teacher: Shiena Thea M. Luces	ETH-Entrepreneurship in Tourism and Hospitality - HM3A
 310308527	https://www.eeo.cn/s/a/?cid=310308527	World Citi Colleges	Teacher: Cristian Rosatazo	AMT 816 - A/C Materials anf Processes
+310308529	https://www.eeo.cn/s/a/?cid=310308529	无忧伴学	Teacher: 赵安平	怡乐丨试听课程36504班
 310308543	https://www.eeo.cn/s/a/?cid=310308543	EEO-TEST-何佳选	Teacher: 何佳选	8.15实战峰会
 310308545	https://www.eeo.cn/s/a/?cid=310308545	在线课堂	Teacher: 童一shelia	Haoting
 310308569	https://www.eeo.cn/s/a/?cid=310308569	陆老师小课堂	Teacher: 陆老师	26 暑 - 新五阅读加强2班
@@ -1105,6 +1114,7 @@
 310309487	https://www.eeo.cn/s/a/?cid=310309487	Victoria8的在线课堂	Teacher: 133****6098	Margie玛吉的联络室
 310309493	https://www.eeo.cn/s/a/?cid=310309493	Teacher Chuck	Teacher: slp93trans*****ail.com	Daniel (Class 10 of 10) 8/15/2026
 310309495	https://www.eeo.cn/s/a/?cid=310309495	智莉的在线课堂	Teacher: 173****7685	26自然拼读暑假1V2
+310309519	https://www.eeo.cn/s/a/?cid=310309519	Edupia Tutor	Teacher: HIỀN ĐÀO TẠO	ĐT.RETRAIN 2026
 310309545	https://www.eeo.cn/s/a/?cid=310309545	Teacher Chuck	Teacher: slp93trans*****ail.com	Jack (Class 1 of 5) 8/15/2026
 310309555	https://www.eeo.cn/s/a/?cid=310309555	alexnyam*****ail.com online classroom	Teacher: al*****il.com	cid=281769393
 310309567	https://www.eeo.cn/s/a/?cid=310309567	Teacher Chuck	Teacher: slp93trans*****ail.com	Melon (Class 5 of 10) 8/14/2026
@@ -1127,7 +1137,7 @@
 310309749	https://www.eeo.cn/s/a/?cid=310309749	15863137982的在线课堂	Teacher: 158****7982	收写字单
 310309751	https://www.eeo.cn/s/a/?cid=310309751	Evy的在线课堂	Teacher: 135****6501	106
 310309755	https://www.eeo.cn/s/a/?cid=310309755	口语训练营	Teacher: kate ling	Amy
-310309763	https://www.eeo.cn/s/a/?cid=310309763	Tracy Lei的在线课堂	Teacher: 159****4730	Mellisa-Maths
+310309763	https://www.eeo.cn/s/a/?cid=310309763	Tracy Lei的在线课堂	Teacher: 159****4730	Mellisa-Maths Classroom
 310309773	https://www.eeo.cn/s/a/?cid=310309773	nguyenphuocvanquy28***** online classroom	Teacher: ng*****il.com	Toán 1
 310309793	https://www.eeo.cn/s/a/?cid=310309793	SPIKE	Teacher: 袁	【徐汇线下】NEC AS-1班
 310309803	https://www.eeo.cn/s/a/?cid=310309803	Jane&Grace6福建的在线课堂	Teacher: 185****8086	嗯 嗯嗯
@@ -1168,7 +1178,7 @@
 310310145	https://www.eeo.cn/s/a/?cid=310310145	CB Centres	Teacher: Head teacher	DEMO - STARTERS
 310310153	https://www.eeo.cn/s/a/?cid=310310153	许恒悦的在线课堂	Teacher: 137****3722	很满意
 310310167	https://www.eeo.cn/s/a/?cid=310310167	CHRSTINE JOY ROMIAS	Teacher: 966****500	Frank’s class
-310310195	https://www.eeo.cn/s/a/?cid=310310195	树人元宇宙教育咨询有限公司	Teacher: Lucky Q	English class
+310310195	https://www.eeo.cn/s/a/?cid=310310195	树人元宇宙教育咨询有限公司	Teacher: Lucky Q	孙海星English class
 310310199	https://www.eeo.cn/s/a/?cid=310310199	高嘉琪的在线课堂	Teacher: 175****8985	晓米学习课
 310310205	https://www.eeo.cn/s/a/?cid=310310205	中山教育	Teacher: 教务-叶子老师	8.15 20：00陈星桐 高1物理试课群
 310310209	https://www.eeo.cn/s/a/?cid=310310209	shirley的在线课堂	Teacher: 185****3851	二年级三班英语外研版顾老师四年级下册外研版英语书教材
@@ -1188,13 +1198,3 @@
 310310389	https://www.eeo.cn/s/a/?cid=310310389	World Citi Colleges	Teacher: Vicente I. Macalipay	AMT 3M Hangar and Line Maintenance S 10:00 1:00
 310310393	https://www.eeo.cn/s/a/?cid=310310393	Happy planet	Teacher: 蜜蜜-123-M20-多米妈	Yilia12
 310310413	https://www.eeo.cn/s/a/?cid=310310413	中山教育	Teacher: 代代老师	8.15-19 : 30 傅文馨新六年级数学试课群
-310310425	https://www.eeo.cn/s/a/?cid=310310425	Native English	Teacher: 437****950	TINA
-310310429	https://www.eeo.cn/s/a/?cid=310310429	口语训练营	Teacher: Robinson Ling	Molly 8:05
-310310435	https://www.eeo.cn/s/a/?cid=310310435	苹果小课堂	Teacher: wong	三暑3期S班【10-12】
-310310441	https://www.eeo.cn/s/a/?cid=310310441	Happy planet	Teacher: 蜜蜜-123-M20-多米妈	Agatha7SZ
-310310457	https://www.eeo.cn/s/a/?cid=310310457	15621196507的在线课堂	Teacher: 156****6507	未命名班级
-310310467	https://www.eeo.cn/s/a/?cid=310310467	满伊璐Molly的在线课堂	Teacher: 151****8354	……
-310310471	https://www.eeo.cn/s/a/?cid=310310471	Pangasinan State University (CE Logic)	Teacher: Roselyn Villaruz	PREP CLASS
-310310473	https://www.eeo.cn/s/a/?cid=310310473	Michael	Teacher: 136****4840	Polina - Demo - 13:00
-310310511	https://www.eeo.cn/s/a/?cid=310310511	勤福科技	Teacher: EE0468	Spoken English
-310310515	https://www.eeo.cn/s/a/?cid=310310515	Runn辰辰1586452wg,&2:';_!的在线课堂	Teacher: 150****7069	我不想学故事班
