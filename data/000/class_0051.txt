@@ -1,13 +1,3 @@
-255483011	https://www.eeo.cn/s/a/?cid=255483011	直播课堂	Teacher: 曹老师	周宇慈初二数学
-255483095	https://www.eeo.cn/s/a/?cid=255483095	Dvyphonic	Teacher: 949****00	Robin Lesson 33
-255483197	https://www.eeo.cn/s/a/?cid=255483197	Dvyphonic	Teacher: 949****00	MandyS Lesson 41
-255483231	https://www.eeo.cn/s/a/?cid=255483231	Teacher Jane online classroom	Teacher: mjaoc*****ail.com	SAM
-255483233	https://www.eeo.cn/s/a/?cid=255483233	Bingkay online classroom	Teacher: 926****721	Kelly's Class
-255483251	https://www.eeo.cn/s/a/?cid=255483251	直播课堂	Teacher: 曹老师	孙理博化学
-255483287	https://www.eeo.cn/s/a/?cid=255483287	Dvyphonic	Teacher: 949****00	Brandon Lesson 42
-255483359	https://www.eeo.cn/s/a/?cid=255483359	Studio Education	Teacher: Leah Beresford	Bella's assessment
-255483443	https://www.eeo.cn/s/a/?cid=255483443	Bingkay online classroom	Teacher: 926****721	Will's Class
-255483505	https://www.eeo.cn/s/a/?cid=255483505	剑桥英语	Teacher: 宋老师	哲玮
 255483569	https://www.eeo.cn/s/a/?cid=255483569	Julie Teacher online classroom	Teacher: jhcom*****ver.com	정규수업(유나-2/5)
 255483581	https://www.eeo.cn/s/a/?cid=255483581	yohankhiel online classroom	Teacher: 947****401	yohan
 255483629	https://www.eeo.cn/s/a/?cid=255483629	yohankhiel online classroom	Teacher: 947****401	yogan
@@ -443,7 +433,6 @@
 255507943	https://www.eeo.cn/s/a/?cid=255507943	Nhally online classroom	Teacher: 905****758	EMMA
 255507947	https://www.eeo.cn/s/a/?cid=255507947	Teacher Geri online classroom	Teacher: geraldineganeshamoort***	James
 255507971	https://www.eeo.cn/s/a/?cid=255507971	Teacher John online classroom	Teacher: 955****071	duncan trial
-255508075	https://www.eeo.cn/s/a/?cid=255508075	Teacher Airis online classroom	Teacher: 912****932	Steven's Class
 255508119	https://www.eeo.cn/s/a/?cid=255508119	cc online classroom	Teacher: 415****09	Celia英语学习小窝
 255508163	https://www.eeo.cn/s/a/?cid=255508163	华途在线	Teacher: 工-张长城老师	测试课堂
 255508167	https://www.eeo.cn/s/a/?cid=255508167	Let's God English	Teacher: 915****686	Lydia
@@ -1198,3 +1187,14 @@
 255547999	https://www.eeo.cn/s/a/?cid=255547999	Teacher Mac online classroom	Teacher: magic202311*****3.com	Elsa 9yo
 255548073	https://www.eeo.cn/s/a/?cid=255548073	Horn	Teacher: Andi	管仲毅
 255548105	https://www.eeo.cn/s/a/?cid=255548105	Teach Reshel online classroom	Teacher: 935****995	w
+255548171	https://www.eeo.cn/s/a/?cid=255548171	Prof Jay online classroom	Teacher: 976****265	Tian and Lukas class 6
+255548223	https://www.eeo.cn/s/a/?cid=255548223	Teacher JOPET online classroom	Teacher: 976****327	Jessica 1
+255548225	https://www.eeo.cn/s/a/?cid=255548225	Carmen online classroom	Teacher: carmenwai*****tmail.com	Homework
+255548247	https://www.eeo.cn/s/a/?cid=255548247	试课Luke online classroom	Teacher: 174***83	vvv
+255548397	https://www.eeo.cn/s/a/?cid=255548397	Novie Vitualla online classroom	Teacher: 910****518	Alice
+255548415	https://www.eeo.cn/s/a/?cid=255548415	Galaxy	Teacher: 梦娜	Emily's CLASS
+255548535	https://www.eeo.cn/s/a/?cid=255548535	君华国际学校	Teacher: Crystal	熊俊婷论文指导课
+255548647	https://www.eeo.cn/s/a/?cid=255548647	mariane online classroom	Teacher: 905****915	Mariane's Demo
+255548695	https://www.eeo.cn/s/a/?cid=255548695	Teacher John Lucas online classroom	Teacher: 998****113	Eric’s Class
+255549093	https://www.eeo.cn/s/a/?cid=255549093	0063-9984575981 online classroom	Teacher: 998****981	George2016山东
+255549171	https://www.eeo.cn/s/a/?cid=255549171	Teacher Vanessa online classroom	Teacher: allisoncade3*****ail.com	xuaxuan

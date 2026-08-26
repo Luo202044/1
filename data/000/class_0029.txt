@@ -1,10 +1,3 @@
-254221565	https://www.eeo.cn/s/a/?cid=254221565	anjelomelendez*****ail.c online classroom	Teacher: anjelomelendez*****ail.c	DINOSAUR
-254221601	https://www.eeo.cn/s/a/?cid=254221601	valeriejeanmanfor*****ai online classroom	Teacher: valeriejeanmanfor*****ai	eric
-254221629	https://www.eeo.cn/s/a/?cid=254221629	九州	Teacher: 137****6959	0166-Alice
-254221709	https://www.eeo.cn/s/a/?cid=254221709	valeriejeanmanfor*****ai online classroom	Teacher: valeriejeanmanfor*****ai	zimo
-254221741	https://www.eeo.cn/s/a/?cid=254221741	Arno online classroom	Teacher: arradup20*****ail.com	Apple
-254221749	https://www.eeo.cn/s/a/?cid=254221749	cailaduplessis*****ail.c online classroom	Teacher: cailaduplessis*****ail.c	Cowboy
-254221751	https://www.eeo.cn/s/a/?cid=254221751	valeriejeanmanfor*****ai online classroom	Teacher: valeriejeanmanfor*****ai	leo
 254221759	https://www.eeo.cn/s/a/?cid=254221759	cailaduplessis*****ail.c online classroom	Teacher: cailaduplessis*****ail.c	Bella
 254221767	https://www.eeo.cn/s/a/?cid=254221767	joca slepac	Teacher: 201****727	nev
 254221781	https://www.eeo.cn/s/a/?cid=254221781	cailaduplessis*****ail.c online classroom	Teacher: cailaduplessis*****ail.c	Daisy
@@ -1198,3 +1191,10 @@
 254269177	https://www.eeo.cn/s/a/?cid=254269177	Teacher #6 Jewel online classroom	Teacher: 183****8926	Emily's class
 254269207	https://www.eeo.cn/s/a/?cid=254269207	Ellie online classroom	Teacher: 793****714	Allen: In My Town
 254269211	https://www.eeo.cn/s/a/?cid=254269211	Anne online classroom	Teacher: gurlanne19*****ail.com	Dain
+254269217	https://www.eeo.cn/s/a/?cid=254269217	张舒	Teacher: 张舒	宋佳馨--CAT4非文字逻辑
+254269255	https://www.eeo.cn/s/a/?cid=254269255	Teacher Nica online classroom	Teacher: 976****849	Aaron's English Class January 18
+254269309	https://www.eeo.cn/s/a/?cid=254269309	mheldinehatague*****ail. online classroom	Teacher: mheldinehatague*****ail.	Peter's class Jan. 18
+254269419	https://www.eeo.cn/s/a/?cid=254269419	谷老师初中数学	Teacher: 182****1477	溪
+254269563	https://www.eeo.cn/s/a/?cid=254269563	Ach online classroom	Teacher: 859****786	tony
+254269695	https://www.eeo.cn/s/a/?cid=254269695	kirgy online classroom	Teacher: 942****474	ELSA - JANUARY 2024
+254269737	https://www.eeo.cn/s/a/?cid=254269737	君华国际学校	Teacher: Rose	党思恒论文指导课

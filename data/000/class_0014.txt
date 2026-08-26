@@ -1,8 +1,3 @@
-253332647	https://www.eeo.cn/s/a/?cid=253332647	jogiemae.tera*****ped.go online classroom	Teacher: jogiemae.tera*****ped.go	Bob and Jin
-253332667	https://www.eeo.cn/s/a/?cid=253332667	Teacher Teen online classroom	Teacher: 906****969	Cherry's Class A
-253332843	https://www.eeo.cn/s/a/?cid=253332843	Chu Hồng Tâm online classroom	Teacher: 967****96	test
-253332849	https://www.eeo.cn/s/a/?cid=253332849	supervisorassistantfamil online classroom	Teacher: supervisorassistantfamil	Training 2
-253332853	https://www.eeo.cn/s/a/?cid=253332853	Teacher John online classroom	Teacher: 912****190	Lealand
 253332997	https://www.eeo.cn/s/a/?cid=253332997	Amy's English	Teacher: 603****05	Bob - Classroom
 253333007	https://www.eeo.cn/s/a/?cid=253333007	sk	Teacher: 548***36	的
 253333021	https://www.eeo.cn/s/a/?cid=253333021	Teacher Nana	Teacher: 977****598	Witkey7Z
@@ -422,7 +417,6 @@
 253348293	https://www.eeo.cn/s/a/?cid=253348293	梦想课堂 Dream Class	Teacher: 175****8820	李宇涵 - 美国药学申请群
 253348339	https://www.eeo.cn/s/a/?cid=253348339	Steppingstones China	Teacher: Steppingstones China	2024年1月5日秋季学期自然拼读后测 - 武晨言 20:25 四年级上
 253348385	https://www.eeo.cn/s/a/?cid=253348385	TomatoCloud	Teacher: 133****6200	Ellen class-Mae
-253348389	https://www.eeo.cn/s/a/?cid=253348389	77在線課堂	Teacher: 136****0557	旨皓數學課堂
 253348437	https://www.eeo.cn/s/a/?cid=253348437	Steppingstones China	Teacher: Steppingstones China	2024年1月5日秋季学期自然拼读后测 - 谢逍阳 20:20 四年级上
 253348449	https://www.eeo.cn/s/a/?cid=253348449	Teacher Sharfaa online classroom	Teacher: 614****29	Chris January
 253348457	https://www.eeo.cn/s/a/?cid=253348457	产教融合	Teacher: 张振方	必刷题-直线方程2
@@ -1198,3 +1192,9 @@
 253382135	https://www.eeo.cn/s/a/?cid=253382135	Debbie online classroom	Teacher: 796****79	Class with Lucas 12
 253382163	https://www.eeo.cn/s/a/?cid=253382163	Trần Quang Phúc online classroom	Teacher: 986****99	skibidi tolet
 253382323	https://www.eeo.cn/s/a/?cid=253382323	Hoàng Nam online classroom	Teacher: 969****33	R.TA.2P.5D.055633
+253382407	https://www.eeo.cn/s/a/?cid=253382407	tường vy online classroom	Teacher: 971****57	tủy hihibuhihh
+253382429	https://www.eeo.cn/s/a/?cid=253382429	Jasmin Swartz online classroom	Teacher: 849****52	trainee
+253382475	https://www.eeo.cn/s/a/?cid=253382475	Let's Go English	Teacher: 908****875	Mike
+253382493	https://www.eeo.cn/s/a/?cid=253382493	Teacher Fernan online classroom	Teacher: 909****890	Piggie10爱尔兰 Class M
+253382513	https://www.eeo.cn/s/a/?cid=253382513	SK	Teacher: wwwskw*****6.com	武器合集
+253382533	https://www.eeo.cn/s/a/?cid=253382533	谦学教育集团有限公司	Teacher: 137****9858	1.03新加坡南洋理工ntu考试挂科sc重考

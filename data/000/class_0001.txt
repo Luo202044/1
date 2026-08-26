@@ -693,7 +693,6 @@
 252490527	https://www.eeo.cn/s/a/?cid=252490527	Faith Princess online classroom	Teacher: 968****095	Jiyu
 252490533	https://www.eeo.cn/s/a/?cid=252490533	海马中际集团	Teacher: 132****9840	一对一GRE Vera
 252490593	https://www.eeo.cn/s/a/?cid=252490593	Teacher Sev14 online classroom	Teacher: sevomarund*****ail.com	Amy Wang
-252490601	https://www.eeo.cn/s/a/?cid=252490601	Helen (mail) online classroom	Teacher: alionaz*****ail.com	Emily
 252490685	https://www.eeo.cn/s/a/?cid=252490685	Teacher K online classroom	Teacher: 821****3630	Mia's Classroom Term 1
 252490713	https://www.eeo.cn/s/a/?cid=252490713	呼啦啦教育	Teacher: 陈伟	高质量师幼互动专题研修【补考】
 252490761	https://www.eeo.cn/s/a/?cid=252490761	小象超能	Teacher: 班主任-陈妍	围棋测评 围围老师
@@ -1198,3 +1197,4 @@
 252515685	https://www.eeo.cn/s/a/?cid=252515685	Llew online classroom	Teacher: 793****34	Yannis December
 252515699	https://www.eeo.cn/s/a/?cid=252515699	Regie Tracarol online classroom	Teacher: 926****547	Cora 2
 252515731	https://www.eeo.cn/s/a/?cid=252515731	marlyndupal94*****ail.co online classroom	Teacher: marlyndupal94*****ail.co	Teacher Marlyn Demonstration
+252515755	https://www.eeo.cn/s/a/?cid=252515755	Teacher Grace online classroom	Teacher: maygmalinao.c*****cpag.e	December Ethan

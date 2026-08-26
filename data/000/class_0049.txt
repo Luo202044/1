@@ -1,12 +1,3 @@
-255353053	https://www.eeo.cn/s/a/?cid=255353053	飞鸿教育	Teacher: 强丽彤	一对一运河桥校区六年级刘奕含
-255353067	https://www.eeo.cn/s/a/?cid=255353067	冬冬老师	Teacher: 王海清2	24寒三期B初三物理班——王海清
-255353165	https://www.eeo.cn/s/a/?cid=255353165	KHIM online classroom	Teacher: 936****010	Candy DEMO
-255353169	https://www.eeo.cn/s/a/?cid=255353169	Chenny online classroom	Teacher: 927****327	Timmy - Chenn - Class1
-255353205	https://www.eeo.cn/s/a/?cid=255353205	anobia.1265451000*****pe online classroom	Teacher: anobia.1265451000*****pe	mitch
-255353253	https://www.eeo.cn/s/a/?cid=255353253	冬冬老师	Teacher: 王海清2	24寒三期C初二物理班——王海清
-255353301	https://www.eeo.cn/s/a/?cid=255353301	学童英语俱乐部	Teacher: 136****8695	学童俱乐部
-255353321	https://www.eeo.cn/s/a/?cid=255353321	张舒	Teacher: 张舒	Cally—CAT4非文字逻辑
-255353375	https://www.eeo.cn/s/a/?cid=255353375	开心	Teacher: 陈伟建	高二诗桐寒假课程
 255353473	https://www.eeo.cn/s/a/?cid=255353473	WeIP Education	Teacher: Mr Hong	2024 F3 MM MON 8.30pm Mr.Hong 独中
 255353475	https://www.eeo.cn/s/a/?cid=255353475	麦老师英语工作室	Teacher: 麦老师Mickey	Mickey寒假二期PET Lesson2
 255353489	https://www.eeo.cn/s/a/?cid=255353489	张舒	Teacher: 张舒	Cally—CAT4文字逻辑
@@ -680,7 +671,6 @@
 255388685	https://www.eeo.cn/s/a/?cid=255388685	大连兆众教育信息咨询有限公司	Teacher: 兆众教育化学于老师	高一班
 255388699	https://www.eeo.cn/s/a/?cid=255388699	武汉市天天象上教育咨询有限公司	Teacher: 孙正伦	2023寒假初三化学10:30～12:30
 255388737	https://www.eeo.cn/s/a/?cid=255388737	天优数学	Teacher: 赵莹莹	24年寒假-张爱远-七英行思-二期12:30
-255388753	https://www.eeo.cn/s/a/?cid=255388753	Quenie Online Tutorial Services	Teacher: nieqjqu*****ail.com	Abby
 255388759	https://www.eeo.cn/s/a/?cid=255388759	jura.saligan0*****ped.go online classroom	Teacher: jura.saligan0*****ped.go	juraS
 255388789	https://www.eeo.cn/s/a/?cid=255388789	一线教师	Teacher: 135****5978	23-24年高中数学寒假集训班
 255388821	https://www.eeo.cn/s/a/?cid=255388821	Teacher Sheila online classroom	Teacher: 985****929	Ian- New Student
@@ -1198,3 +1188,13 @@
 255423051	https://www.eeo.cn/s/a/?cid=255423051	Teacher Alvin online classroom	Teacher: piyike26*****bene.com	ETHAN
 255423197	https://www.eeo.cn/s/a/?cid=255423197	nenengpadilla*****ail.co online classroom	Teacher: nenengpadilla*****ail.co	student 1
 255423259	https://www.eeo.cn/s/a/?cid=255423259	TEACHER MAE online classroom	Teacher: 926****899	syra
+255423273	https://www.eeo.cn/s/a/?cid=255423273	Teacher A online classroom	Teacher: raymondjayag*****ail.com	STUDENT-Sam8cd
+255423321	https://www.eeo.cn/s/a/?cid=255423321	One English Center	Teacher: Emir	Jacob8/Think1/OEC/
+255423331	https://www.eeo.cn/s/a/?cid=255423331	点石教育	Teacher: 王洛克	黄政文的教室
+255423341	https://www.eeo.cn/s/a/?cid=255423341	rachellbuhler.*****ail.c online classroom	Teacher: rachellbuhler.*****ail.c	ESL 5
+255423409	https://www.eeo.cn/s/a/?cid=255423409	多瑙语言教育	Teacher: 182****4525	Beth’s Fireman Group
+255423485	https://www.eeo.cn/s/a/?cid=255423485	多瑙语言教育	Teacher: 182****4525	Brian’s Fireman Group
+255423497	https://www.eeo.cn/s/a/?cid=255423497	启明教育	Teacher: 语文杨凯老师	桥西-寒假E3语文
+255423685	https://www.eeo.cn/s/a/?cid=255423685	Fame online classroom	Teacher: 951****648	fame
+255423715	https://www.eeo.cn/s/a/?cid=255423715	Teacher Shula Mae online classroom	Teacher: 908****453	Suzy
+255423887	https://www.eeo.cn/s/a/?cid=255423887	格物致知-李老师	Teacher: 136****5670	寒假1:30~3:30物理课

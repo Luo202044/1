@@ -1,4 +1,3 @@
-252812475	https://www.eeo.cn/s/a/?cid=252812475	乐梦营	Teacher: Molly	Andy
 252812483	https://www.eeo.cn/s/a/?cid=252812483	audrielynulloa*****ail.c online classroom	Teacher: audrielynulloa*****ail.c	Demo
 252812507	https://www.eeo.cn/s/a/?cid=252812507	正领睿学教育	Teacher: 赵唯彤	张嘉文 IG课程 一对一 课表
 252812611	https://www.eeo.cn/s/a/?cid=252812611	0063-9064876914 online classroom	Teacher: 906****914	andrew
@@ -799,7 +798,6 @@
 252875549	https://www.eeo.cn/s/a/?cid=252875549	Hoàng Việt Anh online classroom	Teacher: 834****26	d
 252875749	https://www.eeo.cn/s/a/?cid=252875749	Teacher Joy online classroom	Teacher: 953****126	Ford & Annie
 252875873	https://www.eeo.cn/s/a/?cid=252875873	吴县中学	Teacher: 英语秦萌萌	高一28班
-252875909	https://www.eeo.cn/s/a/?cid=252875909	学优未来	Teacher: 马老师	m2欣
 252875973	https://www.eeo.cn/s/a/?cid=252875973	Anh Đức online classroom	Teacher: 936****51	tn xàm
 252876015	https://www.eeo.cn/s/a/?cid=252876015	闪电学校	Teacher: 138****2792	录视频之我的世界
 252876253	https://www.eeo.cn/s/a/?cid=252876253	AdvancedPhD顶博教育	Teacher: 130****2131	20240108 通讯 2
@@ -1198,3 +1196,5 @@
 252905627	https://www.eeo.cn/s/a/?cid=252905627	Teacher Bong online classroom	Teacher: bongbalican*****ail.com	Karl's class 11
 252905671	https://www.eeo.cn/s/a/?cid=252905671	Teacher Bong online classroom	Teacher: bongbalican*****ail.com	Luna's class 2
 252905757	https://www.eeo.cn/s/a/?cid=252905757	Vickie老师	Teacher: Vickie	测试
+252905769	https://www.eeo.cn/s/a/?cid=252905769	Vani online classroom	Teacher: 476****57	Wei class
+252905867	https://www.eeo.cn/s/a/?cid=252905867	Teacher Eda online classroom	Teacher: 533****314	Ava 1- 25.12

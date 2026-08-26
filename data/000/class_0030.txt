@@ -1,10 +1,3 @@
-254269217	https://www.eeo.cn/s/a/?cid=254269217	张舒	Teacher: 张舒	宋佳馨--CAT4非文字逻辑
-254269255	https://www.eeo.cn/s/a/?cid=254269255	Teacher Nica online classroom	Teacher: 976****849	Aaron's English Class January 18
-254269309	https://www.eeo.cn/s/a/?cid=254269309	mheldinehatague*****ail. online classroom	Teacher: mheldinehatague*****ail.	Peter's class Jan. 18
-254269419	https://www.eeo.cn/s/a/?cid=254269419	谷老师初中数学	Teacher: 182****1477	溪
-254269563	https://www.eeo.cn/s/a/?cid=254269563	Ach online classroom	Teacher: 859****786	tony
-254269695	https://www.eeo.cn/s/a/?cid=254269695	kirgy online classroom	Teacher: 942****474	ELSA - JANUARY 2024
-254269737	https://www.eeo.cn/s/a/?cid=254269737	君华国际学校	Teacher: Rose	党思恒论文指导课
 254269741	https://www.eeo.cn/s/a/?cid=254269741	Teacher Arcjade online classroom	Teacher: 909****744	Alex 2's Class
 254269901	https://www.eeo.cn/s/a/?cid=254269901	ME夫子语言培训中心	Teacher: 汪聪	王维莹
 254269951	https://www.eeo.cn/s/a/?cid=254269951	交大附中附属嘉定洪德中学	Teacher: 余晓珍	七年级1班
@@ -1198,3 +1191,10 @@
 254322317	https://www.eeo.cn/s/a/?cid=254322317	Yiera B. Secreto online classroom	Teacher: 923****538	zill's fanbase gc
 254322321	https://www.eeo.cn/s/a/?cid=254322321	Teacher Ailene online classroom	Teacher: 991****699	Solar/ Diamond January
 254322337	https://www.eeo.cn/s/a/?cid=254322337	远飞	Teacher: 陈sir	10HCYC001高一化学【超优】小组课-寒假
+254322345	https://www.eeo.cn/s/a/?cid=254322345	Etutor	Teacher: Teacher Demz	Le Van 010313/Teacher Demz
+254322347	https://www.eeo.cn/s/a/?cid=254322347	Teacher Alexis online classroom	Teacher: 715****620	Spanish 2 (classses filled)
+254322421	https://www.eeo.cn/s/a/?cid=254322421	远飞	Teacher: 陈sir	10MCYC001高一数学【超优】小组课-寒假
+254322529	https://www.eeo.cn/s/a/?cid=254322529	师兄师姐帮	Teacher: 173****1176	内部录制(可提前测试)
+254322685	https://www.eeo.cn/s/a/?cid=254322685	远飞	Teacher: 陈sir	10WCYC001高一物理【超优】小组课-寒假
+254322773	https://www.eeo.cn/s/a/?cid=254322773	深圳市海滨中学	Teacher: 石思思	初二3班导师助理群
+254322785	https://www.eeo.cn/s/a/?cid=254322785	南七	Teacher: 陈磊	23寒-数学八创一期晚上班-陈磊

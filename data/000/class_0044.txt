@@ -1,12 +1,3 @@
-255081119	https://www.eeo.cn/s/a/?cid=255081119	Teacher Lory II online classroom	Teacher: 905****676	ELENA 51
-255081147	https://www.eeo.cn/s/a/?cid=255081147	Judy Ariola online classroom	Teacher: 920****240	123
-255081161	https://www.eeo.cn/s/a/?cid=255081161	Ofelia Portaliza online classroom	Teacher: 965****562	Art’s Class
-255081241	https://www.eeo.cn/s/a/?cid=255081241	WeIP Education	Teacher: 琳老师 Ms Gwen	2024 F1 BI FRI 8.15am MS GWEN (SK)
-255081243	https://www.eeo.cn/s/a/?cid=255081243	Ontact 中文	Teacher: Tr. Jochebed	Ontact 9th class
-255081285	https://www.eeo.cn/s/a/?cid=255081285	质成培优	Teacher: 帅智老师	寒假二期初一1点到3点
-255081293	https://www.eeo.cn/s/a/?cid=255081293	Teacher Lory IV online classroom	Teacher: 946****212	ELENA 51
-255081311	https://www.eeo.cn/s/a/?cid=255081311	Studio Education	Teacher: Leah Beresford	Justin ZENG'S online Assessment
-255081321	https://www.eeo.cn/s/a/?cid=255081321	嘻哈娱乐	Teacher: 胖胖冰	王童鞋加油站
 255081335	https://www.eeo.cn/s/a/?cid=255081335	卓学在线教育	Teacher: 刘伊	2024寒新华大牛19：20高一数学
 255081337	https://www.eeo.cn/s/a/?cid=255081337	Teacher Lory IV online classroom	Teacher: 946****212	ALLAN 157
 255081365	https://www.eeo.cn/s/a/?cid=255081365	彭Xiao dai Xiang online classroom	Teacher: 592***90	MangoXg2
@@ -1198,3 +1189,12 @@
 255135073	https://www.eeo.cn/s/a/?cid=255135073	星火教育红岭校区（深圳关内）	Teacher: 刘宝金	2024A二年级逻辑素养实验小组课2A
 255135081	https://www.eeo.cn/s/a/?cid=255135081	대치코칭센터	Teacher: 박주경	고1 영어모의고사
 255135105	https://www.eeo.cn/s/a/?cid=255135105	jooh online classroom	Teacher: jmaputi*****ail.com	Kevin's 32nd class (1-31-24)
+255135139	https://www.eeo.cn/s/a/?cid=255135139	澜大教育	Teacher: 管诗凡	澜大浦东-1.30SAT机考冲刺班DSATQ4CCPD24015
+255135183	https://www.eeo.cn/s/a/?cid=255135183	大知闲闲	Teacher: 188****0935	段博涵的课堂
+255135245	https://www.eeo.cn/s/a/?cid=255135245	CLEVERLY	Teacher: 周霞	24寒八思维
+255135299	https://www.eeo.cn/s/a/?cid=255135299	Jundel	Teacher: 910****644	Amy
+255135367	https://www.eeo.cn/s/a/?cid=255135367	Parker Cheng online classroom	Teacher: 212****13	CLASSROOM CHATTING
+255135385	https://www.eeo.cn/s/a/?cid=255135385	Mengyala	Teacher: Tao Guo	Chenxi&Ms.Tammy 18:00-18:55 Saturday
+255135407	https://www.eeo.cn/s/a/?cid=255135407	智汇教育科技有限公司	Teacher: 张艳艳	九年级下电与磁场一
+255135439	https://www.eeo.cn/s/a/?cid=255135439	Zion online classroom	Teacher: benhur.alv*****ail.com	dada
+255135447	https://www.eeo.cn/s/a/?cid=255135447	Teacher Ash online classroom	Teacher: 967****084	12:30 Demo class

@@ -1,5 +1,3 @@
-252905769	https://www.eeo.cn/s/a/?cid=252905769	Vani online classroom	Teacher: 476****57	Wei class
-252905867	https://www.eeo.cn/s/a/?cid=252905867	Teacher Eda online classroom	Teacher: 533****314	Ava 1- 25.12
 252905901	https://www.eeo.cn/s/a/?cid=252905901	Dunja online classroom	Teacher: 648****13	Nick25-12-2023
 252905959	https://www.eeo.cn/s/a/?cid=252905959	K Studio	Teacher: 186****9663	2025_雏鹰班_K老师数学思维课
 252905975	https://www.eeo.cn/s/a/?cid=252905975	akka	Teacher: 955****754	Hans
@@ -1198,3 +1196,5 @@
 252980777	https://www.eeo.cn/s/a/?cid=252980777	Teacher Michelle online classroom	Teacher: ing.javierarturosanch***	- ARTHUR & MICHELLE -
 252980785	https://www.eeo.cn/s/a/?cid=252980785	谦学教育集团有限公司	Teacher: 137****9858	12.26澳国立argue期末分数
 252980801	https://www.eeo.cn/s/a/?cid=252980801	Teacher Janeth online classroom	Teacher: 966****375	Krista
+252980835	https://www.eeo.cn/s/a/?cid=252980835	Teacher Kathy's English Class	Teacher: 999****283	Alice's Seventh Course
+252980883	https://www.eeo.cn/s/a/?cid=252980883	谦学教育集团有限公司	Teacher: 137****9858	12.26谢菲尔德休学申请第三次

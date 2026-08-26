@@ -1,5 +1,3 @@
-253038863	https://www.eeo.cn/s/a/?cid=253038863	北大附中教育集团总校	Teacher: 王晓征	莆田学校教师
-253038899	https://www.eeo.cn/s/a/?cid=253038899	AdvancedPhD顶博教育	Teacher: 130****2131	20231228 紧急单
 253038907	https://www.eeo.cn/s/a/?cid=253038907	Jane Marie-6 online classroom	Teacher: 951****606	Sam 12.28
 253038949	https://www.eeo.cn/s/a/?cid=253038949	Chen Chloe online classroom	Teacher: 346****938	clo’s class
 253038959	https://www.eeo.cn/s/a/?cid=253038959	高校教辅联盟	Teacher: 老王	樂咿～任艺老师对接群
@@ -1108,7 +1106,6 @@
 253109589	https://www.eeo.cn/s/a/?cid=253109589	zoe online classroom	Teacher: 692***91	Zoe's Demo
 253109601	https://www.eeo.cn/s/a/?cid=253109601	Teacher Nene Tutorial Services	Teacher: 918****452	Elsa's Class - 11
 253109633	https://www.eeo.cn/s/a/?cid=253109633	LET'S GO ENGLISH	Teacher: 951****339	Elvis
-253109719	https://www.eeo.cn/s/a/?cid=253109719	世界名校教授远程科研	Teacher: Staff-Norah	测试
 253109733	https://www.eeo.cn/s/a/?cid=253109733	jeanpagupa*****ail.com online classroom	Teacher: jeanpagupa*****ail.com	Teacher Jean
 253109739	https://www.eeo.cn/s/a/?cid=253109739	Kristina online classroom	Teacher: 972****78	Ginger
 253109765	https://www.eeo.cn/s/a/?cid=253109765	Teacher Vani online classroom	Teacher: kakosyanvanu*****ail.com	Barry class
@@ -1198,3 +1195,6 @@
 253115631	https://www.eeo.cn/s/a/?cid=253115631	Teacher Izza online classroom	Teacher: 935****414	English Class | Alex & Gavin
 253115635	https://www.eeo.cn/s/a/?cid=253115635	Clarice Tracey	Teacher: 999****649	Rain 10
 253115645	https://www.eeo.cn/s/a/?cid=253115645	Teacher Nene Tutorial Services	Teacher: 918****452	Kevin's Class - 10
+253115665	https://www.eeo.cn/s/a/?cid=253115665	竞赛帮	Teacher: 悦悦老师	【小学】竞赛帮-寒假2期5S+语文班13:30章鱼老师
+253115905	https://www.eeo.cn/s/a/?cid=253115905	乐学汇	Teacher: 王老师	四年级寒假思维
+253116021	https://www.eeo.cn/s/a/?cid=253116021	Let's Go English	Teacher: 909****152	Venus' class

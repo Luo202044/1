@@ -1,11 +1,3 @@
-254903303	https://www.eeo.cn/s/a/?cid=254903303	Bùi Đức Gia Bảo online classroom	Teacher: 973****64	h
-254903343	https://www.eeo.cn/s/a/?cid=254903343	gemmavicentino*****ail.c online classroom	Teacher: gemmavicentino*****ail.c	Nica
-254903449	https://www.eeo.cn/s/a/?cid=254903449	Bùi Đức Gia Bảo online classroom	Teacher: 973****64	con
-254903451	https://www.eeo.cn/s/a/?cid=254903451	April Garen online classroom	Teacher: 916****299	Jerry
-254903505	https://www.eeo.cn/s/a/?cid=254903505	智汇教育科技有限公司	Teacher: 张艳艳	1
-254903657	https://www.eeo.cn/s/a/?cid=254903657	小裙子工作室	Teacher: 小裙子	初二周思诺物理课
-254903677	https://www.eeo.cn/s/a/?cid=254903677	上海留师教育科技有限公司	Teacher: 180****3039	240110129 哈德斯菲尔德 工商管理essay辅导
-254903807	https://www.eeo.cn/s/a/?cid=254903807	ligog2*****ail.com online classroom	Teacher: ligog2*****ail.com	Al
 254903851	https://www.eeo.cn/s/a/?cid=254903851	Mike	Teacher: 664***02	27.1. Jay
 254903887	https://www.eeo.cn/s/a/?cid=254903887	Carl online classroom	Teacher: 709****295	revan carson
 254903895	https://www.eeo.cn/s/a/?cid=254903895	ximajo81*****vgo.com online classroom	Teacher: ximajo81*****vgo.com	JACK HONG
@@ -1198,3 +1190,11 @@
 254968049	https://www.eeo.cn/s/a/?cid=254968049	本溪市高级中学	Teacher: 王蕴乔	19班王蕴乔组
 254968077	https://www.eeo.cn/s/a/?cid=254968077	立德信息服务	Teacher: 外教老师伊西	Theo New class
 254968079	https://www.eeo.cn/s/a/?cid=254968079	MORE TALK	Teacher: Cathy	Michael's english class
+254968085	https://www.eeo.cn/s/a/?cid=254968085	Mike	Teacher: 664***02	28.1. Kiki
+254968091	https://www.eeo.cn/s/a/?cid=254968091	潇洒姐儿口才艺术	Teacher: 琴琴COCO	111
+254968213	https://www.eeo.cn/s/a/?cid=254968213	Jack house	Teacher: Teacher Clarice	naa ko gawas
+254968235	https://www.eeo.cn/s/a/?cid=254968235	Teacher Elmejane online classroom	Teacher: 935****984	Aurora-3
+254968297	https://www.eeo.cn/s/a/?cid=254968297	寒门贵师--大熊	Teacher: 熊老师	高二寒假2024
+254968405	https://www.eeo.cn/s/a/?cid=254968405	线上1v1	Teacher: 班主任-玥玥老师	赵恒+初一语文+正式课+玥玥老师
+254968421	https://www.eeo.cn/s/a/?cid=254968421	Carl online classroom	Teacher: 709****295	nat
+254968467	https://www.eeo.cn/s/a/?cid=254968467	飞跃教育初高中部	Teacher: jiangyu1	7班测试课

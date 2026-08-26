@@ -1,11 +1,3 @@
-254723195	https://www.eeo.cn/s/a/?cid=254723195	Bloom Cultural Creativity	Teacher: 139****8354	Reading with Emy
-254723291	https://www.eeo.cn/s/a/?cid=254723291	儿语工坊·在线语训中心	Teacher: 倾音小助手	一辉宝贝在线课堂
-254723607	https://www.eeo.cn/s/a/?cid=254723607	欧氏海 - Âu Thị Hải online classroom	Teacher: auhai19*****ail.com	hh
-254723727	https://www.eeo.cn/s/a/?cid=254723727	Lets Go English	Teacher: 994****143	Anna
-254723757	https://www.eeo.cn/s/a/?cid=254723757	Teacher Carol 7 online classroom	Teacher: 930****800	Queena
-254723809	https://www.eeo.cn/s/a/?cid=254723809	成都市流利语言有限公司	Teacher: 135****1451	Athena—T Grant
-254723839	https://www.eeo.cn/s/a/?cid=254723839	Joy online classroom	Teacher: upkidzj*****ail.com	D510- Caroline's Classroom
-254723845	https://www.eeo.cn/s/a/?cid=254723845	Lets Go English	Teacher: 994****143	Terry
 254723895	https://www.eeo.cn/s/a/?cid=254723895	启德星学社	Teacher: 于洋	step2试听1V3-网络
 254723905	https://www.eeo.cn/s/a/?cid=254723905	Online English Teacher School	Teacher: 菲106marj	Duo6
 254723915	https://www.eeo.cn/s/a/?cid=254723915	Joy online classroom	Teacher: upkidzj*****ail.com	A396 Cici's Classroom
@@ -1198,3 +1190,11 @@
 254786723	https://www.eeo.cn/s/a/?cid=254786723	Lalaine Kate Albani online classroom	Teacher: lainealban*****ail.com	kate
 254786745	https://www.eeo.cn/s/a/?cid=254786745	华东政法大学附属松江实验学校	Teacher: 彭頔	七1七2英语合班直播
 254786811	https://www.eeo.cn/s/a/?cid=254786811	走着走着走着走	Teacher: 156****9143	风风
+254786933	https://www.eeo.cn/s/a/?cid=254786933	0063-9912289485 online classroom	Teacher: 991****485	1st class Sloth are slow
+254786993	https://www.eeo.cn/s/a/?cid=254786993	行知青藤英领院	Teacher: 186****6657	高二寒假营物理2班
+254787233	https://www.eeo.cn/s/a/?cid=254787233	airon.toptierdigit*****a online classroom	Teacher: airon.toptierdigit*****a	Adi's Demo
+254787265	https://www.eeo.cn/s/a/?cid=254787265	小丫爱生活	Teacher: 153****0803	2025--01寒假数学
+254787267	https://www.eeo.cn/s/a/?cid=254787267	The Online Grammar Institute-LMR	Teacher: 275***0	Testing Screen Sharing
+254787375	https://www.eeo.cn/s/a/?cid=254787375	Loan online classroom	Teacher: 905****34	SL - DEMO
+254787453	https://www.eeo.cn/s/a/?cid=254787453	行知青藤英领院	Teacher: 186****6657	高二寒假营物理3班
+254787455	https://www.eeo.cn/s/a/?cid=254787455	Teach Jean online classroom	Teacher: 953****492	Thalia

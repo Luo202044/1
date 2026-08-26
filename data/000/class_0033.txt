@@ -1,10 +1,3 @@
-254424535	https://www.eeo.cn/s/a/?cid=254424535	Teacher Ellaine online classroom	Teacher: ranilolacer*****ail.com	chloe and Ethan
-254424545	https://www.eeo.cn/s/a/?cid=254424545	Teacher Ellaine online classroom	Teacher: ranilolacer*****ail.com	kathy
-254424713	https://www.eeo.cn/s/a/?cid=254424713	Teacher Jackie online classroom	Teacher: 585****511	Training
-254424721	https://www.eeo.cn/s/a/?cid=254424721	kc.bescala*****ail.com online classroom	Teacher: kc.bescala*****ail.com	English class with teacher Kecy
-254424847	https://www.eeo.cn/s/a/?cid=254424847	C-Tyme の online课堂	Teacher: 小C	C-Tyme森田光稀様 汉语课
-254424869	https://www.eeo.cn/s/a/?cid=254424869	0063-9853845986 online classroom	Teacher: 985****986	Bill
-254424895	https://www.eeo.cn/s/a/?cid=254424895	晨为教育	Teacher: Chen Wei English House	A Trial Session on Tuesday 23rd January
 254424933	https://www.eeo.cn/s/a/?cid=254424933	Nguyễn Tất Minh online classroom	Teacher: 854****99	...
 254424971	https://www.eeo.cn/s/a/?cid=254424971	angeliemiegarc*****ail.c online classroom	Teacher: angeliemiegarc*****ail.c	Demo Class
 254425035	https://www.eeo.cn/s/a/?cid=254425035	Teacher Ron online classroom	Teacher: 998****318	Y2 VIP Betty
@@ -1198,3 +1191,10 @@
 254493517	https://www.eeo.cn/s/a/?cid=254493517	Bùi Thanh Xuân online classroom	Teacher: 978****06	ClassIn Assistant
 254493573	https://www.eeo.cn/s/a/?cid=254493573	HappyTeaching	Teacher: Rag	Isabella8JN
 254493663	https://www.eeo.cn/s/a/?cid=254493663	cris26 online classroom	Teacher: clarp*****hoo.com	Lele
+254493673	https://www.eeo.cn/s/a/?cid=254493673	HappyTeaching	Teacher: Rag	Strawberry
+254493727	https://www.eeo.cn/s/a/?cid=254493727	HappyTeaching	Teacher: Rag	Matthew9
+254493737	https://www.eeo.cn/s/a/?cid=254493737	深圳市福田区外国语小学	Teacher: 郑子杰	2024郑老师满口埙班级
+254493769	https://www.eeo.cn/s/a/?cid=254493769	cris26 online classroom	Teacher: clarp*****hoo.com	Nathalie
+254493787	https://www.eeo.cn/s/a/?cid=254493787	Teacher Nadsla online classroom	Teacher: nadslasacand*****ail.com	5th class David Monday
+254493815	https://www.eeo.cn/s/a/?cid=254493815	悦体能	Teacher: 寇利利	寇利利24S3五S二期下午【录播课打卡群】
+254493823	https://www.eeo.cn/s/a/?cid=254493823	深圳市福田区第二实验学校	Teacher: 王雨瑭	test

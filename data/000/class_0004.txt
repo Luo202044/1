@@ -1,4 +1,3 @@
-252636959	https://www.eeo.cn/s/a/?cid=252636959	Ms. Hien online classroom	Teacher: 392****93	Pre Ielts
 252636977	https://www.eeo.cn/s/a/?cid=252636977	思考乐培训（高中）	Teacher: 吴玲	703491 -吴玲-高二化学-周六下午16:20
 252637073	https://www.eeo.cn/s/a/?cid=252637073	呼啦啦教育	Teacher: 周晨茜	课程设计
 252637171	https://www.eeo.cn/s/a/?cid=252637171	教师发展中心	Teacher: 李嘉慧	华侨城中学测试
@@ -1198,3 +1197,4 @@
 252696963	https://www.eeo.cn/s/a/?cid=252696963	圆学梦	Teacher: 林老师	肖老师周日九年级物理14.00-16.00
 252696977	https://www.eeo.cn/s/a/?cid=252696977	思考乐培训（高中）	Teacher: 冯东梅	738023-冯东梅-龙一-光浩-秋季-三年级-数学-综合-20231223
 252697179	https://www.eeo.cn/s/a/?cid=252697179	思考乐培训（高中）	Teacher: 陈嘉欣	733806-陈嘉欣-龙一-光浩-秋季-初一-英语-综合-20231223
+252697207	https://www.eeo.cn/s/a/?cid=252697207	齐金鹏数学	Teacher: 151****9370	录制测试

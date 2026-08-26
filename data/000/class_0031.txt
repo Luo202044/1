@@ -1,10 +1,3 @@
-254322345	https://www.eeo.cn/s/a/?cid=254322345	Etutor	Teacher: Teacher Demz	Le Van 010313/Teacher Demz
-254322347	https://www.eeo.cn/s/a/?cid=254322347	Teacher Alexis online classroom	Teacher: 715****620	Spanish 2 (classses filled)
-254322421	https://www.eeo.cn/s/a/?cid=254322421	远飞	Teacher: 陈sir	10MCYC001高一数学【超优】小组课-寒假
-254322529	https://www.eeo.cn/s/a/?cid=254322529	师兄师姐帮	Teacher: 173****1176	内部录制(可提前测试)
-254322685	https://www.eeo.cn/s/a/?cid=254322685	远飞	Teacher: 陈sir	10WCYC001高一物理【超优】小组课-寒假
-254322773	https://www.eeo.cn/s/a/?cid=254322773	深圳市海滨中学	Teacher: 石思思	初二3班导师助理群
-254322785	https://www.eeo.cn/s/a/?cid=254322785	南七	Teacher: 陈磊	23寒-数学八创一期晚上班-陈磊
 254322787	https://www.eeo.cn/s/a/?cid=254322787	0063-9285854658 online classroom	Teacher: 928****658	YCA
 254322805	https://www.eeo.cn/s/a/?cid=254322805	南沙教研	Teacher: 张老师	榄核二小二年1班
 254322839	https://www.eeo.cn/s/a/?cid=254322839	工作室	Teacher: 高静	24H 一期G5
@@ -1198,3 +1191,10 @@
 254364251	https://www.eeo.cn/s/a/?cid=254364251	Teacher Mae online classroom	Teacher: ivana.lucido*****ail.com	KEVIN CLASS
 254364257	https://www.eeo.cn/s/a/?cid=254364257	Teacher Christine online classroom	Teacher: 993****635	JINDAL CLASS
 254364297	https://www.eeo.cn/s/a/?cid=254364297	Teacher Nik online classroom	Teacher: keyov369*****uromi.com	LEON
+254364311	https://www.eeo.cn/s/a/?cid=254364311	Teacher Guia online classroom	Teacher: 916****319	Teacher Guia Demo Class
+254364445	https://www.eeo.cn/s/a/?cid=254364445	Teacher Hil online classroom	Teacher: 961****550	TINA/SIMON
+254364459	https://www.eeo.cn/s/a/?cid=254364459	liu	Teacher: 181****2269	一诺
+254364483	https://www.eeo.cn/s/a/?cid=254364483	Teacher Mica online classroom	Teacher: 948****661	Power Up 2
+254364503	https://www.eeo.cn/s/a/?cid=254364503	Teacher Raven online classroom	Teacher: 981****493	Emlia8tianjin
+254364547	https://www.eeo.cn/s/a/?cid=254364547	钟碧涵 online classroom	Teacher: 115****741	🤫𝙥𝙧𝙞𝙫𝙖𝙩𝙚🤫
+254364587	https://www.eeo.cn/s/a/?cid=254364587	快乐家庭教育	Teacher: 132****1313	1.20号初二上午十点

@@ -1,4 +1,3 @@
-252697207	https://www.eeo.cn/s/a/?cid=252697207	齐金鹏数学	Teacher: 151****9370	录制测试
 252697255	https://www.eeo.cn/s/a/?cid=252697255	思考乐培训（高中）	Teacher: 王荣耀	709445-王荣耀-龙二-龙城-秋季-高一-数学-20231223-14:00
 252697263	https://www.eeo.cn/s/a/?cid=252697263	圆学梦	Teacher: 林老师	【圆学梦】24届九年级化学圆腾班
 252697265	https://www.eeo.cn/s/a/?cid=252697265	Meili Learning Hub	Teacher: 922****052	FRANK 6MOS BUSINESS CLASS
@@ -1198,3 +1197,4 @@
 252753853	https://www.eeo.cn/s/a/?cid=252753853	百外教育集团	Teacher: 郝熙敬	【WW641】23秋季思维突破L6阶A+8班周六15:30-17:20
 252753885	https://www.eeo.cn/s/a/?cid=252753885	百外教育集团	Teacher: 郝熙敬	【WW638】23秋季思维突破L6阶A+7班周六8:00-9:50
 252753947	https://www.eeo.cn/s/a/?cid=252753947	百外教育集团	Teacher: 朱春兰	【BW643】23秋季思维突破L8阶A+4班周六13:30-15:20
+252753967	https://www.eeo.cn/s/a/?cid=252753967	百外教育集团	Teacher: 朱春兰	【BW640】23秋季思维突破L8阶A2班周六10:00-11:50

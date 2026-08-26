@@ -1,11 +1,3 @@
-254968085	https://www.eeo.cn/s/a/?cid=254968085	Mike	Teacher: 664***02	28.1. Kiki
-254968091	https://www.eeo.cn/s/a/?cid=254968091	潇洒姐儿口才艺术	Teacher: 琴琴COCO	111
-254968213	https://www.eeo.cn/s/a/?cid=254968213	Jack house	Teacher: Teacher Clarice	naa ko gawas
-254968235	https://www.eeo.cn/s/a/?cid=254968235	Teacher Elmejane online classroom	Teacher: 935****984	Aurora-3
-254968297	https://www.eeo.cn/s/a/?cid=254968297	寒门贵师--大熊	Teacher: 熊老师	高二寒假2024
-254968405	https://www.eeo.cn/s/a/?cid=254968405	线上1v1	Teacher: 班主任-玥玥老师	赵恒+初一语文+正式课+玥玥老师
-254968421	https://www.eeo.cn/s/a/?cid=254968421	Carl online classroom	Teacher: 709****295	nat
-254968467	https://www.eeo.cn/s/a/?cid=254968467	飞跃教育初高中部	Teacher: jiangyu1	7班测试课
 254968595	https://www.eeo.cn/s/a/?cid=254968595	ABC	Teacher: geway534*****ntcity.com	Ethan
 254968621	https://www.eeo.cn/s/a/?cid=254968621	乐优教育	Teacher: sam	六年级英语鹏程杯
 254968639	https://www.eeo.cn/s/a/?cid=254968639	正领睿学教育	Teacher: 王璐	张蔚 备考课程 一对一
@@ -1198,3 +1190,11 @@
 255030419	https://www.eeo.cn/s/a/?cid=255030419	Teacher Angel online classroom	Teacher: 976****020	KELLY
 255030489	https://www.eeo.cn/s/a/?cid=255030489	Teacher Sev13 online classroom	Teacher: sevimarund*****ail.com	Cherry
 255030495	https://www.eeo.cn/s/a/?cid=255030495	queeniecedeno*****ail.co online classroom	Teacher: queeniecedeno*****ail.co	Elaine
+255030509	https://www.eeo.cn/s/a/?cid=255030509	快乐学习	Teacher: 勾股定理	徐云淼补课
+255030513	https://www.eeo.cn/s/a/?cid=255030513	Teacher Noah online classroom	Teacher: amirbelovodjani*****ail.	sdsa
+255030525	https://www.eeo.cn/s/a/?cid=255030525	Online English Teacher School	Teacher: 菲106marj	Yy8
+255030563	https://www.eeo.cn/s/a/?cid=255030563	Teacher Sev14 online classroom	Teacher: sevomarund*****ail.com	Cherry
+255030565	https://www.eeo.cn/s/a/?cid=255030565	沫沫日语小筑	Teacher: 沫沫	耶-日语口语
+255030593	https://www.eeo.cn/s/a/?cid=255030593	Teacher Richelle online classroom	Teacher: sheispanny*****ail.com	Erik51 / jan29
+255030715	https://www.eeo.cn/s/a/?cid=255030715	伊登·私学	Teacher: 语文高芸	【2024寒春六】【孔子的春秋】【六3班】周日&寒假隔天10:40
+255030733	https://www.eeo.cn/s/a/?cid=255030733	华东师范大学澄迈实验中学	Teacher: 杨涛	高一地理培优群

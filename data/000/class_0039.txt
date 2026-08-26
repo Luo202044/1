@@ -1,11 +1,3 @@
-254786933	https://www.eeo.cn/s/a/?cid=254786933	0063-9912289485 online classroom	Teacher: 991****485	1st class Sloth are slow
-254786993	https://www.eeo.cn/s/a/?cid=254786993	行知青藤英领院	Teacher: 186****6657	高二寒假营物理2班
-254787233	https://www.eeo.cn/s/a/?cid=254787233	airon.toptierdigit*****a online classroom	Teacher: airon.toptierdigit*****a	Adi's Demo
-254787265	https://www.eeo.cn/s/a/?cid=254787265	小丫爱生活	Teacher: 153****0803	2025--01寒假数学
-254787267	https://www.eeo.cn/s/a/?cid=254787267	The Online Grammar Institute-LMR	Teacher: 275***0	Testing Screen Sharing
-254787375	https://www.eeo.cn/s/a/?cid=254787375	Loan online classroom	Teacher: 905****34	SL - DEMO
-254787453	https://www.eeo.cn/s/a/?cid=254787453	行知青藤英领院	Teacher: 186****6657	高二寒假营物理3班
-254787455	https://www.eeo.cn/s/a/?cid=254787455	Teach Jean online classroom	Teacher: 953****492	Thalia
 254787579	https://www.eeo.cn/s/a/?cid=254787579	上海市三新学校	Teacher: 邓为才	七3
 254787589	https://www.eeo.cn/s/a/?cid=254787589	小丫爱生活	Teacher: 153****0803	2025-02寒假数学
 254787595	https://www.eeo.cn/s/a/?cid=254787595	兵团二中第十一师分校	Teacher: 吴有为	九年级9班11班联播（物理）
@@ -1198,3 +1190,11 @@
 254841071	https://www.eeo.cn/s/a/?cid=254841071	Teacher Michelle online classroom	Teacher: 911****6555	- KIM & MICHELLE -
 254841089	https://www.eeo.cn/s/a/?cid=254841089	Hello,IamJossen online classroom	Teacher: iamjnotor*****ail.com	InterDemo 2
 254841209	https://www.eeo.cn/s/a/?cid=254841209	David Hill online classroom	Teacher: 643****16	Oli
+254841227	https://www.eeo.cn/s/a/?cid=254841227	T Janice online classroom	Teacher: 935****058	Barry Lesson 2-13
+254841243	https://www.eeo.cn/s/a/?cid=254841243	khanhngan1903 online classroom	Teacher: 931****55	a3
+254841365	https://www.eeo.cn/s/a/?cid=254841365	Teacher Jerralyn 2nd acc online classroom	Teacher: 999****448	Class with Reanna🥰
+254841371	https://www.eeo.cn/s/a/?cid=254841371	class	Teacher: 班主任	初二数学寒假班8
+254841373	https://www.eeo.cn/s/a/?cid=254841373	Teach Jean online classroom	Teacher: 953****492	Sofia7 8:30-8:55
+254841457	https://www.eeo.cn/s/a/?cid=254841457	Thoc Binh An online classroom	Teacher: 916****26	cccdvad
+254841481	https://www.eeo.cn/s/a/?cid=254841481	Bry online classroom	Teacher: stevebryanlima*****ail.c	Good Subway Behavior with Terry9
+254841609	https://www.eeo.cn/s/a/?cid=254841609	勤学雅问	Teacher: 孙子涵	市场部培训

@@ -1,10 +1,3 @@
-254673651	https://www.eeo.cn/s/a/?cid=254673651	Cherubim online classroom	Teacher: 956****056	Elaine's Classrooms
-254673717	https://www.eeo.cn/s/a/?cid=254673717	Danber Denden online classroom	Teacher: 977****962	Training with Danber Ella
-254673769	https://www.eeo.cn/s/a/?cid=254673769	Teacher Jam online classroom	Teacher: 961****498	class
-254673771	https://www.eeo.cn/s/a/?cid=254673771	Arcjade 3 online classroom	Teacher: 981****081	Quentin's Class
-254673791	https://www.eeo.cn/s/a/?cid=254673791	0063-9611628078 online classroom	Teacher: 961****078	har har haf har har har har har har har
-254673849	https://www.eeo.cn/s/a/?cid=254673849	Sunny	Teacher: SunnyEric	智乔小六
-254673941	https://www.eeo.cn/s/a/?cid=254673941	Teacher Kyla online classroom	Teacher: kylamila*****ail.com	Timmy
 254673943	https://www.eeo.cn/s/a/?cid=254673943	耀华国际教育学校广州校区	Teacher: cherrycheng	23-24 S2 G3B CHI 语文 Cherry
 254673951	https://www.eeo.cn/s/a/?cid=254673951	宝鸡高新第三小学	Teacher: 张晓妮	临时群
 254674081	https://www.eeo.cn/s/a/?cid=254674081	0063-9091159386 online classroom	Teacher: 909****386	Adult training
@@ -652,7 +645,6 @@
 254700987	https://www.eeo.cn/s/a/?cid=254700987	TGLTS	Teacher: 920****836	Noah's Class (Jan - Feb 2024) '
 254700995	https://www.eeo.cn/s/a/?cid=254700995	上海工程技术大学附属松江泗泾实验学校	Teacher: 周闵	2023级二135班
 254701095	https://www.eeo.cn/s/a/?cid=254701095	Ngọc Ánh online classroom	Teacher: 364****61	:)
-254701101	https://www.eeo.cn/s/a/?cid=254701101	Teacher Ricky online classroom	Teacher: 921****289	star
 254701125	https://www.eeo.cn/s/a/?cid=254701125	Linda online classroom	Teacher: 617****43	Annie1609
 254701149	https://www.eeo.cn/s/a/?cid=254701149	annejohn2stude*****ail.c online classroom	Teacher: annejohn2stude*****ail.c	Anne
 254701161	https://www.eeo.cn/s/a/?cid=254701161	Jade Lim - Happy Chinese	Teacher: Happy Chinese	【JLHC】 老师讨论群
@@ -1198,3 +1190,11 @@
 254723079	https://www.eeo.cn/s/a/?cid=254723079	晓禾素养教育	Teacher: 董桂炯	【思跃济外集训课】-董哥
 254723109	https://www.eeo.cn/s/a/?cid=254723109	Jill online classroom	Teacher: 405****305	hanxi
 254723117	https://www.eeo.cn/s/a/?cid=254723117	儿语工坊·在线语训中心	Teacher: 倾音小助手	唐煜墨宝贝在线课堂
+254723195	https://www.eeo.cn/s/a/?cid=254723195	Bloom Cultural Creativity	Teacher: 139****8354	Reading with Emy
+254723291	https://www.eeo.cn/s/a/?cid=254723291	儿语工坊·在线语训中心	Teacher: 倾音小助手	一辉宝贝在线课堂
+254723607	https://www.eeo.cn/s/a/?cid=254723607	欧氏海 - Âu Thị Hải online classroom	Teacher: auhai19*****ail.com	hh
+254723727	https://www.eeo.cn/s/a/?cid=254723727	Lets Go English	Teacher: 994****143	Anna
+254723757	https://www.eeo.cn/s/a/?cid=254723757	Teacher Carol 7 online classroom	Teacher: 930****800	Queena
+254723809	https://www.eeo.cn/s/a/?cid=254723809	成都市流利语言有限公司	Teacher: 135****1451	Athena—T Grant
+254723839	https://www.eeo.cn/s/a/?cid=254723839	Joy online classroom	Teacher: upkidzj*****ail.com	D510- Caroline's Classroom
+254723845	https://www.eeo.cn/s/a/?cid=254723845	Lets Go English	Teacher: 994****143	Terry

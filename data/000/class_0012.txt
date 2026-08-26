@@ -1,7 +1,3 @@
-253177601	https://www.eeo.cn/s/a/?cid=253177601	Gee's E-Class online classroom	Teacher: 956****682	JennisonJanuary
-253177785	https://www.eeo.cn/s/a/?cid=253177785	Farris online classroom	Teacher: 638****14	Winston7
-253177791	https://www.eeo.cn/s/a/?cid=253177791	新方向素质教育	Teacher: 桃子	202304-秋季班中学07-初一02唐风读书励学7225
-253177879	https://www.eeo.cn/s/a/?cid=253177879	Teacher Belle online classroom	Teacher: jobellenatividad*****ail	LISHA6
 253178001	https://www.eeo.cn/s/a/?cid=253178001	Tilla online classroom	Teacher: 655****61	Jacky Dec 6
 253178049	https://www.eeo.cn/s/a/?cid=253178049	新方向素质教育	Teacher: 桃子	202304-秋季班中学07-初一03思维托管励学7311
 253178131	https://www.eeo.cn/s/a/?cid=253178131	Online Class 2024	Teacher: Teacher Joy	John7L's Class
@@ -1198,3 +1194,7 @@
 253267933	https://www.eeo.cn/s/a/?cid=253267933	Level Up Teacher online classroom	Teacher: 966****645	Moon's Class
 253267987	https://www.eeo.cn/s/a/?cid=253267987	股份苟富贵	Teacher: 151****9875	Hi
 253268331	https://www.eeo.cn/s/a/?cid=253268331	Teacher JessaMine online classroom	Teacher: 906****553	DIANA-JANUARY 2024
+253268645	https://www.eeo.cn/s/a/?cid=253268645	拾伍素养	Teacher: 耿茉	【1B-3】课程模版
+253268719	https://www.eeo.cn/s/a/?cid=253268719	ABCD	Teacher: Teacher Lu	Asia-8&Muhang4（26-5）
+253268865	https://www.eeo.cn/s/a/?cid=253268865	Teacher Jessamine2 online classroom	Teacher: 976****972	ALEX-JANUARY 2024
+253268869	https://www.eeo.cn/s/a/?cid=253268869	Lǎoshī Annie online classroom	Teacher: gelleamp*****ail.com	Elsa's Lesson

@@ -1,10 +1,3 @@
-253990733	https://www.eeo.cn/s/a/?cid=253990733	SethNica CS online classroom	Teacher: 919****552	jan 14
-253990789	https://www.eeo.cn/s/a/?cid=253990789	Teacher Slava online classroom	Teacher: 995****088	English Class - Daniel
-253990819	https://www.eeo.cn/s/a/?cid=253990819	Yza online classroom	Teacher: 960****408	nancy
-253990865	https://www.eeo.cn/s/a/?cid=253990865	English&Me原版英语	Teacher: Yiyi	Amy4943 class
-253991015	https://www.eeo.cn/s/a/?cid=253991015	PATCO's English Tutorial	Teacher: 968****382	JON JANUARY
-253991051	https://www.eeo.cn/s/a/?cid=253991051	Teacher Nette online classroom	Teacher: mcgayad*****ail.com	practice 1
-253991393	https://www.eeo.cn/s/a/?cid=253991393	Jason Jiao online classroom	Teacher: jasonji*****tmail.com	Yinbiao10
 253991573	https://www.eeo.cn/s/a/?cid=253991573	Teacher Rose online classroom	Teacher: 998****336	Alex's 1st class
 253991593	https://www.eeo.cn/s/a/?cid=253991593	精品拓展	Teacher: Josie	C1 plum江西7765
 253991633	https://www.eeo.cn/s/a/?cid=253991633	Teacher Rose online classroom	Teacher: 998****336	Alex's 2nd class
@@ -1198,3 +1191,10 @@
 254063871	https://www.eeo.cn/s/a/?cid=254063871	上海市浦东新区育童小学	Teacher: 蒋龚华	三（1）
 254063961	https://www.eeo.cn/s/a/?cid=254063961	快乐在线课程	Teacher: 张霞	新概念一寒假班
 254063999	https://www.eeo.cn/s/a/?cid=254063999	Summer online classroom	Teacher: mnicaolar*****ail.com	Class 2p.m
+254064139	https://www.eeo.cn/s/a/?cid=254064139	上海外国语大学松江外国语学校	Teacher: 张雅凤	八9八10-物理-张雅凤
+254064147	https://www.eeo.cn/s/a/?cid=254064147	Teacher Lory online classroom	Teacher: 909****047	YIYI 19
+254064191	https://www.eeo.cn/s/a/?cid=254064191	Le To Uyen online classroom	Teacher: 837****96	Global success
+254064253	https://www.eeo.cn/s/a/?cid=254064253	Teacher Aaron online classroom	Teacher: 613****98	Cindy 2024 1
+254064285	https://www.eeo.cn/s/a/?cid=254064285	Teacher Lory online classroom	Teacher: 909****047	ELENA 48
+254064303	https://www.eeo.cn/s/a/?cid=254064303	老师	Teacher: 153****7224	Yukio
+254064361	https://www.eeo.cn/s/a/?cid=254064361	上海市浦东新区育童小学	Teacher: 陆晨杰	育童1组

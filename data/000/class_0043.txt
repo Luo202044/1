@@ -1,11 +1,3 @@
-255030509	https://www.eeo.cn/s/a/?cid=255030509	快乐学习	Teacher: 勾股定理	徐云淼补课
-255030513	https://www.eeo.cn/s/a/?cid=255030513	Teacher Noah online classroom	Teacher: amirbelovodjani*****ail.	sdsa
-255030525	https://www.eeo.cn/s/a/?cid=255030525	Online English Teacher School	Teacher: 菲106marj	Yy8
-255030563	https://www.eeo.cn/s/a/?cid=255030563	Teacher Sev14 online classroom	Teacher: sevomarund*****ail.com	Cherry
-255030565	https://www.eeo.cn/s/a/?cid=255030565	沫沫日语小筑	Teacher: 沫沫	耶-日语口语
-255030593	https://www.eeo.cn/s/a/?cid=255030593	Teacher Richelle online classroom	Teacher: sheispanny*****ail.com	Erik51 / jan29
-255030715	https://www.eeo.cn/s/a/?cid=255030715	伊登·私学	Teacher: 语文高芸	【2024寒春六】【孔子的春秋】【六3班】周日&寒假隔天10:40
-255030733	https://www.eeo.cn/s/a/?cid=255030733	华东师范大学澄迈实验中学	Teacher: 杨涛	高一地理培优群
 255030741	https://www.eeo.cn/s/a/?cid=255030741	Teacher Cecilia online classroom	Teacher: 752****19	Eaven's class 2
 255030783	https://www.eeo.cn/s/a/?cid=255030783	leewanchak*****hoo.com online classroom	Teacher: leewanchak*****hoo.com.h	Science sun 11am
 255030787	https://www.eeo.cn/s/a/?cid=255030787	Teacher Angel online classroom	Teacher: 992****818	Kelly
@@ -545,7 +537,6 @@
 255050405	https://www.eeo.cn/s/a/?cid=255050405	Fiona online classroom	Teacher: fiona.lang*****ail.com	english#13
 255050469	https://www.eeo.cn/s/a/?cid=255050469	剑新国际	Teacher: 魏一Amy	KB5
 255050503	https://www.eeo.cn/s/a/?cid=255050503	Bella online classroom	Teacher: 931****78	các câu truyện tui thích
-255050527	https://www.eeo.cn/s/a/?cid=255050527	Jamie Brubaker	Teacher: 610****003	Lily
 255050579	https://www.eeo.cn/s/a/?cid=255050579	Teacher Annie4 online classroom	Teacher: 935****433	Lef's classes in February 2024
 255050605	https://www.eeo.cn/s/a/?cid=255050605	Bry online classroom	Teacher: stevebryanlima*****ail.c	Ethan9
 255050691	https://www.eeo.cn/s/a/?cid=255050691	Bry online classroom	Teacher: stevebryanlima*****ail.c	Simon10
@@ -1198,3 +1189,12 @@
 255080893	https://www.eeo.cn/s/a/?cid=255080893	卓学在线教育	Teacher: 刘伊	2024寒新华大牛16：00高一数学
 255080997	https://www.eeo.cn/s/a/?cid=255080997	Muriel online classroom	Teacher: 919****022	dump
 255081091	https://www.eeo.cn/s/a/?cid=255081091	敲可爱 online classroom	Teacher: 757****73	。
+255081119	https://www.eeo.cn/s/a/?cid=255081119	Teacher Lory II online classroom	Teacher: 905****676	ELENA 51
+255081147	https://www.eeo.cn/s/a/?cid=255081147	Judy Ariola online classroom	Teacher: 920****240	123
+255081161	https://www.eeo.cn/s/a/?cid=255081161	Ofelia Portaliza online classroom	Teacher: 965****562	Art’s Class
+255081241	https://www.eeo.cn/s/a/?cid=255081241	WeIP Education	Teacher: 琳老师 Ms Gwen	2024 F1 BI FRI 8.15am MS GWEN (SK)
+255081243	https://www.eeo.cn/s/a/?cid=255081243	Ontact 中文	Teacher: Tr. Jochebed	Ontact 9th class
+255081285	https://www.eeo.cn/s/a/?cid=255081285	质成培优	Teacher: 帅智老师	寒假二期初一1点到3点
+255081293	https://www.eeo.cn/s/a/?cid=255081293	Teacher Lory IV online classroom	Teacher: 946****212	ELENA 51
+255081311	https://www.eeo.cn/s/a/?cid=255081311	Studio Education	Teacher: Leah Beresford	Justin ZENG'S online Assessment
+255081321	https://www.eeo.cn/s/a/?cid=255081321	嘻哈娱乐	Teacher: 胖胖冰	王童鞋加油站

@@ -1,10 +1,3 @@
-253915155	https://www.eeo.cn/s/a/?cid=253915155	Law(3) online classroom	Teacher: 965****383	Shirley(1)
-253915259	https://www.eeo.cn/s/a/?cid=253915259	Rebecc online classroom	Teacher: 752****661	Ben
-253915261	https://www.eeo.cn/s/a/?cid=253915261	Pem online classroom	Teacher: pem27*****ail.com	JANAURY 13, 2024_SATURDAY
-253915267	https://www.eeo.cn/s/a/?cid=253915267	Pem online classroom	Teacher: pem27*****ail.com	JANUARY 13, 2024_SATURDAY_2
-253915321	https://www.eeo.cn/s/a/?cid=253915321	iFun Education	Teacher: Simon Sun	iFun 30625Johnathan Wright Chess Private
-253915393	https://www.eeo.cn/s/a/?cid=253915393	SparkEdu	Teacher: Tony	Helena-Alevel
-253915401	https://www.eeo.cn/s/a/?cid=253915401	Teacher Sandy online classroom	Teacher: 654****71	Fish 🍀❤️🌹
 253915411	https://www.eeo.cn/s/a/?cid=253915411	Teacher Sandy online classroom	Teacher: 654****71	Lihan 🍀❤🌹
 253915415	https://www.eeo.cn/s/a/?cid=253915415	Teacher Sandy online classroom	Teacher: 654****71	Yutong 🍀❤🌹
 253915417	https://www.eeo.cn/s/a/?cid=253915417	rebeccafoxwell*****ail.c online classroom	Teacher: rebeccafoxwell*****ail.c	Bond 1
@@ -1198,3 +1191,10 @@
 253990421	https://www.eeo.cn/s/a/?cid=253990421	Trà My online classroom	Teacher: 332****63	5a
 253990447	https://www.eeo.cn/s/a/?cid=253990447	miguelaempenadorey*****a online classroom	Teacher: miguelaempenadorey*****a	mig class
 253990523	https://www.eeo.cn/s/a/?cid=253990523	乐梦营	Teacher: Lily老师	1.14 10:00 Lily-Demo
+253990733	https://www.eeo.cn/s/a/?cid=253990733	SethNica CS online classroom	Teacher: 919****552	jan 14
+253990789	https://www.eeo.cn/s/a/?cid=253990789	Teacher Slava online classroom	Teacher: 995****088	English Class - Daniel
+253990819	https://www.eeo.cn/s/a/?cid=253990819	Yza online classroom	Teacher: 960****408	nancy
+253990865	https://www.eeo.cn/s/a/?cid=253990865	English&Me原版英语	Teacher: Yiyi	Amy4943 class
+253991015	https://www.eeo.cn/s/a/?cid=253991015	PATCO's English Tutorial	Teacher: 968****382	JON JANUARY
+253991051	https://www.eeo.cn/s/a/?cid=253991051	Teacher Nette online classroom	Teacher: mcgayad*****ail.com	practice 1
+253991393	https://www.eeo.cn/s/a/?cid=253991393	Jason Jiao online classroom	Teacher: jasonji*****tmail.com	Yinbiao10

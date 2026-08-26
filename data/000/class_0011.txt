@@ -1,6 +1,3 @@
-253115665	https://www.eeo.cn/s/a/?cid=253115665	竞赛帮	Teacher: 悦悦老师	【小学】竞赛帮-寒假2期5S+语文班13:30章鱼老师
-253115905	https://www.eeo.cn/s/a/?cid=253115905	乐学汇	Teacher: 王老师	四年级寒假思维
-253116021	https://www.eeo.cn/s/a/?cid=253116021	Let's Go English	Teacher: 909****152	Venus' class
 253116025	https://www.eeo.cn/s/a/?cid=253116025	Oral English Training Camp	Teacher: Teacher Flor	D83-Leo
 253116045	https://www.eeo.cn/s/a/?cid=253116045	felly online classroom	Teacher: calsad*****ail.com	Munsey
 253116091	https://www.eeo.cn/s/a/?cid=253116091	harpynessthompson20***** online classroom	Teacher: 810****463	lucky 5
@@ -1037,7 +1034,6 @@
 253162043	https://www.eeo.cn/s/a/?cid=253162043	khanh linh online classroom	Teacher: 903****12	linh
 253162369	https://www.eeo.cn/s/a/?cid=253162369	Liz online classroom	Teacher: 948****089	Cindy12/30/23
 253162393	https://www.eeo.cn/s/a/?cid=253162393	三英少儿教育	Teacher: Angel	Angel 周二班
-253162417	https://www.eeo.cn/s/a/?cid=253162417	航灯	Teacher: 航灯惠老师	杨承越
 253162565	https://www.eeo.cn/s/a/?cid=253162565	川越教育城	Teacher: 潜程	23秋高二数学
 253162631	https://www.eeo.cn/s/a/?cid=253162631	颖子物理	Teacher: 158****3521	刘婳祎
 253162641	https://www.eeo.cn/s/a/?cid=253162641	三七教育	Teacher: 麦林老师	Yoyo08
@@ -1198,3 +1194,7 @@
 253177547	https://www.eeo.cn/s/a/?cid=253177547	课堂在线	Teacher: 自己	妮妮英语学习小分队
 253177555	https://www.eeo.cn/s/a/?cid=253177555	Minh Hương online classroom	Teacher: nguyenleminhhuong300120*	lớp học tạm thời
 253177569	https://www.eeo.cn/s/a/?cid=253177569	Gillian online classroom	Teacher: 775****576	Vicky's class - Tues, Jan 2 at 7pm
+253177601	https://www.eeo.cn/s/a/?cid=253177601	Gee's E-Class online classroom	Teacher: 956****682	JennisonJanuary
+253177785	https://www.eeo.cn/s/a/?cid=253177785	Farris online classroom	Teacher: 638****14	Winston7
+253177791	https://www.eeo.cn/s/a/?cid=253177791	新方向素质教育	Teacher: 桃子	202304-秋季班中学07-初一02唐风读书励学7225
+253177879	https://www.eeo.cn/s/a/?cid=253177879	Teacher Belle online classroom	Teacher: jobellenatividad*****ail	LISHA6
