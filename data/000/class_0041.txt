@@ -1,8 +1,3 @@
-254903851	https://www.eeo.cn/s/a/?cid=254903851	Mike	Teacher: 664***02	27.1. Jay
-254903887	https://www.eeo.cn/s/a/?cid=254903887	Carl online classroom	Teacher: 709****295	revan carson
-254903895	https://www.eeo.cn/s/a/?cid=254903895	ximajo81*****vgo.com online classroom	Teacher: ximajo81*****vgo.com	JACK HONG
-254903935	https://www.eeo.cn/s/a/?cid=254903935	Mingfa English	Teacher: 912****472	Ethan6&Tommy12
-254903969	https://www.eeo.cn/s/a/?cid=254903969	Khey online classroom	Teacher: 936****320	MARTIN'S CLASS
 254904025	https://www.eeo.cn/s/a/?cid=254904025	Lets go English	Teacher: 985****004	Angela
 254904091	https://www.eeo.cn/s/a/?cid=254904091	乐马在线	Teacher: 潘	钟诺凡2025广东珠海张老师物理课堂
 254904103	https://www.eeo.cn/s/a/?cid=254904103	TeacherArthur online classroom	Teacher: 798****48	JA27JANSA
@@ -1198,3 +1193,8 @@
 254968405	https://www.eeo.cn/s/a/?cid=254968405	线上1v1	Teacher: 班主任-玥玥老师	赵恒+初一语文+正式课+玥玥老师
 254968421	https://www.eeo.cn/s/a/?cid=254968421	Carl online classroom	Teacher: 709****295	nat
 254968467	https://www.eeo.cn/s/a/?cid=254968467	飞跃教育初高中部	Teacher: jiangyu1	7班测试课
+254968595	https://www.eeo.cn/s/a/?cid=254968595	ABC	Teacher: geway534*****ntcity.com	Ethan
+254968621	https://www.eeo.cn/s/a/?cid=254968621	乐优教育	Teacher: sam	六年级英语鹏程杯
+254968639	https://www.eeo.cn/s/a/?cid=254968639	正领睿学教育	Teacher: 王璐	张蔚 备考课程 一对一
+254968723	https://www.eeo.cn/s/a/?cid=254968723	Teacher Linda (VIII) online classroom	Teacher: finafob1*****steron.com	Emma
+254968739	https://www.eeo.cn/s/a/?cid=254968739	Raquel online classroom	Teacher: perdonraqu*****hoo.com	GROUP

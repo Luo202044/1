@@ -1,9 +1,3 @@
-256407917	https://www.eeo.cn/s/a/?cid=256407917	CLEVERLY	Teacher: 周霞	24春七QZ
-256407945	https://www.eeo.cn/s/a/?cid=256407945	Teacher Chen 11 (#486) online classroom	Teacher: 908****486	Midi 11 (486)
-256408013	https://www.eeo.cn/s/a/?cid=256408013	Danica online classroom	Teacher: 652****30	Leo's class
-256408083	https://www.eeo.cn/s/a/?cid=256408083	Teacher Chen 11 (#486) online classroom	Teacher: 908****486	Arial 11 (486)
-256408093	https://www.eeo.cn/s/a/?cid=256408093	Etutor	Teacher: Etutor	Ha An 130815/Teacher Demz
-256408165	https://www.eeo.cn/s/a/?cid=256408165	Teacher Melodie♥️ online classroom	Teacher: jecelmaebagnol20*****ail	Victors Classroom
 256408175	https://www.eeo.cn/s/a/?cid=256408175	梓龙 online classroom	Teacher: 808****599	all about skibidi toilet
 256408177	https://www.eeo.cn/s/a/?cid=256408177	PI FOR MOT	Teacher: 文宇老师	【24春】三年级新生入学测评2月28日备用群
 256408179	https://www.eeo.cn/s/a/?cid=256408179	Law Shen online classroom	Teacher: 909****124	FISH(1)
@@ -1198,3 +1192,9 @@
 256476809	https://www.eeo.cn/s/a/?cid=256476809	ngochoai050719*****ail.c online classroom	Teacher: ngochoai050719*****ail.c	lớp shin
 256476811	https://www.eeo.cn/s/a/?cid=256476811	诸子狼人文化	Teacher: 程倩莹	【程老师】24春初二语文课程
 256476813	https://www.eeo.cn/s/a/?cid=256476813	雨花区青藤教育培训学校	Teacher: 数学陈老师	5年级yz讲解群
+256476841	https://www.eeo.cn/s/a/?cid=256476841	Fritz online classroom	Teacher: vishenda*****ail.com	sample class
+256476969	https://www.eeo.cn/s/a/?cid=256476969	Teacher Gareth online classroom	Teacher: 760****96	Teacher Gareth - Charlote
+256476989	https://www.eeo.cn/s/a/?cid=256476989	Higher Study	Teacher: 王伟	航澈
+256477191	https://www.eeo.cn/s/a/?cid=256477191	美森诺珂青少英语	Teacher: Coco Chen	KET VIP-杨媛茜Cici
+256477281	https://www.eeo.cn/s/a/?cid=256477281	高途·北京学部	Teacher: 刘元清	高途 | 高一物理春季班 | 每周日15：20
+256477299	https://www.eeo.cn/s/a/?cid=256477299	拿云工作室	Teacher: 拿云课程老师	A5--拿云

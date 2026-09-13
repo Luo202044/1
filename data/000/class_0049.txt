@@ -1,8 +1,3 @@
-255353473	https://www.eeo.cn/s/a/?cid=255353473	WeIP Education	Teacher: Mr Hong	2024 F3 MM MON 8.30pm Mr.Hong 独中
-255353475	https://www.eeo.cn/s/a/?cid=255353475	麦老师英语工作室	Teacher: 麦老师Mickey	Mickey寒假二期PET Lesson2
-255353489	https://www.eeo.cn/s/a/?cid=255353489	张舒	Teacher: 张舒	Cally—CAT4文字逻辑
-255353493	https://www.eeo.cn/s/a/?cid=255353493	punlaxy*****ail.com online classroom	Teacher: punlaxy*****ail.com	Kiven
-255353505	https://www.eeo.cn/s/a/?cid=255353505	星火教育红岭校区（深圳关内）	Teacher: 刘宝金	2024A初三自然探究Ⅰ燎原小组课2B(3班)
 255353543	https://www.eeo.cn/s/a/?cid=255353543	一对一专业辅导	Teacher: 科学周老师	n677 范雨欣
 255353549	https://www.eeo.cn/s/a/?cid=255353549	麦老师英语工作室	Teacher: 麦老师Mickey	Mickey寒假二期PET Lesson3
 255353621	https://www.eeo.cn/s/a/?cid=255353621	前海大新校区	Teacher: 李锐	李锐化学2B-2.3
@@ -1198,3 +1193,8 @@
 255423685	https://www.eeo.cn/s/a/?cid=255423685	Fame online classroom	Teacher: 951****648	fame
 255423715	https://www.eeo.cn/s/a/?cid=255423715	Teacher Shula Mae online classroom	Teacher: 908****453	Suzy
 255423887	https://www.eeo.cn/s/a/?cid=255423887	格物致知-李老师	Teacher: 136****5670	寒假1:30~3:30物理课
+255423941	https://www.eeo.cn/s/a/?cid=255423941	Study with Daiiiiiii	Teacher: 186****7369	宾语从句
+255423983	https://www.eeo.cn/s/a/?cid=255423983	Nguyễn Linh Chi online classroom	Teacher: 902****70	lop hoc vui nhon
+255424019	https://www.eeo.cn/s/a/?cid=255424019	新马全杭教育	Teacher: 徐萍	高三语文全托生2班 2:30-高峰老师
+255424051	https://www.eeo.cn/s/a/?cid=255424051	Teacher Alvin online classroom	Teacher: piyike26*****bene.com	SURI
+255424101	https://www.eeo.cn/s/a/?cid=255424101	Takhmina online classroom	Teacher: navruzkulov*****ail.com	Lesson 5

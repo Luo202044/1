@@ -1,8 +1,3 @@
-255678351	https://www.eeo.cn/s/a/?cid=255678351	Teacher Ellie online classroom	Teacher: 963****637	class with keith
-255678395	https://www.eeo.cn/s/a/?cid=255678395	0063-9539114831 online classroom	Teacher: 953****831	Lucky's Class
-255678415	https://www.eeo.cn/s/a/?cid=255678415	Teacher Venice5 online classroom	Teacher: enice*****ail.com	cc
-255678497	https://www.eeo.cn/s/a/?cid=255678497	Teacher Michael online classroom	Teacher: michaeljrvist*****ail.co	Teacher Michael Demo
-255678535	https://www.eeo.cn/s/a/?cid=255678535	Carol online classroom	Teacher: carolmashini*****ail.com	Beginner
 255678607	https://www.eeo.cn/s/a/?cid=255678607	Teacher Loren 4 online classroom	Teacher: 961****560	Vicky 02/09/2024
 255678713	https://www.eeo.cn/s/a/?cid=255678713	Penny's Private Class	Teacher: 966****787	JASPER (MIKA)
 255678725	https://www.eeo.cn/s/a/?cid=255678725	Teacher Loren 4 online classroom	Teacher: 961****560	NICK 02/09/2024
@@ -1198,3 +1193,8 @@
 255754461	https://www.eeo.cn/s/a/?cid=255754461	雅学在线	Teacher: 结算	小于同学
 255754485	https://www.eeo.cn/s/a/?cid=255754485	武汉市天天象上教育咨询有限公司	Teacher: 孙正伦	2023寒假高一化学华一定制班
 255754499	https://www.eeo.cn/s/a/?cid=255754499	Little English Owl	Teacher: Teacher Samantha Taylor	Sky(8)
+255754563	https://www.eeo.cn/s/a/?cid=255754563	alwaystvde*****ail.com online classroom	Teacher: alwaystvde*****ail.com	المستوى الأول
+255754567	https://www.eeo.cn/s/a/?cid=255754567	Adrian online classroom	Teacher: 623***60	Florence Monday 7:30PM
+255754573	https://www.eeo.cn/s/a/?cid=255754573	nww*****tlook.com online classroom	Teacher: nww*****tlook.com	Zoe 3
+255754633	https://www.eeo.cn/s/a/?cid=255754633	Dvyphonic	Teacher: 949****00	Emma Lesson 360
+255754677	https://www.eeo.cn/s/a/?cid=255754677	Teacher Fritz Hensley online classroom	Teacher: 936****728	Vivian

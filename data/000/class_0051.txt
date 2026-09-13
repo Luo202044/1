@@ -1,8 +1,3 @@
-255483569	https://www.eeo.cn/s/a/?cid=255483569	Julie Teacher online classroom	Teacher: jhcom*****ver.com	정규수업(유나-2/5)
-255483581	https://www.eeo.cn/s/a/?cid=255483581	yohankhiel online classroom	Teacher: 947****401	yohan
-255483629	https://www.eeo.cn/s/a/?cid=255483629	yohankhiel online classroom	Teacher: 947****401	yogan
-255483693	https://www.eeo.cn/s/a/?cid=255483693	Teacher JO online classroom	Teacher: 929****032	demo
-255483737	https://www.eeo.cn/s/a/?cid=255483737	谦学教育集团有限公司	Teacher: 137****9858	02.05JSxUTS劝退申诉
 255483741	https://www.eeo.cn/s/a/?cid=255483741	U.Genius Studio	Teacher: 관리자Jenn	Thurs21:15/Abena/VBL.WW5#1-10
 255483755	https://www.eeo.cn/s/a/?cid=255483755	Private	Teacher: 975****135	John
 255483931	https://www.eeo.cn/s/a/?cid=255483931	ESL	Teacher: 995****110	Xigua Lesson 53
@@ -1198,3 +1193,8 @@
 255548695	https://www.eeo.cn/s/a/?cid=255548695	Teacher John Lucas online classroom	Teacher: 998****113	Eric’s Class
 255549093	https://www.eeo.cn/s/a/?cid=255549093	0063-9984575981 online classroom	Teacher: 998****981	George2016山东
 255549171	https://www.eeo.cn/s/a/?cid=255549171	Teacher Vanessa online classroom	Teacher: allisoncade3*****ail.com	xuaxuan
+255549225	https://www.eeo.cn/s/a/?cid=255549225	Teacher Vanessa online classroom	Teacher: allisoncade3*****ail.com	xuanxaun
+255549315	https://www.eeo.cn/s/a/?cid=255549315	Doctor C's Academy	Teacher: Doctor C	Dee
+255549395	https://www.eeo.cn/s/a/?cid=255549395	6-1 Lee Ji You (David) online classroom	Teacher: moses001100*****ail.com	나
+255549401	https://www.eeo.cn/s/a/?cid=255549401	Tina online classroom	Teacher: 979****54	Jerry’s Class
+255549485	https://www.eeo.cn/s/a/?cid=255549485	MariaLon	Teacher: 927****388	Mike's classroom

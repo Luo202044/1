@@ -1,7 +1,3 @@
-254673943	https://www.eeo.cn/s/a/?cid=254673943	耀华国际教育学校广州校区	Teacher: cherrycheng	23-24 S2 G3B CHI 语文 Cherry
-254673951	https://www.eeo.cn/s/a/?cid=254673951	宝鸡高新第三小学	Teacher: 张晓妮	临时群
-254674081	https://www.eeo.cn/s/a/?cid=254674081	0063-9091159386 online classroom	Teacher: 909****386	Adult training
-254674083	https://www.eeo.cn/s/a/?cid=254674083	Teacher Ros online classroom	Teacher: rpacumba*****ail.com	sunny
 254674087	https://www.eeo.cn/s/a/?cid=254674087	京鹰培优	Teacher: 王老师	2025届寒假初二地理
 254674109	https://www.eeo.cn/s/a/?cid=254674109	京鹰培优	Teacher: 王老师	2025届寒假初二生物
 254674129	https://www.eeo.cn/s/a/?cid=254674129	Ielts English	Teacher: 150****6500	子健雅思口语
@@ -1033,7 +1029,6 @@
 254714657	https://www.eeo.cn/s/a/?cid=254714657	866031650song online classroom	Teacher: 866****50	yamate
 254714753	https://www.eeo.cn/s/a/?cid=254714753	拾贝趣教育科技（广州）有限公司	Teacher: 139****6331	寒假初中 Lesson2
 254714759	https://www.eeo.cn/s/a/?cid=254714759	Dahanghai EDU.(原HIME)	Teacher: 福（ふく）先生	张凌逍（9岁）/张凌睿（8岁）ー「JL4こどもの日本語」
-254714889	https://www.eeo.cn/s/a/?cid=254714889	春苗	Teacher: A杨乃花8.25充值300	WWY
 254714911	https://www.eeo.cn/s/a/?cid=254714911	aelianbatern*****ail.com online classroom	Teacher: 945****289	MEKUSMEKUS
 254715017	https://www.eeo.cn/s/a/?cid=254715017	Lu Makayla online classroom	Teacher: 908****137	1188 Allen
 254715035	https://www.eeo.cn/s/a/?cid=254715035	Teacher Glory online classroom	Teacher: 927****241	nnnn
@@ -1198,3 +1193,8 @@
 254723809	https://www.eeo.cn/s/a/?cid=254723809	成都市流利语言有限公司	Teacher: 135****1451	Athena—T Grant
 254723839	https://www.eeo.cn/s/a/?cid=254723839	Joy online classroom	Teacher: upkidzj*****ail.com	D510- Caroline's Classroom
 254723845	https://www.eeo.cn/s/a/?cid=254723845	Lets Go English	Teacher: 994****143	Terry
+254723895	https://www.eeo.cn/s/a/?cid=254723895	启德星学社	Teacher: 于洋	step2试听1V3-网络
+254723905	https://www.eeo.cn/s/a/?cid=254723905	Online English Teacher School	Teacher: 菲106marj	Duo6
+254723915	https://www.eeo.cn/s/a/?cid=254723915	Joy online classroom	Teacher: upkidzj*****ail.com	A396 Cici's Classroom
+254723945	https://www.eeo.cn/s/a/?cid=254723945	Teacher Faye online classroom	Teacher: 939****859	Rozel
+254723949	https://www.eeo.cn/s/a/?cid=254723949	Rozel online classroom	Teacher: zyrolmoreno*****ail.com	totot

@@ -1,7 +1,3 @@
-253915411	https://www.eeo.cn/s/a/?cid=253915411	Teacher Sandy online classroom	Teacher: 654****71	Lihan 🍀❤🌹
-253915415	https://www.eeo.cn/s/a/?cid=253915415	Teacher Sandy online classroom	Teacher: 654****71	Yutong 🍀❤🌹
-253915417	https://www.eeo.cn/s/a/?cid=253915417	rebeccafoxwell*****ail.c online classroom	Teacher: rebeccafoxwell*****ail.c	Bond 1
-253915421	https://www.eeo.cn/s/a/?cid=253915421	Teacher Gie	Teacher: 930****134	AYUMI
 253915453	https://www.eeo.cn/s/a/?cid=253915453	GV Clevai online classroom	Teacher: 971****54	Vui vẻ
 253915459	https://www.eeo.cn/s/a/?cid=253915459	Teacher Irena's Lessons	Teacher: Teacher Irene Can	Candy New Trial 20'
 253915577	https://www.eeo.cn/s/a/?cid=253915577	Law(3) online classroom	Teacher: 965****383	Ray(1)
@@ -1198,3 +1194,7 @@
 253991015	https://www.eeo.cn/s/a/?cid=253991015	PATCO's English Tutorial	Teacher: 968****382	JON JANUARY
 253991051	https://www.eeo.cn/s/a/?cid=253991051	Teacher Nette online classroom	Teacher: mcgayad*****ail.com	practice 1
 253991393	https://www.eeo.cn/s/a/?cid=253991393	Jason Jiao online classroom	Teacher: jasonji*****tmail.com	Yinbiao10
+253991573	https://www.eeo.cn/s/a/?cid=253991573	Teacher Rose online classroom	Teacher: 998****336	Alex's 1st class
+253991593	https://www.eeo.cn/s/a/?cid=253991593	精品拓展	Teacher: Josie	C1 plum江西7765
+253991633	https://www.eeo.cn/s/a/?cid=253991633	Teacher Rose online classroom	Teacher: 998****336	Alex's 2nd class
+253991643	https://www.eeo.cn/s/a/?cid=253991643	Nick online classroom	Teacher: 316****271	jessie

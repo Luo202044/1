@@ -1,8 +1,3 @@
-255301329	https://www.eeo.cn/s/a/?cid=255301329	知乎｜知学堂	Teacher: 霏霏	25马广霞-沈阳医科大学药剂学60h
-255301337	https://www.eeo.cn/s/a/?cid=255301337	bayogangangeline*****ail online classroom	Teacher: bayogangangeline*****ail	Teacher Angel
-255301359	https://www.eeo.cn/s/a/?cid=255301359	北京市第一O一中学	Teacher: 张燕菱	于乔答疑课
-255301647	https://www.eeo.cn/s/a/?cid=255301647	Teacher Cheng online classroom	Teacher: 915****424	Pronunciation and Accent training
-255301741	https://www.eeo.cn/s/a/?cid=255301741	审思明教育	Teacher: 魂斗罗大佬	孙焱硕-化学
 255301825	https://www.eeo.cn/s/a/?cid=255301825	高中化学陪跑	Teacher: 180****0505	高一必修总课程
 255301873	https://www.eeo.cn/s/a/?cid=255301873	Teach JEE online classroom	Teacher: 993****353	Chloe Feb 2, 2024 (5:00-5:30)
 255301883	https://www.eeo.cn/s/a/?cid=255301883	陕西省西咸新区秦汉中学	Teacher: 张瑜	G2112春来十二班
@@ -1198,3 +1193,8 @@
 255353301	https://www.eeo.cn/s/a/?cid=255353301	学童英语俱乐部	Teacher: 136****8695	学童俱乐部
 255353321	https://www.eeo.cn/s/a/?cid=255353321	张舒	Teacher: 张舒	Cally—CAT4非文字逻辑
 255353375	https://www.eeo.cn/s/a/?cid=255353375	开心	Teacher: 陈伟建	高二诗桐寒假课程
+255353473	https://www.eeo.cn/s/a/?cid=255353473	WeIP Education	Teacher: Mr Hong	2024 F3 MM MON 8.30pm Mr.Hong 独中
+255353475	https://www.eeo.cn/s/a/?cid=255353475	麦老师英语工作室	Teacher: 麦老师Mickey	Mickey寒假二期PET Lesson2
+255353489	https://www.eeo.cn/s/a/?cid=255353489	张舒	Teacher: 张舒	Cally—CAT4文字逻辑
+255353493	https://www.eeo.cn/s/a/?cid=255353493	punlaxy*****ail.com online classroom	Teacher: punlaxy*****ail.com	Kiven
+255353505	https://www.eeo.cn/s/a/?cid=255353505	星火教育红岭校区（深圳关内）	Teacher: 刘宝金	2024A初三自然探究Ⅰ燎原小组课2B(3班)

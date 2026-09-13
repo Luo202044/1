@@ -1,8 +1,3 @@
-254968595	https://www.eeo.cn/s/a/?cid=254968595	ABC	Teacher: geway534*****ntcity.com	Ethan
-254968621	https://www.eeo.cn/s/a/?cid=254968621	乐优教育	Teacher: sam	六年级英语鹏程杯
-254968639	https://www.eeo.cn/s/a/?cid=254968639	正领睿学教育	Teacher: 王璐	张蔚 备考课程 一对一
-254968723	https://www.eeo.cn/s/a/?cid=254968723	Teacher Linda (VIII) online classroom	Teacher: finafob1*****steron.com	Emma
-254968739	https://www.eeo.cn/s/a/?cid=254968739	Raquel online classroom	Teacher: perdonraqu*****hoo.com	GROUP
 254968755	https://www.eeo.cn/s/a/?cid=254968755	Teacher Linda (VIII) online classroom	Teacher: finafob1*****steron.com	Sophia.Heidi
 254968913	https://www.eeo.cn/s/a/?cid=254968913	Teacher Linda (VIII) online classroom	Teacher: finafob1*****steron.com	Alisa.Cici
 254968929	https://www.eeo.cn/s/a/?cid=254968929	Teacher_Elmejane 4 online classroom	Teacher: 976****793	Aurora-1
@@ -1198,3 +1193,8 @@
 255030593	https://www.eeo.cn/s/a/?cid=255030593	Teacher Richelle online classroom	Teacher: sheispanny*****ail.com	Erik51 / jan29
 255030715	https://www.eeo.cn/s/a/?cid=255030715	伊登·私学	Teacher: 语文高芸	【2024寒春六】【孔子的春秋】【六3班】周日&寒假隔天10:40
 255030733	https://www.eeo.cn/s/a/?cid=255030733	华东师范大学澄迈实验中学	Teacher: 杨涛	高一地理培优群
+255030741	https://www.eeo.cn/s/a/?cid=255030741	Teacher Cecilia online classroom	Teacher: 752****19	Eaven's class 2
+255030783	https://www.eeo.cn/s/a/?cid=255030783	leewanchak*****hoo.com online classroom	Teacher: leewanchak*****hoo.com.h	Science sun 11am
+255030787	https://www.eeo.cn/s/a/?cid=255030787	Teacher Angel online classroom	Teacher: 992****818	Kelly
+255030793	https://www.eeo.cn/s/a/?cid=255030793	Tom老师小课堂	Teacher: 186****0890	demo
+255030795	https://www.eeo.cn/s/a/?cid=255030795	文之汇	Teacher: 张老师	2024寒假史记

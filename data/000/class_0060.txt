@@ -1,9 +1,3 @@
-256111205	https://www.eeo.cn/s/a/?cid=256111205	Moonrays online classroom	Teacher: 747****205	ESL Practise
-256111247	https://www.eeo.cn/s/a/?cid=256111247	Matej online classroom	Teacher: 995****410	Lazar and Draga's class
-256111261	https://www.eeo.cn/s/a/?cid=256111261	kirthi.rewasank*****ail. online classroom	Teacher: kirthi.rewasank*****ail.	pract
-256111275	https://www.eeo.cn/s/a/?cid=256111275	kirthi.rewasank*****ail. online classroom	Teacher: kirthi.rewasank*****ail.	Practice
-256111289	https://www.eeo.cn/s/a/?cid=256111289	上海学加网络科技有限公司	Teacher: Luigi	Interview-侠肇老师
-256111291	https://www.eeo.cn/s/a/?cid=256111291	00234-8138562643 online classroom	Teacher: 813****643	class with ehis and chimy
 256111303	https://www.eeo.cn/s/a/?cid=256111303	Sophia meng online classroom	Teacher: 604****220	Sophia
 256111305	https://www.eeo.cn/s/a/?cid=256111305	kirthi.rewasank*****ail. online classroom	Teacher: kirthi.rewasank*****ail.	prac
 256111357	https://www.eeo.cn/s/a/?cid=256111357	STAN online classroom	Teacher: 612****56	STAN 3
@@ -1198,3 +1192,9 @@
 256167779	https://www.eeo.cn/s/a/?cid=256167779	在线学堂 Online Tutorial	Teacher: Leo	Mary-Bela
 256167871	https://www.eeo.cn/s/a/?cid=256167871	勤学雅问	Teacher: 王鹏	【24春】STEAM-3（XY）知识巩固
 256167899	https://www.eeo.cn/s/a/?cid=256167899	励知教育	Teacher: 马小锡	青松初二数学尖子班9:30
+256167915	https://www.eeo.cn/s/a/?cid=256167915	Teacher Jane online classroom	Teacher: justinelincuna*****ail.c	Angel's class 2/22 @8:30pm page 61
+256167959	https://www.eeo.cn/s/a/?cid=256167959	hienhuunguyen2*****ail.c online classroom	Teacher: hienhuunguyen2*****ail.c	abrbvvbvv
+256167965	https://www.eeo.cn/s/a/?cid=256167965	牡丹江市王牌教育文化培训学校	Teacher: 任老师	青松----初二下A
+256168009	https://www.eeo.cn/s/a/?cid=256168009	Mingfa English	Teacher: 912****472	Henson7&Hannah11 6322
+256168061	https://www.eeo.cn/s/a/?cid=256168061	Johann Erico L. Cruz online classroom	Teacher: wwjad*****hoo.com	ART'
+256168075	https://www.eeo.cn/s/a/?cid=256168075	Teacher Joie 4 online classroom	Teacher: 915****174	Rebecca 4/40

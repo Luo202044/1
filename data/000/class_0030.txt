@@ -1,7 +1,3 @@
-254269741	https://www.eeo.cn/s/a/?cid=254269741	Teacher Arcjade online classroom	Teacher: 909****744	Alex 2's Class
-254269901	https://www.eeo.cn/s/a/?cid=254269901	ME夫子语言培训中心	Teacher: 汪聪	王维莹
-254269951	https://www.eeo.cn/s/a/?cid=254269951	交大附中附属嘉定洪德中学	Teacher: 余晓珍	七年级1班
-254269979	https://www.eeo.cn/s/a/?cid=254269979	0063-9457014448 online classroom	Teacher: 945****448	English Tutor
 254269991	https://www.eeo.cn/s/a/?cid=254269991	交大附中附属嘉定洪德中学	Teacher: 王晓丽	七年级2班
 254270011	https://www.eeo.cn/s/a/?cid=254270011	Teacher Rej online classroom	Teacher: 995****486	Marcus' class 5
 254270021	https://www.eeo.cn/s/a/?cid=254270021	交大附中附属嘉定洪德中学	Teacher: 林江依	七年级3班
@@ -1198,3 +1194,7 @@
 254322685	https://www.eeo.cn/s/a/?cid=254322685	远飞	Teacher: 陈sir	10WCYC001高一物理【超优】小组课-寒假
 254322773	https://www.eeo.cn/s/a/?cid=254322773	深圳市海滨中学	Teacher: 石思思	初二3班导师助理群
 254322785	https://www.eeo.cn/s/a/?cid=254322785	南七	Teacher: 陈磊	23寒-数学八创一期晚上班-陈磊
+254322787	https://www.eeo.cn/s/a/?cid=254322787	0063-9285854658 online classroom	Teacher: 928****658	YCA
+254322805	https://www.eeo.cn/s/a/?cid=254322805	南沙教研	Teacher: 张老师	榄核二小二年1班
+254322839	https://www.eeo.cn/s/a/?cid=254322839	工作室	Teacher: 高静	24H 一期G5
+254322855	https://www.eeo.cn/s/a/?cid=254322855	Odette Van Straaten online classroom	Teacher: 721****76	Teacher Odde

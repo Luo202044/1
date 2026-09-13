@@ -1,7 +1,3 @@
-254493827	https://www.eeo.cn/s/a/?cid=254493827	深圳市福田区外国语小学	Teacher: 郑子杰	2024郑老师切口埙班级
-254493837	https://www.eeo.cn/s/a/?cid=254493837	0084-973567911 online classroom	Teacher: 973****11	ưe
-254493853	https://www.eeo.cn/s/a/?cid=254493853	雅学在线	Teacher: 蘑菇6.15充值100	贾镓兴-蘑菇老师生物课堂G1
-254493863	https://www.eeo.cn/s/a/?cid=254493863	977838817khanh online classroom	Teacher: 977****17	Tiếng Anh vũ trụ
 254493873	https://www.eeo.cn/s/a/?cid=254493873	cris26 online classroom	Teacher: clarp*****hoo.com	Leo
 254494003	https://www.eeo.cn/s/a/?cid=254494003	Ive online classroom	Teacher: 691****81	domo 2
 254494053	https://www.eeo.cn/s/a/?cid=254494053	Jemmy online classroom	Teacher: 909****335	Jason2355
@@ -1198,3 +1194,7 @@
 254553095	https://www.eeo.cn/s/a/?cid=254553095	Feya online classroom	Teacher: 951****354	Teacher Feya and Elsa
 254553135	https://www.eeo.cn/s/a/?cid=254553135	Bradley online classroom	Teacher: bradstey*****ail.com	Bradley's Training class
 254553223	https://www.eeo.cn/s/a/?cid=254553223	梨花培训学校	Teacher: 李彬彬	梨花26届秋季高中数学2班
+254553235	https://www.eeo.cn/s/a/?cid=254553235	Jimmy online classroom	Teacher: junm3864226*****tmail.co	test
+254553237	https://www.eeo.cn/s/a/?cid=254553237	yannie online classroom	Teacher: 952***14	『Yannie』ω《Aki》
+254553295	https://www.eeo.cn/s/a/?cid=254553295	Teacher Chris 3 online classroom	Teacher: cjam380*****ail.com	Daria
+254553305	https://www.eeo.cn/s/a/?cid=254553305	Nikita online classroom	Teacher: 718****66	Class with Elsa 1

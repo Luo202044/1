@@ -1,8 +1,3 @@
-255242851	https://www.eeo.cn/s/a/?cid=255242851	Geraldine online classroom	Teacher: 998****683	Eason 1/30
-255243087	https://www.eeo.cn/s/a/?cid=255243087	MAC's Online English Class	Teacher: 917****186	Eddie and Emma's 170 Classes 09/02/2024
-255243107	https://www.eeo.cn/s/a/?cid=255243107	Philip Hwang online classroom	Teacher: 859***11	卓然 A level（OCR）力哥物理
-255243125	https://www.eeo.cn/s/a/?cid=255243125	richelleperea*****ail.co online classroom	Teacher: richelleperea*****ail.co	cURRY1
-255243171	https://www.eeo.cn/s/a/?cid=255243171	John online classroom	Teacher: 985****000	Claire 3
 255243193	https://www.eeo.cn/s/a/?cid=255243193	Teacher Olga online classroom	Teacher: 631****58	Платон B
 255243215	https://www.eeo.cn/s/a/?cid=255243215	广州翎远教育	Teacher: 刘文韬	翎远刘文韬老师课堂 3
 255243271	https://www.eeo.cn/s/a/?cid=255243271	Teacher Jazz	Teacher: 985****641	Alex's Class
@@ -1198,3 +1193,8 @@
 255301135	https://www.eeo.cn/s/a/?cid=255301135	0027-839499335 online classroom	Teacher: 839****35	Zara
 255301177	https://www.eeo.cn/s/a/?cid=255301177	RUTH ONLINE TUTORIAL SERVICES	Teacher: 995****231	LEE - VVIP Student for Trial Class
 255301297	https://www.eeo.cn/s/a/?cid=255301297	君华国际学校	Teacher: Zoe	贾晶涵、林正轩、岳舒怡EPQ学习课
+255301329	https://www.eeo.cn/s/a/?cid=255301329	知乎｜知学堂	Teacher: 霏霏	25马广霞-沈阳医科大学药剂学60h
+255301337	https://www.eeo.cn/s/a/?cid=255301337	bayogangangeline*****ail online classroom	Teacher: bayogangangeline*****ail	Teacher Angel
+255301359	https://www.eeo.cn/s/a/?cid=255301359	北京市第一O一中学	Teacher: 张燕菱	于乔答疑课
+255301647	https://www.eeo.cn/s/a/?cid=255301647	Teacher Cheng online classroom	Teacher: 915****424	Pronunciation and Accent training
+255301741	https://www.eeo.cn/s/a/?cid=255301741	审思明教育	Teacher: 魂斗罗大佬	孙焱硕-化学

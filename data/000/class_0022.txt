@@ -1,7 +1,3 @@
-253799441	https://www.eeo.cn/s/a/?cid=253799441	Tinn online classroom	Teacher: 935****387	lukie
-253799493	https://www.eeo.cn/s/a/?cid=253799493	Gia sư Grammar A-Z online classroom	Teacher: 919****02	TG005
-253799617	https://www.eeo.cn/s/a/?cid=253799617	StephanieO online classroom	Teacher: 239****810	Terry’s Class
-253799713	https://www.eeo.cn/s/a/?cid=253799713	StephanieO online classroom	Teacher: 239****810	Oliver’s Class
 253799715	https://www.eeo.cn/s/a/?cid=253799715	Teacher Janz online classroom	Teacher: 931****905	Ivy
 253799755	https://www.eeo.cn/s/a/?cid=253799755	Patricia Peredo	Teacher: 916****571	Helen’s Class
 253799763	https://www.eeo.cn/s/a/?cid=253799763	山东省青岛第三十九中学	Teacher: 青岛39中	联动课堂操作说明
@@ -1198,3 +1194,7 @@
 253859709	https://www.eeo.cn/s/a/?cid=253859709	Top	Teacher: 152****5350	Alumni Interview at Matilda College
 253859751	https://www.eeo.cn/s/a/?cid=253859751	Teacher Lalaine online classroom	Teacher: 994****473	Mia
 253860121	https://www.eeo.cn/s/a/?cid=253860121	月亮老师	Teacher: 139****9219	月亮老师寒假名著精读营
+253860135	https://www.eeo.cn/s/a/?cid=253860135	Tuyết Nghi online classroom	Teacher: 918****60	practice
+253860201	https://www.eeo.cn/s/a/?cid=253860201	孙振满分数学	Teacher: 孙振	2024年7年级寒假课
+253860321	https://www.eeo.cn/s/a/?cid=253860321	长春汽车经济技术开发区长沈路学校	Teacher: 杨电波	寒假中考题答疑群
+253860327	https://www.eeo.cn/s/a/?cid=253860327	在线自习答疑	Teacher: 黄赛男	26寒六年级尖子A1班

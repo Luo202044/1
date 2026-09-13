@@ -1,9 +1,3 @@
-256229591	https://www.eeo.cn/s/a/?cid=256229591	Teacher Annet's Online Tutorial Services	Teacher: 935****244	Jerry
-256229623	https://www.eeo.cn/s/a/?cid=256229623	Teacher Annet's Online Tutorial Services	Teacher: 935****244	Cory
-256229653	https://www.eeo.cn/s/a/?cid=256229653	天天＾０＾~	Teacher: 张兆平	平-初三-冯煜对一
-256229687	https://www.eeo.cn/s/a/?cid=256229687	Mike	Teacher: 664***02	21.2. Rico
-256229751	https://www.eeo.cn/s/a/?cid=256229751	Azula online classroom	Teacher: 916****443	Mia
-256229763	https://www.eeo.cn/s/a/?cid=256229763	Mercy Ann online classroom	Teacher: 926****033	Albert's 26 Class
 256229795	https://www.eeo.cn/s/a/?cid=256229795	jooh online classroom	Teacher: 968****950	George's 25th class (2-21-24)
 256229915	https://www.eeo.cn/s/a/?cid=256229915	BLC	Teacher: Admin Tutorhelpme	Charlie 11 plus Yr 4
 256230045	https://www.eeo.cn/s/a/?cid=256230045	Niloo online classroom	Teacher: nilooset*****ail.com	Ella
@@ -1198,3 +1192,9 @@
 256291997	https://www.eeo.cn/s/a/?cid=256291997	MAC's Online English Class	Teacher: 917****186	Mong-Yeon 180 Classes 12/2/2024
 256292055	https://www.eeo.cn/s/a/?cid=256292055	北大在线研讨（非课表时间）	Teacher: 体育教研部-1506179315	2024春-01
 256292075	https://www.eeo.cn/s/a/?cid=256292075	0063-9083917718 online classroom	Teacher: 908****718	Hidaya English class 3
+256292105	https://www.eeo.cn/s/a/?cid=256292105	Allison online classroom	Teacher: 905****780	Feb-March 2023 - Allison's Class
+256292173	https://www.eeo.cn/s/a/?cid=256292173	学达线上教育	Teacher: MS MAVIS-AD	24 TUE 9.30AM BDP F2 BI 国文版 MAVIS
+256292203	https://www.eeo.cn/s/a/?cid=256292203	Teacher Dianna online classroom	Teacher: 910****727	June's Classroom
+256292215	https://www.eeo.cn/s/a/?cid=256292215	Teacher Von online classroom	Teacher: otevon*****ail.com	class
+256292249	https://www.eeo.cn/s/a/?cid=256292249	Teacher Loren 4 online classroom	Teacher: 961****560	Nick 02/22/2024
+256292283	https://www.eeo.cn/s/a/?cid=256292283	안다맘 online classroom	Teacher: 109****020	제니 9yrs

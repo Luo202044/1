@@ -1,9 +1,3 @@
-256292105	https://www.eeo.cn/s/a/?cid=256292105	Allison online classroom	Teacher: 905****780	Feb-March 2023 - Allison's Class
-256292173	https://www.eeo.cn/s/a/?cid=256292173	学达线上教育	Teacher: MS MAVIS-AD	24 TUE 9.30AM BDP F2 BI 国文版 MAVIS
-256292203	https://www.eeo.cn/s/a/?cid=256292203	Teacher Dianna online classroom	Teacher: 910****727	June's Classroom
-256292215	https://www.eeo.cn/s/a/?cid=256292215	Teacher Von online classroom	Teacher: otevon*****ail.com	class
-256292249	https://www.eeo.cn/s/a/?cid=256292249	Teacher Loren 4 online classroom	Teacher: 961****560	Nick 02/22/2024
-256292283	https://www.eeo.cn/s/a/?cid=256292283	안다맘 online classroom	Teacher: 109****020	제니 9yrs
 256292307	https://www.eeo.cn/s/a/?cid=256292307	Anne online classroom	Teacher: 918****400	April's 682 session
 256292311	https://www.eeo.cn/s/a/?cid=256292311	Teacher Bhing online classroom	Teacher: bhing0513*****ail.com	9th class
 256292321	https://www.eeo.cn/s/a/?cid=256292321	海外同步课程辅导平台	Teacher: Linda	黄梓轩-生物-王老师
@@ -1198,3 +1192,9 @@
 256348279	https://www.eeo.cn/s/a/?cid=256348279	公开课2	Teacher: Cassie	Cassie六A班
 256348303	https://www.eeo.cn/s/a/?cid=256348303	sevilya*****il.ru online classroom	Teacher: sevilya*****il.ru	вап
 256348315	https://www.eeo.cn/s/a/?cid=256348315	Eda Ogundijo online classroom	Teacher: 629****91	Jessica 23.02
+256348519	https://www.eeo.cn/s/a/?cid=256348519	Eda Ogundijo online classroom	Teacher: 629****91	Ava 23.02
+256348621	https://www.eeo.cn/s/a/?cid=256348621	joshscotlandgarne*****ai online classroom	Teacher: joshscotlandgarne*****ai	Julie 2
+256348627	https://www.eeo.cn/s/a/?cid=256348627	Teacher Nene Tutorial Services	Teacher: 918****452	Rudy's Class - 27
+256348665	https://www.eeo.cn/s/a/?cid=256348665	十二师教育局	Teacher: 十二师教育局	十二师各学校抓基层党建工作述职评议会
+256348787	https://www.eeo.cn/s/a/?cid=256348787	北京市东城区史家胡同小学	Teacher: 李晓娜	测试
+256348857	https://www.eeo.cn/s/a/?cid=256348857	Chelle online classroom	Teacher: 938****641	Class for Jenny

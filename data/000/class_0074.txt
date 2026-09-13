@@ -1,11 +1,3 @@
-256842575	https://www.eeo.cn/s/a/?cid=256842575	得一生涯	Teacher: 173****7985	王依诺同学学习交流群
-256842577	https://www.eeo.cn/s/a/?cid=256842577	英语王老师	Teacher: 王老师	zuozuoyouyou
-256842595	https://www.eeo.cn/s/a/?cid=256842595	Sadz online classroom	Teacher: 648****08	Teacher Sardia Demo
-256842633	https://www.eeo.cn/s/a/?cid=256842633	学乐英语普陀中心	Teacher: Lily Chen	补课
-256842681	https://www.eeo.cn/s/a/?cid=256842681	Thái An online classroom	Teacher: 397****02	1
-256842691	https://www.eeo.cn/s/a/?cid=256842691	发凡教育	Teacher: 杜焕焕	小托福能夯A班
-256842703	https://www.eeo.cn/s/a/?cid=256842703	Miya定制	Teacher: Miya	小宇
-256842807	https://www.eeo.cn/s/a/?cid=256842807	Maddi online classroom	Teacher: 906****871	report !!
 256842827	https://www.eeo.cn/s/a/?cid=256842827	Thịnh Toàn online classroom	Teacher: tramtram1*****ail.com	chào
 256842893	https://www.eeo.cn/s/a/?cid=256842893	Teacher Mitch online classroom	Teacher: mariavictoria.luisa1****	Alice Class
 256842933	https://www.eeo.cn/s/a/?cid=256842933	Teacher Jammy online classroom	Teacher: vjamjesh*****hoo.com	Trial Class with SaSa :)
@@ -1198,3 +1190,11 @@
 256895227	https://www.eeo.cn/s/a/?cid=256895227	Tin online classroom	Teacher: 926****437	Jone
 256895285	https://www.eeo.cn/s/a/?cid=256895285	jenny online classroom	Teacher: pecojennife*****ail.com	jenny
 256895313	https://www.eeo.cn/s/a/?cid=256895313	phạm Đức Hải online classroom	Teacher: 984****25	pham duc hai
+256895483	https://www.eeo.cn/s/a/?cid=256895483	大刘数学	Teacher: 153****3370	2024春初二冲刺
+256895549	https://www.eeo.cn/s/a/?cid=256895549	Lea	Teacher: 949****186	Warren/Howard
+256895565	https://www.eeo.cn/s/a/?cid=256895565	sam online classroom	Teacher: 558***16	samuel
+256895597	https://www.eeo.cn/s/a/?cid=256895597	LET'S GO ENGLISH	Teacher: kathrynclaire*****ail.co	Aiden
+256895639	https://www.eeo.cn/s/a/?cid=256895639	武汉市武昌区耽思文化教育培训学校	Teacher: 大杨老师	高二强基2班数学
+256895691	https://www.eeo.cn/s/a/?cid=256895691	精品拓展	Teacher: Nenz	Amy 7 Class
+256895737	https://www.eeo.cn/s/a/?cid=256895737	Lawrie Language Tutorial Services	Teacher: 905****071	Ariel's Classroom
+256895761	https://www.eeo.cn/s/a/?cid=256895761	来说英语	Teacher: 课程小助理-Hazel	John tang’s class

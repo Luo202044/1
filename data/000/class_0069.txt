@@ -1,10 +1,3 @@
-256626819	https://www.eeo.cn/s/a/?cid=256626819	Teacher Glydel online classroom	Teacher: glydelmaebarc.*****ail.c	Eric & Yang Yang's Class/ MARCH
-256626853	https://www.eeo.cn/s/a/?cid=256626853	Kev5446 online classroom	Teacher: kevinverbur*****ail.com	gest2
-256626993	https://www.eeo.cn/s/a/?cid=256626993	Teacher Ellaine online classroom	Teacher: norielynomar*****ail.com	kiki
-256627093	https://www.eeo.cn/s/a/?cid=256627093	Teacher Clizel online classroom	Teacher: 945****595	felix
-256627143	https://www.eeo.cn/s/a/?cid=256627143	Teach J19 online classroom	Teacher: whitegaas*****ail.com	Eric
-256627167	https://www.eeo.cn/s/a/?cid=256627167	Shawna online classroom	Teacher: 519****463	Tian Zuo Class 192, February 28, 2024
-256627169	https://www.eeo.cn/s/a/?cid=256627169	Teach J19 online classroom	Teacher: whitegaas*****ail.com	Tongtong
 256627173	https://www.eeo.cn/s/a/?cid=256627173	Shawna online classroom	Teacher: 519****463	Tian Hao Class 192, February 28, 2024
 256627187	https://www.eeo.cn/s/a/?cid=256627187	TeachU	Teacher: 450***09	Wexo
 256627197	https://www.eeo.cn/s/a/?cid=256627197	NERDS Academy	Teacher: Lissa	Wexos
@@ -203,7 +196,6 @@
 256635117	https://www.eeo.cn/s/a/?cid=256635117	Teacher Sy online classroom	Teacher: florissadaned20*****ail.	demo sy
 256635229	https://www.eeo.cn/s/a/?cid=256635229	DAISYRIE JANE AGUILAR online classroom	Teacher: 997****746	ENGLISH 9
 256635239	https://www.eeo.cn/s/a/?cid=256635239	英语外教口语学习课堂	Teacher: tony	Don 4563
-256635261	https://www.eeo.cn/s/a/?cid=256635261	儿语工坊·在线语训中心	Teacher: 倾音小助手	康康宝贝在线课堂
 256635263	https://www.eeo.cn/s/a/?cid=256635263	tonie online classroom	Teacher: 933****896	toni class
 256635291	https://www.eeo.cn/s/a/?cid=256635291	SUNNY Nie online classroom	Teacher: 838****92	Sofia’s classroom
 256635297	https://www.eeo.cn/s/a/?cid=256635297	ISH.英语老师	Teacher: 915****079	🇨🇳 Mark English Class
@@ -1198,3 +1190,11 @@
 256668097	https://www.eeo.cn/s/a/?cid=256668097	Learn English with Beth	Teacher: 995****241	Danny's class
 256668123	https://www.eeo.cn/s/a/?cid=256668123	Anne online classroom	Teacher: 918****400	April's 687 session
 256668183	https://www.eeo.cn/s/a/?cid=256668183	Amira online classroom	Teacher: ridene.amira*****ail.com	French class For Zoey
+256668209	https://www.eeo.cn/s/a/?cid=256668209	Teacher Lucky online classroom	Teacher: 200****5866	Fiona
+256668319	https://www.eeo.cn/s/a/?cid=256668319	Estes Aiden ESL	Teacher: 927****215	Louis Class
+256668343	https://www.eeo.cn/s/a/?cid=256668343	虞城县星贺膜结构工程有限公司	Teacher: 175****6110	123
+256668397	https://www.eeo.cn/s/a/?cid=256668397	Teacher Alex2	Teacher: 942****995	YOYO
+256668437	https://www.eeo.cn/s/a/?cid=256668437	曼汉教育	Teacher: Lorrie	吴惠若论文辅导群
+256668637	https://www.eeo.cn/s/a/?cid=256668637	English Tutorial	Teacher: 994****120	Deborah's Class
+256668647	https://www.eeo.cn/s/a/?cid=256668647	刘老师的在线课	Teacher: 157****7553	24春季小升初数学周五18:00-20:30
+256668653	https://www.eeo.cn/s/a/?cid=256668653	navirockz3*****ail.com online classroom	Teacher: navirockz3*****ail.com	Wang Yuhan VIP Class

@@ -1,13 +1,3 @@
-257113291	https://www.eeo.cn/s/a/?cid=257113291	来说英语外教课	Teacher: 155****9467	Nancy Zhu's Course- Charm
-257113411	https://www.eeo.cn/s/a/?cid=257113411	Ronnie online classroom	Teacher: 955****187	Erik's Class
-257113521	https://www.eeo.cn/s/a/?cid=257113521	đặng mài phương online classroom	Teacher: 915****15	My friends
-257113531	https://www.eeo.cn/s/a/?cid=257113531	T. Kathkath online classroom	Teacher: romelladavi*****ail.com	37th
-257113549	https://www.eeo.cn/s/a/?cid=257113549	Teacher Charly online classroom	Teacher: charlyescabas*****ail.co	Trial Class at 19:00 7:00pm
-257113557	https://www.eeo.cn/s/a/?cid=257113557	Teacher Leah 3 online classroom	Teacher: leahjoymasayonvasqu*****	JEFFREY's CLASSROOM
-257113575	https://www.eeo.cn/s/a/?cid=257113575	Teacher Jojie online classroom	Teacher: jojiemagbanua*****loud.c	jia 2.0
-257113585	https://www.eeo.cn/s/a/?cid=257113585	化学&文综	Teacher: 小笼包	23选择题备份
-257113587	https://www.eeo.cn/s/a/?cid=257113587	编程猫创赛营	Teacher: 杨玉琴-C14572	2024新喵成长培训群
-257113661	https://www.eeo.cn/s/a/?cid=257113661	leslie online classroom	Teacher: 966****598	123
 257113705	https://www.eeo.cn/s/a/?cid=257113705	Teacher Mel & Apple online classroom	Teacher: maurielle08*****ail.com	Phoebe1
 257113747	https://www.eeo.cn/s/a/?cid=257113747	stander.kaylei*****ail.c online classroom	Teacher: stander.kaylei*****ail.c	Apple-Kayleigh
 257113771	https://www.eeo.cn/s/a/?cid=257113771	Teacher Ash	Teacher: 614***00	W2 - L13 - Government Rules#3
@@ -362,7 +352,6 @@
 257127019	https://www.eeo.cn/s/a/?cid=257127019	上海学加网络科技有限公司	Teacher: 张路桥	4565-孟佳欣-MAY3-swansea
 257127025	https://www.eeo.cn/s/a/?cid=257127025	Adri online classroom	Teacher: 772****046	3/8 Earth and nature
 257127033	https://www.eeo.cn/s/a/?cid=257127033	LJiang online classroom	Teacher: letian.jiang11*****tlook	Java
-257127037	https://www.eeo.cn/s/a/?cid=257127037	Mister Mikey online classroom	Teacher: 612****77	My Family 2
 257127067	https://www.eeo.cn/s/a/?cid=257127067	vukadinovicmilan*****ail online classroom	Teacher: vukadinovicmilan*****ail	New Begginings
 257127069	https://www.eeo.cn/s/a/?cid=257127069	Teacher Afton online classroom	Teacher: 678****39	Class with Teacher Afton
 257127113	https://www.eeo.cn/s/a/?cid=257127113	lukse.lukse23*****ail.co online classroom	Teacher: lukse.lukse23*****ail.co	Cocodearest
@@ -1198,3 +1187,14 @@
 257162721	https://www.eeo.cn/s/a/?cid=257162721	LET'S GO ENGLISH	Teacher: 945****077	Heison
 257162735	https://www.eeo.cn/s/a/?cid=257162735	青岛西海岸新区兰亭小学	Teacher: 张莉雪	408
 257162795	https://www.eeo.cn/s/a/?cid=257162795	Oral English Training Camp	Teacher: Teacher F	C123-Ryan
+257162903	https://www.eeo.cn/s/a/?cid=257162903	Richa Marie online classroom	Teacher: 967****337	Jenny
+257162907	https://www.eeo.cn/s/a/?cid=257162907	Teacher Charlotte online classroom	Teacher: 631****56	Test Class
+257162919	https://www.eeo.cn/s/a/?cid=257162919	Oral English Training Camp	Teacher: Teacher F	A79-George
+257162921	https://www.eeo.cn/s/a/?cid=257162921	sunnysunshine02*****ail. online classroom	Teacher: sunnysunshine02*****ail.	Kiki's classes
+257162923	https://www.eeo.cn/s/a/?cid=257162923	FredTalk	Teacher: 917****627	Bella's Trial class
+257162965	https://www.eeo.cn/s/a/?cid=257162965	Goltur online classroom	Teacher: hunghades10*****ail.com	DEMO CLASS
+257162995	https://www.eeo.cn/s/a/?cid=257162995	Teacher Seth online classroom	Teacher: 963****153	March 7
+257163027	https://www.eeo.cn/s/a/?cid=257163027	Teacher Tin online classroom	Teacher: 966****930	Engine’s Class 2
+257163177	https://www.eeo.cn/s/a/?cid=257163177	多学米	Teacher: Li	郭天宇 甄老师 rp辅导2000字
+257163215	https://www.eeo.cn/s/a/?cid=257163215	华东政法大学附属松江实验学校	Teacher: 王翌婕	给嘉怡答疑
+257163219	https://www.eeo.cn/s/a/?cid=257163219	高校教辅联盟	Teacher: 老王	哦哦哦～谢老师对接群

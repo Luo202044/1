@@ -1,8 +1,3 @@
-255549225	https://www.eeo.cn/s/a/?cid=255549225	Teacher Vanessa online classroom	Teacher: allisoncade3*****ail.com	xuanxaun
-255549315	https://www.eeo.cn/s/a/?cid=255549315	Doctor C's Academy	Teacher: Doctor C	Dee
-255549395	https://www.eeo.cn/s/a/?cid=255549395	6-1 Lee Ji You (David) online classroom	Teacher: moses001100*****ail.com	나
-255549401	https://www.eeo.cn/s/a/?cid=255549401	Tina online classroom	Teacher: 979****54	Jerry’s Class
-255549485	https://www.eeo.cn/s/a/?cid=255549485	MariaLon	Teacher: 927****388	Mike's classroom
 255549557	https://www.eeo.cn/s/a/?cid=255549557	Matthew Kleynhans online classroom	Teacher: 786****16	ABC
 255549561	https://www.eeo.cn/s/a/?cid=255549561	Bryan Balitcha online classroom	Teacher: 977****665	Bryan Balitcha
 255549569	https://www.eeo.cn/s/a/?cid=255549569	Studio Education	Teacher: Bailey	ddddd
@@ -1198,3 +1193,8 @@
 255614729	https://www.eeo.cn/s/a/?cid=255614729	Mint English	Teacher: 150****5677	Hanson
 255614737	https://www.eeo.cn/s/a/?cid=255614737	黃楷雯Karen online classroom	Teacher: 623****56	Super kids 2 with Karen
 255614907	https://www.eeo.cn/s/a/?cid=255614907	世界名校教授远程科研	Teacher: Remi-staff 曹锐敏	ClassIn Test
+255615049	https://www.eeo.cn/s/a/?cid=255615049	Teacher Gemini online classroom	Teacher: rechbaloro*****ail.com	TEACHER GEMINI
+255615117	https://www.eeo.cn/s/a/?cid=255615117	Loan Nguyễn online classroom	Teacher: 777****43	DEMO SL
+255615159	https://www.eeo.cn/s/a/?cid=255615159	交大附中附属嘉定洪德中学	Teacher: 王晓磊	111
+255615201	https://www.eeo.cn/s/a/?cid=255615201	an khang online classroom	Teacher: 918****65	please
+255615237	https://www.eeo.cn/s/a/?cid=255615237	Teacher Vet 🍎🍒 online classroom	Teacher: yvettegimena14*****ail.c	🍎Oxford Cherry Cat Class🍎

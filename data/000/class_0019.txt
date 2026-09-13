@@ -1,5 +1,3 @@
-253627549	https://www.eeo.cn/s/a/?cid=253627549	Teacher-A online classroom	Teacher: teacherallydej*****ail.c	Lucas
-253627563	https://www.eeo.cn/s/a/?cid=253627563	Chloe5 online classroom	Teacher: 667***68	Mr English no.10
 253627567	https://www.eeo.cn/s/a/?cid=253627567	Teacher Kath online classroom	Teacher: 947****164	Teacher Kath
 253627581	https://www.eeo.cn/s/a/?cid=253627581	Louise教育工作室	Teacher: 助教曹老师	KET刷题班-Louise
 253627605	https://www.eeo.cn/s/a/?cid=253627605	Carmen online classroom	Teacher: 677****79	carmen's class
@@ -609,7 +607,6 @@
 253656505	https://www.eeo.cn/s/a/?cid=253656505	Remelyn Clay online classroom	Teacher: 926****334	Norah
 253656515	https://www.eeo.cn/s/a/?cid=253656515	上海张江集团中学	Teacher: 轩明杰	临时
 253656597	https://www.eeo.cn/s/a/?cid=253656597	Teacher Jane V online classroom	Teacher: 961****929	ELMO’s Class
-253656599	https://www.eeo.cn/s/a/?cid=253656599	klar2 online classroom	Teacher: 956****806	camilla
 253656683	https://www.eeo.cn/s/a/?cid=253656683	Teacher Joyce online classroom	Teacher: 969****795	jimbo
 253656691	https://www.eeo.cn/s/a/?cid=253656691	Salvador online classroom	Teacher: 976****328	21. Donnie 1.8
 253656713	https://www.eeo.cn/s/a/?cid=253656713	Alex	Teacher: 631****661	Shawn
@@ -1198,3 +1195,6 @@
 253682597	https://www.eeo.cn/s/a/?cid=253682597	English XO	Teacher: 864****436	Emma and Leah's Super English Class
 253682749	https://www.eeo.cn/s/a/?cid=253682749	Enya online classroom	Teacher: 909****788	Mandrian
 253682799	https://www.eeo.cn/s/a/?cid=253682799	Jooh online classroom	Teacher: maputijoan*****ail.com	Steven's 50th class (1-9-24)
+253682817	https://www.eeo.cn/s/a/?cid=253682817	Enya online classroom	Teacher: 909****788	mandarin
+253683031	https://www.eeo.cn/s/a/?cid=253683031	Caylus online classroom	Teacher: 901***16	Mummy
+253683159	https://www.eeo.cn/s/a/?cid=253683159	Teacher Cath2 online classroom	Teacher: 927****970	CLEEKY2

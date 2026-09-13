@@ -1,8 +1,3 @@
-254787579	https://www.eeo.cn/s/a/?cid=254787579	上海市三新学校	Teacher: 邓为才	七3
-254787589	https://www.eeo.cn/s/a/?cid=254787589	小丫爱生活	Teacher: 153****0803	2025-02寒假数学
-254787595	https://www.eeo.cn/s/a/?cid=254787595	兵团二中第十一师分校	Teacher: 吴有为	九年级9班11班联播（物理）
-254787639	https://www.eeo.cn/s/a/?cid=254787639	苏州高新区通安中学校	Teacher: 史地钱雨晴	学霸班
-254787647	https://www.eeo.cn/s/a/?cid=254787647	小浪花艺术团	Teacher: 慢慢老师	叶杯18.20.22
 254787705	https://www.eeo.cn/s/a/?cid=254787705	小丫爱生活	Teacher: 153****0803	2026-02春季数学
 254787719	https://www.eeo.cn/s/a/?cid=254787719	Teacher Jayson 5 online classroom	Teacher: 920****820	January Andrew
 254787931	https://www.eeo.cn/s/a/?cid=254787931	ciprianomarcoms*****ail. online classroom	Teacher: ciprianomarcoms*****ail.	CYBER THREAT INTELLIGENCE
@@ -1198,3 +1193,8 @@
 254841457	https://www.eeo.cn/s/a/?cid=254841457	Thoc Binh An online classroom	Teacher: 916****26	cccdvad
 254841481	https://www.eeo.cn/s/a/?cid=254841481	Bry online classroom	Teacher: stevebryanlima*****ail.c	Good Subway Behavior with Terry9
 254841609	https://www.eeo.cn/s/a/?cid=254841609	勤学雅问	Teacher: 孙子涵	市场部培训
+254841641	https://www.eeo.cn/s/a/?cid=254841641	Bry online classroom	Teacher: stevebryanlima*****ail.c	Race for a Purpose with Simon 10
+254841647	https://www.eeo.cn/s/a/?cid=254841647	cao thanh bình online classroom	Teacher: 911****05	m
+254841651	https://www.eeo.cn/s/a/?cid=254841651	Famela Balbin online classroom	Teacher: balbinfamela*****ail.com	Jshi's Class
+254841653	https://www.eeo.cn/s/a/?cid=254841653	郑蓉逻辑语文	Teacher: 郑蓉	2024寒假高一班
+254841691	https://www.eeo.cn/s/a/?cid=254841691	华二紫竹&华二附初	Teacher: 华二紫竹|华二附初	【多彩课程】线上开启·选你所爱

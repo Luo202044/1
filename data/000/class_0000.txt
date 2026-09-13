@@ -1127,7 +1127,6 @@
 252441967	https://www.eeo.cn/s/a/?cid=252441967	richmag1*****ail.com online classroom	Teacher: richmag1*****ail.com	Sherry (3)
 252442167	https://www.eeo.cn/s/a/?cid=252442167	Nguyễn Vũ Bảo Anh online classroom	Teacher: 983****20	lớp ôn thi
 252442231	https://www.eeo.cn/s/a/?cid=252442231	Teacher Maymay online classroom	Teacher: 999****553	Peter
-252442279	https://www.eeo.cn/s/a/?cid=252442279	英语外教口语学习课堂	Teacher: tony	Angel Class
 252442313	https://www.eeo.cn/s/a/?cid=252442313	Kate online classroom	Teacher: kayope72*****ubalm.com	Emily
 252442497	https://www.eeo.cn/s/a/?cid=252442497	Rin online classroom	Teacher: 804****114	memo
 252442527	https://www.eeo.cn/s/a/?cid=252442527	Ký Châu online classroom	Teacher: 793****64	Nam Khánh
@@ -1198,3 +1197,4 @@
 252446781	https://www.eeo.cn/s/a/?cid=252446781	Little English Owl	Teacher: Teacher Sandy	Cici
 252446795	https://www.eeo.cn/s/a/?cid=252446795	Gemini online classroom	Teacher: 938****211	Eric Class Dec
 252446807	https://www.eeo.cn/s/a/?cid=252446807	Teacher Micky? online classroom	Teacher: 960****382	GUOGUO
+252446923	https://www.eeo.cn/s/a/?cid=252446923	Karen and company	Teacher: 559***91	Quintus8/free talk/

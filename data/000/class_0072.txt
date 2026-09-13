@@ -1,11 +1,3 @@
-256758599	https://www.eeo.cn/s/a/?cid=256758599	Studio Education	Teacher: Leah Beresford	Ben - SRI Refresh
-256758629	https://www.eeo.cn/s/a/?cid=256758629	学术辅导	Teacher: 教务老师-Cathy	Teresa课程辅导
-256758657	https://www.eeo.cn/s/a/?cid=256758657	赵永志	Teacher: 谢全民	春开学体验课高二数学全体
-256758825	https://www.eeo.cn/s/a/?cid=256758825	Teacher Kimmy online classroom	Teacher: 611****08	Online Tutor
-256758827	https://www.eeo.cn/s/a/?cid=256758827	海外同步课程辅导平台	Teacher: Betty 教务	邵佳弋-50004课程辅导
-256758837	https://www.eeo.cn/s/a/?cid=256758837	赵永志	Teacher: 谢全民	春开学季体验课高二数学全体
-256758959	https://www.eeo.cn/s/a/?cid=256758959	Chargeable class	Teacher: Cerelyn	eeds
-256758975	https://www.eeo.cn/s/a/?cid=256758975	启思爸爸家庭启蒙教育先行者	Teacher: Charles Wong	AI時代-生活禪-100天講出流利英語
 256759039	https://www.eeo.cn/s/a/?cid=256759039	Grace online classroom	Teacher: asisgrace*****ail.com	SUMMER&OLIVIA
 256759067	https://www.eeo.cn/s/a/?cid=256759067	Nica online classroom	Teacher: 966****678	Kathy9
 256759121	https://www.eeo.cn/s/a/?cid=256759121	Teacher Sy online classroom	Teacher: florissadaned20*****ail.	Cy demo
@@ -1198,3 +1190,11 @@
 256795485	https://www.eeo.cn/s/a/?cid=256795485	工作室	Teacher: 上官老师	24春上官读书周日18:00
 256795533	https://www.eeo.cn/s/a/?cid=256795533	KidsSmart	Teacher: 932****74	Amy
 256795571	https://www.eeo.cn/s/a/?cid=256795571	今夕何夕	Teacher: 何炼	陈宸
+256795579	https://www.eeo.cn/s/a/?cid=256795579	Teacher Z online classroom	Teacher: 765****85	luson
+256795581	https://www.eeo.cn/s/a/?cid=256795581	Natasa Golubovic	Teacher: 676***27	orange
+256795611	https://www.eeo.cn/s/a/?cid=256795611	retchiemanginsay*****ail online classroom	Teacher: retchiemanginsay*****ail	Nina
+256795719	https://www.eeo.cn/s/a/?cid=256795719	托普教育	Teacher: 陈悦英	【滨】24春小五HB周六13:00荣
+256795723	https://www.eeo.cn/s/a/?cid=256795723	工作室	Teacher: 上官老师	24春上官读书周日15:30
+256795733	https://www.eeo.cn/s/a/?cid=256795733	olga.esaulkov*****ail.co online classroom	Teacher: olga.esaulkov*****ail.co	Платон 01.03
+256795757	https://www.eeo.cn/s/a/?cid=256795757	Natasa Golubovic	Teacher: 676***27	eumi 20:00
+256795767	https://www.eeo.cn/s/a/?cid=256795767	Joanie online classroom	Teacher: 662****77	Emma Unit 6 Lesson 3

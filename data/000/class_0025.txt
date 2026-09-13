@@ -1,7 +1,3 @@
-253991573	https://www.eeo.cn/s/a/?cid=253991573	Teacher Rose online classroom	Teacher: 998****336	Alex's 1st class
-253991593	https://www.eeo.cn/s/a/?cid=253991593	精品拓展	Teacher: Josie	C1 plum江西7765
-253991633	https://www.eeo.cn/s/a/?cid=253991633	Teacher Rose online classroom	Teacher: 998****336	Alex's 2nd class
-253991643	https://www.eeo.cn/s/a/?cid=253991643	Nick online classroom	Teacher: 316****271	jessie
 253991651	https://www.eeo.cn/s/a/?cid=253991651	Teacher Jayson 2 online classroom	Teacher: 965****900	January Daisy
 253991679	https://www.eeo.cn/s/a/?cid=253991679	郝乐的课堂	Teacher: 136****5762	韦怡涵
 253991683	https://www.eeo.cn/s/a/?cid=253991683	Jhonalyn Online Tutorial Services	Teacher: 935****660	Trial Classroom
@@ -1198,3 +1194,7 @@
 254064285	https://www.eeo.cn/s/a/?cid=254064285	Teacher Lory online classroom	Teacher: 909****047	ELENA 48
 254064303	https://www.eeo.cn/s/a/?cid=254064303	老师	Teacher: 153****7224	Yukio
 254064361	https://www.eeo.cn/s/a/?cid=254064361	上海市浦东新区育童小学	Teacher: 陆晨杰	育童1组
+254064393	https://www.eeo.cn/s/a/?cid=254064393	上海市浦东新区育童小学	Teacher: 顾竹忆	第四小组
+254064471	https://www.eeo.cn/s/a/?cid=254064471	Honey's English Studio	Teacher: 158****2773	6下同步学习营
+254064797	https://www.eeo.cn/s/a/?cid=254064797	Teacher Jen online classroom	Teacher: jmaematig*****ail.com	Demo
+254064825	https://www.eeo.cn/s/a/?cid=254064825	Abbt	Teacher: abegailbuellapenso*****a	English Class May

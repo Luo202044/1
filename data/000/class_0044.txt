@@ -1,8 +1,3 @@
-255081335	https://www.eeo.cn/s/a/?cid=255081335	卓学在线教育	Teacher: 刘伊	2024寒新华大牛19：20高一数学
-255081337	https://www.eeo.cn/s/a/?cid=255081337	Teacher Lory IV online classroom	Teacher: 946****212	ALLAN 157
-255081365	https://www.eeo.cn/s/a/?cid=255081365	彭Xiao dai Xiang online classroom	Teacher: 592***90	MangoXg2
-255081399	https://www.eeo.cn/s/a/?cid=255081399	Teacher Lory IV online classroom	Teacher: 946****212	DARIA 26
-255081435	https://www.eeo.cn/s/a/?cid=255081435	Teacher Lory IV online classroom	Teacher: 946****212	ADE 3
 255081481	https://www.eeo.cn/s/a/?cid=255081481	青青禾苗	Teacher: 趣芽Sparkle老师	Sparkle老师课程
 255081601	https://www.eeo.cn/s/a/?cid=255081601	WeIP Education	Teacher: Mr Ayden	2025 F5 SN(BI) TUES 7.45PM MR.AYDEN
 255081627	https://www.eeo.cn/s/a/?cid=255081627	Fighting自习室	Teacher: 韩嘉欣	初三
@@ -1198,3 +1193,8 @@
 255135407	https://www.eeo.cn/s/a/?cid=255135407	智汇教育科技有限公司	Teacher: 张艳艳	九年级下电与磁场一
 255135439	https://www.eeo.cn/s/a/?cid=255135439	Zion online classroom	Teacher: benhur.alv*****ail.com	dada
 255135447	https://www.eeo.cn/s/a/?cid=255135447	Teacher Ash online classroom	Teacher: 967****084	12:30 Demo class
+255135477	https://www.eeo.cn/s/a/?cid=255135477	jenelyngella*****ail.com online classroom	Teacher: jenelyngella*****ail.com	Iris Class
+255135531	https://www.eeo.cn/s/a/?cid=255135531	대치코칭센터	Teacher: 박주경	고2 영어모의고사
+255135659	https://www.eeo.cn/s/a/?cid=255135659	春苗	Teacher: 宋老师11.18充值100	潼潼一对一
+255135731	https://www.eeo.cn/s/a/?cid=255135731	Teacher Jane online classroom	Teacher: 930****829	JOANNA SECOND
+255135825	https://www.eeo.cn/s/a/?cid=255135825	WeIP Education	Teacher: Ms Vivian	F2 BMP

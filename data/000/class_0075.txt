@@ -1,11 +1,3 @@
-256895483	https://www.eeo.cn/s/a/?cid=256895483	大刘数学	Teacher: 153****3370	2024春初二冲刺
-256895549	https://www.eeo.cn/s/a/?cid=256895549	Lea	Teacher: 949****186	Warren/Howard
-256895565	https://www.eeo.cn/s/a/?cid=256895565	sam online classroom	Teacher: 558***16	samuel
-256895597	https://www.eeo.cn/s/a/?cid=256895597	LET'S GO ENGLISH	Teacher: kathrynclaire*****ail.co	Aiden
-256895639	https://www.eeo.cn/s/a/?cid=256895639	武汉市武昌区耽思文化教育培训学校	Teacher: 大杨老师	高二强基2班数学
-256895691	https://www.eeo.cn/s/a/?cid=256895691	精品拓展	Teacher: Nenz	Amy 7 Class
-256895737	https://www.eeo.cn/s/a/?cid=256895737	Lawrie Language Tutorial Services	Teacher: 905****071	Ariel's Classroom
-256895761	https://www.eeo.cn/s/a/?cid=256895761	来说英语	Teacher: 课程小助理-Hazel	John tang’s class
 256895825	https://www.eeo.cn/s/a/?cid=256895825	Sandy工作室	Teacher: Sandy	Unlock 2 Unit 2-4 周日上
 256895885	https://www.eeo.cn/s/a/?cid=256895885	Teacher Dianne online classroom	Teacher: lopezdayan*****ail.com	NOTES
 256895969	https://www.eeo.cn/s/a/?cid=256895969	Teacher Gen 3 online classroom	Teacher: limmmasiel*****ail.com	Lisa/ March
@@ -1198,3 +1190,11 @@
 256966681	https://www.eeo.cn/s/a/?cid=256966681	北京市海淀区简明教育培训学校	Teacher: 梁老师	习惯展示【综合2班】
 256966717	https://www.eeo.cn/s/a/?cid=256966717	北京市海淀区简明教育培训学校	Teacher: 梁老师	新五定制1班
 256966725	https://www.eeo.cn/s/a/?cid=256966725	上海市周浦实验学校	Teacher: 曹佳妮	四6班
+256966751	https://www.eeo.cn/s/a/?cid=256966751	Teacher Malinda Online	Teacher: 611****02	Matthew 50
+256966769	https://www.eeo.cn/s/a/?cid=256966769	北京市海淀区简明教育培训学校	Teacher: 梁老师	习惯展示【高中基础】
+256966831	https://www.eeo.cn/s/a/?cid=256966831	chere online classroom	Teacher: 909****214	GBA CL6 CRIM3C
+256966857	https://www.eeo.cn/s/a/?cid=256966857	北京市海淀区简明教育培训学校	Teacher: douzi	新四定制1班
+256966865	https://www.eeo.cn/s/a/?cid=256966865	Moon的在线城堡	Teacher: 176****3215	5春NCE周六4:00
+256966879	https://www.eeo.cn/s/a/?cid=256966879	云课 Weekly Payment English	Teacher: Hazel	197-A117 DUDU 7
+256966883	https://www.eeo.cn/s/a/?cid=256966883	Teacher Malinda Online	Teacher: 611****02	Matthew 1
+256966889	https://www.eeo.cn/s/a/?cid=256966889	在线课程	Teacher: 姜老师	初中物理二阶段 2班 春季 101

@@ -1,8 +1,3 @@
-255754563	https://www.eeo.cn/s/a/?cid=255754563	alwaystvde*****ail.com online classroom	Teacher: alwaystvde*****ail.com	المستوى الأول
-255754567	https://www.eeo.cn/s/a/?cid=255754567	Adrian online classroom	Teacher: 623***60	Florence Monday 7:30PM
-255754573	https://www.eeo.cn/s/a/?cid=255754573	nww*****tlook.com online classroom	Teacher: nww*****tlook.com	Zoe 3
-255754633	https://www.eeo.cn/s/a/?cid=255754633	Dvyphonic	Teacher: 949****00	Emma Lesson 360
-255754677	https://www.eeo.cn/s/a/?cid=255754677	Teacher Fritz Hensley online classroom	Teacher: 936****728	Vivian
 255754691	https://www.eeo.cn/s/a/?cid=255754691	Teacher Yna online classroom	Teacher: 935****010	ynaa
 255754697	https://www.eeo.cn/s/a/?cid=255754697	nww*****tlook.com online classroom	Teacher: nww*****tlook.com	Zoe
 255754717	https://www.eeo.cn/s/a/?cid=255754717	Teacher Cheng online classroom	Teacher: 915****424	Joy and Cath
@@ -1198,3 +1193,8 @@
 255816445	https://www.eeo.cn/s/a/?cid=255816445	Tutor-Online Private	Teacher: 917****857	English Speaking Lesson 118-Sofia
 255816455	https://www.eeo.cn/s/a/?cid=255816455	Teacher Hon online classroom	Teacher: 995****126	Premium Batch 1
 255816465	https://www.eeo.cn/s/a/?cid=255816465	TRUNG TAM NGOAI NGU ANH MY	Teacher: Anh My Teacher 1	OBO_HB_Nancy_CP
+255816695	https://www.eeo.cn/s/a/?cid=255816695	Chase online classroom	Teacher: 982****17	我
+255816741	https://www.eeo.cn/s/a/?cid=255816741	Teacher Anna (Temp) online classroom	Teacher: josefanormacru*****ail.c	Felix's Class (10)
+255816757	https://www.eeo.cn/s/a/?cid=255816757	lbusisiw*****ail.com online classroom	Teacher: lbusisiw*****ail.com	My class with Ritchie
+255816759	https://www.eeo.cn/s/a/?cid=255816759	Bob Dimy	Teacher: 631****07	Ryan Class
+255816845	https://www.eeo.cn/s/a/?cid=255816845	SMG	Teacher: 638****13	14. Dora Special

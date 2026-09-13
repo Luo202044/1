@@ -1,11 +1,3 @@
-256966751	https://www.eeo.cn/s/a/?cid=256966751	Teacher Malinda Online	Teacher: 611****02	Matthew 50
-256966769	https://www.eeo.cn/s/a/?cid=256966769	北京市海淀区简明教育培训学校	Teacher: 梁老师	习惯展示【高中基础】
-256966831	https://www.eeo.cn/s/a/?cid=256966831	chere online classroom	Teacher: 909****214	GBA CL6 CRIM3C
-256966857	https://www.eeo.cn/s/a/?cid=256966857	北京市海淀区简明教育培训学校	Teacher: douzi	新四定制1班
-256966865	https://www.eeo.cn/s/a/?cid=256966865	Moon的在线城堡	Teacher: 176****3215	5春NCE周六4:00
-256966879	https://www.eeo.cn/s/a/?cid=256966879	云课 Weekly Payment English	Teacher: Hazel	197-A117 DUDU 7
-256966883	https://www.eeo.cn/s/a/?cid=256966883	Teacher Malinda Online	Teacher: 611****02	Matthew 1
-256966889	https://www.eeo.cn/s/a/?cid=256966889	在线课程	Teacher: 姜老师	初中物理二阶段 2班 春季 101
 256966891	https://www.eeo.cn/s/a/?cid=256966891	Ross King online classroom	Teacher: 968****755	April's course
 256966903	https://www.eeo.cn/s/a/?cid=256966903	Rachel's studio	Teacher: Rachel.Yin	Bravo-OD2
 256966905	https://www.eeo.cn/s/a/?cid=256966905	北京市海淀区简明教育培训学校	Teacher: 梁老师	新三定制1班
@@ -134,7 +126,6 @@
 256970783	https://www.eeo.cn/s/a/?cid=256970783	Tr. Cherry Denise online classroom	Teacher: odacremnedyrrech*****ail	1400-14:25 Class with Vesper
 256970813	https://www.eeo.cn/s/a/?cid=256970813	无忧	Teacher: 183****2196	【六A】初二8:00-10:00
 256970815	https://www.eeo.cn/s/a/?cid=256970815	Teacher Charen online classroom	Teacher: 933****344	Spark SG Batch 39A
-256970827	https://www.eeo.cn/s/a/?cid=256970827	无忧	Teacher: 183****2196	【六B】高一10:30-12:30
 256970879	https://www.eeo.cn/s/a/?cid=256970879	无忧	Teacher: 183****2196	【六C】中考13:30-15:30
 256970883	https://www.eeo.cn/s/a/?cid=256970883	Teacher Stefan online classroom	Teacher: 631****36	Yoyo WS Starter2 U1
 256970895	https://www.eeo.cn/s/a/?cid=256970895	无忧	Teacher: 183****2196	【六E】高二19:00-21:00
@@ -1198,3 +1189,12 @@
 257008227	https://www.eeo.cn/s/a/?cid=257008227	IndieTeach	Teacher: 514****803	Michael (Mar)
 257008229	https://www.eeo.cn/s/a/?cid=257008229	IndieTeach	Teacher: 514****803	Johnathan (Mar)
 257008237	https://www.eeo.cn/s/a/?cid=257008237	IndieTeach	Teacher: 514****803	Eric & Alice (Mar)
+257008241	https://www.eeo.cn/s/a/?cid=257008241	IndieTeach	Teacher: 514****803	Abby (Mar)
+257008277	https://www.eeo.cn/s/a/?cid=257008277	SilviyaB online classroom	Teacher: 641****67	cas 7
+257008301	https://www.eeo.cn/s/a/?cid=257008301	Berisha E-Ticaret	Teacher: 552****549	Berisha English Courses - Defne
+257008303	https://www.eeo.cn/s/a/?cid=257008303	Onet online classroom	Teacher: 736****45	ovidiu
+257008319	https://www.eeo.cn/s/a/?cid=257008319	Nina online classroom	Teacher: 603****33	goiifffft
+257008323	https://www.eeo.cn/s/a/?cid=257008323	John online classroom	Teacher: 637****83	Helen
+257008343	https://www.eeo.cn/s/a/?cid=257008343	Teacher online classroom	Teacher: mabej540*****corit.com	Eason's English Class
+257008359	https://www.eeo.cn/s/a/?cid=257008359	ukamakagemini.oke*****ai online classroom	Teacher: ukamakagemini.oke*****ai	English Reading Class
+257008399	https://www.eeo.cn/s/a/?cid=257008399	精品拓展	Teacher: Ryan	LEONA

@@ -1,8 +1,3 @@
-255190431	https://www.eeo.cn/s/a/?cid=255190431	gem online classroom	Teacher: 908****745	andy
-255190453	https://www.eeo.cn/s/a/?cid=255190453	정율사관 온라인	Teacher: 장윤동-1	클래스인 커뮤니케이션
-255190501	https://www.eeo.cn/s/a/?cid=255190501	louisbentleyb*****ail.co online classroom	Teacher: louisbentleyb*****ail.co	Serena
-255190551	https://www.eeo.cn/s/a/?cid=255190551	Benjamin IV online classroom	Teacher: asperma*****ail.com	Sky
-255190603	https://www.eeo.cn/s/a/?cid=255190603	장윤동 online classroom	Teacher: yoondong*****ail.com	솔루션
 255190679	https://www.eeo.cn/s/a/?cid=255190679	"TEACHER REN") online classroom	Teacher: rena0219*****ail.com	WYNNE'S CLASS
 255190721	https://www.eeo.cn/s/a/?cid=255190721	Little English Owl	Teacher: Teacher Kenia	Kelly
 255190829	https://www.eeo.cn/s/a/?cid=255190829	云课堂	Teacher: 文杰老师	湖北恩施 杨诗语数学学习群
@@ -1198,3 +1193,8 @@
 255242579	https://www.eeo.cn/s/a/?cid=255242579	Teacher Chen 5 online classroom	Teacher: 963****401	Ms. Cindy 4 (classin 5)
 255242733	https://www.eeo.cn/s/a/?cid=255242733	黄冈优课	Teacher: 186****0576	姚老师初三数学试课
 255242791	https://www.eeo.cn/s/a/?cid=255242791	0044-7722189268 online classroom	Teacher: 772****268	Chloe February
+255242851	https://www.eeo.cn/s/a/?cid=255242851	Geraldine online classroom	Teacher: 998****683	Eason 1/30
+255243087	https://www.eeo.cn/s/a/?cid=255243087	MAC's Online English Class	Teacher: 917****186	Eddie and Emma's 170 Classes 09/02/2024
+255243107	https://www.eeo.cn/s/a/?cid=255243107	Philip Hwang online classroom	Teacher: 859***11	卓然 A level（OCR）力哥物理
+255243125	https://www.eeo.cn/s/a/?cid=255243125	richelleperea*****ail.co online classroom	Teacher: richelleperea*****ail.co	cURRY1
+255243171	https://www.eeo.cn/s/a/?cid=255243171	John online classroom	Teacher: 985****000	Claire 3

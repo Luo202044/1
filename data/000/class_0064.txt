@@ -1,9 +1,3 @@
-256348519	https://www.eeo.cn/s/a/?cid=256348519	Eda Ogundijo online classroom	Teacher: 629****91	Ava 23.02
-256348621	https://www.eeo.cn/s/a/?cid=256348621	joshscotlandgarne*****ai online classroom	Teacher: joshscotlandgarne*****ai	Julie 2
-256348627	https://www.eeo.cn/s/a/?cid=256348627	Teacher Nene Tutorial Services	Teacher: 918****452	Rudy's Class - 27
-256348665	https://www.eeo.cn/s/a/?cid=256348665	十二师教育局	Teacher: 十二师教育局	十二师各学校抓基层党建工作述职评议会
-256348787	https://www.eeo.cn/s/a/?cid=256348787	北京市东城区史家胡同小学	Teacher: 李晓娜	测试
-256348857	https://www.eeo.cn/s/a/?cid=256348857	Chelle online classroom	Teacher: 938****641	Class for Jenny
 256348865	https://www.eeo.cn/s/a/?cid=256348865	Hk中文普通話	Teacher: 136****3462	錄一2pm230pm30min简体tb1451
 256348951	https://www.eeo.cn/s/a/?cid=256348951	Phuong Uyen online classroom	Teacher: 908****10	Placement Test (demo)
 256348983	https://www.eeo.cn/s/a/?cid=256348983	Jo online classroom	Teacher: jojo0702*****ail.com	jo
@@ -1198,3 +1192,9 @@
 256407821	https://www.eeo.cn/s/a/?cid=256407821	JULIE	Teacher: 166****5003	王韬宇&林若晨英语课堂
 256407831	https://www.eeo.cn/s/a/?cid=256407831	PI FOR MOT	Teacher: 文宇老师	【24春】六年级新生入学测评2月25日备用群
 256407879	https://www.eeo.cn/s/a/?cid=256407879	Teacher Chen 11 (#486) online classroom	Teacher: 908****486	Daisy 11 (486)
+256407917	https://www.eeo.cn/s/a/?cid=256407917	CLEVERLY	Teacher: 周霞	24春七QZ
+256407945	https://www.eeo.cn/s/a/?cid=256407945	Teacher Chen 11 (#486) online classroom	Teacher: 908****486	Midi 11 (486)
+256408013	https://www.eeo.cn/s/a/?cid=256408013	Danica online classroom	Teacher: 652****30	Leo's class
+256408083	https://www.eeo.cn/s/a/?cid=256408083	Teacher Chen 11 (#486) online classroom	Teacher: 908****486	Arial 11 (486)
+256408093	https://www.eeo.cn/s/a/?cid=256408093	Etutor	Teacher: Etutor	Ha An 130815/Teacher Demz
+256408165	https://www.eeo.cn/s/a/?cid=256408165	Teacher Melodie♥️ online classroom	Teacher: jecelmaebagnol20*****ail	Victors Classroom

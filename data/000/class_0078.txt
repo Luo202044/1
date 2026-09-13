@@ -1,12 +1,3 @@
-257059547	https://www.eeo.cn/s/a/?cid=257059547	Zee online classroom	Teacher: zeldene.sim*****ail.com	Wandu
-257060529	https://www.eeo.cn/s/a/?cid=257060529	Eagles company	Teacher: 946****969	cici@5
-257061571	https://www.eeo.cn/s/a/?cid=257061571	Anna	Teacher: 650****225	Anna and Emily trial class
-257061603	https://www.eeo.cn/s/a/?cid=257061603	Teacher Lib online classroom	Teacher: 948****631	Lib
-257061719	https://www.eeo.cn/s/a/?cid=257061719	bharti infotech	Teacher: 983****248	trial
-257061773	https://www.eeo.cn/s/a/?cid=257061773	Little English Owl	Teacher: Teacher Nancy	Ella
-257061789	https://www.eeo.cn/s/a/?cid=257061789	Dragana Jankovic	Teacher: 658****25	Jessy9&Stephen6
-257061793	https://www.eeo.cn/s/a/?cid=257061793	ESL with Haley	Teacher: 804****972	Molly’s Class
-257061841	https://www.eeo.cn/s/a/?cid=257061841	aruenglishclass*****ail. online classroom	Teacher: aruenglishclass*****ail.	TRIAL CLASS 4
 257061931	https://www.eeo.cn/s/a/?cid=257061931	Vi online classroom	Teacher: avergene*****ail.com	Ivy 7 广东
 257061943	https://www.eeo.cn/s/a/?cid=257061943	乐学思维	Teacher: 155****3010	培训课堂
 257062051	https://www.eeo.cn/s/a/?cid=257062051	Teacher Lisa online classroom	Teacher: 832****252	Nanci 3-14
@@ -430,7 +421,6 @@
 257081747	https://www.eeo.cn/s/a/?cid=257081747	睿途国际	Teacher: 李晨	MG1（下）作业模板班
 257081847	https://www.eeo.cn/s/a/?cid=257081847	小象超能	Teacher: 主账号	弈小象围棋测评桔子老师
 257081899	https://www.eeo.cn/s/a/?cid=257081899	Prospeak	Teacher: 静安班主任小凤梨	Shawn-Scarlett
-257081981	https://www.eeo.cn/s/a/?cid=257081981	BaBu English Tutorial	Teacher: T. GLAD	YU
 257082039	https://www.eeo.cn/s/a/?cid=257082039	Cherry online classroom	Teacher: 164****92	F2 GEO
 257082113	https://www.eeo.cn/s/a/?cid=257082113	Teacher Kim	Teacher: 953****631	Jojo7j
 257082179	https://www.eeo.cn/s/a/?cid=257082179	世界名校教授远程科研	Teacher: Remi-staff 曹锐敏	24春-程序的灵魂： 以“分而治之范式”切入计算机算法底层设计与进阶分析 班级群
@@ -1198,3 +1188,13 @@
 257112897	https://www.eeo.cn/s/a/?cid=257112897	Teacher Belle online classroom	Teacher: 992****443	Ethan 6
 257112951	https://www.eeo.cn/s/a/?cid=257112951	Valerie online classroom	Teacher: valerietigla*****ail.com	wendy
 257113189	https://www.eeo.cn/s/a/?cid=257113189	myles lacaba online classroom	Teacher: myleslaca*****ail.com	GROUP 4 NCM103
+257113291	https://www.eeo.cn/s/a/?cid=257113291	来说英语外教课	Teacher: 155****9467	Nancy Zhu's Course- Charm
+257113411	https://www.eeo.cn/s/a/?cid=257113411	Ronnie online classroom	Teacher: 955****187	Erik's Class
+257113521	https://www.eeo.cn/s/a/?cid=257113521	đặng mài phương online classroom	Teacher: 915****15	My friends
+257113531	https://www.eeo.cn/s/a/?cid=257113531	T. Kathkath online classroom	Teacher: romelladavi*****ail.com	37th
+257113549	https://www.eeo.cn/s/a/?cid=257113549	Teacher Charly online classroom	Teacher: charlyescabas*****ail.co	Trial Class at 19:00 7:00pm
+257113557	https://www.eeo.cn/s/a/?cid=257113557	Teacher Leah 3 online classroom	Teacher: leahjoymasayonvasqu*****	JEFFREY's CLASSROOM
+257113575	https://www.eeo.cn/s/a/?cid=257113575	Teacher Jojie online classroom	Teacher: jojiemagbanua*****loud.c	jia 2.0
+257113585	https://www.eeo.cn/s/a/?cid=257113585	化学&文综	Teacher: 小笼包	23选择题备份
+257113587	https://www.eeo.cn/s/a/?cid=257113587	编程猫创赛营	Teacher: 杨玉琴-C14572	2024新喵成长培训群
+257113661	https://www.eeo.cn/s/a/?cid=257113661	leslie online classroom	Teacher: 966****598	123

@@ -1,8 +1,3 @@
-255135477	https://www.eeo.cn/s/a/?cid=255135477	jenelyngella*****ail.com online classroom	Teacher: jenelyngella*****ail.com	Iris Class
-255135531	https://www.eeo.cn/s/a/?cid=255135531	대치코칭센터	Teacher: 박주경	고2 영어모의고사
-255135659	https://www.eeo.cn/s/a/?cid=255135659	春苗	Teacher: 宋老师11.18充值100	潼潼一对一
-255135731	https://www.eeo.cn/s/a/?cid=255135731	Teacher Jane online classroom	Teacher: 930****829	JOANNA SECOND
-255135825	https://www.eeo.cn/s/a/?cid=255135825	WeIP Education	Teacher: Ms Vivian	F2 BMP
 255135847	https://www.eeo.cn/s/a/?cid=255135847	Teacher Raya online classroom	Teacher: 950****046	Teacher Raya First demo
 255135899	https://www.eeo.cn/s/a/?cid=255135899	willemschoeman0*****ail. online classroom	Teacher: willemschoeman0*****ail.	Training
 255135965	https://www.eeo.cn/s/a/?cid=255135965	T Janice online classroom	Teacher: 935****058	Barry Lesson 2-14
@@ -1198,3 +1193,8 @@
 255190287	https://www.eeo.cn/s/a/?cid=255190287	上海学加网络科技有限公司	Teacher: Flora	4449 张雨馨FR论文辅导
 255190295	https://www.eeo.cn/s/a/?cid=255190295	好学生	Teacher: 151****0068	24高二寒假数学10:50
 255190325	https://www.eeo.cn/s/a/?cid=255190325	好学生	Teacher: 151****0068	24高一寒假数学7:30
+255190431	https://www.eeo.cn/s/a/?cid=255190431	gem online classroom	Teacher: 908****745	andy
+255190453	https://www.eeo.cn/s/a/?cid=255190453	정율사관 온라인	Teacher: 장윤동-1	클래스인 커뮤니케이션
+255190501	https://www.eeo.cn/s/a/?cid=255190501	louisbentleyb*****ail.co online classroom	Teacher: louisbentleyb*****ail.co	Serena
+255190551	https://www.eeo.cn/s/a/?cid=255190551	Benjamin IV online classroom	Teacher: asperma*****ail.com	Sky
+255190603	https://www.eeo.cn/s/a/?cid=255190603	장윤동 online classroom	Teacher: yoondong*****ail.com	솔루션

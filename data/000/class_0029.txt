@@ -1,7 +1,3 @@
-254221759	https://www.eeo.cn/s/a/?cid=254221759	cailaduplessis*****ail.c online classroom	Teacher: cailaduplessis*****ail.c	Bella
-254221767	https://www.eeo.cn/s/a/?cid=254221767	joca slepac	Teacher: 201****727	nev
-254221781	https://www.eeo.cn/s/a/?cid=254221781	cailaduplessis*****ail.c online classroom	Teacher: cailaduplessis*****ail.c	Daisy
-254221799	https://www.eeo.cn/s/a/?cid=254221799	cailaduplessis*****ail.c online classroom	Teacher: cailaduplessis*****ail.c	Eva
 254221809	https://www.eeo.cn/s/a/?cid=254221809	Gino online classroom	Teacher: 976****175	zero
 254221813	https://www.eeo.cn/s/a/?cid=254221813	cailaduplessis*****ail.c online classroom	Teacher: cailaduplessis*****ail.c	Frankie
 254221827	https://www.eeo.cn/s/a/?cid=254221827	乐梦营	Teacher: Freya	1.21 14:00 Freya-Demo
@@ -1198,3 +1194,7 @@
 254269563	https://www.eeo.cn/s/a/?cid=254269563	Ach online classroom	Teacher: 859****786	tony
 254269695	https://www.eeo.cn/s/a/?cid=254269695	kirgy online classroom	Teacher: 942****474	ELSA - JANUARY 2024
 254269737	https://www.eeo.cn/s/a/?cid=254269737	君华国际学校	Teacher: Rose	党思恒论文指导课
+254269741	https://www.eeo.cn/s/a/?cid=254269741	Teacher Arcjade online classroom	Teacher: 909****744	Alex 2's Class
+254269901	https://www.eeo.cn/s/a/?cid=254269901	ME夫子语言培训中心	Teacher: 汪聪	王维莹
+254269951	https://www.eeo.cn/s/a/?cid=254269951	交大附中附属嘉定洪德中学	Teacher: 余晓珍	七年级1班
+254269979	https://www.eeo.cn/s/a/?cid=254269979	0063-9457014448 online classroom	Teacher: 945****448	English Tutor

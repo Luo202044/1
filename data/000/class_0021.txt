@@ -1,6 +1,3 @@
-253738481	https://www.eeo.cn/s/a/?cid=253738481	北京市第八十中学	Teacher: 李湘灵	G9—六班—ESL班级
-253738533	https://www.eeo.cn/s/a/?cid=253738533	tzhou online classroom	Teacher: 236****539	cs
-253738541	https://www.eeo.cn/s/a/?cid=253738541	kelleycitrinre*****ail.c online classroom	Teacher: kelleycitrinre*****ail.c	Tr. Kelley
 253738609	https://www.eeo.cn/s/a/?cid=253738609	Teacher Criz (3) online classroom	Teacher: 968****452	KATHY
 253738623	https://www.eeo.cn/s/a/?cid=253738623	黄壮壮	Teacher: 壮壮	刘老师分享
 253738715	https://www.eeo.cn/s/a/?cid=253738715	Bili Education	Teacher: Justyna Majewska	Twins
@@ -1022,7 +1019,6 @@
 253785551	https://www.eeo.cn/s/a/?cid=253785551	wisdomlearningcenter online classroom	Teacher: 315****988	Grace Shen守望者联盟
 253785553	https://www.eeo.cn/s/a/?cid=253785553	Teacher Den online classroom	Teacher: 967****647	Happy Planet
 253785753	https://www.eeo.cn/s/a/?cid=253785753	雄捷因子	Teacher: 王老师	Victor
-253785757	https://www.eeo.cn/s/a/?cid=253785757	EEO	Teacher: 孙铭	后台功能梳理
 253785851	https://www.eeo.cn/s/a/?cid=253785851	雄捷因子	Teacher: 王老师	victor
 253786113	https://www.eeo.cn/s/a/?cid=253786113	Class	Teacher: Rebecca	W同学-谢菲大三AFM-6课时 剩余0小时
 253786409	https://www.eeo.cn/s/a/?cid=253786409	北京市第五十五中学（中国部）	Teacher: 贠晓静	5班6班语文联盟教室 2025.6
@@ -1198,3 +1194,7 @@
 253799093	https://www.eeo.cn/s/a/?cid=253799093	空山新雨	Teacher: 魏如镝	【23秋三01月15日16:00】Theatre（10级）
 253799161	https://www.eeo.cn/s/a/?cid=253799161	Teacher Car 10 online classroom	Teacher: 920****611	Lin done
 253799197	https://www.eeo.cn/s/a/?cid=253799197	熠读教育	Teacher: Grace	Meeting -Ian
+253799441	https://www.eeo.cn/s/a/?cid=253799441	Tinn online classroom	Teacher: 935****387	lukie
+253799493	https://www.eeo.cn/s/a/?cid=253799493	Gia sư Grammar A-Z online classroom	Teacher: 919****02	TG005
+253799617	https://www.eeo.cn/s/a/?cid=253799617	StephanieO online classroom	Teacher: 239****810	Terry’s Class
+253799713	https://www.eeo.cn/s/a/?cid=253799713	StephanieO online classroom	Teacher: 239****810	Oliver’s Class

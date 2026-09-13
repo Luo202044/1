@@ -1,4 +1,3 @@
-252576309	https://www.eeo.cn/s/a/?cid=252576309	Online Teacher Connie online classroom	Teacher: 772****707	Mike (December)
 252576313	https://www.eeo.cn/s/a/?cid=252576313	Jane Marie-8 online classroom	Teacher: 939****237	Bruce-demo class
 252576361	https://www.eeo.cn/s/a/?cid=252576361	Nguyệt Đặng online classroom	Teacher: 834****69	qw
 252576413	https://www.eeo.cn/s/a/?cid=252576413	Quỳnh Nguyễn online classroom	Teacher: 359****99	grade 9
@@ -1198,3 +1197,4 @@
 252636909	https://www.eeo.cn/s/a/?cid=252636909	Teacher Rhea online classroom	Teacher: 951****067	Hermoine & Herman
 252636951	https://www.eeo.cn/s/a/?cid=252636951	产教融合	Teacher: 张振方	必刷题-向量的数量积坐标运算
 252636959	https://www.eeo.cn/s/a/?cid=252636959	Ms. Hien online classroom	Teacher: 392****93	Pre Ielts
+252636977	https://www.eeo.cn/s/a/?cid=252636977	思考乐培训（高中）	Teacher: 吴玲	703491 -吴玲-高二化学-周六下午16:20

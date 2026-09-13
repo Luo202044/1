@@ -1,9 +1,3 @@
-256476841	https://www.eeo.cn/s/a/?cid=256476841	Fritz online classroom	Teacher: vishenda*****ail.com	sample class
-256476969	https://www.eeo.cn/s/a/?cid=256476969	Teacher Gareth online classroom	Teacher: 760****96	Teacher Gareth - Charlote
-256476989	https://www.eeo.cn/s/a/?cid=256476989	Higher Study	Teacher: 王伟	航澈
-256477191	https://www.eeo.cn/s/a/?cid=256477191	美森诺珂青少英语	Teacher: Coco Chen	KET VIP-杨媛茜Cici
-256477281	https://www.eeo.cn/s/a/?cid=256477281	高途·北京学部	Teacher: 刘元清	高途 | 高一物理春季班 | 每周日15：20
-256477299	https://www.eeo.cn/s/a/?cid=256477299	拿云工作室	Teacher: 拿云课程老师	A5--拿云
 256477347	https://www.eeo.cn/s/a/?cid=256477347	ABCD	Teacher: Teacher Lu	6-Cindy6 classroom
 256477399	https://www.eeo.cn/s/a/?cid=256477399	Emma Wang online classroom	Teacher: 170****668	hi
 256477481	https://www.eeo.cn/s/a/?cid=256477481	Kamilah online classroom	Teacher: 928****244	JEL
@@ -1198,3 +1192,9 @@
 256529265	https://www.eeo.cn/s/a/?cid=256529265	蓦然	Teacher: 137****3691	中考加油👏👏
 256529271	https://www.eeo.cn/s/a/?cid=256529271	Ahmad Khalil >_0 online classroom	Teacher: 956****395	Normal gc
 256529275	https://www.eeo.cn/s/a/?cid=256529275	Teacher Thess online classroom	Teacher: basilioj6*****ail.com	Mark9
+256529333	https://www.eeo.cn/s/a/?cid=256529333	EV英语阅读沙龙	Teacher: 134****1380	EV英语阅读沙龙3B周六13:00
+256529463	https://www.eeo.cn/s/a/?cid=256529463	曼汉教育	Teacher: Lorrie	康泽奇rp辅导群
+256529499	https://www.eeo.cn/s/a/?cid=256529499	Dvyphonic	Teacher: 949****00	Robin Lesson 37
+256529503	https://www.eeo.cn/s/a/?cid=256529503	蓦然	Teacher: 137****3691	中考加油
+256529605	https://www.eeo.cn/s/a/?cid=256529605	Dvyphonic	Teacher: 949****00	MandyS Lesson 43
+256529625	https://www.eeo.cn/s/a/?cid=256529625	公益课堂	Teacher: 刘睿	新Emily老师自然拼读集训营（SHLTD\SHLTE）

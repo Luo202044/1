@@ -1,7 +1,3 @@
-254364687	https://www.eeo.cn/s/a/?cid=254364687	English&Me原版英语	Teacher: Yiyi	Cici7766 class
-254364719	https://www.eeo.cn/s/a/?cid=254364719	Teacher Raven online classroom	Teacher: 981****493	Ian10成都
-254364779	https://www.eeo.cn/s/a/?cid=254364779	点石教育	Teacher: 居糖糖	李佳阳。
-254364929	https://www.eeo.cn/s/a/?cid=254364929	HIGHER Hiển Long -__- online classroom	Teacher: 902****82	v
 254365215	https://www.eeo.cn/s/a/?cid=254365215	nguyenbaoquynh*****ail.c online classroom	Teacher: nguyenbaoquynh*****ail.c	nb
 254365229	https://www.eeo.cn/s/a/?cid=254365229	DM精选	Teacher: 班主任	Jason和丽丽老师
 254365279	https://www.eeo.cn/s/a/?cid=254365279	秋思学社	Teacher: 许老师化学	202509高三
@@ -1198,3 +1194,7 @@
 254424847	https://www.eeo.cn/s/a/?cid=254424847	C-Tyme の online课堂	Teacher: 小C	C-Tyme森田光稀様 汉语课
 254424869	https://www.eeo.cn/s/a/?cid=254424869	0063-9853845986 online classroom	Teacher: 985****986	Bill
 254424895	https://www.eeo.cn/s/a/?cid=254424895	晨为教育	Teacher: Chen Wei English House	A Trial Session on Tuesday 23rd January
+254424933	https://www.eeo.cn/s/a/?cid=254424933	Nguyễn Tất Minh online classroom	Teacher: 854****99	...
+254424971	https://www.eeo.cn/s/a/?cid=254424971	angeliemiegarc*****ail.c online classroom	Teacher: angeliemiegarc*****ail.c	Demo Class
+254425035	https://www.eeo.cn/s/a/?cid=254425035	Teacher Ron online classroom	Teacher: 998****318	Y2 VIP Betty
+254425381	https://www.eeo.cn/s/a/?cid=254425381	richmag1*****ail.com online classroom	Teacher: richmag1*****ail.com	Emma (26)

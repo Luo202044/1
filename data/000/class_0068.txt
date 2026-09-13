@@ -1,9 +1,3 @@
-256575077	https://www.eeo.cn/s/a/?cid=256575077	Teacher Debbie online classroom	Teacher: 948****960	Kevin
-256575239	https://www.eeo.cn/s/a/?cid=256575239	K-디베이트코칭학원	Teacher: 109****070	4기 B 리딩윗미 3~4학년
-256575301	https://www.eeo.cn/s/a/?cid=256575301	K-디베이트코칭학원	Teacher: 109****070	4기 B 리딩윗미 5~6학년
-256575309	https://www.eeo.cn/s/a/?cid=256575309	Sir Christian Sententa online classroom	Teacher: 935****972	MATHEMATICS
-256575361	https://www.eeo.cn/s/a/?cid=256575361	ARLENE	Teacher: 905****911	Will
-256575465	https://www.eeo.cn/s/a/?cid=256575465	Nairee Kariz Reyes online classroom	Teacher: reyesnaireekar*****ail.c	festival park fun cool games
 256575485	https://www.eeo.cn/s/a/?cid=256575485	Teacher Hann online classroom	Teacher: 976****863	Tom~Kids
 256575567	https://www.eeo.cn/s/a/?cid=256575567	Steinway Malaysia - Zul online classroom	Teacher: 142****85	Test
 256575575	https://www.eeo.cn/s/a/?cid=256575575	Emiterio Domingo online classroom	Teacher: 956****075	11-STEM ONLINE
@@ -404,7 +398,6 @@
 256595251	https://www.eeo.cn/s/a/?cid=256595251	GG Education	Teacher: 教辅老师Daniel	李荞宇+appeal+罗格斯大学
 256595583	https://www.eeo.cn/s/a/?cid=256595583	Hà My 2015 online classroom	Teacher: 967****65	123456
 256595651	https://www.eeo.cn/s/a/?cid=256595651	frog online classroom	Teacher: 988****26	vật lý 9
-256595789	https://www.eeo.cn/s/a/?cid=256595789	一对多专用	Teacher: ZXYA087班主任	XX——ZXYA087
 256595807	https://www.eeo.cn/s/a/?cid=256595807	Online Tutoring	Teacher: Jason Wang	Chenxuan&Adam|Oxbridge Wider Reading
 256595815	https://www.eeo.cn/s/a/?cid=256595815	泡泡少儿西语	Teacher: 泡泡少儿西语	泡泡西语2024新学期1V4周日班Julia(已结课)
 256595829	https://www.eeo.cn/s/a/?cid=256595829	知乎｜知学堂	Teacher: 霏霏	25卞敏洁-苏州大学法律（法学）30h
@@ -1198,3 +1191,10 @@
 256626743	https://www.eeo.cn/s/a/?cid=256626743	Kev5446 online classroom	Teacher: kevinverbur*****ail.com	test
 256626779	https://www.eeo.cn/s/a/?cid=256626779	EuniceJane online classroom	Teacher: 992****001	Rainbow's Class
 256626785	https://www.eeo.cn/s/a/?cid=256626785	marko94 online classroom	Teacher: 644****43	mmmmmmmmmm
+256626819	https://www.eeo.cn/s/a/?cid=256626819	Teacher Glydel online classroom	Teacher: glydelmaebarc.*****ail.c	Eric & Yang Yang's Class/ MARCH
+256626853	https://www.eeo.cn/s/a/?cid=256626853	Kev5446 online classroom	Teacher: kevinverbur*****ail.com	gest2
+256626993	https://www.eeo.cn/s/a/?cid=256626993	Teacher Ellaine online classroom	Teacher: norielynomar*****ail.com	kiki
+256627093	https://www.eeo.cn/s/a/?cid=256627093	Teacher Clizel online classroom	Teacher: 945****595	felix
+256627143	https://www.eeo.cn/s/a/?cid=256627143	Teach J19 online classroom	Teacher: whitegaas*****ail.com	Eric
+256627167	https://www.eeo.cn/s/a/?cid=256627167	Shawna online classroom	Teacher: 519****463	Tian Zuo Class 192, February 28, 2024
+256627169	https://www.eeo.cn/s/a/?cid=256627169	Teach J19 online classroom	Teacher: whitegaas*****ail.com	Tongtong

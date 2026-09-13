@@ -1,8 +1,3 @@
-255423941	https://www.eeo.cn/s/a/?cid=255423941	Study with Daiiiiiii	Teacher: 186****7369	宾语从句
-255423983	https://www.eeo.cn/s/a/?cid=255423983	Nguyễn Linh Chi online classroom	Teacher: 902****70	lop hoc vui nhon
-255424019	https://www.eeo.cn/s/a/?cid=255424019	新马全杭教育	Teacher: 徐萍	高三语文全托生2班 2:30-高峰老师
-255424051	https://www.eeo.cn/s/a/?cid=255424051	Teacher Alvin online classroom	Teacher: piyike26*****bene.com	SURI
-255424101	https://www.eeo.cn/s/a/?cid=255424101	Takhmina online classroom	Teacher: navruzkulov*****ail.com	Lesson 5
 255424169	https://www.eeo.cn/s/a/?cid=255424169	壹心教育	Teacher: 林娜	林娜-寒假一年级数学
 255424205	https://www.eeo.cn/s/a/?cid=255424205	陆伟佳	Teacher: lwj	詹老师 & ClassIn
 255424219	https://www.eeo.cn/s/a/?cid=255424219	小采课堂	Teacher: 饶颖	【寒】L3三期晚上A+班饭饭老师
@@ -1198,3 +1193,8 @@
 255483359	https://www.eeo.cn/s/a/?cid=255483359	Studio Education	Teacher: Leah Beresford	Bella's assessment
 255483443	https://www.eeo.cn/s/a/?cid=255483443	Bingkay online classroom	Teacher: 926****721	Will's Class
 255483505	https://www.eeo.cn/s/a/?cid=255483505	剑桥英语	Teacher: 宋老师	哲玮
+255483569	https://www.eeo.cn/s/a/?cid=255483569	Julie Teacher online classroom	Teacher: jhcom*****ver.com	정규수업(유나-2/5)
+255483581	https://www.eeo.cn/s/a/?cid=255483581	yohankhiel online classroom	Teacher: 947****401	yohan
+255483629	https://www.eeo.cn/s/a/?cid=255483629	yohankhiel online classroom	Teacher: 947****401	yogan
+255483693	https://www.eeo.cn/s/a/?cid=255483693	Teacher JO online classroom	Teacher: 929****032	demo
+255483737	https://www.eeo.cn/s/a/?cid=255483737	谦学教育集团有限公司	Teacher: 137****9858	02.05JSxUTS劝退申诉

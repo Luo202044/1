@@ -1,5 +1,3 @@
-252905901	https://www.eeo.cn/s/a/?cid=252905901	Dunja online classroom	Teacher: 648****13	Nick25-12-2023
-252905959	https://www.eeo.cn/s/a/?cid=252905959	K Studio	Teacher: 186****9663	2025_雏鹰班_K老师数学思维课
 252905975	https://www.eeo.cn/s/a/?cid=252905975	akka	Teacher: 955****754	Hans
 252906037	https://www.eeo.cn/s/a/?cid=252906037	圆规信息科技有限公司	Teacher: 陈佳仪	【录播】24XWB冬令营100题（6年级）
 252906149	https://www.eeo.cn/s/a/?cid=252906149	arenasabigael*****ail.co online classroom	Teacher: arenasabigael*****ail.co	ELVIS
@@ -1198,3 +1196,5 @@
 252980801	https://www.eeo.cn/s/a/?cid=252980801	Teacher Janeth online classroom	Teacher: 966****375	Krista
 252980835	https://www.eeo.cn/s/a/?cid=252980835	Teacher Kathy's English Class	Teacher: 999****283	Alice's Seventh Course
 252980883	https://www.eeo.cn/s/a/?cid=252980883	谦学教育集团有限公司	Teacher: 137****9858	12.26谢菲尔德休学申请第三次
+252980897	https://www.eeo.cn/s/a/?cid=252980897	Sumaya online classroom	Teacher: sumayaasmal*****ail.com	Learning Fun
+252980899	https://www.eeo.cn/s/a/?cid=252980899	fariolanjolie*****ail.co online classroom	Teacher: fariolanjolie*****ail.co	ENGLISH CLASS

@@ -1,8 +1,3 @@
-255030741	https://www.eeo.cn/s/a/?cid=255030741	Teacher Cecilia online classroom	Teacher: 752****19	Eaven's class 2
-255030783	https://www.eeo.cn/s/a/?cid=255030783	leewanchak*****hoo.com online classroom	Teacher: leewanchak*****hoo.com.h	Science sun 11am
-255030787	https://www.eeo.cn/s/a/?cid=255030787	Teacher Angel online classroom	Teacher: 992****818	Kelly
-255030793	https://www.eeo.cn/s/a/?cid=255030793	Tom老师小课堂	Teacher: 186****0890	demo
-255030795	https://www.eeo.cn/s/a/?cid=255030795	文之汇	Teacher: 张老师	2024寒假史记
 255030887	https://www.eeo.cn/s/a/?cid=255030887	伊登·私学	Teacher: 英语彭玉倩	【2024寒春六】【莎翁的剧本】【六3班】周日&寒假隔天8:30
 255030927	https://www.eeo.cn/s/a/?cid=255030927	韩老师工作室	Teacher: 韩老师Ann	2024寒假八1班
 255030953	https://www.eeo.cn/s/a/?cid=255030953	Tchr Richelle online classroom	Teacher: 991****564	Erik51 / jan29
@@ -1198,3 +1193,8 @@
 255081293	https://www.eeo.cn/s/a/?cid=255081293	Teacher Lory IV online classroom	Teacher: 946****212	ELENA 51
 255081311	https://www.eeo.cn/s/a/?cid=255081311	Studio Education	Teacher: Leah Beresford	Justin ZENG'S online Assessment
 255081321	https://www.eeo.cn/s/a/?cid=255081321	嘻哈娱乐	Teacher: 胖胖冰	王童鞋加油站
+255081335	https://www.eeo.cn/s/a/?cid=255081335	卓学在线教育	Teacher: 刘伊	2024寒新华大牛19：20高一数学
+255081337	https://www.eeo.cn/s/a/?cid=255081337	Teacher Lory IV online classroom	Teacher: 946****212	ALLAN 157
+255081365	https://www.eeo.cn/s/a/?cid=255081365	彭Xiao dai Xiang online classroom	Teacher: 592***90	MangoXg2
+255081399	https://www.eeo.cn/s/a/?cid=255081399	Teacher Lory IV online classroom	Teacher: 946****212	DARIA 26
+255081435	https://www.eeo.cn/s/a/?cid=255081435	Teacher Lory IV online classroom	Teacher: 946****212	ADE 3
