@@ -1,7 +1,3 @@
-263718331	https://www.eeo.cn/s/a/?cid=263718331	Jinlong online classroom	Teacher: jjsit*****ail.com	Maths
-263718343	https://www.eeo.cn/s/a/?cid=263718343	Teacher Ricky online classroom	Teacher: 921****289	QQ2019江苏
-263718345	https://www.eeo.cn/s/a/?cid=263718345	Teacher Ricky online classroom	Teacher: 921****289	QQ2019江苏-my acc
-263718359	https://www.eeo.cn/s/a/?cid=263718359	Teacher Ricky online classroom	Teacher: 921****289	Luke 2019 本溪- my acc
 263718361	https://www.eeo.cn/s/a/?cid=263718361	Teacher Sally online classroom	Teacher: 656***17	LLLLL
 263718371	https://www.eeo.cn/s/a/?cid=263718371	Teacher Ricky online classroom	Teacher: 921****289	Apricity➕苏州➕2783-my acc
 263718373	https://www.eeo.cn/s/a/?cid=263718373	Teacher Sara online classroom	Teacher: 614****97	----------Finished Ryan's Classroom
@@ -1198,3 +1194,7 @@
 263780211	https://www.eeo.cn/s/a/?cid=263780211	LUCILE'S PRIVATE PRE-PRIMARY SCHOOL	Teacher: 966****179	Diana July 3
 263780217	https://www.eeo.cn/s/a/?cid=263780217	🍓 Strawberry English	Teacher: 794****23	Sherlock
 263780219	https://www.eeo.cn/s/a/?cid=263780219	APALE	Teacher: 仇昊栋的店	江苏省海门中学2024级高一14班
+263780221	https://www.eeo.cn/s/a/?cid=263780221	Teacher Red's class	Teacher: Teacher Red	Hao's English class
+263780227	https://www.eeo.cn/s/a/?cid=263780227	UrosV online classroom	Teacher: urosvsljvc*****ail.com	obuka
+263780237	https://www.eeo.cn/s/a/?cid=263780237	Lê Khánh Linh online classroom	Teacher: 984****32	I love you
+263780239	https://www.eeo.cn/s/a/?cid=263780239	Yasmin's Online Classroom	Teacher: 774****931	Gary and Harvey

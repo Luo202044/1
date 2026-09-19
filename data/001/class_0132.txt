@@ -1,6 +1,3 @@
-260285527	https://www.eeo.cn/s/a/?cid=260285527	0063-9052119507 online classroom	Teacher: 905****507	Charlie
-260285537	https://www.eeo.cn/s/a/?cid=260285537	Imran	Teacher: Imran	Oxford Discovery showcase
-260285569	https://www.eeo.cn/s/a/?cid=260285569	水龙吟教育	Teacher: 长航校区教务	24春黄陂街五年级科学周六10:20
 260285595	https://www.eeo.cn/s/a/?cid=260285595	Teacher Dianne online classroom	Teacher: 910****436	charlie
 260285613	https://www.eeo.cn/s/a/?cid=260285613	水龙吟教育	Teacher: 陈爱平	24春季杨汊湖6数周六（13：50）敖
 260285629	https://www.eeo.cn/s/a/?cid=260285629	水龙吟教育	Teacher: 长航校区教务	24春黄陂街六年级科学周六08:10
@@ -1198,3 +1195,6 @@
 260338307	https://www.eeo.cn/s/a/?cid=260338307	Teacher Val online classroom	Teacher: 993****774	Linda
 260338383	https://www.eeo.cn/s/a/?cid=260338383	上海学加网络科技有限公司	Teacher: David	4494
 260338487	https://www.eeo.cn/s/a/?cid=260338487	Cher Jan online classroom	Teacher: 906****755	Mary Lesson 2-18
+260338575	https://www.eeo.cn/s/a/?cid=260338575	SABINA TUTORING	Teacher: 790****82	parts of the body
+260338829	https://www.eeo.cn/s/a/?cid=260338829	Private	Teacher: 919****510	nini
+260338835	https://www.eeo.cn/s/a/?cid=260338835	Teacher Clem online classroom	Teacher: 816****663	Class w/ Gold

@@ -1,12 +1,3 @@
-268244399	https://www.eeo.cn/s/a/?cid=268244399	Rebecca	Teacher: 981****514	WISE
-268244427	https://www.eeo.cn/s/a/?cid=268244427	Luiza online classroom	Teacher: 981***62	Chloe 10
-268244475	https://www.eeo.cn/s/a/?cid=268244475	minhtrang7*****ail.com online classroom	Teacher: minhtrang7*****ail.com	Minh Anh 9P1
-268244481	https://www.eeo.cn/s/a/?cid=268244481	Kin online classroom	Teacher: 934****42	daa
-268244519	https://www.eeo.cn/s/a/?cid=268244519	北京理工大学附属中学	Teacher: 崔广平	腾越
-268244557	https://www.eeo.cn/s/a/?cid=268244557	Rene Fourie online classroom	Teacher: 833****74	https://admin.yiyicareer.com/File/zip/14
-268244563	https://www.eeo.cn/s/a/?cid=268244563	Benson Belwan online classroom	Teacher: belwan19*****ail.com	Carl2017JX
-268244569	https://www.eeo.cn/s/a/?cid=268244569	Juan Cholico online classroom	Teacher: 331****751	Tang's Second Classroom
-268244591	https://www.eeo.cn/s/a/?cid=268244591	Gee.ECunanan02 online classroom	Teacher: 977****028	Peijing September
 268244605	https://www.eeo.cn/s/a/?cid=268244605	Mishel online classroom	Teacher: mishelm.do*****ail.com	1st Demo
 268244657	https://www.eeo.cn/s/a/?cid=268244657	Minh online classroom	Teacher: 985****63	Skibidi
 268244667	https://www.eeo.cn/s/a/?cid=268244667	英语王老师	Teacher: 王老师	hang
@@ -1198,3 +1189,12 @@
 268281421	https://www.eeo.cn/s/a/?cid=268281421	Nguyễn Gia Bảo online classroom	Teacher: 979****06	sdasd
 268281425	https://www.eeo.cn/s/a/?cid=268281425	Teacher Rochelle Diane online classroom	Teacher: 994****548	emmy
 268281475	https://www.eeo.cn/s/a/?cid=268281475	wisdomlearningcenter online classroom	Teacher: 315****988	G3天意作业管理
+268281493	https://www.eeo.cn/s/a/?cid=268281493	0082-1064180714 online classroom	Teacher: 106****714	정규수업(인-9/24)
+268281523	https://www.eeo.cn/s/a/?cid=268281523	PANG7 online classroom	Teacher: 977****249	anna1
+268281559	https://www.eeo.cn/s/a/?cid=268281559	joy online classroom	Teacher: 915****772	Arthur🫶
+268281561	https://www.eeo.cn/s/a/?cid=268281561	Teacher Lisa online classroom	Teacher: 906****686	Victor Class
+268281575	https://www.eeo.cn/s/a/?cid=268281575	Shane online classroom	Teacher: 926****620	Teacher Shane
+268281581	https://www.eeo.cn/s/a/?cid=268281581	上海外国语大学附属外国语学校	Teacher: 严荣琴	无
+268281599	https://www.eeo.cn/s/a/?cid=268281599	Teacher Yannie online classroom	Teacher: bonifaciolagmay*****ail.	Lorna's class.2
+268281677	https://www.eeo.cn/s/a/?cid=268281677	wisdomlearningcenter online classroom	Teacher: 315****988	G6天恩作业管理
+268281679	https://www.eeo.cn/s/a/?cid=268281679	Teacher Krisna online classroom	Teacher: 926****336	RAY

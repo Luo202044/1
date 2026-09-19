@@ -1,5 +1,3 @@
-257163225	https://www.eeo.cn/s/a/?cid=257163225	线上1v1	Teacher: 班主任-玥玥老师	蒋恩怡+初二英语+正式课+玥玥老师
-257163279	https://www.eeo.cn/s/a/?cid=257163279	irishbudlayanmedte*****a online classroom	Teacher: irishbudlayanmedte*****a	Flower
 257163285	https://www.eeo.cn/s/a/?cid=257163285	Teacher Jooh online classroom	Teacher: 950****101	Vicky's class (3-7-24)
 257163293	https://www.eeo.cn/s/a/?cid=257163293	Teacher Rui online classroom	Teacher: minyv12*****ail.com	Phoebe's Class
 257163313	https://www.eeo.cn/s/a/?cid=257163313	广州清北培优咨询服务有限公司	Teacher: 陈华	陈老师24春七下数学周四18:30
@@ -1198,3 +1196,5 @@
 257229937	https://www.eeo.cn/s/a/?cid=257229937	T. Yanni online classroom	Teacher: 968****955	Vicky's Class 03082024
 257229977	https://www.eeo.cn/s/a/?cid=257229977	932187118nhat online classroom	Teacher: 932****18	nnjhbnbb
 257229985	https://www.eeo.cn/s/a/?cid=257229985	Noverly online classroom	Teacher: 927****027	Ilyas and Amine 3/9 -2
+257230033	https://www.eeo.cn/s/a/?cid=257230033	Jessica Davies (private)	Teacher: 625****50	Yu Hao Ran: Class of 10 - March 24
+257230063	https://www.eeo.cn/s/a/?cid=257230063	Noverly online classroom	Teacher: 927****027	Ilyas and Amine 3/10 -1

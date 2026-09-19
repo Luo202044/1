@@ -1,6 +1,3 @@
-260215239	https://www.eeo.cn/s/a/?cid=260215239	Sage online classroom	Teacher: mlflores112*****hoo.com	sage
-260215303	https://www.eeo.cn/s/a/?cid=260215303	Roland EnglishChat online classroom	Teacher: soriano.rolando3*****ail	Ivy8.1 EnglishChat
-260215329	https://www.eeo.cn/s/a/?cid=260215329	全全大课堂	Teacher: 吕萌萌	人教-初一曹景博
 260215459	https://www.eeo.cn/s/a/?cid=260215459	Teacher Viki online classroom	Teacher: 955****046	Teacher Vicky
 260215535	https://www.eeo.cn/s/a/?cid=260215535	TEACHER CRISJANE online classroom	Teacher: raizasagoley4*****ail.co	lily 12pm class
 260215553	https://www.eeo.cn/s/a/?cid=260215553	fernieshane19*****ail.co online classroom	Teacher: fernieshane19*****ail.co	Yang Xiuting
@@ -1198,3 +1195,6 @@
 260285455	https://www.eeo.cn/s/a/?cid=260285455	0063-9395957278 online classroom	Teacher: 939****278	charlie
 260285459	https://www.eeo.cn/s/a/?cid=260285459	Phoenix-liu	Teacher: mae	July5hn
 260285485	https://www.eeo.cn/s/a/?cid=260285485	深圳市宝安区实验学校	Teacher: 郑梓恩	1
+260285527	https://www.eeo.cn/s/a/?cid=260285527	0063-9052119507 online classroom	Teacher: 905****507	Charlie
+260285537	https://www.eeo.cn/s/a/?cid=260285537	Imran	Teacher: Imran	Oxford Discovery showcase
+260285569	https://www.eeo.cn/s/a/?cid=260285569	水龙吟教育	Teacher: 长航校区教务	24春黄陂街五年级科学周六10:20

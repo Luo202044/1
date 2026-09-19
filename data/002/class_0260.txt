@@ -1,11 +1,3 @@
-268036063	https://www.eeo.cn/s/a/?cid=268036063	尚学教育	Teacher: 班主任吴老师	27届秋季语文精英班15:10-17:10
-268036099	https://www.eeo.cn/s/a/?cid=268036099	lanielauroraban*****ail. online classroom	Teacher: lanielauroraban*****ail.	Teacher Lanie and Teacher Chelle
-268036111	https://www.eeo.cn/s/a/?cid=268036111	尚学教育	Teacher: 班主任吴老师	27届秋季化学精一2班17:50-19:50
-268036149	https://www.eeo.cn/s/a/?cid=268036149	尚学教育	Teacher: 班主任吴老师	25届秋季数学提优班20:00-22:00
-268036159	https://www.eeo.cn/s/a/?cid=268036159	尚学教育	Teacher: 班主任吴老师	27届秋季英语精英班17:50-19:50
-268036215	https://www.eeo.cn/s/a/?cid=268036215	尚学教育	Teacher: 班主任吴老师	无
-268036217	https://www.eeo.cn/s/a/?cid=268036217	小马识途	Teacher: 张莲	小马&Yilin（ICC学校）校内同步远程一对一
-268036289	https://www.eeo.cn/s/a/?cid=268036289	尚学教育	Teacher: 班主任吴老师	25届秋季化学精英班20:00-22:00
 268036297	https://www.eeo.cn/s/a/?cid=268036297	通州区教师研修中心	Teacher: 通州区教师研修中心	统编语文教材新修思路与实施建议
 268036383	https://www.eeo.cn/s/a/?cid=268036383	Teacher Jam online classroom	Teacher: 930****945	Cathy's Class
 268036407	https://www.eeo.cn/s/a/?cid=268036407	Genen Mayago online classroom	Teacher: trulygen*****ail.com	d
@@ -1198,3 +1190,11 @@
 268071121	https://www.eeo.cn/s/a/?cid=268071121	Cristine Bell online classroom	Teacher: 938****583	September 20, 2024 with Eva
 268071129	https://www.eeo.cn/s/a/?cid=268071129	Bing online classroom	Teacher: goodwisher20*****ail.com	little talk
 268071177	https://www.eeo.cn/s/a/?cid=268071177	动悉健康科技	Teacher: 豆小豆	Larry12LC/Mark Sep.24
+268071293	https://www.eeo.cn/s/a/?cid=268071293	báo online classroom	Teacher: 904****52	meme tap howp ca lop tru thay
+268071305	https://www.eeo.cn/s/a/?cid=268071305	Marcus Chiang Mai	Teacher: 620****29	YiYi September 20th
+268071343	https://www.eeo.cn/s/a/?cid=268071343	在线外教课	Teacher: 教务-王卓妮	0921 trial starter 体验课
+268071369	https://www.eeo.cn/s/a/?cid=268071369	思峰在线教育	Teacher: 152****3668	一节正式课（王老师）
+268071437	https://www.eeo.cn/s/a/?cid=268071437	diazjoy0*****ail.com online classroom	Teacher: diazjoy0*****ail.com	ALICE
+268071441	https://www.eeo.cn/s/a/?cid=268071441	Gina online classroom	Teacher: 922****401	gina
+268071455	https://www.eeo.cn/s/a/?cid=268071455	Csilla online classroom	Teacher: tivaldcsil*****ail.com	Charlie09.20
+268071467	https://www.eeo.cn/s/a/?cid=268071467	Teacher Cherry online classroom	Teacher: 928****715	Leo's class

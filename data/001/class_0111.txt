@@ -1,5 +1,3 @@
-258907271	https://www.eeo.cn/s/a/?cid=258907271	Teacher Xyrelle online classroom	Teacher: 916****045	Zoe5
-258907315	https://www.eeo.cn/s/a/?cid=258907315	Teacher Xyrelle online classroom	Teacher: 916****045	Sissi
 258907325	https://www.eeo.cn/s/a/?cid=258907325	YuRen	Teacher: Anna S	Harry Wu 1199
 258907347	https://www.eeo.cn/s/a/?cid=258907347	Online Teacher Connie online classroom	Teacher: 772****707	Jack
 258907357	https://www.eeo.cn/s/a/?cid=258907357	Khanh Chi online classroom	Teacher: 965****90	class
@@ -1198,3 +1196,5 @@
 258980631	https://www.eeo.cn/s/a/?cid=258980631	Emmy Talk	Teacher: 杰西	Young the girl
 258980643	https://www.eeo.cn/s/a/?cid=258980643	fortunatopacot*****ail.c online classroom	Teacher: fortunatopacot*****ail.c	JACKSON CLASS 1(6:25PM)
 258980663	https://www.eeo.cn/s/a/?cid=258980663	quoc0209kha*****ail.com online classroom	Teacher: quoc0209kha*****ail.com	English Class
+258980667	https://www.eeo.cn/s/a/?cid=258980667	iam (yam) online classroom	Teacher: iam.ricardo*****ail.com	play
+258980713	https://www.eeo.cn/s/a/?cid=258980713	冠军基金	Teacher: 小冠军	线上培训班

@@ -1,5 +1,3 @@
-258264433	https://www.eeo.cn/s/a/?cid=258264433	English&Me原版英语	Teacher: Yiyi	Orion7088 class
-258264435	https://www.eeo.cn/s/a/?cid=258264435	章鱼	Teacher: 191****0829	3A春周五D
 258264447	https://www.eeo.cn/s/a/?cid=258264447	章鱼	Teacher: 191****0829	4A春周六A
 258264465	https://www.eeo.cn/s/a/?cid=258264465	章鱼	Teacher: 191****0829	4A春周六D
 258264485	https://www.eeo.cn/s/a/?cid=258264485	April - Teacher online classroom	Teacher: apriliseey*****ail.com	Minmin's Class with Teacher April
@@ -1198,3 +1196,5 @@
 258314885	https://www.eeo.cn/s/a/?cid=258314885	rmbuencuchil*****rist.ed online classroom	Teacher: rmbuencuchil*****rist.ed	ELCFUDTEC BSIT-3B
 258314917	https://www.eeo.cn/s/a/?cid=258314917	rmbuencuchil*****rist.ed online classroom	Teacher: rmbuencuchil*****rist.ed	ELCFUDTEC BSIT-3A
 258314945	https://www.eeo.cn/s/a/?cid=258314945	rmbuencuchil*****rist.ed online classroom	Teacher: rmbuencuchil*****rist.ed	PROOPMAN BSIT-3D
+258314953	https://www.eeo.cn/s/a/?cid=258314953	rmbuencuchil*****rist.ed online classroom	Teacher: rmbuencuchil*****rist.ed	PROOPMAN BSIT-3H
+258314971	https://www.eeo.cn/s/a/?cid=258314971	rmbuencuchil*****rist.ed online classroom	Teacher: rmbuencuchil*****rist.ed	ENTNCOOP BSIT-3H

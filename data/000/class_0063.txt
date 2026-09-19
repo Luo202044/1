@@ -1,5 +1,3 @@
-256292307	https://www.eeo.cn/s/a/?cid=256292307	Anne online classroom	Teacher: 918****400	April's 682 session
-256292311	https://www.eeo.cn/s/a/?cid=256292311	Teacher Bhing online classroom	Teacher: bhing0513*****ail.com	9th class
 256292321	https://www.eeo.cn/s/a/?cid=256292321	海外同步课程辅导平台	Teacher: Linda	黄梓轩-生物-王老师
 256292355	https://www.eeo.cn/s/a/?cid=256292355	tr.winpapaaung*****ail.c online classroom	Teacher: tr.winpapaaung*****ail.c	Mrs.Amanda class
 256292381	https://www.eeo.cn/s/a/?cid=256292381	Teacher Vanessa online classroom	Teacher: 991****333	Tony's Class Feb 2024
@@ -1198,3 +1196,5 @@
 256348665	https://www.eeo.cn/s/a/?cid=256348665	十二师教育局	Teacher: 十二师教育局	十二师各学校抓基层党建工作述职评议会
 256348787	https://www.eeo.cn/s/a/?cid=256348787	北京市东城区史家胡同小学	Teacher: 李晓娜	测试
 256348857	https://www.eeo.cn/s/a/?cid=256348857	Chelle online classroom	Teacher: 938****641	Class for Jenny
+256348865	https://www.eeo.cn/s/a/?cid=256348865	Hk中文普通話	Teacher: 136****3462	錄一2pm230pm30min简体tb1451
+256348951	https://www.eeo.cn/s/a/?cid=256348951	Phuong Uyen online classroom	Teacher: 908****10	Placement Test (demo)

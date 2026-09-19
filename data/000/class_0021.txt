@@ -1,5 +1,3 @@
-253738609	https://www.eeo.cn/s/a/?cid=253738609	Teacher Criz (3) online classroom	Teacher: 968****452	KATHY
-253738623	https://www.eeo.cn/s/a/?cid=253738623	黄壮壮	Teacher: 壮壮	刘老师分享
 253738715	https://www.eeo.cn/s/a/?cid=253738715	Bili Education	Teacher: Justyna Majewska	Twins
 253738787	https://www.eeo.cn/s/a/?cid=253738787	8566	Teacher: 138****8566	周六12:30临时直播
 253738873	https://www.eeo.cn/s/a/?cid=253738873	Tô An Tuệ online classroom	Teacher: 912****27	hút thuốc
@@ -1198,3 +1196,5 @@
 253799493	https://www.eeo.cn/s/a/?cid=253799493	Gia sư Grammar A-Z online classroom	Teacher: 919****02	TG005
 253799617	https://www.eeo.cn/s/a/?cid=253799617	StephanieO online classroom	Teacher: 239****810	Terry’s Class
 253799713	https://www.eeo.cn/s/a/?cid=253799713	StephanieO online classroom	Teacher: 239****810	Oliver’s Class
+253799715	https://www.eeo.cn/s/a/?cid=253799715	Teacher Janz online classroom	Teacher: 931****905	Ivy
+253799755	https://www.eeo.cn/s/a/?cid=253799755	Patricia Peredo	Teacher: 916****571	Helen’s Class

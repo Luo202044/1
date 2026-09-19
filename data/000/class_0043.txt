@@ -1,5 +1,3 @@
-255030887	https://www.eeo.cn/s/a/?cid=255030887	伊登·私学	Teacher: 英语彭玉倩	【2024寒春六】【莎翁的剧本】【六3班】周日&寒假隔天8:30
-255030927	https://www.eeo.cn/s/a/?cid=255030927	韩老师工作室	Teacher: 韩老师Ann	2024寒假八1班
 255030953	https://www.eeo.cn/s/a/?cid=255030953	Tchr Richelle online classroom	Teacher: 991****564	Erik51 / jan29
 255030989	https://www.eeo.cn/s/a/?cid=255030989	Teacher Anna online classroom	Teacher: 782****927	Emma 2024
 255031035	https://www.eeo.cn/s/a/?cid=255031035	BackUp classroom online classroom	Teacher: 951****766	Steven56 / jan29
@@ -1198,3 +1196,5 @@
 255081365	https://www.eeo.cn/s/a/?cid=255081365	彭Xiao dai Xiang online classroom	Teacher: 592***90	MangoXg2
 255081399	https://www.eeo.cn/s/a/?cid=255081399	Teacher Lory IV online classroom	Teacher: 946****212	DARIA 26
 255081435	https://www.eeo.cn/s/a/?cid=255081435	Teacher Lory IV online classroom	Teacher: 946****212	ADE 3
+255081481	https://www.eeo.cn/s/a/?cid=255081481	青青禾苗	Teacher: 趣芽Sparkle老师	Sparkle老师课程
+255081601	https://www.eeo.cn/s/a/?cid=255081601	WeIP Education	Teacher: Mr Ayden	2025 F5 SN(BI) TUES 7.45PM MR.AYDEN

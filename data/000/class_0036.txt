@@ -1,5 +1,3 @@
-254608147	https://www.eeo.cn/s/a/?cid=254608147	【正常】杭州青少年活动中心	Teacher: 钟诗怡	W1C01-1插画创作
-254608167	https://www.eeo.cn/s/a/?cid=254608167	A1145号沼气行星发动机专属企业	Teacher: 651****98	理查德城堡塔楼
 254608313	https://www.eeo.cn/s/a/?cid=254608313	【正常】杭州青少年活动中心	Teacher: 郭子涵	W1C02-1马克笔
 254608423	https://www.eeo.cn/s/a/?cid=254608423	【正常】杭州青少年活动中心	Teacher: 郭子涵	W1C03-1马克笔
 254608445	https://www.eeo.cn/s/a/?cid=254608445	Teacher Ron online classroom	Teacher: 998****318	VIP Alice
@@ -1198,3 +1196,5 @@
 254673951	https://www.eeo.cn/s/a/?cid=254673951	宝鸡高新第三小学	Teacher: 张晓妮	临时群
 254674081	https://www.eeo.cn/s/a/?cid=254674081	0063-9091159386 online classroom	Teacher: 909****386	Adult training
 254674083	https://www.eeo.cn/s/a/?cid=254674083	Teacher Ros online classroom	Teacher: rpacumba*****ail.com	sunny
+254674087	https://www.eeo.cn/s/a/?cid=254674087	京鹰培优	Teacher: 王老师	2025届寒假初二地理
+254674109	https://www.eeo.cn/s/a/?cid=254674109	京鹰培优	Teacher: 王老师	2025届寒假初二生物

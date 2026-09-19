@@ -1,5 +1,3 @@
-257737211	https://www.eeo.cn/s/a/?cid=257737211	点石教育	Teacher: 孙怡	EN-小乐言
-257737285	https://www.eeo.cn/s/a/?cid=257737285	提升能力	Teacher: 157****8196	测试
 257737291	https://www.eeo.cn/s/a/?cid=257737291	REG online classroom	Teacher: 970****023	StarClub
 257737357	https://www.eeo.cn/s/a/?cid=257737357	Teacher Amy online classroom	Teacher: 904****015	Tom Sawyer - C14L2
 257737401	https://www.eeo.cn/s/a/?cid=257737401	ARLENE	Teacher: 905****911	Gemma Adult
@@ -1198,3 +1196,5 @@
 257803467	https://www.eeo.cn/s/a/?cid=257803467	Seann023 online classroom	Teacher: 968****307	zoe’s Class
 257803609	https://www.eeo.cn/s/a/?cid=257803609	乐学英盟	Teacher: 186****1801	Sophia & Jiayan(WS inter)
 257803717	https://www.eeo.cn/s/a/?cid=257803717	choy online classroom	Teacher: 945****557	Xigua Lesson 70
+257803745	https://www.eeo.cn/s/a/?cid=257803745	choy online classroom	Teacher: 945****557	Eric Lesson 62 2-8-6
+257803841	https://www.eeo.cn/s/a/?cid=257803841	巴斯乙翻译VIP	Teacher: 教务Georgina	CATTI二级笔译-24春

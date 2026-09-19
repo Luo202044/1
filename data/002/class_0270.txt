@@ -1,12 +1,3 @@
-268471517	https://www.eeo.cn/s/a/?cid=268471517	东方启学	Teacher: 刘质彬	2024秋季刘予墨-刘老师英语课堂
-268471583	https://www.eeo.cn/s/a/?cid=268471583	Teacher Kate (9) online classroom	Teacher: 950****367	Eric
-268471623	https://www.eeo.cn/s/a/?cid=268471623	Milu's English Academy	Teacher: Teacher Milu	Lucky
-268471655	https://www.eeo.cn/s/a/?cid=268471655	Mia online classroom	Teacher: miaemnace*****ail.com	Lily's Class (October)
-268471687	https://www.eeo.cn/s/a/?cid=268471687	鹅爸爸英语	Teacher: 156****3069	kevin 高子牧Jolie一对一外教课
-268471733	https://www.eeo.cn/s/a/?cid=268471733	Mia online classroom	Teacher: 946****985	Christine's Class (October)
-268471769	https://www.eeo.cn/s/a/?cid=268471769	Teacher Rico 10 online classroom	Teacher: abc360ri*****ngtalk.com	Lucky
-268471787	https://www.eeo.cn/s/a/?cid=268471787	Mia online classroom	Teacher: 946****985	William's Class (October)
-268471825	https://www.eeo.cn/s/a/?cid=268471825	Sarah online classroom	Teacher: sahisasrh*****ail.com	5pm Class
 268471843	https://www.eeo.cn/s/a/?cid=268471843	Mia online classroom	Teacher: noremiabalic*****ail.com	Elsa's Class (October)
 268471901	https://www.eeo.cn/s/a/?cid=268471901	Mia online classroom	Teacher: noremi*****ail.com	Bruce's Class (October)
 268471903	https://www.eeo.cn/s/a/?cid=268471903	一起来学习	Teacher: 0293	Jack+10岁+成都/史蒂芬
@@ -1198,3 +1189,12 @@
 268522143	https://www.eeo.cn/s/a/?cid=268522143	三七教育	Teacher: belle	XiaoO
 268522155	https://www.eeo.cn/s/a/?cid=268522155	曼汉教育	Teacher: 学术督导Bale	肖熠-RP辅导群
 268522169	https://www.eeo.cn/s/a/?cid=268522169	三七教育	Teacher: belle	Justin
+268522189	https://www.eeo.cn/s/a/?cid=268522189	三七教育	Teacher: belle	Cindy
+268522219	https://www.eeo.cn/s/a/?cid=268522219	三七教育	Teacher: belle	Felix
+268522223	https://www.eeo.cn/s/a/?cid=268522223	天生慧作文	Teacher: 糖糖老师	阅读理解录课
+268522241	https://www.eeo.cn/s/a/?cid=268522241	三七教育	Teacher: belle	Oscar
+268522263	https://www.eeo.cn/s/a/?cid=268522263	三七教育	Teacher: belle	Evelyn
+268522283	https://www.eeo.cn/s/a/?cid=268522283	三七教育	Teacher: belle	无
+268522425	https://www.eeo.cn/s/a/?cid=268522425	Impressive English	Teacher: Kuma	Owen-wonderskills
+268522433	https://www.eeo.cn/s/a/?cid=268522433	986961300sang online classroom	Teacher: 986****00	sang
+268522449	https://www.eeo.cn/s/a/?cid=268522449	彼粒星无限工作室	Teacher: Mr.Hou	【2025年8天国庆学习卡】九年级数学培优版

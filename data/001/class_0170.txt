@@ -1,7 +1,3 @@
-262591309	https://www.eeo.cn/s/a/?cid=262591309	Alix Talk	Teacher: Dorine	Trail lesson Anton&Laure fre
-262591447	https://www.eeo.cn/s/a/?cid=262591447	Lê Huy Lâm. online classroom	Teacher: 986****22	rdef
-262591479	https://www.eeo.cn/s/a/?cid=262591479	Nguyễn Hoa online classroom	Teacher: nguyenhoavt*****ail.com	5A
-262591661	https://www.eeo.cn/s/a/?cid=262591661	浙江省厚植公益基金会	Teacher: 153****7745	思宇计划测试群
 262591721	https://www.eeo.cn/s/a/?cid=262591721	leanne.tl.am*****ail.com online classroom	Teacher: leanne.tl.am*****ail.com	Reach Higher
 262591763	https://www.eeo.cn/s/a/?cid=262591763	阮氏好 online classroom	Teacher: 981****34	Demo day hoc-Hảo
 262591919	https://www.eeo.cn/s/a/?cid=262591919	AcaMedic Teacher online classroom	Teacher: 909****57	PROCTOR MS. KHUYÊN
@@ -1198,3 +1194,7 @@
 262640031	https://www.eeo.cn/s/a/?cid=262640031	Kamila online classroom	Teacher: 685****89	Daniel
 262640033	https://www.eeo.cn/s/a/?cid=262640033	Teacher Kris-Joy online classroom	Teacher: kristiannejoycanl*****ai	Joy's classroom
 262640083	https://www.eeo.cn/s/a/?cid=262640083	Eda Ogundijo online classroom	Teacher: 629****91	Doğukan
+262640087	https://www.eeo.cn/s/a/?cid=262640087	Cindy Habermann	Teacher: 729****56	Rene
+262640121	https://www.eeo.cn/s/a/?cid=262640121	未来星课堂	Teacher: 183****5661	子鉴的数学课堂
+262640165	https://www.eeo.cn/s/a/?cid=262640165	Loki Smith online classroom	Teacher: 631****88	Elvin
+262640167	https://www.eeo.cn/s/a/?cid=262640167	Nguyễn Minh online classroom	Teacher: 973****16	DEMO

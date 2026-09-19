@@ -1,6 +1,3 @@
-261409903	https://www.eeo.cn/s/a/?cid=261409903	人大附中中外合作办学项目ICC	Teacher: 马玥Ma, Yue	AP Stats S2O3 2024-25
-261409993	https://www.eeo.cn/s/a/?cid=261409993	精品拓展	Teacher: Jane	Elsa
-261410193	https://www.eeo.cn/s/a/?cid=261410193	Kaitlin Sun online classroom	Teacher: kaitlinsun20*****ail.com	Trial Class
 261410283	https://www.eeo.cn/s/a/?cid=261410283	Chris online classroom	Teacher: 163***21	Jennifer
 261410305	https://www.eeo.cn/s/a/?cid=261410305	英能教育(ENeng Edu.)	Teacher: 139****6658	周一晚8:30托福写作&口语
 261410319	https://www.eeo.cn/s/a/?cid=261410319	Teacher Jack online classroom	Teacher: spasojeradovanovicp*****	Enzo3033 New class
@@ -1198,3 +1195,6 @@
 261465363	https://www.eeo.cn/s/a/?cid=261465363	Private	Teacher: 995****602	classin demo
 261465377	https://www.eeo.cn/s/a/?cid=261465377	美杨法语	Teacher: 139****8364	琪琪
 261465415	https://www.eeo.cn/s/a/?cid=261465415	Teacher Lyn online classroom	Teacher: 931****081	Hannah (First Set)
+261465417	https://www.eeo.cn/s/a/?cid=261465417	Phoenix-liu	Teacher: anthony	Winston 7
+261465427	https://www.eeo.cn/s/a/?cid=261465427	carmeladestajo*****ail.c online classroom	Teacher: carmeladestajo*****ail.c	jdvhjgbklk
+261465475	https://www.eeo.cn/s/a/?cid=261465475	Gale online classroom	Teacher: 736****83	demo

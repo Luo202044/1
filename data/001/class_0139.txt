@@ -1,6 +1,3 @@
-260656157	https://www.eeo.cn/s/a/?cid=260656157	Teacher ChellyM	Teacher: 966****486	LINDA (Month of May)
-260656165	https://www.eeo.cn/s/a/?cid=260656165	Teacher ChellyM	Teacher: 966****486	HANS (Month of May)
-260656173	https://www.eeo.cn/s/a/?cid=260656173	Teacher ChellyM	Teacher: 966****486	ENZO (Month of May)
 260656175	https://www.eeo.cn/s/a/?cid=260656175	Teacher ChellyM	Teacher: 966****486	XIXI (Month of May)
 260656181	https://www.eeo.cn/s/a/?cid=260656181	Teacher ChellyM	Teacher: 966****486	Maria-Leïla/Nathanaël (Month of May)
 260656187	https://www.eeo.cn/s/a/?cid=260656187	Teacher ChellyM	Teacher: 966****486	MATT (Month of May)
@@ -1198,3 +1195,6 @@
 260715835	https://www.eeo.cn/s/a/?cid=260715835	Natasa Golubovic	Teacher: 676***27	eddie 19:00
 260715849	https://www.eeo.cn/s/a/?cid=260715849	Teacher Lan online classroom	Teacher: rolandlancian*****ail.co	CC6
 260715859	https://www.eeo.cn/s/a/?cid=260715859	Wow Class	Teacher: 138****0124	Kay-12yrs-Teacher Pey
+260715871	https://www.eeo.cn/s/a/?cid=260715871	Natasa Golubovic	Teacher: 676***27	hannah 8 20:00
+260715879	https://www.eeo.cn/s/a/?cid=260715879	Anna C. online classroom	Teacher: joanne_llam*****hoo.com	Felix's Class (8)
+260715893	https://www.eeo.cn/s/a/?cid=260715893	Wow Class	Teacher: 138****0124	Alice-13yrs-Teacher Pey

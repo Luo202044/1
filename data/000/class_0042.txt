@@ -1,5 +1,3 @@
-254968755	https://www.eeo.cn/s/a/?cid=254968755	Teacher Linda (VIII) online classroom	Teacher: finafob1*****steron.com	Sophia.Heidi
-254968913	https://www.eeo.cn/s/a/?cid=254968913	Teacher Linda (VIII) online classroom	Teacher: finafob1*****steron.com	Alisa.Cici
 254968929	https://www.eeo.cn/s/a/?cid=254968929	Teacher_Elmejane 4 online classroom	Teacher: 976****793	Aurora-1
 254968939	https://www.eeo.cn/s/a/?cid=254968939	魔力的教室	Teacher: 李迎君	文档传输
 254968947	https://www.eeo.cn/s/a/?cid=254968947	Aira online classroom	Teacher: teeeai*****ail.com	P&P 30
@@ -1198,3 +1196,5 @@
 255030787	https://www.eeo.cn/s/a/?cid=255030787	Teacher Angel online classroom	Teacher: 992****818	Kelly
 255030793	https://www.eeo.cn/s/a/?cid=255030793	Tom老师小课堂	Teacher: 186****0890	demo
 255030795	https://www.eeo.cn/s/a/?cid=255030795	文之汇	Teacher: 张老师	2024寒假史记
+255030887	https://www.eeo.cn/s/a/?cid=255030887	伊登·私学	Teacher: 英语彭玉倩	【2024寒春六】【莎翁的剧本】【六3班】周日&寒假隔天8:30
+255030927	https://www.eeo.cn/s/a/?cid=255030927	韩老师工作室	Teacher: 韩老师Ann	2024寒假八1班

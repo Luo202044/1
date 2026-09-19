@@ -1,5 +1,3 @@
-256111303	https://www.eeo.cn/s/a/?cid=256111303	Sophia meng online classroom	Teacher: 604****220	Sophia
-256111305	https://www.eeo.cn/s/a/?cid=256111305	kirthi.rewasank*****ail. online classroom	Teacher: kirthi.rewasank*****ail.	prac
 256111357	https://www.eeo.cn/s/a/?cid=256111357	STAN online classroom	Teacher: 612****56	STAN 3
 256111453	https://www.eeo.cn/s/a/?cid=256111453	Jessica Davies (private)	Teacher: 625****50	Lokey: Class of 20 - Feb 24
 256111465	https://www.eeo.cn/s/a/?cid=256111465	mata.karacic20*****ail.c online classroom	Teacher: mata.karacic20*****ail.c	hahah
@@ -1198,3 +1196,5 @@
 256168009	https://www.eeo.cn/s/a/?cid=256168009	Mingfa English	Teacher: 912****472	Henson7&Hannah11 6322
 256168061	https://www.eeo.cn/s/a/?cid=256168061	Johann Erico L. Cruz online classroom	Teacher: wwjad*****hoo.com	ART'
 256168075	https://www.eeo.cn/s/a/?cid=256168075	Teacher Joie 4 online classroom	Teacher: 915****174	Rebecca 4/40
+256168103	https://www.eeo.cn/s/a/?cid=256168103	Teacher Che online classroom	Teacher: cherrlynro*****ail.com	A
+256168151	https://www.eeo.cn/s/a/?cid=256168151	Genevieve Sally online classroom	Teacher: 933****051	Lv3 U16 Lesson 4:Review

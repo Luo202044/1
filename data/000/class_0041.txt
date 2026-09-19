@@ -1,5 +1,3 @@
-254904025	https://www.eeo.cn/s/a/?cid=254904025	Lets go English	Teacher: 985****004	Angela
-254904091	https://www.eeo.cn/s/a/?cid=254904091	乐马在线	Teacher: 潘	钟诺凡2025广东珠海张老师物理课堂
 254904103	https://www.eeo.cn/s/a/?cid=254904103	TeacherArthur online classroom	Teacher: 798****48	JA27JANSA
 254904141	https://www.eeo.cn/s/a/?cid=254904141	Teacher Linda (VIII) online classroom	Teacher: finafob1*****steron.com	Harris
 254904143	https://www.eeo.cn/s/a/?cid=254904143	Vũ Hoàng Phương Thảo online classroom	Teacher: 906****64	LỚP QUẬY
@@ -1198,3 +1196,5 @@
 254968639	https://www.eeo.cn/s/a/?cid=254968639	正领睿学教育	Teacher: 王璐	张蔚 备考课程 一对一
 254968723	https://www.eeo.cn/s/a/?cid=254968723	Teacher Linda (VIII) online classroom	Teacher: finafob1*****steron.com	Emma
 254968739	https://www.eeo.cn/s/a/?cid=254968739	Raquel online classroom	Teacher: perdonraqu*****hoo.com	GROUP
+254968755	https://www.eeo.cn/s/a/?cid=254968755	Teacher Linda (VIII) online classroom	Teacher: finafob1*****steron.com	Sophia.Heidi
+254968913	https://www.eeo.cn/s/a/?cid=254968913	Teacher Linda (VIII) online classroom	Teacher: finafob1*****steron.com	Alisa.Cici

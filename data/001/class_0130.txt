@@ -1,6 +1,3 @@
-260152689	https://www.eeo.cn/s/a/?cid=260152689	K-디베이트코칭학원	Teacher: 109****070	5기 리딩윗미 A 1~2학년
-260152759	https://www.eeo.cn/s/a/?cid=260152759	YY	Teacher: Jessie	Trial class Casey-Nicole
-260152863	https://www.eeo.cn/s/a/?cid=260152863	teacher chrissa online classroom	Teacher: chrissalaos*****ail.com	alice
 260152949	https://www.eeo.cn/s/a/?cid=260152949	Princess Marianne G3 online classroom	Teacher: cristyferwe*****ail.com	FAT NUGGETS
 260152963	https://www.eeo.cn/s/a/?cid=260152963	K-디베이트코칭학원	Teacher: 109****070	5기 리딩윗미 A 3~4학년
 260152997	https://www.eeo.cn/s/a/?cid=260152997	授课教室	Teacher: 134****3180	202404241412-Computer modeling and stat
@@ -1198,3 +1195,6 @@
 260215151	https://www.eeo.cn/s/a/?cid=260215151	童理可证	Teacher: Yang	kipperWang teacher's class
 260215231	https://www.eeo.cn/s/a/?cid=260215231	开心点心口语社	Teacher: Trial lesson teacher	2pm
 260215235	https://www.eeo.cn/s/a/?cid=260215235	teachercelina*****ail.co online classroom	Teacher: teachercelina*****ail.co	celina
+260215239	https://www.eeo.cn/s/a/?cid=260215239	Sage online classroom	Teacher: mlflores112*****hoo.com	sage
+260215303	https://www.eeo.cn/s/a/?cid=260215303	Roland EnglishChat online classroom	Teacher: soriano.rolando3*****ail	Ivy8.1 EnglishChat
+260215329	https://www.eeo.cn/s/a/?cid=260215329	全全大课堂	Teacher: 吕萌萌	人教-初一曹景博

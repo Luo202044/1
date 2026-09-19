@@ -1,6 +1,3 @@
-261916823	https://www.eeo.cn/s/a/?cid=261916823	jooh online classroom	Teacher: 968****950	Kevin 117 (5-29-24)
-261916869	https://www.eeo.cn/s/a/?cid=261916869	Little English Owl	Teacher: Teacher Shomy	Sunny
-261916931	https://www.eeo.cn/s/a/?cid=261916931	connie online classroom	Teacher: jnpoly_*****hoo.com	barry's class-13
 261917003	https://www.eeo.cn/s/a/?cid=261917003	启优教育	Teacher: 176****5314	叶子
 261917023	https://www.eeo.cn/s/a/?cid=261917023	Laoshi Drew	Teacher: 927****017	abby may
 261917037	https://www.eeo.cn/s/a/?cid=261917037	ThinkChinese	Teacher: 779****431	Bang Bang 口语试听课
@@ -181,7 +178,6 @@
 261924491	https://www.eeo.cn/s/a/?cid=261924491	Learn English With Dario	Teacher: Teacher Dario	Nicky's Trial English Class
 261924559	https://www.eeo.cn/s/a/?cid=261924559	Ma. Stephanie Parrilla online classroom	Teacher: 921****339	gbikn
 261924565	https://www.eeo.cn/s/a/?cid=261924565	Ma. Stephanie Parrilla online classroom	Teacher: 921****339	gkkgg
-261924633	https://www.eeo.cn/s/a/?cid=261924633	Ma. Stephanie Parrilla online classroom	Teacher: 921****339	art
 261924753	https://www.eeo.cn/s/a/?cid=261924753	caominhtruong261020***** online classroom	Teacher: caominhtruong261020*****	hshsbd
 261924773	https://www.eeo.cn/s/a/?cid=261924773	Teacher Jedddd online classroom	Teacher: jemarmelin*****ail.com	CHENCHEN-TEACHER JED
 261924775	https://www.eeo.cn/s/a/?cid=261924775	Teacher Jedddd online classroom	Teacher: jemarmelin*****ail.com	BRUCE-TEACHER JED
@@ -1198,3 +1194,7 @@
 261967029	https://www.eeo.cn/s/a/?cid=261967029	Lady Jane (Joe's Class) online classroom	Teacher: 909****634	Joe's Class ⭐
 261967109	https://www.eeo.cn/s/a/?cid=261967109	yahairacorrale*****ail.c online classroom	Teacher: yahairacorrale*****ail.c	Clase de Español Yahaira-Adam 5/31 5pm
 261967163	https://www.eeo.cn/s/a/?cid=261967163	Mei Mei online classroom	Teacher: 586****46	Long không đẹp trai học ín lịt
+261967195	https://www.eeo.cn/s/a/?cid=261967195	Rebecca	Teacher: 981****514	Anna
+261967213	https://www.eeo.cn/s/a/?cid=261967213	企鹅	Teacher: 刘海增--高中数学	高三
+261967399	https://www.eeo.cn/s/a/?cid=261967399	Kaiki Math Class	Teacher: kluo*****sc.edu	AMC 10体验课
+261967499	https://www.eeo.cn/s/a/?cid=261967499	Marimil Cruz online classroom	Teacher: ceomary8*****ail.com	Demo Easy Pass

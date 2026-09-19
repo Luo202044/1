@@ -1,11 +1,3 @@
-267953653	https://www.eeo.cn/s/a/?cid=267953653	乐梦营	Teacher: 华冰 Coco	Coco demo考核
-267953793	https://www.eeo.cn/s/a/?cid=267953793	奕奕up	Teacher: 158****4267	（Regular）Q-Alan Wed 19:10+ Thur 19:00
-267953821	https://www.eeo.cn/s/a/?cid=267953821	anhdtp2*****ail.com online classroom	Teacher: anhdtp2*****ail.com	lớp Mai Thành
-267953823	https://www.eeo.cn/s/a/?cid=267953823	English	Teacher: Merry	merry(GEORGE)PREK&XF56
-267953861	https://www.eeo.cn/s/a/?cid=267953861	aminaferdjalla*****ail.c online classroom	Teacher: aminaferdjalla*****ail.c	无
-267953881	https://www.eeo.cn/s/a/?cid=267953881	GG Education	Teacher: 教辅老师River	吴梓瑶-设计课-启航计划包课
-267953891	https://www.eeo.cn/s/a/?cid=267953891	思峰在线教育	Teacher: 152****3668	王老师的试听课（9.18）
-267953917	https://www.eeo.cn/s/a/?cid=267953917	TSD Inc.	Teacher: Technical Solutions	Intern Interview - Du Nguyen Nam Anh
 267953931	https://www.eeo.cn/s/a/?cid=267953931	001671-4822840 online classroom	Teacher: 482***0	30 MINA ESL L3U2L2
 267954031	https://www.eeo.cn/s/a/?cid=267954031	Raniza M. Cayetano online classroom	Teacher: ranzccayeta*****ail.com	juko
 267954055	https://www.eeo.cn/s/a/?cid=267954055	christianto.nugra*****ai online classroom	Teacher: christianto.nugra*****ai	Classroom
@@ -1198,3 +1190,11 @@
 268036019	https://www.eeo.cn/s/a/?cid=268036019	Teacher Jew online classroom	Teacher: riojewelm*****ail.com	🌸 Rosie's Class#1 - 09/20/2024
 268036035	https://www.eeo.cn/s/a/?cid=268036035	新航道北美教育集中营	Teacher: 138****0891	AP化学秋季线上精品班20240921
 268036041	https://www.eeo.cn/s/a/?cid=268036041	Teacher Jew online classroom	Teacher: riojewelm*****ail.com	⭐ Shasha's Class#1 - 09/20/2024
+268036063	https://www.eeo.cn/s/a/?cid=268036063	尚学教育	Teacher: 班主任吴老师	27届秋季语文精英班15:10-17:10
+268036099	https://www.eeo.cn/s/a/?cid=268036099	lanielauroraban*****ail. online classroom	Teacher: lanielauroraban*****ail.	Teacher Lanie and Teacher Chelle
+268036111	https://www.eeo.cn/s/a/?cid=268036111	尚学教育	Teacher: 班主任吴老师	27届秋季化学精一2班17:50-19:50
+268036149	https://www.eeo.cn/s/a/?cid=268036149	尚学教育	Teacher: 班主任吴老师	25届秋季数学提优班20:00-22:00
+268036159	https://www.eeo.cn/s/a/?cid=268036159	尚学教育	Teacher: 班主任吴老师	27届秋季英语精英班17:50-19:50
+268036215	https://www.eeo.cn/s/a/?cid=268036215	尚学教育	Teacher: 班主任吴老师	无
+268036217	https://www.eeo.cn/s/a/?cid=268036217	小马识途	Teacher: 张莲	小马&Yilin（ICC学校）校内同步远程一对一
+268036289	https://www.eeo.cn/s/a/?cid=268036289	尚学教育	Teacher: 班主任吴老师	25届秋季化学精英班20:00-22:00

@@ -1,5 +1,3 @@
-253627567	https://www.eeo.cn/s/a/?cid=253627567	Teacher Kath online classroom	Teacher: 947****164	Teacher Kath
-253627581	https://www.eeo.cn/s/a/?cid=253627581	Louise教育工作室	Teacher: 助教曹老师	KET刷题班-Louise
 253627605	https://www.eeo.cn/s/a/?cid=253627605	Carmen online classroom	Teacher: 677****79	carmen's class
 253627639	https://www.eeo.cn/s/a/?cid=253627639	在线教室	Teacher: DBella G	Hello Ian
 253627645	https://www.eeo.cn/s/a/?cid=253627645	Chloe5 online classroom	Teacher: 667***68	MR ENGLISH No.11
@@ -1198,3 +1196,5 @@
 253682817	https://www.eeo.cn/s/a/?cid=253682817	Enya online classroom	Teacher: 909****788	mandarin
 253683031	https://www.eeo.cn/s/a/?cid=253683031	Caylus online classroom	Teacher: 901***16	Mummy
 253683159	https://www.eeo.cn/s/a/?cid=253683159	Teacher Cath2 online classroom	Teacher: 927****970	CLEEKY2
+253683167	https://www.eeo.cn/s/a/?cid=253683167	Ailene online classroom	Teacher: 995****835	Ayumi January
+253683307	https://www.eeo.cn/s/a/?cid=253683307	同学Carina online classroom	Teacher: 347****738	Anime 2

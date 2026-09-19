@@ -1,9 +1,3 @@
-266085237	https://www.eeo.cn/s/a/?cid=266085237	Shin online classroom	Teacher: 803****168	第23課
-266085279	https://www.eeo.cn/s/a/?cid=266085279	sheenamarkuu26*****ail.c online classroom	Teacher: sheenamarkuu26*****ail.c	Cici
-266085339	https://www.eeo.cn/s/a/?cid=266085339	00886-910900929 online classroom	Teacher: 910****29	Oxford Discover2 Gina
-266085349	https://www.eeo.cn/s/a/?cid=266085349	在线外教课	Teacher: 教务-王卓妮	0814 Trial Prek L4-2 体验课
-266085355	https://www.eeo.cn/s/a/?cid=266085355	Martha and Steven online classroom	Teacher: 981****208	MARTHA
-266085363	https://www.eeo.cn/s/a/?cid=266085363	Teacher Marian online classroom	Teacher: allesonpantinople*****ai	MIYA
 266085391	https://www.eeo.cn/s/a/?cid=266085391	00886-910900929 online classroom	Teacher: 910****29	Oxford Discover6 Hawi
 266085429	https://www.eeo.cn/s/a/?cid=266085429	lominoquemiagra*****ail. online classroom	Teacher: 906****789	Momo's class
 266085465	https://www.eeo.cn/s/a/?cid=266085465	Teacher Marie online classroom	Teacher: 907****888	tifany
@@ -1198,3 +1192,9 @@
 266174321	https://www.eeo.cn/s/a/?cid=266174321	照夜白数学工作室	Teacher: 186****9186	2024苏科八上秋季课程
 266174337	https://www.eeo.cn/s/a/?cid=266174337	竞赛帮	Teacher: 悦悦老师	【小学】竞赛帮-6S数学周日13:30兮兮老师
 266174363	https://www.eeo.cn/s/a/?cid=266174363	joyboom	Teacher: 陈敏	2024（C）NE（二）④王飞老师WSL
+266174397	https://www.eeo.cn/s/a/?cid=266174397	前海大新校区	Teacher: 刘丽鑫	刘丽鑫3C-8.15
+266174405	https://www.eeo.cn/s/a/?cid=266174405	RHODA online classroom	Teacher: 928****717	rod
+266174407	https://www.eeo.cn/s/a/?cid=266174407	Skylark English	Teacher: Skylark 01	LB3-11-06
+266174437	https://www.eeo.cn/s/a/?cid=266174437	Teacher Mark online classroom	Teacher: khanumair2*****ail.com	Teacher Mark
+266174547	https://www.eeo.cn/s/a/?cid=266174547	samenglishteacher*****r. online classroom	Teacher: samenglishteacher*****r.	Will
+266174621	https://www.eeo.cn/s/a/?cid=266174621	Teacher Jess online classroom	Teacher: 722****19	Class with David

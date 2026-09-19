@@ -1,10 +1,3 @@
-267730681	https://www.eeo.cn/s/a/?cid=267730681	English with Matthew B	Teacher: 683***01	Martin's Classroom
-267730687	https://www.eeo.cn/s/a/?cid=267730687	beales	Teacher: 931****154	FINEN8
-267730699	https://www.eeo.cn/s/a/?cid=267730699	Teacher Benjie online classroom	Teacher: benhe16*****ail.com	Jim
-267730719	https://www.eeo.cn/s/a/?cid=267730719	青松欣欣	Teacher: Hans	qs0536unsw-comp9021-课程辅导
-267730723	https://www.eeo.cn/s/a/?cid=267730723	英语培优	Teacher: 132****3533	Emily青少PU2-U2-L5
-267730843	https://www.eeo.cn/s/a/?cid=267730843	英语培优	Teacher: 132****3533	Emily青少PU2-U2-L6
-267730857	https://www.eeo.cn/s/a/?cid=267730857	WeTalk International Education Ltd	Teacher: Teacher Chen 陈老师	Kids Mandarin Trial Class -J J
 267730881	https://www.eeo.cn/s/a/?cid=267730881	Ajhay online classroom	Teacher: 931****043	Practice
 267730895	https://www.eeo.cn/s/a/?cid=267730895	Teacher Ana online classroom	Teacher: 906****575	aaaaaaaa
 267730957	https://www.eeo.cn/s/a/?cid=267730957	上海市杨浦区少年宫	Teacher: 颜慧珍	杨浦区少年宫“匠心传承”非遗创作班
@@ -1198,3 +1191,10 @@
 267767233	https://www.eeo.cn/s/a/?cid=267767233	树人元宇宙教育咨询有限公司	Teacher: 张珊	张老师+晶晶
 267767249	https://www.eeo.cn/s/a/?cid=267767249	Teacher Josh 7 online classroom	Teacher: lehy*****lkaroad.net	Bob's room
 267767251	https://www.eeo.cn/s/a/?cid=267767251	上海市甘泉外国语中学	Teacher: 周欣	高一2班英语学习群
+267767297	https://www.eeo.cn/s/a/?cid=267767297	Teacher Josh 7 online classroom	Teacher: lehy*****lkaroad.net	James's room
+267767345	https://www.eeo.cn/s/a/?cid=267767345	Yanie online classroom	Teacher: 936****630	Teacher Yanie and Li Zonglin
+267767361	https://www.eeo.cn/s/a/?cid=267767361	Ruthsan Tumobo online classroom	Teacher: taoruthsan*****ail.com	Trial Class_Teacher Ruth
+267767463	https://www.eeo.cn/s/a/?cid=267767463	Marose online classroom	Teacher: carabuenamarose*****ail.	Rica Class @20:25
+267767509	https://www.eeo.cn/s/a/?cid=267767509	李志鹏线上教学	Teacher: 188****1028	王梓筱北京版初二物理
+267767617	https://www.eeo.cn/s/a/?cid=267767617	崔春怡	Teacher: 175****7276	S班、A+班、A班
+267767649	https://www.eeo.cn/s/a/?cid=267767649	雅学在线	Teacher: 曲磊7.1充值200	WMC

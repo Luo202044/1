@@ -1,5 +1,3 @@
-257937157	https://www.eeo.cn/s/a/?cid=257937157	Theia online classroom	Teacher: agermono265*****udent.dm	nmm
-257937177	https://www.eeo.cn/s/a/?cid=257937177	Jason online classroom	Teacher: 615***83	deer
 257937185	https://www.eeo.cn/s/a/?cid=257937185	Rasha online classroom	Teacher: rash2002*****ail.com	4
 257937205	https://www.eeo.cn/s/a/?cid=257937205	English School and Tutorial Services	Teacher: 乔维老师 (Teacher Jovie)	Emma-Tr Jovie
 257937267	https://www.eeo.cn/s/a/?cid=257937267	Ms Linda English online classroom	Teacher: 353****13	TA LỚP 3
@@ -1198,3 +1196,5 @@
 257983895	https://www.eeo.cn/s/a/?cid=257983895	0063-9957929567 online classroom	Teacher: 995****567	qwe00
 257983905	https://www.eeo.cn/s/a/?cid=257983905	绿地阳光教育	Teacher: 杨梅	高一试卷分析课
 257983917	https://www.eeo.cn/s/a/?cid=257983917	历史	Teacher: 136****0289	刘博妍历史
+257983943	https://www.eeo.cn/s/a/?cid=257983943	QiBao	Teacher: Liam	Micheal
+257983967	https://www.eeo.cn/s/a/?cid=257983967	Teacher Jan 📚 online classroom	Teacher: jg19004*****ail.com	Jan and Cathy

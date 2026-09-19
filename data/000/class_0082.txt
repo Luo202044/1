@@ -1,5 +1,3 @@
-257286347	https://www.eeo.cn/s/a/?cid=257286347	Shine online classroom	Teacher: senerezshai*****ail.com	test
-257286417	https://www.eeo.cn/s/a/?cid=257286417	DemiMari's Online English Class	Teacher: 994****789	DYLAN
 257286453	https://www.eeo.cn/s/a/?cid=257286453	teacher Esabel online classroom	Teacher: 920****348	Teach sab
 257286489	https://www.eeo.cn/s/a/?cid=257286489	Teacher Filip online classroom	Teacher: 752***00	Alice_2024.03.09
 257286639	https://www.eeo.cn/s/a/?cid=257286639	LET'S GO ENGLISH	Teacher: 945****077	Sammi
@@ -1198,3 +1196,5 @@
 257365581	https://www.eeo.cn/s/a/?cid=257365581	Teacher Nik online classroom	Teacher: nodavo76*****pixel.com	Lucas/Cao gizhe
 257365631	https://www.eeo.cn/s/a/?cid=257365631	hahanik online classroom	Teacher: 339****26	không cần biết
 257365649	https://www.eeo.cn/s/a/?cid=257365649	启德星学社	Teacher: 王怡清	张骞文课程
+257365657	https://www.eeo.cn/s/a/?cid=257365657	三人行学堂	Teacher: 李佩	24春~初一英语1班-雅琴老师
+257365697	https://www.eeo.cn/s/a/?cid=257365697	三人行学堂	Teacher: 李佩	24春~初一语文1班-付老师

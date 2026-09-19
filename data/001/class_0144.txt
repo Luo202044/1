@@ -1,6 +1,3 @@
-260945965	https://www.eeo.cn/s/a/?cid=260945965	凡建山	Teacher: 李老师	保送考讲座
-260946001	https://www.eeo.cn/s/a/?cid=260946001	新一教育	Teacher: lisa	C Pandpa8甘肃
-260946185	https://www.eeo.cn/s/a/?cid=260946185	明来童趣	Teacher: 133****1843	346-Daisy
 260946411	https://www.eeo.cn/s/a/?cid=260946411	Smart Kids	Teacher: 950****552	Wang and Sunny
 260946595	https://www.eeo.cn/s/a/?cid=260946595	小浪花艺术团	Teacher: 慢慢老师	111
 260946623	https://www.eeo.cn/s/a/?cid=260946623	阳光酷编机器人·编程	Teacher: 王栋	王栋初一暑期精进课程第十三讲
@@ -1198,3 +1195,6 @@
 261017249	https://www.eeo.cn/s/a/?cid=261017249	Lê Thị Thùy Linh online classroom	Teacher: 386****89	Lớp dạy thử - cô Thùy Linh
 261017281	https://www.eeo.cn/s/a/?cid=261017281	培根教育	Teacher: 陈宇超	数学高中
 261017293	https://www.eeo.cn/s/a/?cid=261017293	VTalkline唯淘課	Teacher: Owen妈妈	测试3
+261017299	https://www.eeo.cn/s/a/?cid=261017299	Teacher Jackie English Tutorial Services	Teacher: 915****673	mingo
+261017339	https://www.eeo.cn/s/a/?cid=261017339	kareem hassanein online classroom	Teacher: kareem_555*****loud.com	汉语
+261017367	https://www.eeo.cn/s/a/?cid=261017367	英语课堂	Teacher: 132****9995	mittle补课

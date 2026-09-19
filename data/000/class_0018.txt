@@ -1,4 +1,3 @@
-253551071	https://www.eeo.cn/s/a/?cid=253551071	Janine online classroom	Teacher: 737****01	mm
 253551099	https://www.eeo.cn/s/a/?cid=253551099	WonderWords Academy	Teacher: obrebra*****hoo.com	Daniel's demo class
 253551123	https://www.eeo.cn/s/a/?cid=253551123	Sycip, Gorres and Velayo Company	Teacher: 930****751	Cherry's 9.13th class
 253551127	https://www.eeo.cn/s/a/?cid=253551127	Sheryl Morada online classroom	Teacher: 927****592	sample
@@ -624,7 +623,6 @@
 253593281	https://www.eeo.cn/s/a/?cid=253593281	ིི	Teacher: 907****090	API自动修改课程1126
 253593319	https://www.eeo.cn/s/a/?cid=253593319	Teacher John online classroom	Teacher: johnramilval*****ail.com	Billy7
 253593339	https://www.eeo.cn/s/a/?cid=253593339	Charina online classroom	Teacher: 948****807	yangyang
-253593353	https://www.eeo.cn/s/a/?cid=253593353	Floras Online Tutorial Services	Teacher: 907****249	William's Class
 253593413	https://www.eeo.cn/s/a/?cid=253593413	Teacher John online classroom	Teacher: johnramilval*****ail.com	Danny8
 253593475	https://www.eeo.cn/s/a/?cid=253593475	Teacher John online classroom	Teacher: johnramilval*****ail.com	Amy7
 253593513	https://www.eeo.cn/s/a/?cid=253593513	Joseph online classroom	Teacher: ngok*****nmail.net	test
@@ -1198,3 +1196,5 @@
 253627529	https://www.eeo.cn/s/a/?cid=253627529	乐学思维	Teacher: 155****3010	朗杰一对一课堂
 253627549	https://www.eeo.cn/s/a/?cid=253627549	Teacher-A online classroom	Teacher: teacherallydej*****ail.c	Lucas
 253627563	https://www.eeo.cn/s/a/?cid=253627563	Chloe5 online classroom	Teacher: 667***68	Mr English no.10
+253627567	https://www.eeo.cn/s/a/?cid=253627567	Teacher Kath online classroom	Teacher: 947****164	Teacher Kath
+253627581	https://www.eeo.cn/s/a/?cid=253627581	Louise教育工作室	Teacher: 助教曹老师	KET刷题班-Louise

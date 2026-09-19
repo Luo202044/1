@@ -1,5 +1,3 @@
-258414569	https://www.eeo.cn/s/a/?cid=258414569	自习室	Teacher: 186****9927	hrk网课
-258414633	https://www.eeo.cn/s/a/?cid=258414633	madisonbourret06*****ail online classroom	Teacher: madisonbourret06*****ail	.
 258414721	https://www.eeo.cn/s/a/?cid=258414721	Teacher Ellaine online classroom	Teacher: abieraellainejoy*****ail	eva
 258414735	https://www.eeo.cn/s/a/?cid=258414735	Teacher Ellaine online classroom	Teacher: abieraellainejoy*****ail	roy
 258414755	https://www.eeo.cn/s/a/?cid=258414755	Teacher Ellaine online classroom	Teacher: abieraellainejoy*****ail	crola
@@ -1198,3 +1196,5 @@
 258468905	https://www.eeo.cn/s/a/?cid=258468905	直播课堂	Teacher: 曹老师	周芷含高三政治课
 258468919	https://www.eeo.cn/s/a/?cid=258468919	仙堇美术在线 inspiration of China	Teacher: 仙堇美术在线	黄杰老师的线上美术课
 258468929	https://www.eeo.cn/s/a/?cid=258468929	Eagles company	Teacher: 946****969	bobby@11:30
+258468973	https://www.eeo.cn/s/a/?cid=258468973	Eagles company	Teacher: 946****969	leo@1
+258469001	https://www.eeo.cn/s/a/?cid=258469001	Eagles company	Teacher: 946****969	paris@1:30-2

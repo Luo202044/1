@@ -1,10 +1,3 @@
-267767297	https://www.eeo.cn/s/a/?cid=267767297	Teacher Josh 7 online classroom	Teacher: lehy*****lkaroad.net	James's room
-267767345	https://www.eeo.cn/s/a/?cid=267767345	Yanie online classroom	Teacher: 936****630	Teacher Yanie and Li Zonglin
-267767361	https://www.eeo.cn/s/a/?cid=267767361	Ruthsan Tumobo online classroom	Teacher: taoruthsan*****ail.com	Trial Class_Teacher Ruth
-267767463	https://www.eeo.cn/s/a/?cid=267767463	Marose online classroom	Teacher: carabuenamarose*****ail.	Rica Class @20:25
-267767509	https://www.eeo.cn/s/a/?cid=267767509	李志鹏线上教学	Teacher: 188****1028	王梓筱北京版初二物理
-267767617	https://www.eeo.cn/s/a/?cid=267767617	崔春怡	Teacher: 175****7276	S班、A+班、A班
-267767649	https://www.eeo.cn/s/a/?cid=267767649	雅学在线	Teacher: 曲磊7.1充值200	WMC
 267767677	https://www.eeo.cn/s/a/?cid=267767677	春苗	Teacher: cavendish8.13充值500	锦城剑桥自然科学
 267767703	https://www.eeo.cn/s/a/?cid=267767703	SAN GUO YOUTH CENTER	Teacher: 杨国湖	2024秋季伴学 - 毛梓萱的教室
 267767727	https://www.eeo.cn/s/a/?cid=267767727	0063-9515528704 online classroom	Teacher: 951****704	teacher mai
@@ -741,7 +734,6 @@
 267807979	https://www.eeo.cn/s/a/?cid=267807979	sherylbermudez*****ail.c online classroom	Teacher: sherylbermudez*****ail.c	c
 267808041	https://www.eeo.cn/s/a/?cid=267808041	薛老师学习规划	Teacher: 178****7523	Mia6JX-crissha
 267808093	https://www.eeo.cn/s/a/?cid=267808093	v.trangdtt*****nschool.e online classroom	Teacher: v.trangdtt*****nschool.e	CLEVAI
-267808103	https://www.eeo.cn/s/a/?cid=267808103	Catch Up English is Fun online classroom	Teacher: 631****25	jennie
 267808179	https://www.eeo.cn/s/a/?cid=267808179	Ms Grace online classroom	Teacher: 126****89	24 F5 SC 普1国+优2国(H) 北京补课
 267808199	https://www.eeo.cn/s/a/?cid=267808199	Ultimate	Teacher: O	9-15 st
 267808247	https://www.eeo.cn/s/a/?cid=267808247	Jeffrey Paul online classroom	Teacher: 916****452	Jason 3
@@ -1198,3 +1190,11 @@
 267872291	https://www.eeo.cn/s/a/?cid=267872291	Eliza Frances Virtucio online classroom	Teacher: 920****637	bestiess
 267872311	https://www.eeo.cn/s/a/?cid=267872311	山姆大叔少儿英语	Teacher: 180****6247	Julia
 267872335	https://www.eeo.cn/s/a/?cid=267872335	ABC Class	Teacher: 136****6506	mathematical2
+267872353	https://www.eeo.cn/s/a/?cid=267872353	Glynnis Sag;es online classroom	Teacher: 931****485	无
+267872357	https://www.eeo.cn/s/a/?cid=267872357	Miss Bahati online classroom	Teacher: 714****54	Lets learn english
+267872369	https://www.eeo.cn/s/a/?cid=267872369	Teacher Reb online classroom	Teacher: rkrivera*****ail.com	Sunny Day 8 Class
+267872391	https://www.eeo.cn/s/a/?cid=267872391	我爱学习	Teacher: 吴少年	高二房老师数学周日18:10
+267872419	https://www.eeo.cn/s/a/?cid=267872419	cherryanpaglinaw*****ail online classroom	Teacher: cherryanpaglinaw*****ail	class
+267872431	https://www.eeo.cn/s/a/?cid=267872431	Teacher Ella online classroom	Teacher: junellaolorvid*****ail.c	Shaine
+267872437	https://www.eeo.cn/s/a/?cid=267872437	Teacher Luzyl online classroom	Teacher: luzyllaygan*****ail.com	RAINA
+267872497	https://www.eeo.cn/s/a/?cid=267872497	Roy online classroom	Teacher: dani.*****il.ru	Ahhhh Spiritual tradicions

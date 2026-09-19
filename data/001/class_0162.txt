@@ -1,7 +1,3 @@
-262025433	https://www.eeo.cn/s/a/?cid=262025433	Simon	Teacher: 王耿Simon	高老师周日8.30-Think-1
-262025435	https://www.eeo.cn/s/a/?cid=262025435	Teacher Jennifer Ali online classroom	Teacher: 976****757	Joy's New Classroom 24/24
-262025453	https://www.eeo.cn/s/a/?cid=262025453	Mark_Hall_2 online classroom	Teacher: 226****451	Mizuki5
-262025609	https://www.eeo.cn/s/a/?cid=262025609	ret	Teacher: 736****37	Dany4
 262025637	https://www.eeo.cn/s/a/?cid=262025637	教师发展中心	Teacher: 孙亭广	YCT3-中级班（1对2）
 262025787	https://www.eeo.cn/s/a/?cid=262025787	Vast English	Teacher: Raina	Brody - Unlock KET - Charlene
 262025795	https://www.eeo.cn/s/a/?cid=262025795	Ms Amistadi online classroom	Teacher: 503****471	Dany
@@ -1198,3 +1194,7 @@
 262113273	https://www.eeo.cn/s/a/?cid=262113273	Impressive English	Teacher: Kuma	Ping-oral english
 262113295	https://www.eeo.cn/s/a/?cid=262113295	Joy Gutierrez online classroom	Teacher: fdjoygutierrez*****ail.c	Demo Class with Jackie
 262113321	https://www.eeo.cn/s/a/?cid=262113321	Mr.Tony online classroom	Teacher: 968****49	James privet English lesson
+262113327	https://www.eeo.cn/s/a/?cid=262113327	动悉健康科技	Teacher: 豆小豆	Elsa12SH/Heziel
+262113375	https://www.eeo.cn/s/a/?cid=262113375	0063-9052119507 online classroom	Teacher: 905****507	daisy
+262113419	https://www.eeo.cn/s/a/?cid=262113419	april online classroom	Teacher: 910****975	yiyi7-student
+262113421	https://www.eeo.cn/s/a/?cid=262113421	shanfernandez7*****ail.c online classroom	Teacher: shanfernandez7*****ail.c	ESL

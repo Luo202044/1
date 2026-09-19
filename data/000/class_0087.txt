@@ -1,5 +1,3 @@
-257603507	https://www.eeo.cn/s/a/?cid=257603507	Tutor Rosalie online classroom	Teacher: rosaliegvalenzuela*****a	Rosie
-257603527	https://www.eeo.cn/s/a/?cid=257603527	Wow Class	Teacher: 138****0124	Nova-4.5yrs-Teacher Shannie
 257603717	https://www.eeo.cn/s/a/?cid=257603717	Ms. Coleen online classroom	Teacher: lynco09*****ail.com	Teach Coleen
 257603777	https://www.eeo.cn/s/a/?cid=257603777	Dog Room online classroom	Teacher: yt.snippet*****ail.com	Y1 Tom Hunan
 257603837	https://www.eeo.cn/s/a/?cid=257603837	Dog Room online classroom	Teacher: yt.snippet*****ail.com	NEW Betty
@@ -1198,3 +1196,5 @@
 257661469	https://www.eeo.cn/s/a/?cid=257661469	Learning with Paul	Teacher: 642****86	Angela - trial class
 257661521	https://www.eeo.cn/s/a/?cid=257661521	Teacher Ann online classroom	Teacher: 905****550	Rhejs
 257661535	https://www.eeo.cn/s/a/?cid=257661535	chukwudiohaebos*****ail. online classroom	Teacher: chukwudiohaebos*****ail.	The A Team
+257661577	https://www.eeo.cn/s/a/?cid=257661577	Teacher Ivan	Teacher: 605****79	A class with Leoshen8
+257661599	https://www.eeo.cn/s/a/?cid=257661599	Northwest CottonLeague	Teacher: 425****162	Chloe

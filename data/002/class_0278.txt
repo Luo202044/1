@@ -1,13 +1,3 @@
-268769781	https://www.eeo.cn/s/a/?cid=268769781	Hà My Vân Lớp 3 online classroom	Teacher: 974****33	lớp yêu đom đóm ghét sky đần
-268769839	https://www.eeo.cn/s/a/?cid=268769839	Bao nam online classroom	Teacher: 777****85	bảo nam
-268769845	https://www.eeo.cn/s/a/?cid=268769845	dawnsamontane*****ail.co online classroom	Teacher: dawnsamontane*****ail.co	SAMONTANEZ3
-268769881	https://www.eeo.cn/s/a/?cid=268769881	renerosetabujar*****ail. online classroom	Teacher: renerosetabujar*****ail.	JORDAN OCTOBER CLASS
-268769891	https://www.eeo.cn/s/a/?cid=268769891	点石教育	Teacher: 黄军	黄诗妍物理一对一专属课堂
-268769931	https://www.eeo.cn/s/a/?cid=268769931	善潼 online classroom	Teacher: 605***00	4C2
-268769991	https://www.eeo.cn/s/a/?cid=268769991	北京海淀柒点教育工作室	Teacher: 刘老师	琪琪数学一对一
-268770169	https://www.eeo.cn/s/a/?cid=268770169	Roger online classroom	Teacher: 641****40	Eva8
-268770223	https://www.eeo.cn/s/a/?cid=268770223	0063-9179238482 online classroom	Teacher: 917****482	GOLDEN OCTOBER
-268770291	https://www.eeo.cn/s/a/?cid=268770291	Ramela Erejer online classroom	Teacher: ramelaerejer*****ail.com	rowena
 268770293	https://www.eeo.cn/s/a/?cid=268770293	renerosecuyno1*****ail.c online classroom	Teacher: renerosecuyno1*****ail.c	JULIA's OCTOBER CLASS
 268770359	https://www.eeo.cn/s/a/?cid=268770359	Teacher ChellyM	Teacher: 966****486	ENZO (October)
 268770371	https://www.eeo.cn/s/a/?cid=268770371	英豪教育	Teacher: 曾涛	淼淼英语课
@@ -1198,3 +1188,13 @@
 268823255	https://www.eeo.cn/s/a/?cid=268823255	名校教育集团 名校志向塾	Teacher: 张启腾	【线上+线下】院文秋季社会科学基础班---产业与情报
 268823301	https://www.eeo.cn/s/a/?cid=268823301	catherine.id*****ped.gov online classroom	Teacher: catherine.id*****ped.gov	abcd
 268823343	https://www.eeo.cn/s/a/?cid=268823343	名校教育集团 名校志向塾	Teacher: 张启腾	【线上+线下】院文秋季社会科学基础班---都市与风险
+268823357	https://www.eeo.cn/s/a/?cid=268823357	Jhan Pauline Tan online classroom	Teacher: tanpauline*****ail.com	hakdog
+268823369	https://www.eeo.cn/s/a/?cid=268823369	林琪渊 online classroom	Teacher: 709****217	LIM
+268823373	https://www.eeo.cn/s/a/?cid=268823373	LiveDream	Teacher: 熊闯	2024秋复赛集训课-熊老师
+268823387	https://www.eeo.cn/s/a/?cid=268823387	jophet caunga	Teacher: jophetcaunga9*****ail.co	teacher jophet test class
+268823393	https://www.eeo.cn/s/a/?cid=268823393	Chino ESL Tutorial Services	Teacher: 917****916	Tyler
+268823421	https://www.eeo.cn/s/a/?cid=268823421	吴璟谦 online classroom	Teacher: 415****68	random chat class for chat breh
+268823431	https://www.eeo.cn/s/a/?cid=268823431	AI尖子	Teacher: 苏老师	苏老师公开课
+268823509	https://www.eeo.cn/s/a/?cid=268823509	Queenie	Teacher: Linda	昆妮英语Linda T051班
+268823549	https://www.eeo.cn/s/a/?cid=268823549	Jenny.Vi online classroom	Teacher: 938****985	Carlos Class No. 3
+268823567	https://www.eeo.cn/s/a/?cid=268823567	Teacher Vee online classroom	Teacher: kittyvenus*****ail.com	October_Lucas

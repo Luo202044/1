@@ -1,8 +1,3 @@
-265159463	https://www.eeo.cn/s/a/?cid=265159463	Southfields International	Teacher: Mentor Lanie	KINDER FRIDAY
-265159519	https://www.eeo.cn/s/a/?cid=265159519	adaronoval*****ail.com online classroom	Teacher: adaronoval*****ail.com	novalyn
-265159557	https://www.eeo.cn/s/a/?cid=265159557	Maria 2 online classroom	Teacher: mariasog*****ail.com	Shelly 7:30am
-265159565	https://www.eeo.cn/s/a/?cid=265159565	Maria 2 online classroom	Teacher: mariasog*****ail.com	Calvin 1:30pm
-265159567	https://www.eeo.cn/s/a/?cid=265159567	Southfields International	Teacher: Mentor Lanie	NURSERY FRIDAY
 265159591	https://www.eeo.cn/s/a/?cid=265159591	englishclassp*****ail.co online classroom	Teacher: englishclassp*****ail.co	Dean's class
 265159595	https://www.eeo.cn/s/a/?cid=265159595	Teacherlyn6th online classroom	Teacher: 965****398	charlie
 265159599	https://www.eeo.cn/s/a/?cid=265159599	快乐说口语营地	Teacher: 张倩	56-Jayden小组
@@ -1198,3 +1193,8 @@
 265206179	https://www.eeo.cn/s/a/?cid=265206179	jncruse*****ail.com online classroom	Teacher: jncruse*****ail.com	Susan's Class (22)
 265206211	https://www.eeo.cn/s/a/?cid=265206211	北京理工大学附属实验学校	Teacher: 18612054929	78
 265206241	https://www.eeo.cn/s/a/?cid=265206241	English	Teacher: Emma	【暑期听力词汇集训】Elsa 1V1
+265206267	https://www.eeo.cn/s/a/?cid=265206267	John online classroom	Teacher: 985****997	nicole 8
+265206281	https://www.eeo.cn/s/a/?cid=265206281	teachermeriemkad*****ail online classroom	Teacher: 792****47	MERIEM
+265206287	https://www.eeo.cn/s/a/?cid=265206287	jncruse*****ail.com online classroom	Teacher: jncruse*****ail.com	Jerry's Class (23)
+265206333	https://www.eeo.cn/s/a/?cid=265206333	动悉健康科技	Teacher: 豆小豆	Crystal10NH/T.Angel July.24
+265206395	https://www.eeo.cn/s/a/?cid=265206395	gacoa19*****ail.com online classroom	Teacher: gacoa19*****ail.com	2nd demo

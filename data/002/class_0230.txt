@@ -1,9 +1,3 @@
-266409807	https://www.eeo.cn/s/a/?cid=266409807	Anna C. online classroom	Teacher: joanne_llam*****hoo.com	Sophia's Free Class (4)
-266409831	https://www.eeo.cn/s/a/?cid=266409831	jaereen online classroom	Teacher: jaereenoddette*****ail.c	jaereen
-266409877	https://www.eeo.cn/s/a/?cid=266409877	pattyherrera0*****ail.co online classroom	Teacher: pattyherrera0*****ail.co	adi
-266409905	https://www.eeo.cn/s/a/?cid=266409905	Chinese Language Institute Middle East	Teacher: Clime Online Admin	HSK-P74
-266409931	https://www.eeo.cn/s/a/?cid=266409931	Marcus Chiang Mai	Teacher: 620****29	ChengCheng August 19th
-266409947	https://www.eeo.cn/s/a/?cid=266409947	Anna C. online classroom	Teacher: joanne_llam*****hoo.com	Linda's Free Class (5)
 266409953	https://www.eeo.cn/s/a/?cid=266409953	Lilac online classroom	Teacher: 930****740	Karen
 266410031	https://www.eeo.cn/s/a/?cid=266410031	maryannsalado27*****ail. online classroom	Teacher: maryannsalado27*****ail.	Student Mary Final Advance
 266410109	https://www.eeo.cn/s/a/?cid=266410109	Yanie and LX online classroom	Teacher: 928****479	Teacher Yanie and Lyric
@@ -1198,3 +1192,9 @@
 266490731	https://www.eeo.cn/s/a/?cid=266490731	Teacher Loren online classroom	Teacher: lorenalcid*****ail.com	TINA 08/21/2024
 266490741	https://www.eeo.cn/s/a/?cid=266490741	Jeren Millezar online classroom	Teacher: millezarjere*****ail.com	CLASSROOM
 266490747	https://www.eeo.cn/s/a/?cid=266490747	AI尖子	Teacher: 星宇老师	秋 三突破周六1600-1800
+266490771	https://www.eeo.cn/s/a/?cid=266490771	如有特殊情况请联系学管老师	Teacher: 杨杨老师	洋洋-HIMCM11队
+266490887	https://www.eeo.cn/s/a/?cid=266490887	Teacher Loren online classroom	Teacher: lorenalcid*****ail.com	ANDY 08/21/2024
+266490889	https://www.eeo.cn/s/a/?cid=266490889	AI尖子	Teacher: 星宇老师	秋 三突破周日1330-1530
+266490925	https://www.eeo.cn/s/a/?cid=266490925	Vietnam Sales	Teacher: Quỳnh Trần	Sam English demo
+266490961	https://www.eeo.cn/s/a/?cid=266490961	AI尖子	Teacher: 星宇老师	秋 三创新周五1830-2030
+266490989	https://www.eeo.cn/s/a/?cid=266490989	Mr. Nel online classroom	Teacher: stigueplaystrump*****ail	Molly

@@ -1,6 +1,3 @@
-260824467	https://www.eeo.cn/s/a/?cid=260824467	高途·北京学部	Teacher: 李宇	高途丨勘梦禹数学一对一课程
-260824743	https://www.eeo.cn/s/a/?cid=260824743	Awesome English	Teacher: Awesome English	Ray-Kidsbox-KB3-Speaking Skill
-260824803	https://www.eeo.cn/s/a/?cid=260824803	s.molejon.maryrho*****u. online classroom	Teacher: s.molejon.maryrho*****u.	CLASS DEMO
 260824819	https://www.eeo.cn/s/a/?cid=260824819	stephaniepieter*****hoo. online classroom	Teacher: stephaniepieter*****hoo.	Demo 2
 260824837	https://www.eeo.cn/s/a/?cid=260824837	IEG Global	Teacher: IEG Teacher 5	CW1C6_240511
 260824885	https://www.eeo.cn/s/a/?cid=260824885	ANNE online classroom	Teacher: mayannplanta*****ail.com	may ann
@@ -1198,3 +1195,6 @@
 260883493	https://www.eeo.cn/s/a/?cid=260883493	Teacher Lory IV online classroom	Teacher: 946****212	SMARANDA 21
 260883557	https://www.eeo.cn/s/a/?cid=260883557	SIA国际艺术留学	Teacher: 谢菲	1期-舞美基础课
 260883867	https://www.eeo.cn/s/a/?cid=260883867	专注此刻，赢在未来！	Teacher: 郭成睿	Alice教室 学蜗教育郭老师
+260883897	https://www.eeo.cn/s/a/?cid=260883897	北京语言大学网络教育学院	Teacher: 北语网院eBLCU	GGC-4级-28
+260883919	https://www.eeo.cn/s/a/?cid=260883919	卓越教育 Catalyst Edu	Teacher: CLASSIN13	卓越科学小组
+260883935	https://www.eeo.cn/s/a/?cid=260883935	Mentor Hub	Teacher: 教务老师-Kelly	彭泓皓-AP微积分

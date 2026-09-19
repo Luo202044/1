@@ -1,5 +1,3 @@
-255424169	https://www.eeo.cn/s/a/?cid=255424169	壹心教育	Teacher: 林娜	林娜-寒假一年级数学
-255424205	https://www.eeo.cn/s/a/?cid=255424205	陆伟佳	Teacher: lwj	詹老师 & ClassIn
 255424219	https://www.eeo.cn/s/a/?cid=255424219	小采课堂	Teacher: 饶颖	【寒】L3三期晚上A+班饭饭老师
 255424257	https://www.eeo.cn/s/a/?cid=255424257	Kath online classroom	Teacher: 907****916	Chen
 255424299	https://www.eeo.cn/s/a/?cid=255424299	Teacher Shai 5 online classroom	Teacher: 997****829	Olivia's Classroom 2
@@ -1198,3 +1196,5 @@
 255483629	https://www.eeo.cn/s/a/?cid=255483629	yohankhiel online classroom	Teacher: 947****401	yogan
 255483693	https://www.eeo.cn/s/a/?cid=255483693	Teacher JO online classroom	Teacher: 929****032	demo
 255483737	https://www.eeo.cn/s/a/?cid=255483737	谦学教育集团有限公司	Teacher: 137****9858	02.05JSxUTS劝退申诉
+255483741	https://www.eeo.cn/s/a/?cid=255483741	U.Genius Studio	Teacher: 관리자Jenn	Thurs21:15/Abena/VBL.WW5#1-10
+255483755	https://www.eeo.cn/s/a/?cid=255483755	Private	Teacher: 975****135	John

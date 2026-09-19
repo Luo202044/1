@@ -1,7 +1,3 @@
-262366637	https://www.eeo.cn/s/a/?cid=262366637	artilizajoycedi*****ail. online classroom	Teacher: artilizajoycedi*****ail.	English Class
-262366723	https://www.eeo.cn/s/a/?cid=262366723	ABCD	Teacher: Teacher Lu	Jonas-Spohia宁波1300 classroom
-262366753	https://www.eeo.cn/s/a/?cid=262366753	梅花鹿 Teacher Joan online classroom	Teacher: 2024t18a*****ail.com	Mirai7909&chihiro_CLASS
-262366761	https://www.eeo.cn/s/a/?cid=262366761	乐之教育	Teacher: 187****9812	七下数学期末刷题
 262366781	https://www.eeo.cn/s/a/?cid=262366781	【AL经济学喵】	Teacher: 185****5700	A2 选择题班课 6.7 37.1-39.1
 262366813	https://www.eeo.cn/s/a/?cid=262366813	esybylpilongo1*****ail.c online classroom	Teacher: esybylpilongo1*****ail.c	Kyle
 262366975	https://www.eeo.cn/s/a/?cid=262366975	TEACHER LARA	Teacher: teacherlara*****ail.com	Jerry & Jennifer
@@ -1198,3 +1194,7 @@
 262440035	https://www.eeo.cn/s/a/?cid=262440035	卢老师学习中心	Teacher: 卢老师学习中心	启程英语
 262440045	https://www.eeo.cn/s/a/?cid=262440045	Lê Hoàng Mẫn Nhi online classroom	Teacher: 988****09	无
 262440061	https://www.eeo.cn/s/a/?cid=262440061	英语外教口语学习课堂	Teacher: tony	Lucy/于子墨 with Sarah
+262440083	https://www.eeo.cn/s/a/?cid=262440083	paul-19*****ve.co online classroom	Teacher: paul-19*****ve.co.uk	Jinni practice
+262440085	https://www.eeo.cn/s/a/?cid=262440085	Teacher Heidi online classroom	Teacher: 739****86	Demo Class
+262440099	https://www.eeo.cn/s/a/?cid=262440099	儿语工坊·在线语训中心	Teacher: 倾音小助手	轩佑宝贝在线课堂
+262440125	https://www.eeo.cn/s/a/?cid=262440125	Teacher Jess online classroom	Teacher: 645****76	Test Teacher Tim

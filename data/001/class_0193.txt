@@ -1,7 +1,3 @@
-264074877	https://www.eeo.cn/s/a/?cid=264074877	小太阳	Teacher: 158****8588	七暑语文7.8-7.17，16:30-18:30
-264074881	https://www.eeo.cn/s/a/?cid=264074881	吴县中学	Teacher: 高中化学李晓彤	高三17、21班化学
-264074901	https://www.eeo.cn/s/a/?cid=264074901	Teacher Pammy online classroom	Teacher: 915****067	Yvonne0802 FREE CLASSROOM
-264074905	https://www.eeo.cn/s/a/?cid=264074905	Miss Mitch online classroom	Teacher: 935****546	Henry's Lesson
 264074913	https://www.eeo.cn/s/a/?cid=264074913	宝顺	Teacher: 158****2957	24 暑假拼读
 264074921	https://www.eeo.cn/s/a/?cid=264074921	Teacher Nica online classroom	Teacher: 992****611	Emily1
 264074955	https://www.eeo.cn/s/a/?cid=264074955	sm39167*****ail.com online classroom	Teacher: sm39167*****ail.com	Logan
@@ -1198,3 +1194,7 @@
 264134131	https://www.eeo.cn/s/a/?cid=264134131	Fren online classroom	Teacher: 966****032	molly
 264134137	https://www.eeo.cn/s/a/?cid=264134137	Teacher Sheila online classroom	Teacher: maulionsheilamae*****ail	Alex class
 264134139	https://www.eeo.cn/s/a/?cid=264134139	春苗	Teacher: A宋老师7.17充值300	6暑-CXA+-2024.7.9
+264134149	https://www.eeo.cn/s/a/?cid=264134149	学术辅导	Teacher: 教务老师-Cathy	周明坤申诉指导
+264134175	https://www.eeo.cn/s/a/?cid=264134175	Thicc n Tired online classroom	Teacher: 814****95	Sofia
+264134191	https://www.eeo.cn/s/a/?cid=264134191	wolmaransambros*****ail. online classroom	Teacher: wolmaransambros*****ail.	Apple - Ambrosia
+264134203	https://www.eeo.cn/s/a/?cid=264134203	annalizajug*****hoo.com online classroom	Teacher: annalizajug*****hoo.com.	MANDY 2

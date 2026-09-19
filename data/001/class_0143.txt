@@ -1,6 +1,3 @@
-260883897	https://www.eeo.cn/s/a/?cid=260883897	北京语言大学网络教育学院	Teacher: 北语网院eBLCU	GGC-4级-28
-260883919	https://www.eeo.cn/s/a/?cid=260883919	卓越教育 Catalyst Edu	Teacher: CLASSIN13	卓越科学小组
-260883935	https://www.eeo.cn/s/a/?cid=260883935	Mentor Hub	Teacher: 教务老师-Kelly	彭泓皓-AP微积分
 260883987	https://www.eeo.cn/s/a/?cid=260883987	Teacher Mia online classroom	Teacher: hovnohovnji*****ail.com	David
 260884171	https://www.eeo.cn/s/a/?cid=260884171	精品拓展	Teacher: Gianne	Allen (new)
 260884409	https://www.eeo.cn/s/a/?cid=260884409	Love online classroom	Teacher: 949****150	YouYou
@@ -1198,3 +1195,6 @@
 260945947	https://www.eeo.cn/s/a/?cid=260945947	维维老师	Teacher: 185****9282	玥
 260945951	https://www.eeo.cn/s/a/?cid=260945951	Ultimate	Teacher: O	5-11 FT
 260945957	https://www.eeo.cn/s/a/?cid=260945957	Loree online classroom	Teacher: 915****443	Simon's Class #11
+260945965	https://www.eeo.cn/s/a/?cid=260945965	凡建山	Teacher: 李老师	保送考讲座
+260946001	https://www.eeo.cn/s/a/?cid=260946001	新一教育	Teacher: lisa	C Pandpa8甘肃
+260946185	https://www.eeo.cn/s/a/?cid=260946185	明来童趣	Teacher: 133****1843	346-Daisy

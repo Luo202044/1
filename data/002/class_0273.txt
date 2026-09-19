@@ -1,12 +1,3 @@
-268585919	https://www.eeo.cn/s/a/?cid=268585919	Teacher Richard	Teacher: 779****576	Roy 30.9.24
-268586007	https://www.eeo.cn/s/a/?cid=268586007	中国人民大学附属中学三亚学校	Teacher: 赵中强	Lee
-268586031	https://www.eeo.cn/s/a/?cid=268586031	kimbinhxbaby_ online classroom	Teacher: 369****26	sunnychaan
-268586047	https://www.eeo.cn/s/a/?cid=268586047	Teacher Richard	Teacher: 779****576	Cici 30.9.24
-268586069	https://www.eeo.cn/s/a/?cid=268586069	Robert online classroom	Teacher: 776****912	Elsa
-268586079	https://www.eeo.cn/s/a/?cid=268586079	Miss Bahati online classroom	Teacher: 714****54	Lets Learn English
-268586093	https://www.eeo.cn/s/a/?cid=268586093	叶茂教育	Teacher: 课代表小刘同学	小黄同学地理一对一
-268586111	https://www.eeo.cn/s/a/?cid=268586111	Gift online classroom	Teacher: giffyfo*****ail.com	Demo class
-268586119	https://www.eeo.cn/s/a/?cid=268586119	思考乐培训（高中）	Teacher: 郭杰邦	788753-郭杰邦-高二-秋季-20241001
 268586161	https://www.eeo.cn/s/a/?cid=268586161	Khoa online classroom	Teacher: 917****68	NHóm tui
 268586243	https://www.eeo.cn/s/a/?cid=268586243	Ms zheng	Teacher: Clari	zoe
 268586275	https://www.eeo.cn/s/a/?cid=268586275	princeto*****ail.com online classroom	Teacher: princeto*****ail.com	Kelly
@@ -158,7 +149,6 @@
 268590177	https://www.eeo.cn/s/a/?cid=268590177	Mr. Pang	Teacher: hy005flb20241*****6.com	Teacher Rhea
 268590193	https://www.eeo.cn/s/a/?cid=268590193	TEACHER NIKIE online classroom	Teacher: edelynbalase*****ail.com	KELLY
 268590199	https://www.eeo.cn/s/a/?cid=268590199	Pro English	Teacher: Pro English	Conversation class - Khun Gug
-268590205	https://www.eeo.cn/s/a/?cid=268590205	Marco online classroom	Teacher: 334****193	Italiano
 268590229	https://www.eeo.cn/s/a/?cid=268590229	Arlene online classroom	Teacher: 961****325	sophia's class OCTOBER
 268590241	https://www.eeo.cn/s/a/?cid=268590241	乐马在线	Teacher: 班主任闫老师	王佳鑫2031江苏昆山龙老师数学课堂
 268590253	https://www.eeo.cn/s/a/?cid=268590253	mariaelenajacil*****ail. online classroom	Teacher: mariaelenajacil*****ail.	you
@@ -1198,3 +1188,13 @@
 268618233	https://www.eeo.cn/s/a/?cid=268618233	rejtayks6*****ail.com online classroom	Teacher: rejtayks6*****ail.com	Kotokas Class
 268618315	https://www.eeo.cn/s/a/?cid=268618315	EduCait online classroom	Teacher: 671****14	HANS(MA)
 268618377	https://www.eeo.cn/s/a/?cid=268618377	pettyminiejaminil*****ai online classroom	Teacher: pettyminiejaminil*****ai	student rexan day-1
+268618415	https://www.eeo.cn/s/a/?cid=268618415	luarezguerlainkate6***** online classroom	Teacher: luarezguerlainkate6*****	Kevin
+268618425	https://www.eeo.cn/s/a/?cid=268618425	Emma B online classroom	Teacher: 771****691	Geography
+268618443	https://www.eeo.cn/s/a/?cid=268618443	EduCait online classroom	Teacher: 671****14	KERRY(MA)
+268618529	https://www.eeo.cn/s/a/?cid=268618529	katrinajhoyrau*****ail.c online classroom	Teacher: katrinajhoyrau*****ail.c	teacher KatJhoy
+268618659	https://www.eeo.cn/s/a/?cid=268618659	John online classroom	Teacher: 949****686	Chinese Account
+268618713	https://www.eeo.cn/s/a/?cid=268618713	Rose's English Tutorial Services	Teacher: 970****333	Liv9
+268618729	https://www.eeo.cn/s/a/?cid=268618729	quinniedingla*****ail.co online classroom	Teacher: quinniedingla*****ail.co	Sophia's classes
+268618739	https://www.eeo.cn/s/a/?cid=268618739	Teacher Mike online classroom	Teacher: 659****06	Tina6's class
+268618781	https://www.eeo.cn/s/a/?cid=268618781	Teacher Queen online classroom	Teacher: 910****280	Andrew
+268618841	https://www.eeo.cn/s/a/?cid=268618841	Teacher Van online classroom	Teacher: ayaovanissa*****ail.com	STUDENT VAN

@@ -1,7 +1,3 @@
-263294259	https://www.eeo.cn/s/a/?cid=263294259	Teacher Christine online classroom	Teacher: 657****098	Qing Qing (Demo)
-263294279	https://www.eeo.cn/s/a/?cid=263294279	London Dreamer Workshop	Teacher: 185****7246	George-Fran Lesson
-263294503	https://www.eeo.cn/s/a/?cid=263294503	Hoàng Yến Nhi online classroom	Teacher: 352****51	Ronaldo
-263294505	https://www.eeo.cn/s/a/?cid=263294505	Katherine online classroom	Teacher: raagasarnold0*****ail.co	23rd
 263294517	https://www.eeo.cn/s/a/?cid=263294517	phamanhieu25*****ail.com online classroom	Teacher: phamanhieu25*****ail.com	phamanhieu25*****ail.com Mời bạn tham gi
 263294659	https://www.eeo.cn/s/a/?cid=263294659	Marcus Chiang Mai	Teacher: 620****29	ChengCheng June 24th
 263294667	https://www.eeo.cn/s/a/?cid=263294667	Teacher KIM online classroom	Teacher: 967****023	Zoe Classroom #2
@@ -1198,3 +1194,7 @@
 263353721	https://www.eeo.cn/s/a/?cid=263353721	Teacher Jade online classroom	Teacher: 945****957	j
 263353729	https://www.eeo.cn/s/a/?cid=263353729	teacher kyzzel online classroom	Teacher: 951****173	LUCKY CLASSROOM
 263353735	https://www.eeo.cn/s/a/?cid=263353735	Aoife online classroom	Teacher: aoife_aih*****tlook.com	EWA-EMILY-RE3
+263353769	https://www.eeo.cn/s/a/?cid=263353769	faithhannahcalderon0307* online classroom	Teacher: faithhannahcalderon0307*	Allen make up class
+263353775	https://www.eeo.cn/s/a/?cid=263353775	cherrytrang online classroom	Teacher: 975****64	Star 6- Body
+263353811	https://www.eeo.cn/s/a/?cid=263353811	Teacher Bless online classroom	Teacher: gladysgad*****ail.com	KEVIN
+263353817	https://www.eeo.cn/s/a/?cid=263353817	LOO中文	Teacher: 136****6624	vip三330pm745pm1h4年樂樂6年鋒鋒

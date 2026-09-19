@@ -1,6 +1,3 @@
-259457473	https://www.eeo.cn/s/a/?cid=259457473	0063-9481161157 online classroom	Teacher: 948****157	Summer
-259457491	https://www.eeo.cn/s/a/?cid=259457491	Teacher Ronelyn online classroom	Teacher: 928****067	ethon
-259457537	https://www.eeo.cn/s/a/?cid=259457537	Diego online classroom	Teacher: 333****683	Diego 04.16
 259457547	https://www.eeo.cn/s/a/?cid=259457547	Shin online classroom	Teacher: 803****168	日本語はじめ
 259457647	https://www.eeo.cn/s/a/?cid=259457647	presidentesr*****ail.com online classroom	Teacher: presidentesr*****ail.com	ELSA'S CLASS APRIL 16
 259457685	https://www.eeo.cn/s/a/?cid=259457685	Jasper Roy online classroom	Teacher: 995****236	Class for Eric
@@ -1198,3 +1195,6 @@
 259580603	https://www.eeo.cn/s/a/?cid=259580603	TeacherJenn online classroom	Teacher: 976****355	Cici 2024
 259580609	https://www.eeo.cn/s/a/?cid=259580609	310精彩课堂	Teacher: 那那老师	2024年林克熇老师升年级家长会
 259580639	https://www.eeo.cn/s/a/?cid=259580639	0063-9481161157 online classroom	Teacher: 948****157	Ethan
+259580649	https://www.eeo.cn/s/a/?cid=259580649	来说英语外教课	Teacher: 155****9467	Ethan's Course-Michelle
+259580667	https://www.eeo.cn/s/a/?cid=259580667	Teacher Kim (D) online classroom	Teacher: 970****543	Gabriela
+259580729	https://www.eeo.cn/s/a/?cid=259580729	授课教室	Teacher: 134****3180	20404170159-Supply chain management

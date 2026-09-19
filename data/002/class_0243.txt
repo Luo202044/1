@@ -1,9 +1,3 @@
-267111847	https://www.eeo.cn/s/a/?cid=267111847	庆云县第五中学	Teacher: 李妍	七年级15，16英语
-267111887	https://www.eeo.cn/s/a/?cid=267111887	浦东教师教研平台	Teacher: 陆耀芳 小学1组	2024学年第一学期五年级研修活动
-267111905	https://www.eeo.cn/s/a/?cid=267111905	天空	Teacher: 155****7682	讲完了
-267111983	https://www.eeo.cn/s/a/?cid=267111983	T. JOENA (New classin) online classroom	Teacher: 967****224	Leya (Sept Class)
-267112013	https://www.eeo.cn/s/a/?cid=267112013	学之道工作室	Teacher: 渊明老师	七年级语文秋季班（渊明老师）
-267112101	https://www.eeo.cn/s/a/?cid=267112101	思峰在线教育	Teacher: 152****3668	王老师的试听课（9.3）
 267112129	https://www.eeo.cn/s/a/?cid=267112129	黑博士教育	Teacher: 张利君	【25年春季】三（1）班 数学课
 267112131	https://www.eeo.cn/s/a/?cid=267112131	SpeakOut 畅说英语	Teacher: Faye	萱萱Demo课
 267112165	https://www.eeo.cn/s/a/?cid=267112165	rain uy online classroom	Teacher: 369****75	game
@@ -1198,3 +1192,9 @@
 267138815	https://www.eeo.cn/s/a/?cid=267138815	SAIRA.OBA online classroom	Teacher: 829****63	Angela 6
 267138817	https://www.eeo.cn/s/a/?cid=267138817	classb*****oton.me online classroom	Teacher: classb*****oton.me	September's Class
 267138819	https://www.eeo.cn/s/a/?cid=267138819	Teacher Ally- Cathy online classroom	Teacher: liammagallanes*****ail.c	Teacher Ally - David (Class)
+267138825	https://www.eeo.cn/s/a/?cid=267138825	浙江考神	Teacher: 贺少敏	试听课
+267138845	https://www.eeo.cn/s/a/?cid=267138845	少年志教育	Teacher: 张力文	【2024年秋季】大力1A课后辅导
+267138851	https://www.eeo.cn/s/a/?cid=267138851	江苏省苏州实验中学金山路校区	Teacher: 黄广翔	自强不息·13班·追求卓越
+267138853	https://www.eeo.cn/s/a/?cid=267138853	nap greggy services	Teacher: 917****883	Ellie English Class
+267138937	https://www.eeo.cn/s/a/?cid=267138937	少年志教育	Teacher: 张力文	【2024年秋季】大力1C课后辅导
+267139015	https://www.eeo.cn/s/a/?cid=267139015	乐橙	Teacher: 乐创易程	2028届1

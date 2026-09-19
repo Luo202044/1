@@ -1,8 +1,3 @@
-265902827	https://www.eeo.cn/s/a/?cid=265902827	Marydoll Canoy online classroom	Teacher: salinasmarydo*****ail.co	doll
-265902841	https://www.eeo.cn/s/a/?cid=265902841	Jane Marie-5 online classroom	Teacher: 951****991	Zebin 8.10
-265902863	https://www.eeo.cn/s/a/?cid=265902863	Teacher Dream online classroom	Teacher: gutierrezanjelic*****ail	Ben and Ken
-265902945	https://www.eeo.cn/s/a/?cid=265902945	Jane Marie-5 online classroom	Teacher: 951****991	Joanna 8.10
-265902959	https://www.eeo.cn/s/a/?cid=265902959	小刀的阅读空间	Teacher: 139****9364	Jack 1v1
 265902993	https://www.eeo.cn/s/a/?cid=265902993	Jane Marie 6 online classroom	Teacher: classco.teacherjanemar**	Bobi 8.10
 265903027	https://www.eeo.cn/s/a/?cid=265903027	Hải Nam online classroom	Teacher: 366****80	nhóm khịa vân
 265903063	https://www.eeo.cn/s/a/?cid=265903063	Teacher Carol / LUCY online classroom	Teacher: 949****928	SHASHA
@@ -841,7 +836,6 @@
 265977993	https://www.eeo.cn/s/a/?cid=265977993	emmanuel.martinez69***** online classroom	Teacher: emmanuel.martinez69*****	Purposive Communication BSAE 1J
 265978001	https://www.eeo.cn/s/a/?cid=265978001	Normie online classroom	Teacher: 985****334	welcome
 265978015	https://www.eeo.cn/s/a/?cid=265978015	苏州高新区第一中学	Teacher: 生物郑佳敏	高三6.8班资料群
-265978029	https://www.eeo.cn/s/a/?cid=265978029	Quynh Chi online classroom	Teacher: 394****38	chi
 265978065	https://www.eeo.cn/s/a/?cid=265978065	nguyenthingoc.lan21***** online classroom	Teacher: nguyenthingoc.lan21*****	english cô lan lop 1
 265978123	https://www.eeo.cn/s/a/?cid=265978123	XTM English Learning	Teacher: 623****88	XTM English Class(Kevin)
 265978129	https://www.eeo.cn/s/a/?cid=265978129	XTM English Learning	Teacher: 623****88	XTM English Class(Kai)
@@ -1198,3 +1192,9 @@
 265988039	https://www.eeo.cn/s/a/?cid=265988039	allexajay*****ail.com online classroom	Teacher: allexajay*****ail.com	ok
 265988051	https://www.eeo.cn/s/a/?cid=265988051	aubreyannmamvaje*****ail online classroom	Teacher: aubreyannmamvaje*****ail	teach jadi
 265988061	https://www.eeo.cn/s/a/?cid=265988061	Teacher LuSea online classroom	Teacher: ludisus*****hoo.com	Daisy 103 -1 My favorite flowers💐
+265988099	https://www.eeo.cn/s/a/?cid=265988099	Teacher Kiem online classroom	Teacher: kiemre*****ail.com	student jenny
+265988129	https://www.eeo.cn/s/a/?cid=265988129	Dana Ruiz | BSN 1F online classroom	Teacher: cdanaru*****ail.com	lll
+265988159	https://www.eeo.cn/s/a/?cid=265988159	Teacher Mike online classroom	Teacher: 628***32	Bella Class-Rocky
+265988193	https://www.eeo.cn/s/a/?cid=265988193	Teacher Dammy online classroom	Teacher: jayandamian11*****ail.co	Eyy
+265988231	https://www.eeo.cn/s/a/?cid=265988231	授课教室	Teacher: 134****3180	11
+265988241	https://www.eeo.cn/s/a/?cid=265988241	Sunny-TDhana online classroom	Teacher: sunnyteacherdha*****ail.	Sunny's class

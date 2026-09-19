@@ -1,7 +1,3 @@
-263891457	https://www.eeo.cn/s/a/?cid=263891457	理科1对1	Teacher: 英语-Coco老师	俊杰英语
-263891469	https://www.eeo.cn/s/a/?cid=263891469	frenmariemaasinlodovi*** online classroom	Teacher: frenmariemaasinlodovi***	Yanna
-263891471	https://www.eeo.cn/s/a/?cid=263891471	上海市南洋模范中学	Teacher: 余晓雅	生物等级3D3
-263891499	https://www.eeo.cn/s/a/?cid=263891499	化学研习	Teacher: 182****2735	复习
 263891511	https://www.eeo.cn/s/a/?cid=263891511	Natasa Golubovic	Teacher: 676***27	leo 17:30
 263891531	https://www.eeo.cn/s/a/?cid=263891531	Trường Long🫨 online classroom	Teacher: 984****35	lily
 263891553	https://www.eeo.cn/s/a/?cid=263891553	上海市南洋模范中学	Teacher: 刘艳丽	历史等级1D1
@@ -1198,3 +1194,7 @@
 263950667	https://www.eeo.cn/s/a/?cid=263950667	在线外教课	Teacher: 教务-王卓妮	0706 Trial G1A U2W1D2-1 体验课
 263950685	https://www.eeo.cn/s/a/?cid=263950685	吴县中学	Teacher: 侯方	高二1520
 263950753	https://www.eeo.cn/s/a/?cid=263950753	layuganjonna5*****ail.co online classroom	Teacher: layuganjonna5*****ail.co	Fiona's Class July 2024
+263950781	https://www.eeo.cn/s/a/?cid=263950781	0063-9750521612 online classroom	Teacher: 975****612	July Daisy
+263950791	https://www.eeo.cn/s/a/?cid=263950791	Teacher Aubrey online classroom	Teacher: jeebrey*****ail.com	James class 9:00 pm New
+263950813	https://www.eeo.cn/s/a/?cid=263950813	Teacher Yanina online classroom	Teacher: 631****48	D2 K
+263950863	https://www.eeo.cn/s/a/?cid=263950863	Etutor	Teacher: Etutor	Nam Khanh 020317 || Teacher Lyn

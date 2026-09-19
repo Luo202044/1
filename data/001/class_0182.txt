@@ -1,7 +1,3 @@
-263422823	https://www.eeo.cn/s/a/?cid=263422823	品学教育	Teacher: 赵欣	数学新四年级尖A面授暑1期C高新赵欣
-263422859	https://www.eeo.cn/s/a/?cid=263422859	franciscarloling*****ail online classroom	Teacher: franciscarloling*****ail	Teacher Carlo
-263422869	https://www.eeo.cn/s/a/?cid=263422869	Tracy online classroom	Teacher: tracysun19*****ail.com	老師群
-263422891	https://www.eeo.cn/s/a/?cid=263422891	0084-962562026 online classroom	Teacher: 962****26	Văn - Toán 8
 263422947	https://www.eeo.cn/s/a/?cid=263422947	CRANE CONCEPTS	Teacher: 323****542	LIN
 263423071	https://www.eeo.cn/s/a/?cid=263423071	好师教育	Teacher: 林翠银	24年高职高考线上暑假班数学
 263423107	https://www.eeo.cn/s/a/?cid=263423107	云课 Weekly Payment English	Teacher: Hazel	284 AMILY -T.. REM
@@ -1198,3 +1194,7 @@
 263480883	https://www.eeo.cn/s/a/?cid=263480883	清雅教育咨询（深圳）有限公司	Teacher: Helen	RE2 7.18-8.2 8:50-9:50am Benjamin
 263480887	https://www.eeo.cn/s/a/?cid=263480887	武汉市天天象上教育咨询有限公司	Teacher: 刘作明	2024暑·高三数学S·10:30
 263480911	https://www.eeo.cn/s/a/?cid=263480911	武汉市天天象上教育咨询有限公司	Teacher: 刘作明	2024暑·高三数学S·13:30
+263480923	https://www.eeo.cn/s/a/?cid=263480923	MIA online classroom	Teacher: 909****25	ENGLISH CLASS
+263480951	https://www.eeo.cn/s/a/?cid=263480951	941730666chau online classroom	Teacher: 941****66	4b
+263481021	https://www.eeo.cn/s/a/?cid=263481021	Rov online classroom	Teacher: 955****247	EE 06/28 FRI
+263481167	https://www.eeo.cn/s/a/?cid=263481167	博雅育学	Teacher: 崔老师	July-RL2-Vivien-1300

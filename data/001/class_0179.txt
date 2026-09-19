@@ -1,7 +1,3 @@
-263200667	https://www.eeo.cn/s/a/?cid=263200667	Vane国际备考	Teacher: 182****4008	yoyo备考
-263200671	https://www.eeo.cn/s/a/?cid=263200671	武汉市天天象上教育咨询有限公司	Teacher: 刘作明	2024暑·高一数学S·10:30
-263200693	https://www.eeo.cn/s/a/?cid=263200693	武汉市天天象上教育咨询有限公司	Teacher: 刘作明	2024暑·高一数学S·13:30
-263200715	https://www.eeo.cn/s/a/?cid=263200715	Elena online classroom	Teacher: 992****058	ANDREWs Class 11AM Sunday
 263200731	https://www.eeo.cn/s/a/?cid=263200731	武汉市天天象上教育咨询有限公司	Teacher: 刘作明	2024暑·高一数学S+·16:00
 263200757	https://www.eeo.cn/s/a/?cid=263200757	拾贝趣教育科技（广州）有限公司	Teacher: 139****6331	Spell Lesson13
 263200765	https://www.eeo.cn/s/a/?cid=263200765	Teacher Glydel online classroom	Teacher: barcil.glydelm*****ail.c	Chole's Class / September
@@ -1198,3 +1194,7 @@
 263294219	https://www.eeo.cn/s/a/?cid=263294219	汉语课堂	Teacher: 182****8900	流汉语课堂
 263294231	https://www.eeo.cn/s/a/?cid=263294231	Loh Yi Wei online classroom	Teacher: 167****46	DONT TALK TO ME [I AM VERY ANGRY]
 263294257	https://www.eeo.cn/s/a/?cid=263294257	TAN HONG JAY	Teacher: 176****26	liangyee fangpi dapian
+263294259	https://www.eeo.cn/s/a/?cid=263294259	Teacher Christine online classroom	Teacher: 657****098	Qing Qing (Demo)
+263294279	https://www.eeo.cn/s/a/?cid=263294279	London Dreamer Workshop	Teacher: 185****7246	George-Fran Lesson
+263294503	https://www.eeo.cn/s/a/?cid=263294503	Hoàng Yến Nhi online classroom	Teacher: 352****51	Ronaldo
+263294505	https://www.eeo.cn/s/a/?cid=263294505	Katherine online classroom	Teacher: raagasarnold0*****ail.co	23rd

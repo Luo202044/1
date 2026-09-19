@@ -1,7 +1,3 @@
-263620709	https://www.eeo.cn/s/a/?cid=263620709	TGTG online classroom	Teacher: graceejiofor7*****ail.co	Sharon
-263620727	https://www.eeo.cn/s/a/?cid=263620727	Miya	Teacher: Miya	丁丁
-263620773	https://www.eeo.cn/s/a/?cid=263620773	沈家班书法	Teacher: 小文老师	小文老师暑期24一升二16:00
-263620775	https://www.eeo.cn/s/a/?cid=263620775	Nena online classroom	Teacher: 677****88	David: 238th and 239th classes
 263620805	https://www.eeo.cn/s/a/?cid=263620805	buihoangvan*****ail.com online classroom	Teacher: buihoangvan*****ail.com	Demo Class Babilala
 263620827	https://www.eeo.cn/s/a/?cid=263620827	Teacher ChellyM	Teacher: 966****486	Yangyang / Teacher Sam (July)
 263620881	https://www.eeo.cn/s/a/?cid=263620881	沈家班书法	Teacher: 小文老师	小文老师暑期24一升二18:30
@@ -1198,3 +1194,7 @@
 263669737	https://www.eeo.cn/s/a/?cid=263669737	Rosy online classroom	Teacher: 960****434	Lesson 1.31 -Hoke
 263669765	https://www.eeo.cn/s/a/?cid=263669765	ReaL ABC	Teacher: Real ABC 课程顾问	Brian5 & Winona
 263669857	https://www.eeo.cn/s/a/?cid=263669857	Castle Grey School	Teacher: 858****8641	LuYang Speaking lessons
+263669921	https://www.eeo.cn/s/a/?cid=263669921	T. Ivy online classroom	Teacher: 963****242	Lily
+263669945	https://www.eeo.cn/s/a/?cid=263669945	JESY 'S STUDIO	Teacher: 173****9908	11
+263669951	https://www.eeo.cn/s/a/?cid=263669951	英语外教口语学习课堂	Teacher: tony	Bonnie Class
+263669965	https://www.eeo.cn/s/a/?cid=263669965	YW	Teacher: 穆老师	2024暑假新七数学理科班

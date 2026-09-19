@@ -1,12 +1,3 @@
-268391741	https://www.eeo.cn/s/a/?cid=268391741	Cherry	Teacher: 156****8259	楼芷涵 IB 中文A 语言文学
-268391747	https://www.eeo.cn/s/a/?cid=268391747	Jane Marie online classroom	Teacher: 916****547	Josephine 9.27
-268391753	https://www.eeo.cn/s/a/?cid=268391753	976****29 online classroom	Teacher: 976****29	classin - trần thanh thúy
-268391761	https://www.eeo.cn/s/a/?cid=268391761	Jazzy's English Learning Tutorials	Teacher: 956****210	Joyann Fri 21:00 Sat 20:00 Sun 9:30
-268391779	https://www.eeo.cn/s/a/?cid=268391779	Beenglish	Teacher: Neno	du
-268391781	https://www.eeo.cn/s/a/?cid=268391781	Annie online classroom	Teacher: lootsannie0*****ail.com	andria
-268391821	https://www.eeo.cn/s/a/?cid=268391821	Lê Nguyễn Khánh Linh online classroom	Teacher: 395****52	lớp vô tri
-268391825	https://www.eeo.cn/s/a/?cid=268391825	English Online Classroom	Teacher: 946****973	Cheney's Class
-268391831	https://www.eeo.cn/s/a/?cid=268391831	pinkish.godde*****ail.co online classroom	Teacher: pinkish.godde*****ail.co	trial class
 268391893	https://www.eeo.cn/s/a/?cid=268391893	English Online Classroom	Teacher: 946****973	Ayla's Class
 268391941	https://www.eeo.cn/s/a/?cid=268391941	Duy đạt online classroom	Teacher: 978****95	unknown
 268391947	https://www.eeo.cn/s/a/?cid=268391947	ánh dương online classroom	Teacher: 344****26	class
@@ -1198,3 +1189,12 @@
 268429873	https://www.eeo.cn/s/a/?cid=268429873	LET'S GO ENGLISH	Teacher: hannahdelacruz26*****ail	LUNA AND ELLA
 268429947	https://www.eeo.cn/s/a/?cid=268429947	PANG 6 online classroom	Teacher: 965****189	LINZY1
 268430067	https://www.eeo.cn/s/a/?cid=268430067	冒芽儿英语	Teacher: Avery	24秋-方贝匀补课
+268430135	https://www.eeo.cn/s/a/?cid=268430135	PANG 6 online classroom	Teacher: 965****189	Anna1
+268430275	https://www.eeo.cn/s/a/?cid=268430275	Calib online classroom	Teacher: rawlinsoncalib*****ail.c	Test Classroom
+268430283	https://www.eeo.cn/s/a/?cid=268430283	0063-9159639556 online classroom	Teacher: 915****556	Sophia's Class
+268430327	https://www.eeo.cn/s/a/?cid=268430327	oliverkingwilltheseco*** online classroom	Teacher: oliverkingwilltheseco***	rain jo
+268430331	https://www.eeo.cn/s/a/?cid=268430331	欧美外教课	Teacher: 180****6612	nemo with hilda
+268430415	https://www.eeo.cn/s/a/?cid=268430415	Teacher Gizelle online classroom	Teacher: 927****724	sandy
+268430489	https://www.eeo.cn/s/a/?cid=268430489	Cristine Bell online classroom	Teacher: 938****583	September 27, 2024 with Eva
+268430509	https://www.eeo.cn/s/a/?cid=268430509	在线外教课	Teacher: 教务-王卓妮	0928 Trial Prek L9-2 体验课
+268430619	https://www.eeo.cn/s/a/?cid=268430619	Teacher Jan online classroom	Teacher: 994****921	trial

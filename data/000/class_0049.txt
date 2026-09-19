@@ -1,5 +1,3 @@
-255353543	https://www.eeo.cn/s/a/?cid=255353543	一对一专业辅导	Teacher: 科学周老师	n677 范雨欣
-255353549	https://www.eeo.cn/s/a/?cid=255353549	麦老师英语工作室	Teacher: 麦老师Mickey	Mickey寒假二期PET Lesson3
 255353621	https://www.eeo.cn/s/a/?cid=255353621	前海大新校区	Teacher: 李锐	李锐化学2B-2.3
 255353623	https://www.eeo.cn/s/a/?cid=255353623	在线素质课堂	Teacher: 翟秀玉 Krystal	薛淏元1V1
 255353677	https://www.eeo.cn/s/a/?cid=255353677	麦老师英语工作室	Teacher: 麦老师Mickey	Mickey寒假二期KET Lesson2
@@ -1198,3 +1196,5 @@
 255424019	https://www.eeo.cn/s/a/?cid=255424019	新马全杭教育	Teacher: 徐萍	高三语文全托生2班 2:30-高峰老师
 255424051	https://www.eeo.cn/s/a/?cid=255424051	Teacher Alvin online classroom	Teacher: piyike26*****bene.com	SURI
 255424101	https://www.eeo.cn/s/a/?cid=255424101	Takhmina online classroom	Teacher: navruzkulov*****ail.com	Lesson 5
+255424169	https://www.eeo.cn/s/a/?cid=255424169	壹心教育	Teacher: 林娜	林娜-寒假一年级数学
+255424205	https://www.eeo.cn/s/a/?cid=255424205	陆伟佳	Teacher: lwj	詹老师 & ClassIn

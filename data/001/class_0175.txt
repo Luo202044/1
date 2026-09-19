@@ -1,7 +1,3 @@
-262947721	https://www.eeo.cn/s/a/?cid=262947721	Teacher saisai online classroom	Teacher: 995****701	Demo Class
-262947773	https://www.eeo.cn/s/a/?cid=262947773	smart talk	Teacher: gv.katri*****cmai.edu.vn	LIWEN
-262947777	https://www.eeo.cn/s/a/?cid=262947777	果果艺术2	Teacher: 曹赛	2024新高一暑期7点50分
-262947791	https://www.eeo.cn/s/a/?cid=262947791	0084-344948368 online classroom	Teacher: 344****68	lớp demo
 262947871	https://www.eeo.cn/s/a/?cid=262947871	E-Creative Education	Teacher: MR ANSOND	2024 SPM FC SEJ
 262947875	https://www.eeo.cn/s/a/?cid=262947875	思悦	Teacher: Amanda.fang	暑SY-【G7菁英】 7.15-7.25-Amanda-14:50
 262947885	https://www.eeo.cn/s/a/?cid=262947885	思悦	Teacher: Angel.yan	暑SY-【4S】-7.15-7.25-Angel
@@ -1198,3 +1194,7 @@
 262996239	https://www.eeo.cn/s/a/?cid=262996239	Paula Restauro online classroom	Teacher: 923****532	Math Teacher Pool
 262996251	https://www.eeo.cn/s/a/?cid=262996251	复福学院	Teacher: 班主任	24暑-C100BMA-三五七18:40
 262996261	https://www.eeo.cn/s/a/?cid=262996261	Radz online classroom	Teacher: 682****38	Benjamin 2
+262996279	https://www.eeo.cn/s/a/?cid=262996279	Mei online classroom	Teacher: newkmrl20*****ail.com	Mei
+262996321	https://www.eeo.cn/s/a/?cid=262996321	朗菲文化艺术	Teacher: 柳正阳	三级班
+262996453	https://www.eeo.cn/s/a/?cid=262996453	Teacher Jie online classroom	Teacher: 985****657	Sarah
+262996463	https://www.eeo.cn/s/a/?cid=262996463	复福学院	Teacher: 班主任	24暑-C202BMA-二四六18:40

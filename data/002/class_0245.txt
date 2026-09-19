@@ -1,9 +1,3 @@
-267217435	https://www.eeo.cn/s/a/?cid=267217435	乐乐课堂私房课	Teacher: 138****7741	测试课
-267217479	https://www.eeo.cn/s/a/?cid=267217479	思峰在线教育	Teacher: 152****3668	7节正式课（羽琳老师）
-267217487	https://www.eeo.cn/s/a/?cid=267217487	littlemandarin.hk	Teacher: 965***02	普通話基礎班星期五課 @8:00p.m. (羅兆臻)
-267217579	https://www.eeo.cn/s/a/?cid=267217579	maryjojamon2*****ail.com online classroom	Teacher: maryjojamon2*****ail.com	VAN
-267217593	https://www.eeo.cn/s/a/?cid=267217593	阳光酷编机器人·编程	Teacher: 李娜	李娜语文第一节课-谈固
-267217609	https://www.eeo.cn/s/a/?cid=267217609	MICHELLE IDO online classroom	Teacher: michelleido*****ail.com	vghntfgng
 267217611	https://www.eeo.cn/s/a/?cid=267217611	云课 Weekly Payment English	Teacher: Hazel	326 EASONT-T.PAM
 267217675	https://www.eeo.cn/s/a/?cid=267217675	超尘教育	Teacher: 冯奎元	超尘五年级精英班周天10：10-12：10
 267217781	https://www.eeo.cn/s/a/?cid=267217781	清华大学附属中学	Teacher: 范永春	G
@@ -1198,3 +1192,9 @@
 267245661	https://www.eeo.cn/s/a/?cid=267245661	橙哲学堂	Teacher: 183****2185	7A-math
 267245683	https://www.eeo.cn/s/a/?cid=267245683	eagle english	Teacher: melisarollon4*****ail.co	group 6
 267245697	https://www.eeo.cn/s/a/?cid=267245697	高途·北京学部	Teacher: 张佳兴	高途|高二英语BJ|线上12:30
+267245701	https://www.eeo.cn/s/a/?cid=267245701	橙哲学堂	Teacher: 183****2185	8C-math
+267245713	https://www.eeo.cn/s/a/?cid=267245713	Anita online classroom	Teacher: rositabahra*****hoo.com	speaking
+267245719	https://www.eeo.cn/s/a/?cid=267245719	Pingu family	Teacher: Josh	Mia Class (New)
+267245747	https://www.eeo.cn/s/a/?cid=267245747	小昝教育	Teacher: 155****8873	高二物理秋周五晚8中山
+267245827	https://www.eeo.cn/s/a/?cid=267245827	anne online classroom	Teacher: piusogend*****ail.com	ALAS
+267245861	https://www.eeo.cn/s/a/?cid=267245861	平行线学堂	Teacher: 159****5626	24秋周日八年下午13:20（9月8日）

@@ -1,5 +1,3 @@
-257481761	https://www.eeo.cn/s/a/?cid=257481761	Teacher Jho online classroom	Teacher: 948****798	lyrizza
-257481817	https://www.eeo.cn/s/a/?cid=257481817	Teacher Gloria online classroom	Teacher: 254****236	Lucky's class 5 ,6/15
 257481939	https://www.eeo.cn/s/a/?cid=257481939	Mienglish	Teacher: Mike	Mecheerful-Blu
 257481985	https://www.eeo.cn/s/a/?cid=257481985	Teacher Mhean online classroom	Teacher: 955****038	DORA'S Classroom
 257482001	https://www.eeo.cn/s/a/?cid=257482001	海外同步课程辅导平台	Teacher: Jackleen	赖莞蒨-面试辅导
@@ -1198,3 +1196,5 @@
 257544761	https://www.eeo.cn/s/a/?cid=257544761	学达线上教育	Teacher: MS SERNEE -SGL	F2 SEJ 多补班 Ms Sernee
 257544781	https://www.eeo.cn/s/a/?cid=257544781	施 玥祺 online classroom	Teacher: 665****05	疯狂动物城
 257544789	https://www.eeo.cn/s/a/?cid=257544789	My My online classroom	Teacher: ttkm7*****ail.com	TEST
+257544803	https://www.eeo.cn/s/a/?cid=257544803	aruenglishclass*****ail. online classroom	Teacher: aruenglishclass*****ail.	Aru - ANNIE'S CLASS 2
+257544809	https://www.eeo.cn/s/a/?cid=257544809	MINDEX 智引	Teacher: MSB	1v1 June

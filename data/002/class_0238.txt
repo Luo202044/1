@@ -1,9 +1,3 @@
-266890555	https://www.eeo.cn/s/a/?cid=266890555	Galaxy	Teacher: 孙妍	梨涡老师
-266890603	https://www.eeo.cn/s/a/?cid=266890603	Teacher Chenie's English Class	Teacher: 967****117	Queen CN
-266890605	https://www.eeo.cn/s/a/?cid=266890605	Teacher Mart online classroom	Teacher: pogoyjub*****ail.com	LAUREL
-266890655	https://www.eeo.cn/s/a/?cid=266890655	QiBao	Teacher: Michelle	LESSON 1 - DEMO
-266890689	https://www.eeo.cn/s/a/?cid=266890689	Teacher Lea online classroom	Teacher: leaduplessis*****ail.com	Teacher Lea Demo Class
-266890691	https://www.eeo.cn/s/a/?cid=266890691	bzd93ocq*****pressletter online classroom	Teacher: bzd93ocq*****pressletter	Harris
 266890707	https://www.eeo.cn/s/a/?cid=266890707	Marcella online classroom	Teacher: 157****9239	Eric's Class
 266890713	https://www.eeo.cn/s/a/?cid=266890713	Teacher Gen online classroom	Teacher: 956****562	Sunny
 266890819	https://www.eeo.cn/s/a/?cid=266890819	Teacher Cris online classroom	Teacher: philipjohnembo*****ail.c	jack
@@ -1198,3 +1192,9 @@
 266928193	https://www.eeo.cn/s/a/?cid=266928193	Courtney Leyretana online classroom	Teacher: courtney1124*****ail.com	GRP 5 RESEARCH
 266928235	https://www.eeo.cn/s/a/?cid=266928235	Teacher Raya online classroom	Teacher: patriauriahda*****ail.co	Demo
 266928247	https://www.eeo.cn/s/a/?cid=266928247	chrismariteaching*****ai online classroom	Teacher: 749****12	Chris-Mari Training Class
+266928251	https://www.eeo.cn/s/a/?cid=266928251	03princeju*****ail.com online classroom	Teacher: 03princeju*****ail.com	scarlet
+266928301	https://www.eeo.cn/s/a/?cid=266928301	Teacher Cris online classroom	Teacher: philipjohnembo*****ail.c	robin
+266928307	https://www.eeo.cn/s/a/?cid=266928307	Jen online classroom	Teacher: 961****831	无
+266928319	https://www.eeo.cn/s/a/?cid=266928319	Teacher Ally online classroom	Teacher: 790****034	Seven - September 24
+266928329	https://www.eeo.cn/s/a/?cid=266928329	Roshille	Teacher: 918****359	Jayson
+266928337	https://www.eeo.cn/s/a/?cid=266928337	Teacher Steve online classroom	Teacher: 642****25	Teacher Steve's trial class

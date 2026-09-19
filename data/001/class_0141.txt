@@ -1,6 +1,3 @@
-260764381	https://www.eeo.cn/s/a/?cid=260764381	Amorie online classroom	Teacher: amorieleroux*****ail.com	Amorie's Class
-260764389	https://www.eeo.cn/s/a/?cid=260764389	Vuk30 online classroom	Teacher: 686***73	Teacher Jhonny
-260764507	https://www.eeo.cn/s/a/?cid=260764507	Soné online classroom	Teacher: 766****90	Tracy-Soné
 260764551	https://www.eeo.cn/s/a/?cid=260764551	Việt Anh online classroom	Teacher: vietanhhp*****ail.com	hgasf
 260764601	https://www.eeo.cn/s/a/?cid=260764601	春苗	Teacher: Eva老师7.3充值100	M的西语一对一教室
 260764605	https://www.eeo.cn/s/a/?cid=260764605	小雨滴物理	Teacher: 130****5749	八年级下物理冲刺课程规划
@@ -1198,3 +1195,6 @@
 260824319	https://www.eeo.cn/s/a/?cid=260824319	Teacher Kim online classroom	Teacher: 936****603	ethan
 260824423	https://www.eeo.cn/s/a/?cid=260824423	学方	Teacher: 陆陆老师	初三道法暑期名师预习2班（12人）
 260824463	https://www.eeo.cn/s/a/?cid=260824463	伊顿英语 Eton English	Teacher: 刘立梅Amber	CPC2301-GMF1-Fiji
+260824467	https://www.eeo.cn/s/a/?cid=260824467	高途·北京学部	Teacher: 李宇	高途丨勘梦禹数学一对一课程
+260824743	https://www.eeo.cn/s/a/?cid=260824743	Awesome English	Teacher: Awesome English	Ray-Kidsbox-KB3-Speaking Skill
+260824803	https://www.eeo.cn/s/a/?cid=260824803	s.molejon.maryrho*****u. online classroom	Teacher: s.molejon.maryrho*****u.	CLASS DEMO

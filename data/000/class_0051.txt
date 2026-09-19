@@ -1,5 +1,3 @@
-255483741	https://www.eeo.cn/s/a/?cid=255483741	U.Genius Studio	Teacher: 관리자Jenn	Thurs21:15/Abena/VBL.WW5#1-10
-255483755	https://www.eeo.cn/s/a/?cid=255483755	Private	Teacher: 975****135	John
 255483931	https://www.eeo.cn/s/a/?cid=255483931	ESL	Teacher: 995****110	Xigua Lesson 53
 255483963	https://www.eeo.cn/s/a/?cid=255483963	ESL	Teacher: 995****110	Eric Lesson 46 2-6-6
 255483969	https://www.eeo.cn/s/a/?cid=255483969	Sam online classroom	Teacher: 493****76	Star
@@ -1198,3 +1196,5 @@
 255549395	https://www.eeo.cn/s/a/?cid=255549395	6-1 Lee Ji You (David) online classroom	Teacher: moses001100*****ail.com	나
 255549401	https://www.eeo.cn/s/a/?cid=255549401	Tina online classroom	Teacher: 979****54	Jerry’s Class
 255549485	https://www.eeo.cn/s/a/?cid=255549485	MariaLon	Teacher: 927****388	Mike's classroom
+255549557	https://www.eeo.cn/s/a/?cid=255549557	Matthew Kleynhans online classroom	Teacher: 786****16	ABC
+255549561	https://www.eeo.cn/s/a/?cid=255549561	Bryan Balitcha online classroom	Teacher: 977****665	Bryan Balitcha

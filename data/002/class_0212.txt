@@ -1,8 +1,3 @@
-265328273	https://www.eeo.cn/s/a/?cid=265328273	Carlin Raath online classroom	Teacher: 635****23	3333
-265328283	https://www.eeo.cn/s/a/?cid=265328283	黄老师英语教室	Teacher: 刘庆	刘老师数学二期1540
-265328349	https://www.eeo.cn/s/a/?cid=265328349	Teacher Margie online classroom	Teacher: 950****795	idab dana
-265328369	https://www.eeo.cn/s/a/?cid=265328369	Teacher Xenia online classroom	Teacher: xenia.sp*****ail.com	YOYO'S CLASS
-265328371	https://www.eeo.cn/s/a/?cid=265328371	Teacher Lizz online classroom	Teacher: lpansegrou*****ail.com	Eileen
 265328387	https://www.eeo.cn/s/a/?cid=265328387	Teacher Margie online classroom	Teacher: 950****795	laoshi dana
 265328455	https://www.eeo.cn/s/a/?cid=265328455	精品拓展	Teacher: Nahla	Maggie
 265328477	https://www.eeo.cn/s/a/?cid=265328477	ruoxinli401315*****loud. online classroom	Teacher: ruoxinli401315*****loud.	chemistryruoxinlesson
@@ -1198,3 +1193,8 @@
 265373061	https://www.eeo.cn/s/a/?cid=265373061	0063-9516517802 online classroom	Teacher: 951****802	Mike's Classroom
 265373105	https://www.eeo.cn/s/a/?cid=265373105	Haney online classroom	Teacher: 915****154	Mike's Classroom
 265373111	https://www.eeo.cn/s/a/?cid=265373111	Sally online classroom	Teacher: danolisall*****ail.com	Lingostar Demo_Sally Dudang
+265373135	https://www.eeo.cn/s/a/?cid=265373135	Haney online classroom	Teacher: 915****154	Nicole's Class
+265373165	https://www.eeo.cn/s/a/?cid=265373165	T.Kyoko -SUNDAY online classroom	Teacher: tamayokm*****ail.com	Tim's English Class - July
+265373301	https://www.eeo.cn/s/a/?cid=265373301	hel*****oopedu.com online classroom	Teacher: hel*****oopedu.com	Study Skills
+265373321	https://www.eeo.cn/s/a/?cid=265373321	新舟教育	Teacher: JZ-历史李老师	YS2024夏梁宸物理起航零基础班线上L8-1班
+265373323	https://www.eeo.cn/s/a/?cid=265373323	Teacher Ana online classroom	Teacher: 931****296	Pineare Cambridge Lesson 10

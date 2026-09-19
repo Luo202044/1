@@ -1,7 +1,3 @@
-263833297	https://www.eeo.cn/s/a/?cid=263833297	infinite learning wonderland	Teacher: Florence	Classin Training July 3rd 16:30-17:15
-263833323	https://www.eeo.cn/s/a/?cid=263833323	infinite learning wonderland	Teacher: Florence	Classin Training 17:30-18:15
-263833359	https://www.eeo.cn/s/a/?cid=263833359	壹心教育	Teacher: 姜艳芳	【姜艳芳-二期08:00】七升八英语A+班-中南
-263833365	https://www.eeo.cn/s/a/?cid=263833365	0063-9302945422 online classroom	Teacher: 930****422	DUOMI
 263833387	https://www.eeo.cn/s/a/?cid=263833387	Teacher Ema online classroom	Teacher: emalyn1979*****ail.com	Maam Vanissa tonight
 263833491	https://www.eeo.cn/s/a/?cid=263833491	壹心教育	Teacher: 李积明	【李积明-二期10:10】七升八语文班-中南
 263833493	https://www.eeo.cn/s/a/?cid=263833493	大连兆众教育信息咨询有限公司	Teacher: 陈东毅	兆众教育2024暑假初二数学五班
@@ -1198,3 +1194,7 @@
 263891345	https://www.eeo.cn/s/a/?cid=263891345	上海市南洋模范中学	Teacher: 安梅	生物等级2D2
 263891349	https://www.eeo.cn/s/a/?cid=263891349	Natasa Golubovic	Teacher: 676***27	jill dora 17:00
 263891385	https://www.eeo.cn/s/a/?cid=263891385	lordankatrina*****ail.co online classroom	Teacher: lordankatrina*****ail.co	trial demo
+263891457	https://www.eeo.cn/s/a/?cid=263891457	理科1对1	Teacher: 英语-Coco老师	俊杰英语
+263891469	https://www.eeo.cn/s/a/?cid=263891469	frenmariemaasinlodovi*** online classroom	Teacher: frenmariemaasinlodovi***	Yanna
+263891471	https://www.eeo.cn/s/a/?cid=263891471	上海市南洋模范中学	Teacher: 余晓雅	生物等级3D3
+263891499	https://www.eeo.cn/s/a/?cid=263891499	化学研习	Teacher: 182****2735	复习

@@ -1,8 +1,3 @@
-265803571	https://www.eeo.cn/s/a/?cid=265803571	Teacher Dorotea online classroom	Teacher: emergencysavema*****ail.	Sample Room
-265803601	https://www.eeo.cn/s/a/?cid=265803601	Kath online classroom	Teacher: 992****907	43rd ENTER HERE
-265803645	https://www.eeo.cn/s/a/?cid=265803645	Teacher Richard	Teacher: 779****576	Roy 7.8.24
-265803683	https://www.eeo.cn/s/a/?cid=265803683	Teacher Tyra online classroom	Teacher: 946****147	Justin&Rebecca
-265803719	https://www.eeo.cn/s/a/?cid=265803719	Teacher Richard	Teacher: 779****576	Cici 7.8.24
 265803739	https://www.eeo.cn/s/a/?cid=265803739	mikedanielmend*****ail.c online classroom	Teacher: mikedanielmend*****ail.c	Practice Demo for Edge
 265803773	https://www.eeo.cn/s/a/?cid=265803773	@ngọc như🧚‍♀️ online classroom	Teacher: nguyenthihongduyen*****a	chúng ta là bạn
 265803837	https://www.eeo.cn/s/a/?cid=265803837	cloud-star	Teacher: Teacher Cris	Rocky
@@ -1198,3 +1193,8 @@
 265848111	https://www.eeo.cn/s/a/?cid=265848111	Jess online classroom	Teacher: 993****827	Class with Bowen5cd 18:00-18:30 Aug 8,24
 265848145	https://www.eeo.cn/s/a/?cid=265848145	Lương Bá Dũng online classroom	Teacher: 794****39	Hóa hủ cơ K30.r
 265848149	https://www.eeo.cn/s/a/?cid=265848149	Jess online classroom	Teacher: 993****827	Class with Ken10WH 19:00 Aug 8, 24
+265848179	https://www.eeo.cn/s/a/?cid=265848179	Hà Chi online classroom	Teacher: buihachi4*****ail.com	Hachi
+265848195	https://www.eeo.cn/s/a/?cid=265848195	Jess online classroom	Teacher: 993****827	Class with Amy6HZ 19:30 Aug 8, 24
+265848211	https://www.eeo.cn/s/a/?cid=265848211	Lê Huy Đạt online classroom	Teacher: 977****99	code nói chuyện
+265848231	https://www.eeo.cn/s/a/?cid=265848231	Jess online classroom	Teacher: 993****827	Class with Howard7hz 20:00 Aug 8, 24
+265848273	https://www.eeo.cn/s/a/?cid=265848273	Jess online classroom	Teacher: 993****827	Class with Nice&Jiayu 20:30 Aug 8,24

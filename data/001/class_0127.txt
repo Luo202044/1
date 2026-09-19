@@ -1,6 +1,3 @@
-259959023	https://www.eeo.cn/s/a/?cid=259959023	Teacher Swan	Teacher: 136****1204	SW
-259959067	https://www.eeo.cn/s/a/?cid=259959067	Academy	Teacher: 【星文】韩老师	【翰文】黄靖羲CAIE- IG PHY
-259959087	https://www.eeo.cn/s/a/?cid=259959087	ESM	Teacher: 967****392	Shirley
 259959313	https://www.eeo.cn/s/a/?cid=259959313	Chris online classroom	Teacher: 163***21	coco
 259959337	https://www.eeo.cn/s/a/?cid=259959337	kk手作	Teacher: 李姣	TIAOSHI
 259959397	https://www.eeo.cn/s/a/?cid=259959397	Etutor	Teacher: Etutor	Ms Thu Thao 061093 - Teacher Ann
@@ -1198,3 +1195,6 @@
 260018491	https://www.eeo.cn/s/a/?cid=260018491	ABCDE	Teacher: Ma.Ceferina H. Wenceslao	ROSALIE
 260018511	https://www.eeo.cn/s/a/?cid=260018511	Fullmark Edu	Teacher: 185****8363	统计课（134）
 260018535	https://www.eeo.cn/s/a/?cid=260018535	如有特殊情况请联系学管老师	Teacher: NONO老师	月月-实证型论文-William
+260018575	https://www.eeo.cn/s/a/?cid=260018575	Mark online classroom	Teacher: 948****379	Happy Talk- Ayesha Future English
+260018647	https://www.eeo.cn/s/a/?cid=260018647	学方	Teacher: 京京老师	2024年8月KET备考目标-Diva老师1班
+260018731	https://www.eeo.cn/s/a/?cid=260018731	TSD Inc.	Teacher: Technical Solutions	test land

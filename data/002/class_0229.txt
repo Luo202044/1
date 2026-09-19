@@ -1,9 +1,3 @@
-266335219	https://www.eeo.cn/s/a/?cid=266335219	Rena_C online classroom	Teacher: 975****327	Teacher Rena-Cindy
-266335237	https://www.eeo.cn/s/a/?cid=266335237	Rebecca	Teacher: 981****514	AMBERRR
-266335271	https://www.eeo.cn/s/a/?cid=266335271	Delwyn online classroom	Teacher: delwynjones*****ail.com	Sofia 2
-266335289	https://www.eeo.cn/s/a/?cid=266335289	vivajazel*****ail.com online classroom	Teacher: vivajazel*****ail.com	NEW
-266335291	https://www.eeo.cn/s/a/?cid=266335291	随风飘动	Teacher: 李老师	楚倪【李老师】
-266335305	https://www.eeo.cn/s/a/?cid=266335305	Rena_C online classroom	Teacher: 975****327	Teacher Rena-Richard
 266335321	https://www.eeo.cn/s/a/?cid=266335321	Jane Marie 6 online classroom	Teacher: classco.teacherjanemar**	Bella 8.19
 266335445	https://www.eeo.cn/s/a/?cid=266335445	vhynemoreno12*****ail.co online classroom	Teacher: vhynemoreno12*****ail.co	William
 266335501	https://www.eeo.cn/s/a/?cid=266335501	Ma. Lourdes N. Conag online classroom	Teacher: mardes07*****ail.com	practice
@@ -1198,3 +1192,9 @@
 266409733	https://www.eeo.cn/s/a/?cid=266409733	Teacher Jayne online classroom	Teacher: 956****712	RYAN
 266409757	https://www.eeo.cn/s/a/?cid=266409757	Jane Marie-5 online classroom	Teacher: 951****991	Emily 8.20
 266409761	https://www.eeo.cn/s/a/?cid=266409761	nguyenducmanh2005*****ai online classroom	Teacher: nguyenducmanh2005*****ai	test
+266409807	https://www.eeo.cn/s/a/?cid=266409807	Anna C. online classroom	Teacher: joanne_llam*****hoo.com	Sophia's Free Class (4)
+266409831	https://www.eeo.cn/s/a/?cid=266409831	jaereen online classroom	Teacher: jaereenoddette*****ail.c	jaereen
+266409877	https://www.eeo.cn/s/a/?cid=266409877	pattyherrera0*****ail.co online classroom	Teacher: pattyherrera0*****ail.co	adi
+266409905	https://www.eeo.cn/s/a/?cid=266409905	Chinese Language Institute Middle East	Teacher: Clime Online Admin	HSK-P74
+266409931	https://www.eeo.cn/s/a/?cid=266409931	Marcus Chiang Mai	Teacher: 620****29	ChengCheng August 19th
+266409947	https://www.eeo.cn/s/a/?cid=266409947	Anna C. online classroom	Teacher: joanne_llam*****hoo.com	Linda's Free Class (5)

@@ -1,9 +1,3 @@
-266967919	https://www.eeo.cn/s/a/?cid=266967919	凯狮 Lincus	Teacher: JESSIE	LAWY-G1H-Jessie
-266967927	https://www.eeo.cn/s/a/?cid=266967927	树人元宇宙教育咨询有限公司	Teacher: 芒果	Emma上海(周一18:50-19:50)
-266967961	https://www.eeo.cn/s/a/?cid=266967961	Alexey_Petrovich online classroom	Teacher: 19alexpanch*****mbler.ru	Pokrov_Test
-266967971	https://www.eeo.cn/s/a/?cid=266967971	Alexey_Petrovich online classroom	Teacher: 19alexpanch*****mbler.ru	OLGA
-266967977	https://www.eeo.cn/s/a/?cid=266967977	刘冰老师 online classroom	Teacher: 423****94	刘冰老师雅思小作文--线图
-266968029	https://www.eeo.cn/s/a/?cid=266968029	Teacher GG online classroom	Teacher: 915****454	HappyLove 💝💖💜
 266968035	https://www.eeo.cn/s/a/?cid=266968035	Sea world speaking	Teacher: sky	Evan's class
 266968037	https://www.eeo.cn/s/a/?cid=266968037	凯狮 Lincus	Teacher: JESSIE	LAWY-GSW-Jessie
 266968063	https://www.eeo.cn/s/a/?cid=266968063	akka	Teacher: 955****754	Teacher Elsie
@@ -1198,3 +1192,9 @@
 267051753	https://www.eeo.cn/s/a/?cid=267051753	J'S LEARNING CO.	Teacher: 939****612	ASH
 267051759	https://www.eeo.cn/s/a/?cid=267051759	Teacher Yannie online classroom	Teacher: sbongbon*****ail.com	Miya's classroom
 267051763	https://www.eeo.cn/s/a/?cid=267051763	Calandra-MariaElisa online classroom	Teacher: 991****480	无
+267051787	https://www.eeo.cn/s/a/?cid=267051787	Alex T	Teacher: 976****982	Amber
+267051799	https://www.eeo.cn/s/a/?cid=267051799	Teacher Han	Teacher: espantoass*****ail.com	MUCHEN's Classroom
+267051827	https://www.eeo.cn/s/a/?cid=267051827	Maria-Calandra-Bubu online classroom	Teacher: lizadaddyvi*****ail.com	Alice's September 2024 Classroom
+267051847	https://www.eeo.cn/s/a/?cid=267051847	北外同文留学预科	Teacher: 董琦	无
+267051863	https://www.eeo.cn/s/a/?cid=267051863	Mike online classroom	Teacher: 779***00	KHACHATUR
+267051867	https://www.eeo.cn/s/a/?cid=267051867	Teacher Jhona online classroom	Teacher: 963****835	Fang Yu 8 ( Teacher Tin )

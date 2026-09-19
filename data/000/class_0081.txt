@@ -1,5 +1,3 @@
-257230033	https://www.eeo.cn/s/a/?cid=257230033	Jessica Davies (private)	Teacher: 625****50	Yu Hao Ran: Class of 10 - March 24
-257230063	https://www.eeo.cn/s/a/?cid=257230063	Noverly online classroom	Teacher: 927****027	Ilyas and Amine 3/10 -1
 257230075	https://www.eeo.cn/s/a/?cid=257230075	0063-9172094416 online classroom	Teacher: 917****416	March 8, 2024 with WenJun
 257230095	https://www.eeo.cn/s/a/?cid=257230095	huy online classroom	Teacher: 399****32	lớp học giỏi
 257230139	https://www.eeo.cn/s/a/?cid=257230139	Noverly online classroom	Teacher: 927****027	Ilyas and Amine 3/10 -2
@@ -1198,3 +1196,5 @@
 257286055	https://www.eeo.cn/s/a/?cid=257286055	sophie.ebuen*****ail.com online classroom	Teacher: sophie.ebuen*****ail.com	Kimi's Class
 257286243	https://www.eeo.cn/s/a/?cid=257286243	Trọng Nhân online classroom	Teacher: 947****88	classin
 257286287	https://www.eeo.cn/s/a/?cid=257286287	Teacher Jenny T	Teacher: 796****208	John and Lee - Monday 6 30pm
+257286347	https://www.eeo.cn/s/a/?cid=257286347	Shine online classroom	Teacher: senerezshai*****ail.com	test
+257286417	https://www.eeo.cn/s/a/?cid=257286417	DemiMari's Online English Class	Teacher: 994****789	DYLAN

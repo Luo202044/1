@@ -1,7 +1,3 @@
-262440083	https://www.eeo.cn/s/a/?cid=262440083	paul-19*****ve.co online classroom	Teacher: paul-19*****ve.co.uk	Jinni practice
-262440085	https://www.eeo.cn/s/a/?cid=262440085	Teacher Heidi online classroom	Teacher: 739****86	Demo Class
-262440099	https://www.eeo.cn/s/a/?cid=262440099	儿语工坊·在线语训中心	Teacher: 倾音小助手	轩佑宝贝在线课堂
-262440125	https://www.eeo.cn/s/a/?cid=262440125	Teacher Jess online classroom	Teacher: 645****76	Test Teacher Tim
 262440179	https://www.eeo.cn/s/a/?cid=262440179	Lea A online classroom	Teacher: 969****149	Molly 1
 262440205	https://www.eeo.cn/s/a/?cid=262440205	Mari online classroom	Teacher: 650***24	无
 262440213	https://www.eeo.cn/s/a/?cid=262440213	Mia伴学	Teacher: mia	试听2升3
@@ -1198,3 +1194,7 @@
 262526183	https://www.eeo.cn/s/a/?cid=262526183	蔡文倩 online classroom	Teacher: 126****24	halo
 262526185	https://www.eeo.cn/s/a/?cid=262526185	Teacher Gloria online classroom	Teacher: 254****236	Jack's class 3/6
 262526235	https://www.eeo.cn/s/a/?cid=262526235	Teacher Gloria online classroom	Teacher: 254****236	Amy's class 2/4
+262526297	https://www.eeo.cn/s/a/?cid=262526297	Teacher Gloria online classroom	Teacher: 254****236	Kenton's class 9/40
+262526345	https://www.eeo.cn/s/a/?cid=262526345	Teacher Gloria online classroom	Teacher: 254****236	Lucky's class 3/50
+262526391	https://www.eeo.cn/s/a/?cid=262526391	Hermione online classroom	Teacher: madisoncrai*****ail.com	QUEEN HERMIONE
+262526399	https://www.eeo.cn/s/a/?cid=262526399	Teach JEE online classroom	Teacher: 993****353	Chloe June 10, 2024 (5:00-5:30)

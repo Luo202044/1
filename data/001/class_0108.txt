@@ -1,5 +1,3 @@
-258721099	https://www.eeo.cn/s/a/?cid=258721099	Polly online classroom	Teacher: 961****853	Frank's class - Polly
-258721101	https://www.eeo.cn/s/a/?cid=258721101	皓月学堂	Teacher: 师傅老师	2024年春 · 八S期中复习 · 四边形综合
 258721107	https://www.eeo.cn/s/a/?cid=258721107	翼鸥集团	Teacher: 贺骞	批量测试2
 258721135	https://www.eeo.cn/s/a/?cid=258721135	Teacher Lory V online classroom	Teacher: 926****378	EFREM 22
 258721181	https://www.eeo.cn/s/a/?cid=258721181	Teacher Lory V online classroom	Teacher: 926****378	MARIA 22
@@ -1198,3 +1196,5 @@
 258781203	https://www.eeo.cn/s/a/?cid=258781203	sheldonchalklen8*****ail online classroom	Teacher: sheldonchalklen8*****ail	Prep mock class
 258781229	https://www.eeo.cn/s/a/?cid=258781229	一起来学习	Teacher: 0293	cassiel 8 CQ/苏菲
 258781259	https://www.eeo.cn/s/a/?cid=258781259	Jenna online classroom	Teacher: jovanalee*****ail.com	Jenna demo class Saturday 18:00
+258781261	https://www.eeo.cn/s/a/?cid=258781261	Tyler online classroom	Teacher: 614****64	Tyler's Training class
+258781275	https://www.eeo.cn/s/a/?cid=258781275	ESL teaching	Teacher: 967****795	ANDY (Phonics1)

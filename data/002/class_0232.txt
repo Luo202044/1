@@ -1,9 +1,3 @@
-266548237	https://www.eeo.cn/s/a/?cid=266548237	MIDO	Teacher: 102****001	Thimas
-266548239	https://www.eeo.cn/s/a/?cid=266548239	Teacher Zoe online classroom	Teacher: infohezekia*****ail.com	Teacher Zoe
-266548261	https://www.eeo.cn/s/a/?cid=266548261	helloimangel0*****ail.co online classroom	Teacher: helloimangel0*****ail.co	Teacher Jill's Class (RUIJIE)
-266548287	https://www.eeo.cn/s/a/?cid=266548287	Lâm Mỹ Hằng online classroom	Teacher: 969****50	IELTS
-266548301	https://www.eeo.cn/s/a/?cid=266548301	helloimangel0*****ail.co online classroom	Teacher: helloimangel0*****ail.co	Teacher Jill's Class (Kris)
-266548309	https://www.eeo.cn/s/a/?cid=266548309	动悉健康科技	Teacher: 豆小豆	Harper5TJ/Art Aug.24
 266548319	https://www.eeo.cn/s/a/?cid=266548319	明见少年	Teacher: 班主任杨老师?	涵涵--数学--明见少年
 266548375	https://www.eeo.cn/s/a/?cid=266548375	泡泡少儿西语	Teacher: 泡泡少儿西语	Luna Claudia 泡泡专属西语群
 266548387	https://www.eeo.cn/s/a/?cid=266548387	Daily English	Teacher: dailyenglish.amel*****ai	Trial Class
@@ -1198,3 +1192,9 @@
 266617207	https://www.eeo.cn/s/a/?cid=266617207	Jeymar Peña online classroom	Teacher: 939****865	Ezer and Nora
 266617233	https://www.eeo.cn/s/a/?cid=266617233	前海大新校区	Teacher: 何洁芸	何洁芸A段C段8月24日
 266617243	https://www.eeo.cn/s/a/?cid=266617243	牡丹江市王牌教育文化培训学校	Teacher: 王群	高二上英语晚自习（2023级）
+266617333	https://www.eeo.cn/s/a/?cid=266617333	Nura Teacher online classroom	Teacher: 631****88	& Abdul
+266617345	https://www.eeo.cn/s/a/?cid=266617345	悦体能	Teacher: 刘鹏达	开学模拟考 七
+266617383	https://www.eeo.cn/s/a/?cid=266617383	Nura Teacher online classroom	Teacher: 631****88	Xin & Abdul
+266617387	https://www.eeo.cn/s/a/?cid=266617387	Remelyn Clay online classroom	Teacher: 992****431	Abby
+266617395	https://www.eeo.cn/s/a/?cid=266617395	Teacher Richelle online classroom	Teacher: 964****825	Lylia3 / aug24
+266617401	https://www.eeo.cn/s/a/?cid=266617401	Kath online classroom	Teacher: 968****916	GIANNA'S CLASS

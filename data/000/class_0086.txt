@@ -1,5 +1,3 @@
-257544803	https://www.eeo.cn/s/a/?cid=257544803	aruenglishclass*****ail. online classroom	Teacher: aruenglishclass*****ail.	Aru - ANNIE'S CLASS 2
-257544809	https://www.eeo.cn/s/a/?cid=257544809	MINDEX 智引	Teacher: MSB	1v1 June
 257544815	https://www.eeo.cn/s/a/?cid=257544815	MINDEX 智引	Teacher: MSB	GW4 - Jacky
 257544825	https://www.eeo.cn/s/a/?cid=257544825	MINDEX 智引	Teacher: MSB	French2
 257544863	https://www.eeo.cn/s/a/?cid=257544863	English XO	Teacher: 864****436	keep it to 20 mins
@@ -1198,3 +1196,5 @@
 257603257	https://www.eeo.cn/s/a/?cid=257603257	水滴课堂	Teacher: 173****0377	潘博洋初二上
 257603291	https://www.eeo.cn/s/a/?cid=257603291	Marco Amir Cristobal online classroom	Teacher: cristobalzara*****ail.co	DCFVGBHNA 1
 257603483	https://www.eeo.cn/s/a/?cid=257603483	Zayn Siddiqui online classroom	Teacher: 917****609	frends forever and together
+257603507	https://www.eeo.cn/s/a/?cid=257603507	Tutor Rosalie online classroom	Teacher: rosaliegvalenzuela*****a	Rosie
+257603527	https://www.eeo.cn/s/a/?cid=257603527	Wow Class	Teacher: 138****0124	Nova-4.5yrs-Teacher Shannie

@@ -1,6 +1,3 @@
-261280975	https://www.eeo.cn/s/a/?cid=261280975	Jessa's Tutorial Class	Teacher: 975****363	Coco
-261281015	https://www.eeo.cn/s/a/?cid=261281015	Teacher Cherry Lhyn online classroom	Teacher: sherey*****hoo.com	Otis-Cherry Classroom 20/20
-261281017	https://www.eeo.cn/s/a/?cid=261281017	思考乐培训（高中）	Teacher: 郭杰邦	744886-郭杰邦-高中-布吉高中-24春-高一-数学-基础20240502
 261281071	https://www.eeo.cn/s/a/?cid=261281071	Jessa's Tutorial Class	Teacher: 975****363	Morgan
 261281175	https://www.eeo.cn/s/a/?cid=261281175	ROXANNE TAYCO	Teacher: 976****805	Anna
 261281231	https://www.eeo.cn/s/a/?cid=261281231	Miss Carly	Teacher: 911****71	Carlina's Classroom
@@ -1198,3 +1195,6 @@
 261339667	https://www.eeo.cn/s/a/?cid=261339667	Teacher Jhona online classroom	Teacher: 963****835	Leo 4 ( Teacher Len )
 261339755	https://www.eeo.cn/s/a/?cid=261339755	公益课堂	Teacher: 王楠	新FLYER外教Josh线下恐龙班B1B周日17：30-19：00
 261339759	https://www.eeo.cn/s/a/?cid=261339759	Teacher Drey .3 online classroom	Teacher: 981****905	LUISA CLASS
+261339785	https://www.eeo.cn/s/a/?cid=261339785	树人元宇宙教育咨询有限公司	Teacher: 胡老师	小田
+261339795	https://www.eeo.cn/s/a/?cid=261339795	树人元宇宙教育咨询有限公司	Teacher: 胡老师	数学课
+261339877	https://www.eeo.cn/s/a/?cid=261339877	Teacher Jhona online classroom	Teacher: 963****835	Henry 8 ( Teacher Lin )

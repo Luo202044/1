@@ -1,9 +1,3 @@
-266816169	https://www.eeo.cn/s/a/?cid=266816169	Rezeile online classroom	Teacher: 997****044	Catherine's Class
-266816193	https://www.eeo.cn/s/a/?cid=266816193	上海市傅雷中学	Teacher: 上海市傅雷中学	地理教研组
-266816229	https://www.eeo.cn/s/a/?cid=266816229	上海市傅雷中学	Teacher: 上海市傅雷中学	化学教研组
-266816265	https://www.eeo.cn/s/a/?cid=266816265	上海市傅雷中学	Teacher: 瞿红缨	（生命）科学教研组
-266816281	https://www.eeo.cn/s/a/?cid=266816281	alyssameteoro*****ail.co online classroom	Teacher: alyssameteoro*****ail.co	TRIAL CLASS
-266816295	https://www.eeo.cn/s/a/?cid=266816295	Đặng Ngọc Hân_6T2^^ online classroom	Teacher: 982****99	lớp toán cô hân
 266816359	https://www.eeo.cn/s/a/?cid=266816359	Smart Start English	Teacher: 662****96	Ben
 266816423	https://www.eeo.cn/s/a/?cid=266816423	动悉健康科技	Teacher: 豆小豆	Ken9GZ/Johanna Aug.24
 266816459	https://www.eeo.cn/s/a/?cid=266816459	Teacher Wendy online classroom	Teacher: wonj19*****ail.com	Elsasummerclass11
@@ -1198,3 +1192,9 @@
 266890425	https://www.eeo.cn/s/a/?cid=266890425	Teacher Connie online classroom	Teacher: 991****257	无
 266890471	https://www.eeo.cn/s/a/?cid=266890471	Teacher Janice online classroom	Teacher: roses0102*****ail.com	Freesia 14
 266890523	https://www.eeo.cn/s/a/?cid=266890523	Leora online classroom	Teacher: leoraben*****ail.com	Class Tank - Leo
+266890555	https://www.eeo.cn/s/a/?cid=266890555	Galaxy	Teacher: 孙妍	梨涡老师
+266890603	https://www.eeo.cn/s/a/?cid=266890603	Teacher Chenie's English Class	Teacher: 967****117	Queen CN
+266890605	https://www.eeo.cn/s/a/?cid=266890605	Teacher Mart online classroom	Teacher: pogoyjub*****ail.com	LAUREL
+266890655	https://www.eeo.cn/s/a/?cid=266890655	QiBao	Teacher: Michelle	LESSON 1 - DEMO
+266890689	https://www.eeo.cn/s/a/?cid=266890689	Teacher Lea online classroom	Teacher: leaduplessis*****ail.com	Teacher Lea Demo Class
+266890691	https://www.eeo.cn/s/a/?cid=266890691	bzd93ocq*****pressletter online classroom	Teacher: bzd93ocq*****pressletter	Harris

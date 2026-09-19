@@ -1,6 +1,3 @@
-260587543	https://www.eeo.cn/s/a/?cid=260587543	Julyn online classroom	Teacher: 920****361	1
-260587563	https://www.eeo.cn/s/a/?cid=260587563	Teacher Mel.C online classroom	Teacher: 966****604	Jessie1
-260587571	https://www.eeo.cn/s/a/?cid=260587571	Marcus Chiang Mai	Teacher: 620****29	Amber The English Wizard
 260587881	https://www.eeo.cn/s/a/?cid=260587881	授课教室	Teacher: 134****3180	202405041341-Drug discovery and
 260587929	https://www.eeo.cn/s/a/?cid=260587929	Annie online classroom	Teacher: 879****19	Annie
 260587955	https://www.eeo.cn/s/a/?cid=260587955	Teacher Shela online classroom	Teacher: 945****605	Rose - English Class
@@ -1198,3 +1195,6 @@
 260656145	https://www.eeo.cn/s/a/?cid=260656145	Oral English Training Camp	Teacher: Teacher Ivy	A225-Lora
 260656147	https://www.eeo.cn/s/a/?cid=260656147	Teacher ChellyM	Teacher: 966****486	ELISA (Month of May)
 260656151	https://www.eeo.cn/s/a/?cid=260656151	Teacher ChellyM	Teacher: 966****486	ADA (Month of May)
+260656157	https://www.eeo.cn/s/a/?cid=260656157	Teacher ChellyM	Teacher: 966****486	LINDA (Month of May)
+260656165	https://www.eeo.cn/s/a/?cid=260656165	Teacher ChellyM	Teacher: 966****486	HANS (Month of May)
+260656173	https://www.eeo.cn/s/a/?cid=260656173	Teacher ChellyM	Teacher: 966****486	ENZO (Month of May)

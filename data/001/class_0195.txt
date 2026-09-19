@@ -1,7 +1,3 @@
-264196393	https://www.eeo.cn/s/a/?cid=264196393	joyi online classroom	Teacher: joiegu*****ail.com	月卡(暑假优惠)
-264196459	https://www.eeo.cn/s/a/?cid=264196459	Nurturing Education诺宁	Teacher: 782****584	Elly Saturday class
-264196467	https://www.eeo.cn/s/a/?cid=264196467	梨花培训学校	Teacher: 李彬彬	梨花27届暑期135化学2班HK
-264196507	https://www.eeo.cn/s/a/?cid=264196507	Huy Garnachor 5/1 online classroom	Teacher: 774****23	cục
 264196531	https://www.eeo.cn/s/a/?cid=264196531	米字格老师	Teacher: admin	class-海萨尔
 264196539	https://www.eeo.cn/s/a/?cid=264196539	西北工业大学	Teacher: FARHAN ULLAH	test recording
 264196591	https://www.eeo.cn/s/a/?cid=264196591	Hombre Peñas online classroom	Teacher: hombre*****ail.com	Shella Audio Test
@@ -661,7 +657,6 @@
 264245711	https://www.eeo.cn/s/a/?cid=264245711	上海市进才中学	Teacher: 刘聪	刘老师地理等级
 264245733	https://www.eeo.cn/s/a/?cid=264245733	炫丞教育	Teacher: 王月	24暑·新初三【数学】-李
 264245767	https://www.eeo.cn/s/a/?cid=264245767	Mr King online classroom	Teacher: 534****560	Mia English Lesson
-264245773	https://www.eeo.cn/s/a/?cid=264245773	maryjanemabborang*****ai online classroom	Teacher: maryjanemabborang*****ai	demo class
 264245777	https://www.eeo.cn/s/a/?cid=264245777	华师青少年成长中心	Teacher: 牛老师	2024暑假一期 小五创新班15:50-18:20
 264245871	https://www.eeo.cn/s/a/?cid=264245871	Teacher J online classroom	Teacher: sabanalju*****ail.com	dos 5pm
 264245905	https://www.eeo.cn/s/a/?cid=264245905	谦学教育集团有限公司	Teacher: 137****9858	XMj07.10KCL劝退申诉
@@ -1198,3 +1193,8 @@
 264264323	https://www.eeo.cn/s/a/?cid=264264323	Isdany C online classroom	Teacher: 412****970	este de prueba clase
 264264397	https://www.eeo.cn/s/a/?cid=264264397	Nelly	Teacher: 550***12	Luc3
 264264505	https://www.eeo.cn/s/a/?cid=264264505	Naguilian Nationanal High School	Teacher: 945****905	james 4
+264264519	https://www.eeo.cn/s/a/?cid=264264519	HÀ ĐÌNH KHÁNH online classroom	Teacher: 987****90	123
+264264529	https://www.eeo.cn/s/a/?cid=264264529	TeacherArthur online classroom	Teacher: 798****48	tw2
+264264551	https://www.eeo.cn/s/a/?cid=264264551	胡老师在线教育	Teacher: 133****3818	高一数学预科学习
+264264579	https://www.eeo.cn/s/a/?cid=264264579	Awesome English	Teacher: Awesome English	Bella- Oxford Phonics - L3
+264264581	https://www.eeo.cn/s/a/?cid=264264581	olivarclar*****ail.com online classroom	Teacher: olivarclar*****ail.com	ghgg

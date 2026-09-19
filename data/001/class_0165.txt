@@ -1,7 +1,3 @@
-262240153	https://www.eeo.cn/s/a/?cid=262240153	jpadsi*****hoo.com online classroom	Teacher: jpadsi*****hoo.com	Crayons 2
-262240175	https://www.eeo.cn/s/a/?cid=262240175	Sunflower	Teacher: Joyce	Emily Li-Tina
-262240193	https://www.eeo.cn/s/a/?cid=262240193	jpadsi*****hoo.com online classroom	Teacher: jpadsi*****hoo.com	CRAYONS
-262240245	https://www.eeo.cn/s/a/?cid=262240245	审思明教育	Teacher: 魂斗罗大佬	刘津源-科学
 262240285	https://www.eeo.cn/s/a/?cid=262240285	君华国际学校	Teacher: Ella	娄歆雨EPQ1v1
 262240289	https://www.eeo.cn/s/a/?cid=262240289	Teacher Jessa online classroom	Teacher: 948****309	无
 262240293	https://www.eeo.cn/s/a/?cid=262240293	Teacher Joyee online classroom	Teacher: 930****789	Kenson
@@ -1198,3 +1194,7 @@
 262291841	https://www.eeo.cn/s/a/?cid=262291841	0063-9264650094 online classroom	Teacher: 926****094	ANN'S CLASS
 262291861	https://www.eeo.cn/s/a/?cid=262291861	April online classroom	Teacher: lanzihan2*****ail.com	Make up exam
 262291871	https://www.eeo.cn/s/a/?cid=262291871	ABCD	Teacher: Teacher Lu	30-apple classroom
+262291929	https://www.eeo.cn/s/a/?cid=262291929	北京市顺义区仁和中学	Teacher: 尤 鑫	23级全体家长
+262292013	https://www.eeo.cn/s/a/?cid=262292013	Teacher Nikko English Class	Teacher: 926****032	Yiyi7
+262292025	https://www.eeo.cn/s/a/?cid=262292025	0084-362629925 online classroom	Teacher: 362****25	Demo
+262292117	https://www.eeo.cn/s/a/?cid=262292117	Emma Brosinski online classroom	Teacher: 608****200	test

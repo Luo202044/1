@@ -1,11 +1,3 @@
-267872353	https://www.eeo.cn/s/a/?cid=267872353	Glynnis Sag;es online classroom	Teacher: 931****485	无
-267872357	https://www.eeo.cn/s/a/?cid=267872357	Miss Bahati online classroom	Teacher: 714****54	Lets learn english
-267872369	https://www.eeo.cn/s/a/?cid=267872369	Teacher Reb online classroom	Teacher: rkrivera*****ail.com	Sunny Day 8 Class
-267872391	https://www.eeo.cn/s/a/?cid=267872391	我爱学习	Teacher: 吴少年	高二房老师数学周日18:10
-267872419	https://www.eeo.cn/s/a/?cid=267872419	cherryanpaglinaw*****ail online classroom	Teacher: cherryanpaglinaw*****ail	class
-267872431	https://www.eeo.cn/s/a/?cid=267872431	Teacher Ella online classroom	Teacher: junellaolorvid*****ail.c	Shaine
-267872437	https://www.eeo.cn/s/a/?cid=267872437	Teacher Luzyl online classroom	Teacher: luzyllaygan*****ail.com	RAINA
-267872497	https://www.eeo.cn/s/a/?cid=267872497	Roy online classroom	Teacher: dani.*****il.ru	Ahhhh Spiritual tradicions
 267872503	https://www.eeo.cn/s/a/?cid=267872503	Richelle Jabines online classroom	Teacher: jabinesrichelle*****ail.	sample
 267872511	https://www.eeo.cn/s/a/?cid=267872511	Grace	Teacher: 955****984	THINK Lesson
 267872597	https://www.eeo.cn/s/a/?cid=267872597	Lê Nguyễn Phương Anh online classroom	Teacher: 774****83	lớp học thử
@@ -1198,3 +1190,11 @@
 267911653	https://www.eeo.cn/s/a/?cid=267911653	beales	Teacher: 931****154	KATHY
 267911669	https://www.eeo.cn/s/a/?cid=267911669	Teacher Des online classroom	Teacher: 994****838	Christina
 267911687	https://www.eeo.cn/s/a/?cid=267911687	Valery online Classes	Teacher: 916****335	Мила 17 сентября
+267911693	https://www.eeo.cn/s/a/?cid=267911693	ThinkSpeak IT	Teacher: 999****243	ADA (09.01-30.24)
+267911725	https://www.eeo.cn/s/a/?cid=267911725	Mai Khanh online classroom	Teacher: 922****81	Dạy Demo Babilala
+267911735	https://www.eeo.cn/s/a/?cid=267911735	Teacher Jhona online classroom	Teacher: 963****835	Chen Borui 7 ( Teacher Chris )
+267911749	https://www.eeo.cn/s/a/?cid=267911749	archangel.chidzan*****ai online classroom	Teacher: archangel.chidzan*****ai	Trial
+267911827	https://www.eeo.cn/s/a/?cid=267911827	umunnakwevivian20*****ai online classroom	Teacher: umunnakwevivian20*****ai	teacher Debby
+267911849	https://www.eeo.cn/s/a/?cid=267911849	Kay online classroom	Teacher: 614****94	English Class - Nobel & Kay
+267911857	https://www.eeo.cn/s/a/?cid=267911857	Sarah online classroom	Teacher: 762****52	Demo class lesson Bilinguel
+267911867	https://www.eeo.cn/s/a/?cid=267911867	Felix Lucky	Teacher: 652****54	Coco demo

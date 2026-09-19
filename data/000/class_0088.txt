@@ -1,5 +1,3 @@
-257661577	https://www.eeo.cn/s/a/?cid=257661577	Teacher Ivan	Teacher: 605****79	A class with Leoshen8
-257661599	https://www.eeo.cn/s/a/?cid=257661599	Northwest CottonLeague	Teacher: 425****162	Chloe
 257661605	https://www.eeo.cn/s/a/?cid=257661605	Shvlla online classroom	Teacher: 916****655	JESS & MGT
 257661607	https://www.eeo.cn/s/a/?cid=257661607	Brooke CR online classroom	Teacher: 863****695	Joshua 3/17-13
 257661619	https://www.eeo.cn/s/a/?cid=257661619	Shvlla online classroom	Teacher: 916****655	CHAMP & MGT
@@ -1198,3 +1196,5 @@
 257737055	https://www.eeo.cn/s/a/?cid=257737055	JayZ online classroom	Teacher: 421****05	Marketing
 257737073	https://www.eeo.cn/s/a/?cid=257737073	多瑙语言教育	Teacher: 182****4525	John-LeLe乐乐
 257737083	https://www.eeo.cn/s/a/?cid=257737083	俞女士	Teacher: 159****9934	Andy
+257737211	https://www.eeo.cn/s/a/?cid=257737211	点石教育	Teacher: 孙怡	EN-小乐言
+257737285	https://www.eeo.cn/s/a/?cid=257737285	提升能力	Teacher: 157****8196	测试

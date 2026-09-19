@@ -1,7 +1,3 @@
-261967195	https://www.eeo.cn/s/a/?cid=261967195	Rebecca	Teacher: 981****514	Anna
-261967213	https://www.eeo.cn/s/a/?cid=261967213	企鹅	Teacher: 刘海增--高中数学	高三
-261967399	https://www.eeo.cn/s/a/?cid=261967399	Kaiki Math Class	Teacher: kluo*****sc.edu	AMC 10体验课
-261967499	https://www.eeo.cn/s/a/?cid=261967499	Marimil Cruz online classroom	Teacher: ceomary8*****ail.com	Demo Easy Pass
 261967567	https://www.eeo.cn/s/a/?cid=261967567	PH11173-Gizella online classroom	Teacher: 935****267	ClassIn Practice
 261967719	https://www.eeo.cn/s/a/?cid=261967719	TRẦN BẢO LÂM online classroom	Teacher: 375****75	TA.2021.2046
 261967775	https://www.eeo.cn/s/a/?cid=261967775	emilydesilva.bcmm*****ai online classroom	Teacher: emilydesilva.bcmm*****ai	robin302
@@ -1198,3 +1194,7 @@
 262025383	https://www.eeo.cn/s/a/?cid=262025383	Teacher Natty online classroom	Teacher: 694****624	Helen 1st class (June)
 262025393	https://www.eeo.cn/s/a/?cid=262025393	april online classroom	Teacher: 910****975	alan8-student
 262025413	https://www.eeo.cn/s/a/?cid=262025413	Teacher Natty online classroom	Teacher: 694****624	Cindy 1st class (June)
+262025433	https://www.eeo.cn/s/a/?cid=262025433	Simon	Teacher: 王耿Simon	高老师周日8.30-Think-1
+262025435	https://www.eeo.cn/s/a/?cid=262025435	Teacher Jennifer Ali online classroom	Teacher: 976****757	Joy's New Classroom 24/24
+262025453	https://www.eeo.cn/s/a/?cid=262025453	Mark_Hall_2 online classroom	Teacher: 226****451	Mizuki5
+262025609	https://www.eeo.cn/s/a/?cid=262025609	ret	Teacher: 736****37	Dany4

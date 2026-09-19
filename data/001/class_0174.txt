@@ -1,7 +1,3 @@
-262890311	https://www.eeo.cn/s/a/?cid=262890311	Teacher John online classroom	Teacher: 991****840	Elsa7
-262890335	https://www.eeo.cn/s/a/?cid=262890335	T.Ae online classroom	Teacher: 997****833	class Chloe&Summer
-262890365	https://www.eeo.cn/s/a/?cid=262890365	Teacher John online classroom	Teacher: 991****840	Lucas 8
-262890385	https://www.eeo.cn/s/a/?cid=262890385	T.Ae online classroom	Teacher: 997****833	class Elsa9&Elna5
 262890417	https://www.eeo.cn/s/a/?cid=262890417	FAMOUS小名国际教育	Teacher: Hana晶晶老师	刘扬帆洪萱昊AMC12
 262890449	https://www.eeo.cn/s/a/?cid=262890449	Teacher John online classroom	Teacher: 991****840	Sophia11
 262890463	https://www.eeo.cn/s/a/?cid=262890463	Joanie online classroom	Teacher: 662****77	Anna vowel sounds
@@ -1198,3 +1194,7 @@
 262947631	https://www.eeo.cn/s/a/?cid=262947631	Teacher Jelly May online classroom	Teacher: 946****057	ming
 262947655	https://www.eeo.cn/s/a/?cid=262947655	匠匠	Teacher: 橙路老师	2024江西师范大学材料闫同学保研辅导-口语
 262947703	https://www.eeo.cn/s/a/?cid=262947703	none	Teacher: 951****959	无
+262947721	https://www.eeo.cn/s/a/?cid=262947721	Teacher saisai online classroom	Teacher: 995****701	Demo Class
+262947773	https://www.eeo.cn/s/a/?cid=262947773	smart talk	Teacher: gv.katri*****cmai.edu.vn	LIWEN
+262947777	https://www.eeo.cn/s/a/?cid=262947777	果果艺术2	Teacher: 曹赛	2024新高一暑期7点50分
+262947791	https://www.eeo.cn/s/a/?cid=262947791	0084-344948368 online classroom	Teacher: 344****68	lớp demo

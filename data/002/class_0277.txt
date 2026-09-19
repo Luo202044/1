@@ -1,13 +1,3 @@
-268729813	https://www.eeo.cn/s/a/?cid=268729813	0063-9912289485 online classroom	Teacher: 991****485	16th class NOrah
-268729851	https://www.eeo.cn/s/a/?cid=268729851	Sugar Novelette Comia online classroom	Teacher: 907****188	Zoey 10/5/24
-268729857	https://www.eeo.cn/s/a/?cid=268729857	Teacher Glenda online classroom	Teacher: 994****179	Ian Class
-268729935	https://www.eeo.cn/s/a/?cid=268729935	Teacher Des is Ray online classroom	Teacher: desireevi.7*****tmail.co	Beverly YAN 3
-268730029	https://www.eeo.cn/s/a/?cid=268730029	Sam Jones Beltran online classroom	Teacher: sambeltran2*****ail.com	ME
-268730075	https://www.eeo.cn/s/a/?cid=268730075	如有特殊情况请联系学管老师	Teacher: 木子老师	小熊-综述型-石乐怡
-268730101	https://www.eeo.cn/s/a/?cid=268730101	johnbilanghistori*****ai online classroom	Teacher: 912****872	USELF PETA RECITATION
-268730121	https://www.eeo.cn/s/a/?cid=268730121	0063-9175862249 online classroom	Teacher: 917****249	Teacher Cherie & Amy2
-268730185	https://www.eeo.cn/s/a/?cid=268730185	梁溰霖 online classroom	Teacher: llp-2010*****sllps.edu.h	5D班
-268730259	https://www.eeo.cn/s/a/?cid=268730259	陳亦晴 online classroom	Teacher: llp-2010*****sllps.edu.h	5D
 268730277	https://www.eeo.cn/s/a/?cid=268730277	Lesther Gerald Achera online classroom	Teacher: lg_delosreyes*****loud.c	Activity
 268730327	https://www.eeo.cn/s/a/?cid=268730327	mtalchrislaraw*****ail.c online classroom	Teacher: mtalchrislaraw*****ail.c	student van student
 268730331	https://www.eeo.cn/s/a/?cid=268730331	Kiến Guru	Teacher: 902****20	EMaster - MA.5
@@ -1198,3 +1188,13 @@
 268769733	https://www.eeo.cn/s/a/?cid=268769733	江城教育	Teacher: 132****3717	Tom Re3学习班
 268769741	https://www.eeo.cn/s/a/?cid=268769741	TEACHER LARA	Teacher: teacherlara*****ail.com	Candy
 268769767	https://www.eeo.cn/s/a/?cid=268769767	Teacher Reney online classroom	Teacher: mariatheresareyes*****ai	ruby's class
+268769781	https://www.eeo.cn/s/a/?cid=268769781	Hà My Vân Lớp 3 online classroom	Teacher: 974****33	lớp yêu đom đóm ghét sky đần
+268769839	https://www.eeo.cn/s/a/?cid=268769839	Bao nam online classroom	Teacher: 777****85	bảo nam
+268769845	https://www.eeo.cn/s/a/?cid=268769845	dawnsamontane*****ail.co online classroom	Teacher: dawnsamontane*****ail.co	SAMONTANEZ3
+268769881	https://www.eeo.cn/s/a/?cid=268769881	renerosetabujar*****ail. online classroom	Teacher: renerosetabujar*****ail.	JORDAN OCTOBER CLASS
+268769891	https://www.eeo.cn/s/a/?cid=268769891	点石教育	Teacher: 黄军	黄诗妍物理一对一专属课堂
+268769931	https://www.eeo.cn/s/a/?cid=268769931	善潼 online classroom	Teacher: 605***00	4C2
+268769991	https://www.eeo.cn/s/a/?cid=268769991	北京海淀柒点教育工作室	Teacher: 刘老师	琪琪数学一对一
+268770169	https://www.eeo.cn/s/a/?cid=268770169	Roger online classroom	Teacher: 641****40	Eva8
+268770223	https://www.eeo.cn/s/a/?cid=268770223	0063-9179238482 online classroom	Teacher: 917****482	GOLDEN OCTOBER
+268770291	https://www.eeo.cn/s/a/?cid=268770291	Ramela Erejer online classroom	Teacher: ramelaerejer*****ail.com	rowena

@@ -1,12 +1,3 @@
-268522189	https://www.eeo.cn/s/a/?cid=268522189	三七教育	Teacher: belle	Cindy
-268522219	https://www.eeo.cn/s/a/?cid=268522219	三七教育	Teacher: belle	Felix
-268522223	https://www.eeo.cn/s/a/?cid=268522223	天生慧作文	Teacher: 糖糖老师	阅读理解录课
-268522241	https://www.eeo.cn/s/a/?cid=268522241	三七教育	Teacher: belle	Oscar
-268522263	https://www.eeo.cn/s/a/?cid=268522263	三七教育	Teacher: belle	Evelyn
-268522283	https://www.eeo.cn/s/a/?cid=268522283	三七教育	Teacher: belle	无
-268522425	https://www.eeo.cn/s/a/?cid=268522425	Impressive English	Teacher: Kuma	Owen-wonderskills
-268522433	https://www.eeo.cn/s/a/?cid=268522433	986961300sang online classroom	Teacher: 986****00	sang
-268522449	https://www.eeo.cn/s/a/?cid=268522449	彼粒星无限工作室	Teacher: Mr.Hou	【2025年8天国庆学习卡】九年级数学培优版
 268522479	https://www.eeo.cn/s/a/?cid=268522479	abolionli*****3.com online classroom	Teacher: abolionli*****3.com	TARA B005 Joey
 268522499	https://www.eeo.cn/s/a/?cid=268522499	Teacher Brian online classroom	Teacher: teacherbrianclass*****ai	Alisha
 268522519	https://www.eeo.cn/s/a/?cid=268522519	Jin online classroom	Teacher: jinkyhon*****ail.com	J
@@ -1198,3 +1189,12 @@
 268562973	https://www.eeo.cn/s/a/?cid=268562973	English For Everyone	Teacher: 626****75	ALICE
 268562977	https://www.eeo.cn/s/a/?cid=268562977	Teacher Dianne online classroom	Teacher: 948****354	files
 268562983	https://www.eeo.cn/s/a/?cid=268562983	Micah online classroom	Teacher: 948****236	Thomas October
+268563015	https://www.eeo.cn/s/a/?cid=268563015	快乐学习	Teacher: 183****8110	物理课~
+268563019	https://www.eeo.cn/s/a/?cid=268563019	catherinehernandez7***** online classroom	Teacher: catherinehernandez7*****	DOC FREN
+268563021	https://www.eeo.cn/s/a/?cid=268563021	Kevin online classroom	Teacher: kevinthemil*****hoo.com	Kevin's Interview
+268563027	https://www.eeo.cn/s/a/?cid=268563027	Teacher Jam online classroom	Teacher: 907****702	Jerry
+268563043	https://www.eeo.cn/s/a/?cid=268563043	Ali Education	Teacher: Hafiz	丁宝宝
+268563047	https://www.eeo.cn/s/a/?cid=268563047	周盛	Teacher: Emily	1307 Allen1
+268563065	https://www.eeo.cn/s/a/?cid=268563065	T. Mary online classroom	Teacher: 968****766	George
+268563157	https://www.eeo.cn/s/a/?cid=268563157	thuhatracy online classroom	Teacher: 329****23	VHdemo2_Tran Thu Ha_30/9/24
+268563173	https://www.eeo.cn/s/a/?cid=268563173	Dvyphonic	Teacher: 949****00	Mandy Lesson 69

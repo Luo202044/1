@@ -1,8 +1,3 @@
-264691131	https://www.eeo.cn/s/a/?cid=264691131	ququ	Teacher: 158****3235	曲老师-海珊
-264691171	https://www.eeo.cn/s/a/?cid=264691171	梅花鹿 Teacher Joan online classroom	Teacher: 2024t18a*****ail.com	fish5&kate(adult)_Class
-264691195	https://www.eeo.cn/s/a/?cid=264691195	Trần Tuấn Vũ online classroom	Teacher: 978****56	1234567890
-264691197	https://www.eeo.cn/s/a/?cid=264691197	QED Education Group	Teacher: Shirley Bao	[Mandy] - BPhO
-264691265	https://www.eeo.cn/s/a/?cid=264691265	English Bridge Online	Teacher: 961****186	Jerry Lamborghini
 264691281	https://www.eeo.cn/s/a/?cid=264691281	Lǎoshī Aby online classroom	Teacher: 947****798	Aaron
 264691291	https://www.eeo.cn/s/a/?cid=264691291	jooh online classroom	Teacher: jmaputi*****ail.com	Kevin 141 (7-17-24)
 264691361	https://www.eeo.cn/s/a/?cid=264691361	Iva online classroom	Teacher: 605****21	Cecily and Lucky
@@ -1198,3 +1193,8 @@
 264783733	https://www.eeo.cn/s/a/?cid=264783733	English Daily	Teacher: burke23*****ail.com	Tom and Mina's Class
 264783737	https://www.eeo.cn/s/a/?cid=264783737	BEL-English	Teacher: 969****581	John
 264783811	https://www.eeo.cn/s/a/?cid=264783811	前海大新校区	Teacher: 肖威	肖威7月19日
+264783821	https://www.eeo.cn/s/a/?cid=264783821	jane online classroom	Teacher: 906****642	Jessica
+264783829	https://www.eeo.cn/s/a/?cid=264783829	Mentor Hub	Teacher: 教务老师-Kelly	一嘉-ENGL 131
+264783875	https://www.eeo.cn/s/a/?cid=264783875	Aliya Zaripova online classroom	Teacher: 937****040	class
+264783947	https://www.eeo.cn/s/a/?cid=264783947	Teacher Caren online classroom	Teacher: tumula*****ail.com	Practie Demo
+264783957	https://www.eeo.cn/s/a/?cid=264783957	Fe Ruby Alvarez online classroom	Teacher: alvarezferu*****ail.com	zion

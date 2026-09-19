@@ -1,8 +1,3 @@
-264478521	https://www.eeo.cn/s/a/?cid=264478521	Teach Qtie online classroom	Teacher: 935****700	demo
-264478657	https://www.eeo.cn/s/a/?cid=264478657	Floney Bermal online classroom	Teacher: bermalflon*****ail.com	teacher floney & denny
-264478707	https://www.eeo.cn/s/a/?cid=264478707	通缉：༺ۣۖ琪༒ۣ蓝༻	Teacher: 173****1335	放下
-264478717	https://www.eeo.cn/s/a/?cid=264478717	Tutor Lovely online classroom	Teacher: chevelquin*****ail.com	Ave Session 4
-264478759	https://www.eeo.cn/s/a/?cid=264478759	Teachel Maricel	Teacher: 949****565	Julia8Z
 264478773	https://www.eeo.cn/s/a/?cid=264478773	Thiên Ân David online classroom	Teacher: 902****09	tom
 264478783	https://www.eeo.cn/s/a/?cid=264478783	齐云学社	Teacher: 186****5385	齐云学社-赵睿杨
 264478801	https://www.eeo.cn/s/a/?cid=264478801	星火教育红岭校区（深圳关内）	Teacher: 刘宝金	7.14 宋丽君 下午
@@ -1198,3 +1193,8 @@
 264540965	https://www.eeo.cn/s/a/?cid=264540965	Petar Stojkovic	Teacher: 606****84	Michael 4
 264541163	https://www.eeo.cn/s/a/?cid=264541163	Gootalk	Teacher: 助教Jeff	Demo-W3000-Helen-Candy
 264541171	https://www.eeo.cn/s/a/?cid=264541171	Annie Francisca online classroom	Teacher: 995****046	Class with Gideon
+264541175	https://www.eeo.cn/s/a/?cid=264541175	Teacher Juvy online classroom	Teacher: juvymunez6*****ail.com	Beibei11 & Junjun7
+264541197	https://www.eeo.cn/s/a/?cid=264541197	nedsoni*****ail.com online classroom	Teacher: nedsoni*****ail.com	Anna
+264541357	https://www.eeo.cn/s/a/?cid=264541357	nedsoni*****ail.com online classroom	Teacher: nedsoni*****ail.com	Alisa
+264541367	https://www.eeo.cn/s/a/?cid=264541367	LOO中文	Teacher: 136****6624	25mins普通話patty923k2
+264541387	https://www.eeo.cn/s/a/?cid=264541387	海外同步课程辅导平台	Teacher: Linda	王睿楷-行前指导1

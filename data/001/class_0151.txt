@@ -1,6 +1,3 @@
-261339785	https://www.eeo.cn/s/a/?cid=261339785	树人元宇宙教育咨询有限公司	Teacher: 胡老师	小田
-261339795	https://www.eeo.cn/s/a/?cid=261339795	树人元宇宙教育咨询有限公司	Teacher: 胡老师	数学课
-261339877	https://www.eeo.cn/s/a/?cid=261339877	Teacher Jhona online classroom	Teacher: 963****835	Henry 8 ( Teacher Lin )
 261339895	https://www.eeo.cn/s/a/?cid=261339895	杨老师数学	Teacher: 138****4001	屈桓宇在线
 261340005	https://www.eeo.cn/s/a/?cid=261340005	nguyenthaovy1919*****ail online classroom	Teacher: nguyenthaovy1919*****ail	Demo
 261340107	https://www.eeo.cn/s/a/?cid=261340107	Etutor	Teacher: Etutor	Teacher Ever + Hoang Lam 230216
@@ -1198,3 +1195,6 @@
 261409555	https://www.eeo.cn/s/a/?cid=261409555	Jewel online classroom	Teacher: 997****942	⭐ Shasha's Class#1 - 05/24/2024
 261409685	https://www.eeo.cn/s/a/?cid=261409685	Teacher Aya online classroom	Teacher: ayavalencia1*****ail.com	Ariel's Classroom
 261409691	https://www.eeo.cn/s/a/?cid=261409691	Foreign Support Team	Teacher: Sage Cornell	NC: Qiaochu Song & Mentor Sage
+261409903	https://www.eeo.cn/s/a/?cid=261409903	人大附中中外合作办学项目ICC	Teacher: 马玥Ma, Yue	AP Stats S2O3 2024-25
+261409993	https://www.eeo.cn/s/a/?cid=261409993	精品拓展	Teacher: Jane	Elsa
+261410193	https://www.eeo.cn/s/a/?cid=261410193	Kaitlin Sun online classroom	Teacher: kaitlinsun20*****ail.com	Trial Class

@@ -1,5 +1,3 @@
-258980667	https://www.eeo.cn/s/a/?cid=258980667	iam (yam) online classroom	Teacher: iam.ricardo*****ail.com	play
-258980713	https://www.eeo.cn/s/a/?cid=258980713	冠军基金	Teacher: 小冠军	线上培训班
 258980723	https://www.eeo.cn/s/a/?cid=258980723	Anass Rouiha online classroom	Teacher: anassrouih*****ail.com	interview test
 258980825	https://www.eeo.cn/s/a/?cid=258980825	PH11173-Gizella online classroom	Teacher: 935****267	C-25
 258980917	https://www.eeo.cn/s/a/?cid=258980917	Emmy Talk	Teacher: 杰西	Louis
@@ -1198,3 +1196,5 @@
 259043167	https://www.eeo.cn/s/a/?cid=259043167	Miss Ruby online classroom	Teacher: 927****329	ENGLISH GRADE 7
 259043245	https://www.eeo.cn/s/a/?cid=259043245	0063-9278826030 online classroom	Teacher: 927****030	Eddie's class
 259043265	https://www.eeo.cn/s/a/?cid=259043265	公益课堂	Teacher: 刘睿	新Sara 41-60语法 （3LX/3LW/3LY）
+259043269	https://www.eeo.cn/s/a/?cid=259043269	公司会议	Teacher: Sally	Sally-Harry
+259043303	https://www.eeo.cn/s/a/?cid=259043303	hakhanhly210919*****ail. online classroom	Teacher: hakhanhly210919*****ail.	demo slide

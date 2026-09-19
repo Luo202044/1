@@ -1,7 +1,3 @@
-262792499	https://www.eeo.cn/s/a/?cid=262792499	Teacher Rico online classroom	Teacher: dimapilisfrederick*****a	Kevin
-262792585	https://www.eeo.cn/s/a/?cid=262792585	Teacher Renzo online classroom	Teacher: 915****844	demo
-262792697	https://www.eeo.cn/s/a/?cid=262792697	Renaldo online classroom	Teacher: 820****48	Cindy (Classroom 1)
-262792721	https://www.eeo.cn/s/a/?cid=262792721	Renaldo online classroom	Teacher: 820****48	Cindy (Classroom 2)
 262792783	https://www.eeo.cn/s/a/?cid=262792783	Teacher Josh (Daniel) online classroom	Teacher: 915****935	无
 262792833	https://www.eeo.cn/s/a/?cid=262792833	Jenny.Vi online classroom	Teacher: 938****985	Wang 5th class
 262792847	https://www.eeo.cn/s/a/?cid=262792847	Teacher Rejean online classroom	Teacher: tmreje*****ail.com	Sara and Rinas Class with Teacher Rejean
@@ -1198,3 +1194,7 @@
 262890131	https://www.eeo.cn/s/a/?cid=262890131	枫笛国际教育	Teacher: Robin Maclean	24s 1v1 test
 262890169	https://www.eeo.cn/s/a/?cid=262890169	Teacher John online classroom	Teacher: 991****840	Nini4
 262890237	https://www.eeo.cn/s/a/?cid=262890237	Joanie online classroom	Teacher: 662****77	Duoduo SM3 Unit 1 P.20
+262890311	https://www.eeo.cn/s/a/?cid=262890311	Teacher John online classroom	Teacher: 991****840	Elsa7
+262890335	https://www.eeo.cn/s/a/?cid=262890335	T.Ae online classroom	Teacher: 997****833	class Chloe&Summer
+262890365	https://www.eeo.cn/s/a/?cid=262890365	Teacher John online classroom	Teacher: 991****840	Lucas 8
+262890385	https://www.eeo.cn/s/a/?cid=262890385	T.Ae online classroom	Teacher: 997****833	class Elsa9&Elna5

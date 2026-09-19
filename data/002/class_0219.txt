@@ -1,8 +1,3 @@
-265707453	https://www.eeo.cn/s/a/?cid=265707453	雅学在线	Teacher: 余老师5.1充值50	义轩
-265707501	https://www.eeo.cn/s/a/?cid=265707501	eng.tutor.elizabe*****ai online classroom	Teacher: eng.tutor.elizabe*****ai	MAX
-265707563	https://www.eeo.cn/s/a/?cid=265707563	chainajoymahusa*****ail. online classroom	Teacher: chainajoymahusa*****ail.	Student
-265707813	https://www.eeo.cn/s/a/?cid=265707813	Stef online classroom	Teacher: 696***86	Monica WS Master2 U9
-265707833	https://www.eeo.cn/s/a/?cid=265707833	JEVEN AND ELSA online classroom	Teacher: 756****86	JEVEN AND ELSA 10 classes (August 6)
 265707855	https://www.eeo.cn/s/a/?cid=265707855	人人学教育	Teacher: 赵婷婷老师	肖荣灿物理郭老师
 265707867	https://www.eeo.cn/s/a/?cid=265707867	Cloud	Teacher: Joshua	RobertG9
 265707873	https://www.eeo.cn/s/a/?cid=265707873	人人学教育	Teacher: 赵婷婷老师	肖荣灿数学李老师
@@ -1198,3 +1193,8 @@
 265803491	https://www.eeo.cn/s/a/?cid=265803491	肖旭清的课堂	Teacher: 136****7209	七下几何辅助线
 265803503	https://www.eeo.cn/s/a/?cid=265803503	mitchevelle.jimen*****ai online classroom	Teacher: mitchevelle.jimen*****ai	English Class
 265803511	https://www.eeo.cn/s/a/?cid=265803511	Nikka Amor	Teacher: casnikkaam*****ail.com	Giancarlo's Classroom
+265803571	https://www.eeo.cn/s/a/?cid=265803571	Teacher Dorotea online classroom	Teacher: emergencysavema*****ail.	Sample Room
+265803601	https://www.eeo.cn/s/a/?cid=265803601	Kath online classroom	Teacher: 992****907	43rd ENTER HERE
+265803645	https://www.eeo.cn/s/a/?cid=265803645	Teacher Richard	Teacher: 779****576	Roy 7.8.24
+265803683	https://www.eeo.cn/s/a/?cid=265803683	Teacher Tyra online classroom	Teacher: 946****147	Justin&Rebecca
+265803719	https://www.eeo.cn/s/a/?cid=265803719	Teacher Richard	Teacher: 779****576	Cici 7.8.24

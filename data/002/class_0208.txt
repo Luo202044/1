@@ -1,8 +1,3 @@
-265116465	https://www.eeo.cn/s/a/?cid=265116465	michellenojabaratun***** online classroom	Teacher: 955****373	Griselda
-265116473	https://www.eeo.cn/s/a/?cid=265116473	museum	Teacher: 北极星Crisel	HarveyBJAdult
-265116495	https://www.eeo.cn/s/a/?cid=265116495	sreyneang.ou*****ail.com online classroom	Teacher: sreyneang.ou*****ail.com	App Development
-265116497	https://www.eeo.cn/s/a/?cid=265116497	酷学教育	Teacher: 邹蕾蕾	培哲高一数学一对一在线教室
-265116613	https://www.eeo.cn/s/a/?cid=265116613	laniejoycepri*****ail.co online classroom	Teacher: laniejoycepri*****ail.co	bailey class july 25-31
 265116857	https://www.eeo.cn/s/a/?cid=265116857	新起点学吧	Teacher: 153****7589	孟佳乐专属学习教室
 265116935	https://www.eeo.cn/s/a/?cid=265116935	May Esther Bacus online classroom	Teacher: mayest19*****ail.com	demo
 265116937	https://www.eeo.cn/s/a/?cid=265116937	faithhannahcalderon0307* online classroom	Teacher: faithhannahcalderon0307*	Lynn's
@@ -1198,3 +1193,8 @@
 265159445	https://www.eeo.cn/s/a/?cid=265159445	Teacher Anna online classroom	Teacher: annamillerusa*****ail.co	Damon
 265159457	https://www.eeo.cn/s/a/?cid=265159457	Pem online classroom	Teacher: rowenapenilla*****ail.co	JULY 26, 2024_FRIDAY_2
 265159461	https://www.eeo.cn/s/a/?cid=265159461	Teacher Anna online classroom	Teacher: annamillerusa*****ail.co	Demo
+265159463	https://www.eeo.cn/s/a/?cid=265159463	Southfields International	Teacher: Mentor Lanie	KINDER FRIDAY
+265159519	https://www.eeo.cn/s/a/?cid=265159519	adaronoval*****ail.com online classroom	Teacher: adaronoval*****ail.com	novalyn
+265159557	https://www.eeo.cn/s/a/?cid=265159557	Maria 2 online classroom	Teacher: mariasog*****ail.com	Shelly 7:30am
+265159565	https://www.eeo.cn/s/a/?cid=265159565	Maria 2 online classroom	Teacher: mariasog*****ail.com	Calvin 1:30pm
+265159567	https://www.eeo.cn/s/a/?cid=265159567	Southfields International	Teacher: Mentor Lanie	NURSERY FRIDAY

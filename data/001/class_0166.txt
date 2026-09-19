@@ -1,7 +1,3 @@
-262291929	https://www.eeo.cn/s/a/?cid=262291929	北京市顺义区仁和中学	Teacher: 尤 鑫	23级全体家长
-262292013	https://www.eeo.cn/s/a/?cid=262292013	Teacher Nikko English Class	Teacher: 926****032	Yiyi7
-262292025	https://www.eeo.cn/s/a/?cid=262292025	0084-362629925 online classroom	Teacher: 362****25	Demo
-262292117	https://www.eeo.cn/s/a/?cid=262292117	Emma Brosinski online classroom	Teacher: 608****200	test
 262292121	https://www.eeo.cn/s/a/?cid=262292121	深圳市莲南小学	Teacher: 王菁菁	四14班
 262292123	https://www.eeo.cn/s/a/?cid=262292123	Ray online classroom	Teacher: 920****208	Sandy
 262292141	https://www.eeo.cn/s/a/?cid=262292141	Happy Bar	Teacher: 小助理	JH老师沟通群
@@ -1198,3 +1194,7 @@
 262366449	https://www.eeo.cn/s/a/?cid=262366449	Teacher Tiffany online classroom	Teacher: 961****469	New student English Class
 262366457	https://www.eeo.cn/s/a/?cid=262366457	Laoshi Anna online classroom	Teacher: hhatdog4*****ail.com	Mike's Class (20)
 262366593	https://www.eeo.cn/s/a/?cid=262366593	京鹰培优	Teacher: 王老师	2025届春季高二地理期末公益
+262366637	https://www.eeo.cn/s/a/?cid=262366637	artilizajoycedi*****ail. online classroom	Teacher: artilizajoycedi*****ail.	English Class
+262366723	https://www.eeo.cn/s/a/?cid=262366723	ABCD	Teacher: Teacher Lu	Jonas-Spohia宁波1300 classroom
+262366753	https://www.eeo.cn/s/a/?cid=262366753	梅花鹿 Teacher Joan online classroom	Teacher: 2024t18a*****ail.com	Mirai7909&chihiro_CLASS
+262366761	https://www.eeo.cn/s/a/?cid=262366761	乐之教育	Teacher: 187****9812	七下数学期末刷题

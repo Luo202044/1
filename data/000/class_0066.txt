@@ -1,5 +1,3 @@
-256477347	https://www.eeo.cn/s/a/?cid=256477347	ABCD	Teacher: Teacher Lu	6-Cindy6 classroom
-256477399	https://www.eeo.cn/s/a/?cid=256477399	Emma Wang online classroom	Teacher: 170****668	hi
 256477481	https://www.eeo.cn/s/a/?cid=256477481	Kamilah online classroom	Teacher: 928****244	JEL
 256477587	https://www.eeo.cn/s/a/?cid=256477587	Ms. Chez online classroom	Teacher: frmcasano*****ail.com	FAYE
 256477755	https://www.eeo.cn/s/a/?cid=256477755	榧木星球	Teacher: 陈醉	猫猫-1V1
@@ -1198,3 +1196,5 @@
 256529503	https://www.eeo.cn/s/a/?cid=256529503	蓦然	Teacher: 137****3691	中考加油
 256529605	https://www.eeo.cn/s/a/?cid=256529605	Dvyphonic	Teacher: 949****00	MandyS Lesson 43
 256529625	https://www.eeo.cn/s/a/?cid=256529625	公益课堂	Teacher: 刘睿	新Emily老师自然拼读集训营（SHLTD\SHLTE）
+256529709	https://www.eeo.cn/s/a/?cid=256529709	Nelly	Teacher: 550***12	Max3
+256529711	https://www.eeo.cn/s/a/?cid=256529711	Dvyphonic	Teacher: 949****00	Brandon Lesson 44

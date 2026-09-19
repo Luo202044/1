@@ -1,6 +1,3 @@
-259284223	https://www.eeo.cn/s/a/?cid=259284223	Marie online classroom	Teacher: 995****753	Sandy's English Class 2
-259284253	https://www.eeo.cn/s/a/?cid=259284253	zera.palad*****ail.com online classroom	Teacher: zera.palad*****ail.com	Cherry
-259284313	https://www.eeo.cn/s/a/?cid=259284313	reypresident*****ail.com online classroom	Teacher: reypresident*****ail.com	JAIME'S CLASS
 259284377	https://www.eeo.cn/s/a/?cid=259284377	Con8pols	Teacher: 976****771	EMILY'S CLASS-18
 259284385	https://www.eeo.cn/s/a/?cid=259284385	PRIME UK EDUCATION	Teacher: 孙芮	Wang Jinghan-IELTS Speaking-Astghik
 259284387	https://www.eeo.cn/s/a/?cid=259284387	A老师阅读课	Teacher: 177****9256	周日晚中学培优班7.30-9.00
@@ -1198,3 +1195,6 @@
 259353931	https://www.eeo.cn/s/a/?cid=259353931	精品拓展	Teacher: Nenz	Betta 7011 Class
 259353999	https://www.eeo.cn/s/a/?cid=259353999	Laoshi Anna online classroom	Teacher: hhatdog4*****ail.com	Ningning's Class (FC40)
 259354087	https://www.eeo.cn/s/a/?cid=259354087	北京童年一课助学发展中心	Teacher: 赵越	期中教研会
+259354093	https://www.eeo.cn/s/a/?cid=259354093	Teacher Micka	Teacher: 967****490	Cindy
+259354137	https://www.eeo.cn/s/a/?cid=259354137	Teacher Loren 9 online classroom	Teacher: lorenaalcid8*****ail.com	GARY&DJAY 04/14/2024
+259354383	https://www.eeo.cn/s/a/?cid=259354383	AVE online classroom	Teacher: 917****925	andy

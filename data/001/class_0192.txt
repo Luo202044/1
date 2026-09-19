@@ -1,7 +1,3 @@
-264006921	https://www.eeo.cn/s/a/?cid=264006921	Galaxy	Teacher: Teacher Zara	Jayden9
-264006957	https://www.eeo.cn/s/a/?cid=264006957	sweetzeljanelamb*****ail online classroom	Teacher: sweetzeljanelamb*****ail	BOBBY'S CLASS
-264006997	https://www.eeo.cn/s/a/?cid=264006997	Galaxy	Teacher: Teacher Zara	Evelyn
-264007059	https://www.eeo.cn/s/a/?cid=264007059	layuganjonna5*****ail.co online classroom	Teacher: layuganjonna5*****ail.co	Trial Class MOnica
 264007079	https://www.eeo.cn/s/a/?cid=264007079	Galaxy	Teacher: Teacher Zara	Landy9
 264007161	https://www.eeo.cn/s/a/?cid=264007161	Natasa Golubovic	Teacher: 676***27	coco 19:00
 264007189	https://www.eeo.cn/s/a/?cid=264007189	Galaxy	Teacher: Teacher Zara	Bert
@@ -1198,3 +1194,7 @@
 264074729	https://www.eeo.cn/s/a/?cid=264074729	一对一课堂	Teacher: 班主任陈老师	陈冠宇2025广东深圳李老师数学课堂
 264074805	https://www.eeo.cn/s/a/?cid=264074805	一对一课堂	Teacher: 班主任陈老师	陈冠宇2025广东深圳李老师物理课堂
 264074871	https://www.eeo.cn/s/a/?cid=264074871	新一教育	Teacher: foina	C SuHan7连云港
+264074877	https://www.eeo.cn/s/a/?cid=264074877	小太阳	Teacher: 158****8588	七暑语文7.8-7.17，16:30-18:30
+264074881	https://www.eeo.cn/s/a/?cid=264074881	吴县中学	Teacher: 高中化学李晓彤	高三17、21班化学
+264074901	https://www.eeo.cn/s/a/?cid=264074901	Teacher Pammy online classroom	Teacher: 915****067	Yvonne0802 FREE CLASSROOM
+264074905	https://www.eeo.cn/s/a/?cid=264074905	Miss Mitch online classroom	Teacher: 935****546	Henry's Lesson

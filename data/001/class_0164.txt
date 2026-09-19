@@ -1,7 +1,3 @@
-262156341	https://www.eeo.cn/s/a/?cid=262156341	Anna's online classroom	Teacher: 541****770	Beibei_Jun
-262156447	https://www.eeo.cn/s/a/?cid=262156447	梁溰霖 online classroom	Teacher: llp-2010*****sllps.edu.h	沙壁S8老婆婆
-262156469	https://www.eeo.cn/s/a/?cid=262156469	EduCait online classroom	Teacher: 671****14	无
-262156473	https://www.eeo.cn/s/a/?cid=262156473	Teacher E. online classroom	Teacher: 991****388	Qiqi 10
 262156475	https://www.eeo.cn/s/a/?cid=262156475	English	Teacher: 136****7412	新1（二五班）
 262156497	https://www.eeo.cn/s/a/?cid=262156497	跟我学教育培训学校	Teacher: Davy	无
 262156571	https://www.eeo.cn/s/a/?cid=262156571	Gogchyan English	Teacher: 986***30	Tiantian
@@ -1198,3 +1194,7 @@
 262240087	https://www.eeo.cn/s/a/?cid=262240087	HJoy online classroom	Teacher: 921****000	June 2024 (Emily)
 262240097	https://www.eeo.cn/s/a/?cid=262240097	Arno online classroom	Teacher: 946****27	Roger's class
 262240111	https://www.eeo.cn/s/a/?cid=262240111	ABCD	Teacher: Teacher Lu	Jack-fred9sd classroom
+262240153	https://www.eeo.cn/s/a/?cid=262240153	jpadsi*****hoo.com online classroom	Teacher: jpadsi*****hoo.com	Crayons 2
+262240175	https://www.eeo.cn/s/a/?cid=262240175	Sunflower	Teacher: Joyce	Emily Li-Tina
+262240193	https://www.eeo.cn/s/a/?cid=262240193	jpadsi*****hoo.com online classroom	Teacher: jpadsi*****hoo.com	CRAYONS
+262240245	https://www.eeo.cn/s/a/?cid=262240245	审思明教育	Teacher: 魂斗罗大佬	刘津源-科学

@@ -1,8 +1,3 @@
-265519633	https://www.eeo.cn/s/a/?cid=265519633	0063-9550383792 online classroom	Teacher: 955****792	hello
-265519695	https://www.eeo.cn/s/a/?cid=265519695	chrisa Hatague online classroom	Teacher: hataguechri*****ail.com	suny
-265519721	https://www.eeo.cn/s/a/?cid=265519721	cherryanpaglinaw*****ail online classroom	Teacher: cherryanpaglinaw*****ail	hi
-265519827	https://www.eeo.cn/s/a/?cid=265519827	Noel2 online classroom	Teacher: 931****336	chrisa
-265519837	https://www.eeo.cn/s/a/?cid=265519837	Rita	Teacher: 185****8928	coco111
 265519869	https://www.eeo.cn/s/a/?cid=265519869	0063-9550383792 online classroom	Teacher: 955****792	sham
 265519887	https://www.eeo.cn/s/a/?cid=265519887	chrisa Hatague online classroom	Teacher: hataguechri*****ail.com	chrisa
 265519899	https://www.eeo.cn/s/a/?cid=265519899	Green Space	Teacher: MS. RIA MEDINA, LPT	ENGLISH 5 SY 24-25
@@ -1198,3 +1193,8 @@
 265569441	https://www.eeo.cn/s/a/?cid=265569441	T. ARIANA online classroom	Teacher: 906****698	TRIALS
 265569459	https://www.eeo.cn/s/a/?cid=265569459	费曼文化	Teacher: 刘娜老师	八年级春季15：30
 265608041	https://www.eeo.cn/s/a/?cid=265608041	水木清藤	Teacher: 何老师	张子涵英语课
+265608055	https://www.eeo.cn/s/a/?cid=265608055	语陆西班牙语	Teacher: Lucas	语陆西语Isabella-Fiona
+265608069	https://www.eeo.cn/s/a/?cid=265608069	昂立青少儿成长中心	Teacher: 周艳	跨文化种草国际营 24115 莘松
+265608107	https://www.eeo.cn/s/a/?cid=265608107	Teacher Pat online classroom	Teacher: 919****728	Chie's private class
+265608109	https://www.eeo.cn/s/a/?cid=265608109	TimesEdu	Teacher: timesedu0*****ail.com	Class for Osmond南京
+265608197	https://www.eeo.cn/s/a/?cid=265608197	SMB	Teacher: 645****14	Hermione's Birthday

@@ -1,12 +1,3 @@
-268355087	https://www.eeo.cn/s/a/?cid=268355087	yehawo70*****evw.com online classroom	Teacher: yehawo70*****evw.com	Trial Class - Liyan
-268355097	https://www.eeo.cn/s/a/?cid=268355097	上海市黄浦区复兴东路第三小学	Teacher: 宋鉴	复兴三小教师选餐
-268355201	https://www.eeo.cn/s/a/?cid=268355201	Reign online classroom	Teacher: reignjanica*****ail.com	LINGO STAR DEMO-REIGN JANICA
-268355279	https://www.eeo.cn/s/a/?cid=268355279	上海浦东新区民办正达外国语小学	Teacher: 李海霞	2024级1班
-268355301	https://www.eeo.cn/s/a/?cid=268355301	yehawo70*****evw.com online classroom	Teacher: yehawo70*****evw.com	Trial Class - Da Yu
-268355309	https://www.eeo.cn/s/a/?cid=268355309	上海浦东新区民办正达外国语小学	Teacher: 房婷婷	2024级2班
-268355319	https://www.eeo.cn/s/a/?cid=268355319	LOO中文	Teacher: 136****6624	三330pm六10am45min简体4年中文terbe
-268355321	https://www.eeo.cn/s/a/?cid=268355321	AEI Consulting	Teacher: Zoya	Claire 2026 KCIS Consulting
-268355331	https://www.eeo.cn/s/a/?cid=268355331	甘肃省电化教育中心	Teacher: 李济明_民乐县思源实验学校	民乐县思源实验学校八（8）班
 268355335	https://www.eeo.cn/s/a/?cid=268355335	Teacher Jhona online classroom	Teacher: 963****835	Alisa Yu 10 ( Teacher Nelyn )
 268355373	https://www.eeo.cn/s/a/?cid=268355373	乐优教育	Teacher: 谢龙智	测试
 268355375	https://www.eeo.cn/s/a/?cid=268355375	721 English Study	Teacher: 6.Emelyn	Yien's Class
@@ -1198,3 +1189,12 @@
 268391651	https://www.eeo.cn/s/a/?cid=268391651	上海市傅雷中学	Teacher: 王泓冰	2024学年度项目化工作小组
 268391677	https://www.eeo.cn/s/a/?cid=268391677	Nguyễn Hoàng Nam online classroom	Teacher: 919****66	uetey
 268391689	https://www.eeo.cn/s/a/?cid=268391689	Jane Marie-2 online classroom	Teacher: jane.widete*****ail.com	Michael 9.27
+268391741	https://www.eeo.cn/s/a/?cid=268391741	Cherry	Teacher: 156****8259	楼芷涵 IB 中文A 语言文学
+268391747	https://www.eeo.cn/s/a/?cid=268391747	Jane Marie online classroom	Teacher: 916****547	Josephine 9.27
+268391753	https://www.eeo.cn/s/a/?cid=268391753	976****29 online classroom	Teacher: 976****29	classin - trần thanh thúy
+268391761	https://www.eeo.cn/s/a/?cid=268391761	Jazzy's English Learning Tutorials	Teacher: 956****210	Joyann Fri 21:00 Sat 20:00 Sun 9:30
+268391779	https://www.eeo.cn/s/a/?cid=268391779	Beenglish	Teacher: Neno	du
+268391781	https://www.eeo.cn/s/a/?cid=268391781	Annie online classroom	Teacher: lootsannie0*****ail.com	andria
+268391821	https://www.eeo.cn/s/a/?cid=268391821	Lê Nguyễn Khánh Linh online classroom	Teacher: 395****52	lớp vô tri
+268391825	https://www.eeo.cn/s/a/?cid=268391825	English Online Classroom	Teacher: 946****973	Cheney's Class
+268391831	https://www.eeo.cn/s/a/?cid=268391831	pinkish.godde*****ail.co online classroom	Teacher: pinkish.godde*****ail.co	trial class

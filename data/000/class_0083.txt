@@ -1,5 +1,3 @@
-257365657	https://www.eeo.cn/s/a/?cid=257365657	三人行学堂	Teacher: 李佩	24春~初一英语1班-雅琴老师
-257365697	https://www.eeo.cn/s/a/?cid=257365697	三人行学堂	Teacher: 李佩	24春~初一语文1班-付老师
 257365809	https://www.eeo.cn/s/a/?cid=257365809	Teacher Kim	Teacher: 953****631	George7
 257365819	https://www.eeo.cn/s/a/?cid=257365819	Teacher Ana online classroom	Teacher: 916****653	Teacher Ana - Erlyn
 257365851	https://www.eeo.cn/s/a/?cid=257365851	Deamon_Kurtz online classroom	Teacher: 937****04	Cathy
@@ -1198,3 +1196,5 @@
 257424743	https://www.eeo.cn/s/a/?cid=257424743	Teacher Christine online classroom	Teacher: 993****635	MAGNOLIA CLASS
 257424827	https://www.eeo.cn/s/a/?cid=257424827	多瑙语言教育	Teacher: 182****4525	SarahM-Thalia牟页宁
 257424847	https://www.eeo.cn/s/a/?cid=257424847	Mike	Teacher: 664***02	11.3. Max
+257424861	https://www.eeo.cn/s/a/?cid=257424861	满分教育	Teacher: 188****7616	新疆乌鲁木齐高一戚健宇1V1
+257424869	https://www.eeo.cn/s/a/?cid=257424869	ZY online classroom	Teacher: gutierrezzyd*****ail.com	Dick 80/100

@@ -1,5 +1,3 @@
-259098737	https://www.eeo.cn/s/a/?cid=259098737	Teacher Ling online classroom	Teacher: 951****475	Yuka’s Class
-259098745	https://www.eeo.cn/s/a/?cid=259098745	Teaching is my cup of tea	Teacher: 653****12	Yona new classroom
 259098803	https://www.eeo.cn/s/a/?cid=259098803	Charie	Teacher: 955****568	5:30 Class
 259098859	https://www.eeo.cn/s/a/?cid=259098859	ABCD	Teacher: Teacher Lu	23-Amelia classroom
 259099021	https://www.eeo.cn/s/a/?cid=259099021	lovelymaymasamloc*****ai online classroom	Teacher: lovelymaymasamloc*****ai	KEN
@@ -443,7 +441,6 @@
 259122645	https://www.eeo.cn/s/a/?cid=259122645	phạm phú sa online classroom	Teacher: 976****77	các bạn cute
 259122727	https://www.eeo.cn/s/a/?cid=259122727	minh quan online classroom	Teacher: 386****87	kiểm tra camera
 259122821	https://www.eeo.cn/s/a/?cid=259122821	Hank online classroom	Teacher: 978****06	test
-259122849	https://www.eeo.cn/s/a/?cid=259122849	鱼飞飞	Teacher: 137****0091	阅读作文/陈 一对四（ 周日11:00 ）
 259122887	https://www.eeo.cn/s/a/?cid=259122887	teacher PRINCESS online classroom	Teacher: teachermay09*****ail.com	English Class Peppa
 259122969	https://www.eeo.cn/s/a/?cid=259122969	minh quan online classroom	Teacher: 386****87	ktc
 259122997	https://www.eeo.cn/s/a/?cid=259122997	Simmy online classroom	Teacher: golansim*****ail.com	Andre Classes
@@ -1198,3 +1195,6 @@
 259163021	https://www.eeo.cn/s/a/?cid=259163021	雅学在线	Teacher: 金富成10.17充值100	昊岩成长陪伴
 259163055	https://www.eeo.cn/s/a/?cid=259163055	星星老师口才课堂	Teacher: 18171091637	伽得赛前辅导
 259163087	https://www.eeo.cn/s/a/?cid=259163087	julyann.bertul*****ail.c online classroom	Teacher: julyann.bertul*****ail.c	IVAN'S ENGLISH CLASS
+259163129	https://www.eeo.cn/s/a/?cid=259163129	JulieBridges	Teacher: 829****11	Nina on dad's
+259163143	https://www.eeo.cn/s/a/?cid=259163143	AmazingX Academy	Teacher: 158****2907	Betty-AIME
+259163161	https://www.eeo.cn/s/a/?cid=259163161	云课 Weekly Payment English	Teacher: Hazel	165 STELLA 8- T. CEL

@@ -1,5 +1,3 @@
-257008409	https://www.eeo.cn/s/a/?cid=257008409	精品拓展	Teacher: Ryan	LORA
-257008461	https://www.eeo.cn/s/a/?cid=257008461	Teacher Ivan online classroom	Teacher: 613****94	Mo,We,Fr_19:00_Srbija
 257008479	https://www.eeo.cn/s/a/?cid=257008479	ahnafic*****ail.com online classroom	Teacher: ahnafic*****ail.com	yeafee
 257008487	https://www.eeo.cn/s/a/?cid=257008487	Cony🥰 online classroom	Teacher: 754***39	ma taitai de ke 9
 257008545	https://www.eeo.cn/s/a/?cid=257008545	Sara Obrenovic	Teacher: 691****46	ray alsa
@@ -1198,3 +1196,5 @@
 257061789	https://www.eeo.cn/s/a/?cid=257061789	Dragana Jankovic	Teacher: 658****25	Jessy9&Stephen6
 257061793	https://www.eeo.cn/s/a/?cid=257061793	ESL with Haley	Teacher: 804****972	Molly’s Class
 257061841	https://www.eeo.cn/s/a/?cid=257061841	aruenglishclass*****ail. online classroom	Teacher: aruenglishclass*****ail.	TRIAL CLASS 4
+257061931	https://www.eeo.cn/s/a/?cid=257061931	Vi online classroom	Teacher: avergene*****ail.com	Ivy 7 广东
+257061943	https://www.eeo.cn/s/a/?cid=257061943	乐学思维	Teacher: 155****3010	培训课堂

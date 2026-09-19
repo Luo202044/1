@@ -1,8 +1,3 @@
-265608055	https://www.eeo.cn/s/a/?cid=265608055	语陆西班牙语	Teacher: Lucas	语陆西语Isabella-Fiona
-265608069	https://www.eeo.cn/s/a/?cid=265608069	昂立青少儿成长中心	Teacher: 周艳	跨文化种草国际营 24115 莘松
-265608107	https://www.eeo.cn/s/a/?cid=265608107	Teacher Pat online classroom	Teacher: 919****728	Chie's private class
-265608109	https://www.eeo.cn/s/a/?cid=265608109	TimesEdu	Teacher: timesedu0*****ail.com	Class for Osmond南京
-265608197	https://www.eeo.cn/s/a/?cid=265608197	SMB	Teacher: 645****14	Hermione's Birthday
 265608213	https://www.eeo.cn/s/a/?cid=265608213	Teacher Ella's online classroom	Teacher: 915****200	Betty
 265608223	https://www.eeo.cn/s/a/?cid=265608223	水木清藤	Teacher: 何老师	张子涵数学课
 265608277	https://www.eeo.cn/s/a/?cid=265608277	Teacher Dyna 2.0 online classroom	Teacher: 956****325	candy
@@ -1198,3 +1193,8 @@
 265653035	https://www.eeo.cn/s/a/?cid=265653035	Laoshi Tam online classroom	Teacher: 951****417	Alan 2
 265653039	https://www.eeo.cn/s/a/?cid=265653039	Khang Love Chuối!!! online classroom	Teacher: ntjade1910*****ail.com	Banana World II ( kiếm ny )
 265653041	https://www.eeo.cn/s/a/?cid=265653041	Teacher Janice online classroom	Teacher: boss.jmflor*****ail.com	Jason 25
+265653157	https://www.eeo.cn/s/a/?cid=265653157	WeTalk International Education Ltd	Teacher: Teacher Gao 高老师	Kids Mandarin Trial Class- Adrielle
+265653231	https://www.eeo.cn/s/a/?cid=265653231	Khang Love Chuối!!! online classroom	Teacher: ntjade1910*****ail.com	Học Viên 11
+265653249	https://www.eeo.cn/s/a/?cid=265653249	faustteacher*****ail.com online classroom	Teacher: faustteacher*****ail.com	August -Kevin
+265653251	https://www.eeo.cn/s/a/?cid=265653251	Tiếng Việt Ơi	Teacher: Nguyễn Anh Phương Thảo	Emily and Alvin & Phương Thảo Nguyễn
+265653281	https://www.eeo.cn/s/a/?cid=265653281	东方启学	Teacher: 赵瑞芳	2025年【春季】王锦沅-赵老师数学课堂

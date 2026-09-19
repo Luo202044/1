@@ -1,7 +1,3 @@
-263669921	https://www.eeo.cn/s/a/?cid=263669921	T. Ivy online classroom	Teacher: 963****242	Lily
-263669945	https://www.eeo.cn/s/a/?cid=263669945	JESY 'S STUDIO	Teacher: 173****9908	11
-263669951	https://www.eeo.cn/s/a/?cid=263669951	英语外教口语学习课堂	Teacher: tony	Bonnie Class
-263669965	https://www.eeo.cn/s/a/?cid=263669965	YW	Teacher: 穆老师	2024暑假新七数学理科班
 263669997	https://www.eeo.cn/s/a/?cid=263669997	苏州阅美乐培训中心	Teacher: Melody	暑期小升初英语
 263670027	https://www.eeo.cn/s/a/?cid=263670027	海全老师的课堂	Teacher: 王海全	2024年暑假1年级创新班
 263670125	https://www.eeo.cn/s/a/?cid=263670125	Teacher Nora online classroom	Teacher: 976****077	HARRY
@@ -1198,3 +1194,7 @@
 263718309	https://www.eeo.cn/s/a/?cid=263718309	Teacher Jc ❤️ online classroom	Teacher: 976****868	Celine
 263718317	https://www.eeo.cn/s/a/?cid=263718317	Teacher Matthew牛排 online classroom	Teacher: timesedu0*****ail.com	Lisa10HB
 263718319	https://www.eeo.cn/s/a/?cid=263718319	Teacher Sally online classroom	Teacher: 656***17	ljfKLFJ
+263718331	https://www.eeo.cn/s/a/?cid=263718331	Jinlong online classroom	Teacher: jjsit*****ail.com	Maths
+263718343	https://www.eeo.cn/s/a/?cid=263718343	Teacher Ricky online classroom	Teacher: 921****289	QQ2019江苏
+263718345	https://www.eeo.cn/s/a/?cid=263718345	Teacher Ricky online classroom	Teacher: 921****289	QQ2019江苏-my acc
+263718359	https://www.eeo.cn/s/a/?cid=263718359	Teacher Ricky online classroom	Teacher: 921****289	Luke 2019 本溪- my acc

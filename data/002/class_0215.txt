@@ -1,8 +1,3 @@
-265488357	https://www.eeo.cn/s/a/?cid=265488357	George online classroom	Teacher: 677****48	SIA
-265488377	https://www.eeo.cn/s/a/?cid=265488377	Rosy online classroom	Teacher: 960****434	Lesson 1.30 - Mary
-265488385	https://www.eeo.cn/s/a/?cid=265488385	点石教育	Teacher: 孙运明	嘉禾
-265488389	https://www.eeo.cn/s/a/?cid=265488389	Learning with Paul	Teacher: 642****86	Angelo - classes in August
-265488391	https://www.eeo.cn/s/a/?cid=265488391	Teacher Rae online classroom	Teacher: 976****774	Simon
 265488443	https://www.eeo.cn/s/a/?cid=265488443	Remelyn Clay online classroom	Teacher: 506****31	Ziggy
 265488499	https://www.eeo.cn/s/a/?cid=265488499	Michaela Profile 6 online classroom	Teacher: nikkiotoole1*****ail.com	Spencer class
 265488531	https://www.eeo.cn/s/a/?cid=265488531	Sareen online classroom	Teacher: 929****576	Apple
@@ -1198,3 +1193,8 @@
 265519529	https://www.eeo.cn/s/a/?cid=265519529	Steve's Home ESL	Teacher: 178****7308	BF004 August
 265519553	https://www.eeo.cn/s/a/?cid=265519553	Steve's Home ESL	Teacher: 178****7308	BE001 August
 265519631	https://www.eeo.cn/s/a/?cid=265519631	juvz26🥰 online classroom	Teacher: 991****272	jhen
+265519633	https://www.eeo.cn/s/a/?cid=265519633	0063-9550383792 online classroom	Teacher: 955****792	hello
+265519695	https://www.eeo.cn/s/a/?cid=265519695	chrisa Hatague online classroom	Teacher: hataguechri*****ail.com	suny
+265519721	https://www.eeo.cn/s/a/?cid=265519721	cherryanpaglinaw*****ail online classroom	Teacher: cherryanpaglinaw*****ail	hi
+265519827	https://www.eeo.cn/s/a/?cid=265519827	Noel2 online classroom	Teacher: 931****336	chrisa
+265519837	https://www.eeo.cn/s/a/?cid=265519837	Rita	Teacher: 185****8928	coco111

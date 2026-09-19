@@ -1,13 +1,3 @@
-268618415	https://www.eeo.cn/s/a/?cid=268618415	luarezguerlainkate6***** online classroom	Teacher: luarezguerlainkate6*****	Kevin
-268618425	https://www.eeo.cn/s/a/?cid=268618425	Emma B online classroom	Teacher: 771****691	Geography
-268618443	https://www.eeo.cn/s/a/?cid=268618443	EduCait online classroom	Teacher: 671****14	KERRY(MA)
-268618529	https://www.eeo.cn/s/a/?cid=268618529	katrinajhoyrau*****ail.c online classroom	Teacher: katrinajhoyrau*****ail.c	teacher KatJhoy
-268618659	https://www.eeo.cn/s/a/?cid=268618659	John online classroom	Teacher: 949****686	Chinese Account
-268618713	https://www.eeo.cn/s/a/?cid=268618713	Rose's English Tutorial Services	Teacher: 970****333	Liv9
-268618729	https://www.eeo.cn/s/a/?cid=268618729	quinniedingla*****ail.co online classroom	Teacher: quinniedingla*****ail.co	Sophia's classes
-268618739	https://www.eeo.cn/s/a/?cid=268618739	Teacher Mike online classroom	Teacher: 659****06	Tina6's class
-268618781	https://www.eeo.cn/s/a/?cid=268618781	Teacher Queen online classroom	Teacher: 910****280	Andrew
-268618841	https://www.eeo.cn/s/a/?cid=268618841	Teacher Van online classroom	Teacher: ayaovanissa*****ail.com	STUDENT VAN
 268618847	https://www.eeo.cn/s/a/?cid=268618847	vilmadonaldson*****ail.c online classroom	Teacher: vilmadonaldson*****ail.c	无
 268618895	https://www.eeo.cn/s/a/?cid=268618895	maryrosepaderoggonzaga** online classroom	Teacher: maryrosepaderoggonzaga**	LingoStar
 268618961	https://www.eeo.cn/s/a/?cid=268618961	MJ online classroom	Teacher: 955****617	Elsa
@@ -1198,3 +1188,13 @@
 268651919	https://www.eeo.cn/s/a/?cid=268651919	dimanahanmarc*****ail.co online classroom	Teacher: dimanahanmarc*****ail.co	Milly's Class (10)
 268651991	https://www.eeo.cn/s/a/?cid=268651991	liesel.loquias*****ail.c online classroom	Teacher: liesel.loquias*****ail.c	maggie demo
 268652039	https://www.eeo.cn/s/a/?cid=268652039	dangcuong online classroom	Teacher: 865****26	Ly Cuong
+268652109	https://www.eeo.cn/s/a/?cid=268652109	gubaka_*****il.ru online classroom	Teacher: gubaka_*****il.ru	11
+268652163	https://www.eeo.cn/s/a/?cid=268652163	Quỳnh Trâm online classroom	Teacher: 785****86	DEMO BABILALA PRO
+268652185	https://www.eeo.cn/s/a/?cid=268652185	OK online classroom	Teacher: 842***09	宇宸的2024年10月
+268652189	https://www.eeo.cn/s/a/?cid=268652189	sittieainahcari*****ail. online classroom	Teacher: sittieainahcari*****ail.	Trial demo
+268652203	https://www.eeo.cn/s/a/?cid=268652203	Cells Naomi online classroom	Teacher: 969****325	g
+268652229	https://www.eeo.cn/s/a/?cid=268652229	上海市虹口区曲阳第四小学	Teacher: 胡超	胡老师的课堂
+268652249	https://www.eeo.cn/s/a/?cid=268652249	Cells Naomi online classroom	Teacher: 969****325	无
+268652315	https://www.eeo.cn/s/a/?cid=268652315	alaizamarie1*****ail.com online classroom	Teacher: alaizamarie1*****ail.com	RYAN OCTOBER
+268652323	https://www.eeo.cn/s/a/?cid=268652323	Teacher Arcil online classroom	Teacher: 905****643	kevin oct
+268652335	https://www.eeo.cn/s/a/?cid=268652335	Teacher Sam online classroom	Teacher: 955****674	Demo

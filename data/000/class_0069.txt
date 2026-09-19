@@ -1,5 +1,3 @@
-256627173	https://www.eeo.cn/s/a/?cid=256627173	Shawna online classroom	Teacher: 519****463	Tian Hao Class 192, February 28, 2024
-256627187	https://www.eeo.cn/s/a/?cid=256627187	TeachU	Teacher: 450***09	Wexo
 256627197	https://www.eeo.cn/s/a/?cid=256627197	NERDS Academy	Teacher: Lissa	Wexos
 256627211	https://www.eeo.cn/s/a/?cid=256627211	Kathy Hensinger online classroom	Teacher: 919****686	practice
 256627249	https://www.eeo.cn/s/a/?cid=256627249	Teacher Jet online classroom	Teacher: 930****466	Lipe9's Class
@@ -1198,3 +1196,5 @@
 256668637	https://www.eeo.cn/s/a/?cid=256668637	English Tutorial	Teacher: 994****120	Deborah's Class
 256668647	https://www.eeo.cn/s/a/?cid=256668647	刘老师的在线课	Teacher: 157****7553	24春季小升初数学周五18:00-20:30
 256668653	https://www.eeo.cn/s/a/?cid=256668653	navirockz3*****ail.com online classroom	Teacher: navirockz3*****ail.com	Wang Yuhan VIP Class
+256668657	https://www.eeo.cn/s/a/?cid=256668657	武汉市天天象上教育咨询有限公司	Teacher: 刘作明	2024春·高二数周日13:30
+256668805	https://www.eeo.cn/s/a/?cid=256668805	Rachelle online classroom	Teacher: 912****913	Rachelle

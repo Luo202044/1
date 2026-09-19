@@ -1,8 +1,3 @@
-265206267	https://www.eeo.cn/s/a/?cid=265206267	John online classroom	Teacher: 985****997	nicole 8
-265206281	https://www.eeo.cn/s/a/?cid=265206281	teachermeriemkad*****ail online classroom	Teacher: 792****47	MERIEM
-265206287	https://www.eeo.cn/s/a/?cid=265206287	jncruse*****ail.com online classroom	Teacher: jncruse*****ail.com	Jerry's Class (23)
-265206333	https://www.eeo.cn/s/a/?cid=265206333	动悉健康科技	Teacher: 豆小豆	Crystal10NH/T.Angel July.24
-265206395	https://www.eeo.cn/s/a/?cid=265206395	gacoa19*****ail.com online classroom	Teacher: gacoa19*****ail.com	2nd demo
 265206431	https://www.eeo.cn/s/a/?cid=265206431	Teacher Ana online classroom	Teacher: lenyalbori*****ail.com	Jessie's Class Family Friends 1 lesson10
 265206463	https://www.eeo.cn/s/a/?cid=265206463	Teacher Ana5 online classroom	Teacher: 970****428	Eric's Class Intermediate 1 Lesson 8
 265206479	https://www.eeo.cn/s/a/?cid=265206479	Miss Meii online classroom	Teacher: aaaiijl*****ail.com	Student Vann
@@ -1198,3 +1193,8 @@
 265284883	https://www.eeo.cn/s/a/?cid=265284883	Teacher Uki.S online classroom	Teacher: 631****94	Elsa
 265284967	https://www.eeo.cn/s/a/?cid=265284967	L.T.B.Liên online classroom	Teacher: 387****82	Lớp 9 cô Liên
 265284975	https://www.eeo.cn/s/a/?cid=265284975	canoymarisa*****ail.com online classroom	Teacher: canoymarisa*****ail.com	demo
+265285025	https://www.eeo.cn/s/a/?cid=265285025	Samantha英语	Teacher: 153****1856	2025暑初三听口满分冲刺班2 8.1-12号 15:30-17:30
+265285113	https://www.eeo.cn/s/a/?cid=265285113	Teacher Cath online classroom	Teacher: 907****527	Lingyin_class
+265285115	https://www.eeo.cn/s/a/?cid=265285115	Teacher Shuls online classroom	Teacher: 991****208	497 Elsa 2
+265285155	https://www.eeo.cn/s/a/?cid=265285155	周盛	Teacher: Chris	1194 Benny
+265285157	https://www.eeo.cn/s/a/?cid=265285157	sarahmae_paganti*****p2c online classroom	Teacher: sarahmae_paganti*****p2c	Student van

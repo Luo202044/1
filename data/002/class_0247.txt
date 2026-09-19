@@ -1,9 +1,3 @@
-267278193	https://www.eeo.cn/s/a/?cid=267278193	少年志教育	Teacher: 邢林昊	【交英语作业】囧班-中南-1D
-267278227	https://www.eeo.cn/s/a/?cid=267278227	少年志教育	Teacher: 邢林昊	无
-267278265	https://www.eeo.cn/s/a/?cid=267278265	小太阳	Teacher: 158****8588	初一语文周日16:30-18:30
-267278269	https://www.eeo.cn/s/a/?cid=267278269	Love Joy online classroom	Teacher: eljaylovejoy*****ail.com	无
-267278297	https://www.eeo.cn/s/a/?cid=267278297	一对一专业辅导	Teacher: 科学周老师	吴政轩
-267278339	https://www.eeo.cn/s/a/?cid=267278339	小太阳	Teacher: 158****8588	初二语文周六16:30-18:30
 267278341	https://www.eeo.cn/s/a/?cid=267278341	stellagailsin*****ail.co online classroom	Teacher: stellagailsin*****ail.co	Alex
 267278413	https://www.eeo.cn/s/a/?cid=267278413	上海市子长学校	Teacher: 周洁	9A哇哈哈班
 267278415	https://www.eeo.cn/s/a/?cid=267278415	小太阳	Teacher: 158****8588	初二语文周日14:00-16:00
@@ -1198,3 +1192,9 @@
 267311359	https://www.eeo.cn/s/a/?cid=267311359	Teacher Richelle online classroom	Teacher: sheispanny*****ail.com	Hazle3 / sep6
 267311371	https://www.eeo.cn/s/a/?cid=267311371	Scarlett	Teacher: Nate	DANIEL FRIDAY 19:30-20:15
 267311375	https://www.eeo.cn/s/a/?cid=267311375	Teacher Yemaya online classroom	Teacher: 629****62	KITTY SEPT
+267311381	https://www.eeo.cn/s/a/?cid=267311381	Teacher Des online classroom	Teacher: tallomamercedes*****ail.	8 PM
+267311383	https://www.eeo.cn/s/a/?cid=267311383	Scarlett	Teacher: Nate	John Mon 20:00 WED 18:00
+267311397	https://www.eeo.cn/s/a/?cid=267311397	Scarlett	Teacher: Nate	Daniel,Isac Mon 19:00
+267311423	https://www.eeo.cn/s/a/?cid=267311423	春苗	Teacher: A宋老师7.17充值300	5秋-CXA-2024.9.7
+267311431	https://www.eeo.cn/s/a/?cid=267311431	司南科学堂	Teacher: 夏老师	2024年秋季9年级周五18:30-20:30
+267311527	https://www.eeo.cn/s/a/?cid=267311527	优尼贝特国际教育	Teacher: 刘向炜Olla	剑二-线003

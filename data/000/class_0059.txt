@@ -1,5 +1,3 @@
-256039333	https://www.eeo.cn/s/a/?cid=256039333	angelarangasa*****ail.co online classroom	Teacher: angelarangasa*****ail.co	cvzdfa
-256039485	https://www.eeo.cn/s/a/?cid=256039485	NadEduc	Teacher: 926****241	Shiwen
 256039513	https://www.eeo.cn/s/a/?cid=256039513	NadEduc	Teacher: 926****241	Hebe
 256039605	https://www.eeo.cn/s/a/?cid=256039605	陕西省西咸新区秦汉中学	Teacher: 初三12班	12班
 256039855	https://www.eeo.cn/s/a/?cid=256039855	Teacher Michelle online classroom	Teacher: 948****365	Open Class
@@ -1198,3 +1196,5 @@
 256111275	https://www.eeo.cn/s/a/?cid=256111275	kirthi.rewasank*****ail. online classroom	Teacher: kirthi.rewasank*****ail.	Practice
 256111289	https://www.eeo.cn/s/a/?cid=256111289	上海学加网络科技有限公司	Teacher: Luigi	Interview-侠肇老师
 256111291	https://www.eeo.cn/s/a/?cid=256111291	00234-8138562643 online classroom	Teacher: 813****643	class with ehis and chimy
+256111303	https://www.eeo.cn/s/a/?cid=256111303	Sophia meng online classroom	Teacher: 604****220	Sophia
+256111305	https://www.eeo.cn/s/a/?cid=256111305	kirthi.rewasank*****ail. online classroom	Teacher: kirthi.rewasank*****ail.	prac

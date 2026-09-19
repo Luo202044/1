@@ -1,8 +1,3 @@
-264541175	https://www.eeo.cn/s/a/?cid=264541175	Teacher Juvy online classroom	Teacher: juvymunez6*****ail.com	Beibei11 & Junjun7
-264541197	https://www.eeo.cn/s/a/?cid=264541197	nedsoni*****ail.com online classroom	Teacher: nedsoni*****ail.com	Anna
-264541357	https://www.eeo.cn/s/a/?cid=264541357	nedsoni*****ail.com online classroom	Teacher: nedsoni*****ail.com	Alisa
-264541367	https://www.eeo.cn/s/a/?cid=264541367	LOO中文	Teacher: 136****6624	25mins普通話patty923k2
-264541387	https://www.eeo.cn/s/a/?cid=264541387	海外同步课程辅导平台	Teacher: Linda	王睿楷-行前指导1
 264541389	https://www.eeo.cn/s/a/?cid=264541389	Teacher Angelie online classroom	Teacher: 915****398	teacher angelie
 264541409	https://www.eeo.cn/s/a/?cid=264541409	一对一课堂	Teacher: 班主任陈老师	白晨熙2025北京通州区宋老师化学课堂
 264541437	https://www.eeo.cn/s/a/?cid=264541437	beukes.erhard*****ail.co online classroom	Teacher: beukes.erhard*****ail.co	Erhards Training Class
@@ -1198,3 +1193,8 @@
 264629053	https://www.eeo.cn/s/a/?cid=264629053	LANDER online classroom	Teacher: landerclassi*****ail.com	无
 264629077	https://www.eeo.cn/s/a/?cid=264629077	jooh online classroom	Teacher: jmaputi*****ail.com	Kevin 140 (7-16-24)
 264629081	https://www.eeo.cn/s/a/?cid=264629081	Teacher F online classroom	Teacher: 950****043	Nancy’s Class
+264629161	https://www.eeo.cn/s/a/?cid=264629161	Teacher Jhona online classroom	Teacher: 963****835	Wang Haochen ( Teacher Jane )
+264629185	https://www.eeo.cn/s/a/?cid=264629185	Teacher Rojely Colyn online classroom	Teacher: 919****455	jimmy 2
+264629201	https://www.eeo.cn/s/a/?cid=264629201	Teacher Mariel 5 online classroom	Teacher: sinining19mari*****ail.c	Rene's class
+264629223	https://www.eeo.cn/s/a/?cid=264629223	Teacher Mariel 5 online classroom	Teacher: sinining19mari*****ail.c	Jia's class
+264629307	https://www.eeo.cn/s/a/?cid=264629307	Ezra online classroom	Teacher: 997****792	Science trial class

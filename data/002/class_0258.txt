@@ -1,11 +1,3 @@
-267911693	https://www.eeo.cn/s/a/?cid=267911693	ThinkSpeak IT	Teacher: 999****243	ADA (09.01-30.24)
-267911725	https://www.eeo.cn/s/a/?cid=267911725	Mai Khanh online classroom	Teacher: 922****81	Dạy Demo Babilala
-267911735	https://www.eeo.cn/s/a/?cid=267911735	Teacher Jhona online classroom	Teacher: 963****835	Chen Borui 7 ( Teacher Chris )
-267911749	https://www.eeo.cn/s/a/?cid=267911749	archangel.chidzan*****ai online classroom	Teacher: archangel.chidzan*****ai	Trial
-267911827	https://www.eeo.cn/s/a/?cid=267911827	umunnakwevivian20*****ai online classroom	Teacher: umunnakwevivian20*****ai	teacher Debby
-267911849	https://www.eeo.cn/s/a/?cid=267911849	Kay online classroom	Teacher: 614****94	English Class - Nobel & Kay
-267911857	https://www.eeo.cn/s/a/?cid=267911857	Sarah online classroom	Teacher: 762****52	Demo class lesson Bilinguel
-267911867	https://www.eeo.cn/s/a/?cid=267911867	Felix Lucky	Teacher: 652****54	Coco demo
 267911919	https://www.eeo.cn/s/a/?cid=267911919	Free talk	Teacher: 137****6563	2267-1
 267912023	https://www.eeo.cn/s/a/?cid=267912023	7 online classroom	Teacher: 623***37	630763
 267912033	https://www.eeo.cn/s/a/?cid=267912033	Charrie Mae C. Marcos online classroom	Teacher: 969****307	teacher Cha
@@ -1198,3 +1190,11 @@
 267953559	https://www.eeo.cn/s/a/?cid=267953559	小小约课	Teacher: サツマ	王 资料室
 267953605	https://www.eeo.cn/s/a/?cid=267953605	armelggrana*****hoo.com online classroom	Teacher: armelggrana*****hoo.com.	Asher (SEP 2H-3)
 267953643	https://www.eeo.cn/s/a/?cid=267953643	教师发展中心	Teacher: 汉考-闵健	2024《国际中文教师专业能力》工作坊（荷兰）
+267953653	https://www.eeo.cn/s/a/?cid=267953653	乐梦营	Teacher: 华冰 Coco	Coco demo考核
+267953793	https://www.eeo.cn/s/a/?cid=267953793	奕奕up	Teacher: 158****4267	（Regular）Q-Alan Wed 19:10+ Thur 19:00
+267953821	https://www.eeo.cn/s/a/?cid=267953821	anhdtp2*****ail.com online classroom	Teacher: anhdtp2*****ail.com	lớp Mai Thành
+267953823	https://www.eeo.cn/s/a/?cid=267953823	English	Teacher: Merry	merry(GEORGE)PREK&XF56
+267953861	https://www.eeo.cn/s/a/?cid=267953861	aminaferdjalla*****ail.c online classroom	Teacher: aminaferdjalla*****ail.c	无
+267953881	https://www.eeo.cn/s/a/?cid=267953881	GG Education	Teacher: 教辅老师River	吴梓瑶-设计课-启航计划包课
+267953891	https://www.eeo.cn/s/a/?cid=267953891	思峰在线教育	Teacher: 152****3668	王老师的试听课（9.18）
+267953917	https://www.eeo.cn/s/a/?cid=267953917	TSD Inc.	Teacher: Technical Solutions	Intern Interview - Du Nguyen Nam Anh

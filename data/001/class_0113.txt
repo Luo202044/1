@@ -1,5 +1,3 @@
-259043269	https://www.eeo.cn/s/a/?cid=259043269	公司会议	Teacher: Sally	Sally-Harry
-259043303	https://www.eeo.cn/s/a/?cid=259043303	hakhanhly210919*****ail. online classroom	Teacher: hakhanhly210919*****ail.	demo slide
 259043335	https://www.eeo.cn/s/a/?cid=259043335	Ron online classroom	Teacher: 921****845	cNgữ phá
 259043337	https://www.eeo.cn/s/a/?cid=259043337	Teacher Rae online classroom	Teacher: hrdpsalig*****ail.com	test.Now4/9
 259043341	https://www.eeo.cn/s/a/?cid=259043341	阳光酷编机器人·编程	Teacher: 韩博林	韩博林初一暑假第一讲
@@ -1198,3 +1196,5 @@
 259098481	https://www.eeo.cn/s/a/?cid=259098481	深圳市福田区教育科学研究院	Teacher: 深圳市福田区教育科学研究院	AAA
 259098555	https://www.eeo.cn/s/a/?cid=259098555	shahla online classroom	Teacher: nasarishah*****ail.com	jhj
 259098575	https://www.eeo.cn/s/a/?cid=259098575	Zora's Class	Teacher: 985****612	emily
+259098737	https://www.eeo.cn/s/a/?cid=259098737	Teacher Ling online classroom	Teacher: 951****475	Yuka’s Class
+259098745	https://www.eeo.cn/s/a/?cid=259098745	Teaching is my cup of tea	Teacher: 653****12	Yona new classroom

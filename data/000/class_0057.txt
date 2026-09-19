@@ -1,5 +1,3 @@
-255892807	https://www.eeo.cn/s/a/?cid=255892807	0063-9061696467 online classroom	Teacher: 906****467	Kevin 11
-255892845	https://www.eeo.cn/s/a/?cid=255892845	Teacher Ana5 online classroom	Teacher: 970****428	SpiderMan's Class Pm Basic Lesson 11
 255892855	https://www.eeo.cn/s/a/?cid=255892855	Teacher Nkele online classroom	Teacher: nkele19*****ail.com	Demon class
 255892881	https://www.eeo.cn/s/a/?cid=255892881	iRead online classroom	Teacher: 927****279	Linda - Teacher Elaine
 255892903	https://www.eeo.cn/s/a/?cid=255892903	一乐教育	Teacher: 陈朋	七年级三期下午
@@ -1198,3 +1196,5 @@
 255951265	https://www.eeo.cn/s/a/?cid=255951265	Will online classroom	Teacher: 647****10	Dora 71-80
 255951267	https://www.eeo.cn/s/a/?cid=255951267	Teacher Nik online classroom	Teacher: fedaro28*****hih.com	Oscar/Zhou xuanyi
 255951269	https://www.eeo.cn/s/a/?cid=255951269	SilviyaB online classroom	Teacher: 641****67	CAS 2,2
+255951299	https://www.eeo.cn/s/a/?cid=255951299	Teacher Nik online classroom	Teacher: fedaro28*****hih.com	EVA
+255951323	https://www.eeo.cn/s/a/?cid=255951323	Teacher Nik online classroom	Teacher: fedaro28*****hih.com	Eric/Han zhaoyang

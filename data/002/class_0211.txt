@@ -1,8 +1,3 @@
-265285025	https://www.eeo.cn/s/a/?cid=265285025	Samantha英语	Teacher: 153****1856	2025暑初三听口满分冲刺班2 8.1-12号 15:30-17:30
-265285113	https://www.eeo.cn/s/a/?cid=265285113	Teacher Cath online classroom	Teacher: 907****527	Lingyin_class
-265285115	https://www.eeo.cn/s/a/?cid=265285115	Teacher Shuls online classroom	Teacher: 991****208	497 Elsa 2
-265285155	https://www.eeo.cn/s/a/?cid=265285155	周盛	Teacher: Chris	1194 Benny
-265285157	https://www.eeo.cn/s/a/?cid=265285157	sarahmae_paganti*****p2c online classroom	Teacher: sarahmae_paganti*****p2c	Student van
 265285175	https://www.eeo.cn/s/a/?cid=265285175	T. Yana 31 online classroom	Teacher: 993****489	TRIALS
 265285243	https://www.eeo.cn/s/a/?cid=265285243	sarahmae_paganti*****p2c online classroom	Teacher: sarahmae_paganti*****p2c	level 3
 265285253	https://www.eeo.cn/s/a/?cid=265285253	saintsibi*****hoo.com online classroom	Teacher: saintsibi*****hoo.com	Saint_IVAN ENGLISH
@@ -1198,3 +1193,8 @@
 265328239	https://www.eeo.cn/s/a/?cid=265328239	正领睿学教育	Teacher: 吴缘	7.21 徐汇雅思基础班
 265328241	https://www.eeo.cn/s/a/?cid=265328241	Teacher Jay Clabel online classroom	Teacher: 956****313	Teacher Clab
 265328259	https://www.eeo.cn/s/a/?cid=265328259	Dvyphonic	Teacher: 949****00	Brandon Lesson 60
+265328273	https://www.eeo.cn/s/a/?cid=265328273	Carlin Raath online classroom	Teacher: 635****23	3333
+265328283	https://www.eeo.cn/s/a/?cid=265328283	黄老师英语教室	Teacher: 刘庆	刘老师数学二期1540
+265328349	https://www.eeo.cn/s/a/?cid=265328349	Teacher Margie online classroom	Teacher: 950****795	idab dana
+265328369	https://www.eeo.cn/s/a/?cid=265328369	Teacher Xenia online classroom	Teacher: xenia.sp*****ail.com	YOYO'S CLASS
+265328371	https://www.eeo.cn/s/a/?cid=265328371	Teacher Lizz online classroom	Teacher: lpansegrou*****ail.com	Eileen

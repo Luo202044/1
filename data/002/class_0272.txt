@@ -1,12 +1,3 @@
-268563015	https://www.eeo.cn/s/a/?cid=268563015	快乐学习	Teacher: 183****8110	物理课~
-268563019	https://www.eeo.cn/s/a/?cid=268563019	catherinehernandez7***** online classroom	Teacher: catherinehernandez7*****	DOC FREN
-268563021	https://www.eeo.cn/s/a/?cid=268563021	Kevin online classroom	Teacher: kevinthemil*****hoo.com	Kevin's Interview
-268563027	https://www.eeo.cn/s/a/?cid=268563027	Teacher Jam online classroom	Teacher: 907****702	Jerry
-268563043	https://www.eeo.cn/s/a/?cid=268563043	Ali Education	Teacher: Hafiz	丁宝宝
-268563047	https://www.eeo.cn/s/a/?cid=268563047	周盛	Teacher: Emily	1307 Allen1
-268563065	https://www.eeo.cn/s/a/?cid=268563065	T. Mary online classroom	Teacher: 968****766	George
-268563157	https://www.eeo.cn/s/a/?cid=268563157	thuhatracy online classroom	Teacher: 329****23	VHdemo2_Tran Thu Ha_30/9/24
-268563173	https://www.eeo.cn/s/a/?cid=268563173	Dvyphonic	Teacher: 949****00	Mandy Lesson 69
 268563197	https://www.eeo.cn/s/a/?cid=268563197	Teacher Rachel online classroom	Teacher: 910****327	sample
 268563199	https://www.eeo.cn/s/a/?cid=268563199	起点口语Start ABC	Teacher: 136****5521	Zinnia's Student Courseware
 268563215	https://www.eeo.cn/s/a/?cid=268563215	Jessica Davies (private)	Teacher: 625****50	Shoog: Class of 8 - Oct
@@ -1198,3 +1189,12 @@
 268585887	https://www.eeo.cn/s/a/?cid=268585887	Diem Nguyen online classroom	Teacher: thuydiemnguyen201*****ai	English 2
 268585895	https://www.eeo.cn/s/a/?cid=268585895	贵阳市西沃研学服务有限责任公司	Teacher: Teacher Calum	Calum demo
 268585903	https://www.eeo.cn/s/a/?cid=268585903	lemuelpabala*****ail.com online classroom	Teacher: lemuelpabala*****ail.com	DAY14
+268585919	https://www.eeo.cn/s/a/?cid=268585919	Teacher Richard	Teacher: 779****576	Roy 30.9.24
+268586007	https://www.eeo.cn/s/a/?cid=268586007	中国人民大学附属中学三亚学校	Teacher: 赵中强	Lee
+268586031	https://www.eeo.cn/s/a/?cid=268586031	kimbinhxbaby_ online classroom	Teacher: 369****26	sunnychaan
+268586047	https://www.eeo.cn/s/a/?cid=268586047	Teacher Richard	Teacher: 779****576	Cici 30.9.24
+268586069	https://www.eeo.cn/s/a/?cid=268586069	Robert online classroom	Teacher: 776****912	Elsa
+268586079	https://www.eeo.cn/s/a/?cid=268586079	Miss Bahati online classroom	Teacher: 714****54	Lets Learn English
+268586093	https://www.eeo.cn/s/a/?cid=268586093	叶茂教育	Teacher: 课代表小刘同学	小黄同学地理一对一
+268586111	https://www.eeo.cn/s/a/?cid=268586111	Gift online classroom	Teacher: giffyfo*****ail.com	Demo class
+268586119	https://www.eeo.cn/s/a/?cid=268586119	思考乐培训（高中）	Teacher: 郭杰邦	788753-郭杰邦-高二-秋季-20241001

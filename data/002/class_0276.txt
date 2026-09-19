@@ -1,13 +1,3 @@
-268687443	https://www.eeo.cn/s/a/?cid=268687443	Elaiza Jean Fajardo online classroom	Teacher: felaizaje*****ail.com	Teacher Elle
-268687471	https://www.eeo.cn/s/a/?cid=268687471	hientranslate*****ail.co online classroom	Teacher: hientranslate*****ail.co	Demo
-268687597	https://www.eeo.cn/s/a/?cid=268687597	Teacher Janice online classroom	Teacher: janzice*****ail.com	Angie 38
-268687615	https://www.eeo.cn/s/a/?cid=268687615	Teacher Aya online classroom	Teacher: 950****107	Surser31,32
-268687625	https://www.eeo.cn/s/a/?cid=268687625	高中在线课程	Teacher: 183****5851	回放高一（4：20）
-268687661	https://www.eeo.cn/s/a/?cid=268687661	Teacher Stef水蜜桃 online classroom	Teacher: timesedu0*****ail.com	Hebe7mo's Class
-268687781	https://www.eeo.cn/s/a/?cid=268687781	KidNest online classroom	Teacher: vickywy6606*****ail.com	App
-268687977	https://www.eeo.cn/s/a/?cid=268687977	Teacher Moore online classroom	Teacher: 930****814	Jack7
-268688069	https://www.eeo.cn/s/a/?cid=268688069	Power English	Teacher: Teacher_Acc6	IELTSPOWER24-00008_Trần Nguyễn Như Ý
-268688075	https://www.eeo.cn/s/a/?cid=268688075	JTDL王先生	Teacher: 189****0645	政轩
 268688095	https://www.eeo.cn/s/a/?cid=268688095	启慧语文	Teacher: 慧慧老师	蔡曦的读写课堂
 268688137	https://www.eeo.cn/s/a/?cid=268688137	线上1v1	Teacher: 班主任-玥玥老师	王晓萱+高一化学+正式课+玥玥老师
 268688169	https://www.eeo.cn/s/a/?cid=268688169	Teacher Rico online classroom	Teacher: frederickdimapili*****ai	Cayla
@@ -1198,3 +1188,13 @@
 268729569	https://www.eeo.cn/s/a/?cid=268729569	梁溰霖 online classroom	Teacher: llp-2010*****sllps.edu.h	5D
 268729629	https://www.eeo.cn/s/a/?cid=268729629	lazarubymar*****ail.com online classroom	Teacher: lazarubymar*****ail.com	Our School
 268729745	https://www.eeo.cn/s/a/?cid=268729745	Teacher Joyce online classroom	Teacher: nicolemarj*****ail.com	Trial
+268729813	https://www.eeo.cn/s/a/?cid=268729813	0063-9912289485 online classroom	Teacher: 991****485	16th class NOrah
+268729851	https://www.eeo.cn/s/a/?cid=268729851	Sugar Novelette Comia online classroom	Teacher: 907****188	Zoey 10/5/24
+268729857	https://www.eeo.cn/s/a/?cid=268729857	Teacher Glenda online classroom	Teacher: 994****179	Ian Class
+268729935	https://www.eeo.cn/s/a/?cid=268729935	Teacher Des is Ray online classroom	Teacher: desireevi.7*****tmail.co	Beverly YAN 3
+268730029	https://www.eeo.cn/s/a/?cid=268730029	Sam Jones Beltran online classroom	Teacher: sambeltran2*****ail.com	ME
+268730075	https://www.eeo.cn/s/a/?cid=268730075	如有特殊情况请联系学管老师	Teacher: 木子老师	小熊-综述型-石乐怡
+268730101	https://www.eeo.cn/s/a/?cid=268730101	johnbilanghistori*****ai online classroom	Teacher: 912****872	USELF PETA RECITATION
+268730121	https://www.eeo.cn/s/a/?cid=268730121	0063-9175862249 online classroom	Teacher: 917****249	Teacher Cherie & Amy2
+268730185	https://www.eeo.cn/s/a/?cid=268730185	梁溰霖 online classroom	Teacher: llp-2010*****sllps.edu.h	5D班
+268730259	https://www.eeo.cn/s/a/?cid=268730259	陳亦晴 online classroom	Teacher: llp-2010*****sllps.edu.h	5D

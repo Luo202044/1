@@ -1,9 +1,3 @@
-267138825	https://www.eeo.cn/s/a/?cid=267138825	浙江考神	Teacher: 贺少敏	试听课
-267138845	https://www.eeo.cn/s/a/?cid=267138845	少年志教育	Teacher: 张力文	【2024年秋季】大力1A课后辅导
-267138851	https://www.eeo.cn/s/a/?cid=267138851	江苏省苏州实验中学金山路校区	Teacher: 黄广翔	自强不息·13班·追求卓越
-267138853	https://www.eeo.cn/s/a/?cid=267138853	nap greggy services	Teacher: 917****883	Ellie English Class
-267138937	https://www.eeo.cn/s/a/?cid=267138937	少年志教育	Teacher: 张力文	【2024年秋季】大力1C课后辅导
-267139015	https://www.eeo.cn/s/a/?cid=267139015	乐橙	Teacher: 乐创易程	2028届1
 267139051	https://www.eeo.cn/s/a/?cid=267139051	Teacher Daya💚 online classroom	Teacher: mirandadiamaero*****ail.	Speed Test
 267139073	https://www.eeo.cn/s/a/?cid=267139073	少年志教育	Teacher: 张力文	【2024年秋季】大力2A课后辅导
 267139085	https://www.eeo.cn/s/a/?cid=267139085	O(∩_∩)O	Teacher: 181****6676	三年级奥数 公共课
@@ -1198,3 +1192,9 @@
 267217333	https://www.eeo.cn/s/a/?cid=267217333	米圈英语	Teacher: 158****7525	Elsa
 267217357	https://www.eeo.cn/s/a/?cid=267217357	南南	Teacher: 南南老师	周五晚7点-六年级
 267217381	https://www.eeo.cn/s/a/?cid=267217381	南南	Teacher: 南南老师	周日下午3点半-六年级
+267217435	https://www.eeo.cn/s/a/?cid=267217435	乐乐课堂私房课	Teacher: 138****7741	测试课
+267217479	https://www.eeo.cn/s/a/?cid=267217479	思峰在线教育	Teacher: 152****3668	7节正式课（羽琳老师）
+267217487	https://www.eeo.cn/s/a/?cid=267217487	littlemandarin.hk	Teacher: 965***02	普通話基礎班星期五課 @8:00p.m. (羅兆臻)
+267217579	https://www.eeo.cn/s/a/?cid=267217579	maryjojamon2*****ail.com online classroom	Teacher: maryjojamon2*****ail.com	VAN
+267217593	https://www.eeo.cn/s/a/?cid=267217593	阳光酷编机器人·编程	Teacher: 李娜	李娜语文第一节课-谈固
+267217609	https://www.eeo.cn/s/a/?cid=267217609	MICHELLE IDO online classroom	Teacher: michelleido*****ail.com	vghntfgng

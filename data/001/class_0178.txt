@@ -1,7 +1,3 @@
-263128279	https://www.eeo.cn/s/a/?cid=263128279	Zivkovic online classroom	Teacher: milic.kaca*****ail.com	Anastasia
-263128305	https://www.eeo.cn/s/a/?cid=263128305	Learn English with Me	Teacher: 991****603	Timi's July Class
-263128313	https://www.eeo.cn/s/a/?cid=263128313	ruzhynvillanue*****ail.c online classroom	Teacher: 905****595	C. 10:30🌻20:00🌑| LTiger| M.Alice
-263128317	https://www.eeo.cn/s/a/?cid=263128317	清雅教育咨询（深圳）有限公司	Teacher: Helen	Kimberly 科二 7.8-7.19 8:50-9:50am
 263128351	https://www.eeo.cn/s/a/?cid=263128351	树人元宇宙教育咨询有限公司	Teacher: Relaaaaax	自拼1-5册暑期2班
 263128379	https://www.eeo.cn/s/a/?cid=263128379	ruzhynvillanue*****ail.c online classroom	Teacher: 905****595	P.M. 20:00🌑| Irene | F.Han
 263128385	https://www.eeo.cn/s/a/?cid=263128385	谦学教育集团有限公司	Teacher: 137****9858	XMx06.21卡迪夫大学重读申诉
@@ -1198,3 +1194,7 @@
 263200603	https://www.eeo.cn/s/a/?cid=263200603	hamy online classroom	Teacher: 396****08	dao le phuong hoa
 263200639	https://www.eeo.cn/s/a/?cid=263200639	树人元宇宙教育咨询有限公司	Teacher: 海棠-Teacher Precious	Herman-BG
 263200653	https://www.eeo.cn/s/a/?cid=263200653	Thuydoi online classroom	Teacher: 326****66	Nhóm nghiệm thu Thúy
+263200667	https://www.eeo.cn/s/a/?cid=263200667	Vane国际备考	Teacher: 182****4008	yoyo备考
+263200671	https://www.eeo.cn/s/a/?cid=263200671	武汉市天天象上教育咨询有限公司	Teacher: 刘作明	2024暑·高一数学S·10:30
+263200693	https://www.eeo.cn/s/a/?cid=263200693	武汉市天天象上教育咨询有限公司	Teacher: 刘作明	2024暑·高一数学S·13:30
+263200715	https://www.eeo.cn/s/a/?cid=263200715	Elena online classroom	Teacher: 992****058	ANDREWs Class 11AM Sunday

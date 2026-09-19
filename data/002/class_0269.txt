@@ -1,12 +1,3 @@
-268430135	https://www.eeo.cn/s/a/?cid=268430135	PANG 6 online classroom	Teacher: 965****189	Anna1
-268430275	https://www.eeo.cn/s/a/?cid=268430275	Calib online classroom	Teacher: rawlinsoncalib*****ail.c	Test Classroom
-268430283	https://www.eeo.cn/s/a/?cid=268430283	0063-9159639556 online classroom	Teacher: 915****556	Sophia's Class
-268430327	https://www.eeo.cn/s/a/?cid=268430327	oliverkingwilltheseco*** online classroom	Teacher: oliverkingwilltheseco***	rain jo
-268430331	https://www.eeo.cn/s/a/?cid=268430331	欧美外教课	Teacher: 180****6612	nemo with hilda
-268430415	https://www.eeo.cn/s/a/?cid=268430415	Teacher Gizelle online classroom	Teacher: 927****724	sandy
-268430489	https://www.eeo.cn/s/a/?cid=268430489	Cristine Bell online classroom	Teacher: 938****583	September 27, 2024 with Eva
-268430509	https://www.eeo.cn/s/a/?cid=268430509	在线外教课	Teacher: 教务-王卓妮	0928 Trial Prek L9-2 体验课
-268430619	https://www.eeo.cn/s/a/?cid=268430619	Teacher Jan online classroom	Teacher: 994****921	trial
 268430625	https://www.eeo.cn/s/a/?cid=268430625	Marcus Chiang Mai	Teacher: 620****29	YiYi September 27th
 268430681	https://www.eeo.cn/s/a/?cid=268430681	乐马在线	Teacher: 刘福英--班主任老师	陈英杰2031江苏常州诸老师数学课堂
 268430717	https://www.eeo.cn/s/a/?cid=268430717	MJOY Academy	Teacher: 637****58	TRIAL class 3pm
@@ -1198,3 +1189,12 @@
 268471235	https://www.eeo.cn/s/a/?cid=268471235	Awesome English	Teacher: Awesome English	Tina-World Literature
 268471265	https://www.eeo.cn/s/a/?cid=268471265	365 English	Teacher: 137****5192	Ela-Samuel4637
 268471307	https://www.eeo.cn/s/a/?cid=268471307	Teacher Maya online classroom	Teacher: 653****65	Tim - Demo
+268471517	https://www.eeo.cn/s/a/?cid=268471517	东方启学	Teacher: 刘质彬	2024秋季刘予墨-刘老师英语课堂
+268471583	https://www.eeo.cn/s/a/?cid=268471583	Teacher Kate (9) online classroom	Teacher: 950****367	Eric
+268471623	https://www.eeo.cn/s/a/?cid=268471623	Milu's English Academy	Teacher: Teacher Milu	Lucky
+268471655	https://www.eeo.cn/s/a/?cid=268471655	Mia online classroom	Teacher: miaemnace*****ail.com	Lily's Class (October)
+268471687	https://www.eeo.cn/s/a/?cid=268471687	鹅爸爸英语	Teacher: 156****3069	kevin 高子牧Jolie一对一外教课
+268471733	https://www.eeo.cn/s/a/?cid=268471733	Mia online classroom	Teacher: 946****985	Christine's Class (October)
+268471769	https://www.eeo.cn/s/a/?cid=268471769	Teacher Rico 10 online classroom	Teacher: abc360ri*****ngtalk.com	Lucky
+268471787	https://www.eeo.cn/s/a/?cid=268471787	Mia online classroom	Teacher: 946****985	William's Class (October)
+268471825	https://www.eeo.cn/s/a/?cid=268471825	Sarah online classroom	Teacher: sahisasrh*****ail.com	5pm Class

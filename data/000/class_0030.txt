@@ -1,5 +1,3 @@
-254269991	https://www.eeo.cn/s/a/?cid=254269991	交大附中附属嘉定洪德中学	Teacher: 王晓丽	七年级2班
-254270011	https://www.eeo.cn/s/a/?cid=254270011	Teacher Rej online classroom	Teacher: 995****486	Marcus' class 5
 254270021	https://www.eeo.cn/s/a/?cid=254270021	交大附中附属嘉定洪德中学	Teacher: 林江依	七年级3班
 254270053	https://www.eeo.cn/s/a/?cid=254270053	交大附中附属嘉定洪德中学	Teacher: 蔡莉琴	七年级4班
 254270115	https://www.eeo.cn/s/a/?cid=254270115	Teacher Jen online classroom	Teacher: 981****979	Elsa | Alex's lil sis GKB
@@ -1198,3 +1196,5 @@
 254322805	https://www.eeo.cn/s/a/?cid=254322805	南沙教研	Teacher: 张老师	榄核二小二年1班
 254322839	https://www.eeo.cn/s/a/?cid=254322839	工作室	Teacher: 高静	24H 一期G5
 254322855	https://www.eeo.cn/s/a/?cid=254322855	Odette Van Straaten online classroom	Teacher: 721****76	Teacher Odde
+254322881	https://www.eeo.cn/s/a/?cid=254322881	lianyucheng online classroom	Teacher: 979***15	blablabla
+254322887	https://www.eeo.cn/s/a/?cid=254322887	南七	Teacher: 李思哲	24-寒数-一期下午-七创-李思哲
